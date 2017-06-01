@@ -3,6 +3,7 @@
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStore";
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
+import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchContainer";
 
 export class App extends React.Component<AppStoreGroupState, {}> {
     render() {
@@ -17,6 +18,7 @@ export class App extends React.Component<AppStoreGroupState, {}> {
         });
         return <div>
             <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList}/>
+            <GitHubSearchStreamContainer gitHubSearchStream={this.props.gitHubSearchStream}/>
         </div>
     }
 }

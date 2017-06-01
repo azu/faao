@@ -64,9 +64,11 @@
     "almin": "0.13.0",
     "almin-logger": "^4.0.3",
     "almin-react-container": "0.3.0",
+    "classnames": "^2.2.5",
     "map-like": "^1.1.2",
     "office-ui-fabric-react": "^4.1.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "suitcss-classnames": "^1.1.0"
   }
 }
