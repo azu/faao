@@ -1,7 +1,8 @@
 // LICENSE : MIT
 "use strict";
 import * as React from "react";
-import { AppStoreGroupState } from "../store/AppStore";
+import { AppStoreGroupState } from "../../store/AppStore";
+import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
 
 export class App extends React.Component<AppStoreGroupState, {}> {
     render() {
@@ -14,9 +15,8 @@ export class App extends React.Component<AppStoreGroupState, {}> {
         const searchStream = this.props.gitHubSearchStream.items.map(item => {
             return <span key={item.id}>{item.title}</span>
         });
-        return <ul>
-            <div>SearchList: {searchList}</div>
-            <div>SearchStream: {searchStream}</div>
-        </ul>
+        return <div>
+            <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList}/>
+        </div>
     }
 }

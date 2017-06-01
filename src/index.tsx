@@ -2,7 +2,7 @@
 "use strict";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { App } from "./component/App";
+import { App } from "./component/container/App";
 import { Context, Dispatcher } from "almin";
 import AlminReactContainer from "almin-react-container";
 import { AppStoreGroup } from "./store/AppStore";
