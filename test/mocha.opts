@@ -1,1 +1,1 @@
---compilers ts:espower-typescript/guess
+--compilers js:babel-register

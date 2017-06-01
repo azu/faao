@@ -51,6 +51,7 @@ Save/read the search list to gist.
     - Force Reload(Reset and Load)
 - Action to GitHubSearchResultItem
     - Open URL
+    - 
 
 ## Changelog
 

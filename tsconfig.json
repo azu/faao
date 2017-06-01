@@ -1,20 +1,34 @@
 {
   "compilerOptions": {
+    /* Basic Options */
+    "module": "es2015",
+    "moduleResolution": "node",
+    "newLine": "LF",
     "rootDir": "./",
     "outDir": "./lib/",
+    "target": "es5",
     "sourceMap": true,
     "declaration": true,
+    "jsx": "react",
+    // Transform jsx syntax in babels phase
+    "types": [
+      "node"
+    ],
     "lib": [
       "es2017",
       "dom"
     ],
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "pretty": true
+    /* Strict Type-Checking Options */
+    "strict": true,
+    /* Additional Checks */
+    "noUnusedLocals": false,
+    /* Report errors on unused locals. */
+    "noUnusedParameters": true,
+    /* Report errors on unused parameters. */
+    "noImplicitReturns": true,
+    /* Report error when not all code paths in function return a value. */
+    "noFallthroughCasesInSwitch": true
+    /* Report errors for fallthrough cases in switch statement. */
   },
   "include": [
     "src/**/*"
