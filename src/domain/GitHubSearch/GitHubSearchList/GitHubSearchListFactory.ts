@@ -3,17 +3,37 @@ import { GitHubSearchList } from "./GitHubSearchList";
 import { GitHubSearchQuery } from "./GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 
+const defaultQueries = [
+    {
+        name: "Almin",
+        color: "#d1dddc",
+        query: "almin",
+        apiHost: "https://api.github.com/"
+    },
+    {
+        name: "Test",
+        color: "#4974af",
+        query: "test",
+        apiHost: "https://api.github.com/"
+    },
+    {
+        name: "GitHub",
+        color: "#000000",
+        query: "github in:README.md",
+        apiHost: "https://api.github.com/"
+    }
+];
+
 export class GitHubSearchListFactory {
     static create() {
-        const initialQueries = [
-            new GitHubSearchQuery({
-                name: "てｓｔ",
-                color: GitHubSearchQueryColor.createFromHexCode("#000000"),
-                query: "test",
-                apiHost: "https://api.github.com/"
+        const initialQueries = defaultQueries.map(query => {
+            return new GitHubSearchQuery({
+                name: query.name,
+                query: query.query,
+                color: new GitHubSearchQueryColor(query.color),
+                apiHost: query.apiHost
             })
-
-        ];
+        });
         return new GitHubSearchList(initialQueries);
     }
 }

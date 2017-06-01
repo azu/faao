@@ -14,8 +14,12 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
         const onClick = (event: SyntheticEvent<any>) => {
             this.props.onClickQuery(event, this.props.query);
         };
+        const style = {
+            borderLeft: `${this.props.query.color.hexCode} 2px solid`,
+            paddingLeft: "0.5em"
+        };
         return <div className='ms-ListItem SearchQueryListItem' onClick={onClick}>
-            <span className='ms-ListItem-primaryText'>{ this.props.query.name }</span>
+            <span style={style} className='ms-ListItem-primaryText'>{ this.props.query.name }</span>
         </div>
     }
 }
