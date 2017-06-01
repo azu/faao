@@ -4,6 +4,8 @@ import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStore";
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchContainer";
+import { Grid } from "../ui-kit/Grid/Grid";
+import GridCell from "../ui-kit/Grid/GridCell";
 
 export class App extends React.Component<AppStoreGroupState, {}> {
     render() {
@@ -17,8 +19,14 @@ export class App extends React.Component<AppStoreGroupState, {}> {
             return <span key={item.id}>{item.title}</span>
         });
         return <div>
-            <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList}/>
-            <GitHubSearchStreamContainer gitHubSearchStream={this.props.gitHubSearchStream}/>
+            <Grid>
+                <GridCell col="6of12">
+                    <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList}/>
+                </GridCell>
+                <GridCell col="6of12">
+                    <GitHubSearchStreamContainer gitHubSearchStream={this.props.gitHubSearchStream}/>
+                </GridCell>
+            </Grid>
         </div>
     }
 }

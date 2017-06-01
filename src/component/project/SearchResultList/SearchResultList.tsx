@@ -16,7 +16,7 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
         };
         return <div className='ms-ListItem SearchQueryListItem' onClick={onClick}>
             <a className='ms-ListItem-primaryText' href={this.props.item.html_url}>{ this.props.item.title }</a>
-            <span>{this.props.item.body}</span>
+            <p>{this.props.item.body}</p>
         </div>
     }
 }
