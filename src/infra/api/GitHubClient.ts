@@ -2,6 +2,7 @@
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
+import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 
 const sample = {
     "total_count": 3344,
@@ -1934,9 +1935,29 @@ const sample = {
         }
     ]
 };
+const GitHub = require('github-api');
+
+if (!process.env.GH_TOKEN) {
+    throw new Error("process.env.GH_TOKEN should be set GitHub Personal token");
+}
 
 export class GitHubClient {
-    search() {
-        return GitHubSearchResultFactory.create(sample);
+    gh: any;
+
+    constructor(gitHubSetting: GitHubSetting) {
+        this.gh = new GitHub({
+            token: gitHubSetting.token
+        }, gitHubSetting.apiHost);
+
+    }
+
+    search(query: GitHubSearchQuery) {
+        return this.gh().search(query.query).forIssues({
+            q: query.query
+        }).then((...args: any[]) => {
+            console.log(args);
+            return GitHubSearchResultFactory.create(sample);
+        });
+
     }
 }

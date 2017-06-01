@@ -1,4 +1,6 @@
 const path = require("path");
+
+const DotenvPlugin = require('webpack-dotenv-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 module.exports = {
     entry: [
@@ -24,6 +26,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new CheckerPlugin()
+        new CheckerPlugin(),
+        new DotenvPlugin({
+            sample: './.env.sample',
+            path: './.env'
+        })
     ]
 };

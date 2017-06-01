@@ -5,16 +5,20 @@ export interface GitHubSettingsArgs {
     settingList: GitHubSetting[];
 }
 
+let id = 0;
+
 export class GitHubSettings {
+    id: string;
     settingList: GitHubSetting[];
 
     constructor(args: GitHubSettingsArgs) {
+        this.id = `GitHubSettings${id++}`;
         this.settingList = args.settingList;
     }
 
-    getSettingMatchAPIHost(apiHost: string): GitHubSetting | undefined {
+    findGitHubSettingById(id: string): GitHubSetting | undefined {
         return this.settingList.find(setting => {
-            return setting.apiHost === apiHost;
+            return setting.id === id;
         });
     }
 }

@@ -6,8 +6,12 @@ import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchConta
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchContainer";
 import { Grid } from "../ui-kit/Grid/Grid";
 import GridCell from "../ui-kit/Grid/GridCell";
+import { createSearchGitHubUseCase } from "../../use-case/GitHubSearchList/SearchGitHubUseCase";
 
 export class App extends React.Component<AppStoreGroupState, {}> {
+    componentDidMount(){
+        // TODO: createSearchGitHubUseCaseで検索をしてStreamを取る
+    }
     render() {
         console.log(this.props.gitHubSearchList);
         const searchList = this.props.gitHubSearchList.queries.map(query => {

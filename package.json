@@ -55,7 +55,8 @@
     "rimraf": "^2.6.1",
     "typescript": "^2.3.4",
     "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "webpack-dotenv-plugin": "^2.0.0"
   },
   "dependencies": {
     "@types/prop-types": "^15.5.1",
@@ -65,6 +66,7 @@
     "almin-logger": "^4.0.3",
     "almin-react-container": "0.3.0",
     "classnames": "^2.2.5",
+    "github-api": "^3.0.0",
     "map-like": "^1.1.2",
     "office-ui-fabric-react": "^4.1.1",
     "react": "^15.5.4",

@@ -23,8 +23,9 @@ Same with [How to say "faao"! (High Quality Voices) - YouTube](https://www.youtu
 #### Internal Data
 
 - GitHubSetting
+    - `id`*1
     - Token
-    - API Host - Primary key*1
+    - API Host - Primary key
     - Web Host
 
 #### Search List
@@ -35,7 +36,7 @@ Save/read the search list to gist.
     - Name
     - Query(`q`)
     - Color
-    - API Host*1
+    - API Host <- get from `id`*1
 
 #### Search Result
 
