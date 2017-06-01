@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
 

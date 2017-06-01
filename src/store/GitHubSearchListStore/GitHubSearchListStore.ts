@@ -1,8 +1,8 @@
 // MIT © 2017 azu
 import { Store } from "almin";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export interface GitHubSearchListStateObject {
     queries: GitHubSearchQuery[];

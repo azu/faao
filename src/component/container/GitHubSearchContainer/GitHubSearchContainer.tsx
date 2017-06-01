@@ -2,7 +2,7 @@
 import * as React from "react";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { SearchQueryList } from "../../project/SearchQueryList/SearchQueryList";
-import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 
 export interface GitHubSearchContainerProps {
