@@ -36,6 +36,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     }
 
     receivePayload() {
+        // TODO: display query
         const stream = this.gitHubSearchStreamRepository.get();
         this.setState(this.state.update(stream));
     }

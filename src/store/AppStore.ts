@@ -4,8 +4,8 @@ import { StoreGroup, StoreGroupTypes } from "almin";
 // FIXME: TypeScript compiler if the state interface was not imported
 import { GitHubSearchListStore, GitHubSearchListState } from "./GitHubSearchListStore/GitHubSearchListStore";
 import gitHubSearchListRepository from "../infra/repository/GitHubSearchListRepository";
-import gitHubSearchStreamRepository from "../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchStreamStore, GitHubSearchStreamState } from "./GitHubSearchStream/GitHubSearchStream";
+import { gitHubSearchStreamRepository } from "../infra/repository/GitHubSearchStreamRepository";
 // repository
 // store
 

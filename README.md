@@ -20,6 +20,11 @@ Same with [How to say "faao"! (High Quality Voices) - YouTube](https://www.youtu
 
 ### Structure
 
+Reation
+
+- settings
+- queries
+
 #### Internal Data
 
 - GitHubSetting
@@ -27,6 +32,11 @@ Same with [How to say "faao"! (High Quality Voices) - YouTube](https://www.youtu
     - Token
     - API Host - Primary key
     - Web Host
+
+Q. Why not User?
+A. GitHub create difference token for a single user.
+User is not unique.
+
 
 #### Search List
 
@@ -45,6 +55,8 @@ Save/read the search list to gist.
         - GitHubSearchResultItem
         - Wrap of <https://developer.github.com/v3/search/#search-issues>
 
+Stream can combine the other stream.
+
 #### Action to Search Result
 
 - Action to GitHubSearchStream
@@ -52,7 +64,7 @@ Save/read the search list to gist.
     - Force Reload(Reset and Load)
 - Action to GitHubSearchResultItem
     - Open URL
-    - 
+
 
 ## Changelog
 

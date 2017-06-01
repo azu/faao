@@ -3,6 +3,7 @@ import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/Gi
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
+import { Item } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 const sample = {
     "total_count": 3344,
@@ -1951,13 +1952,15 @@ export class GitHubClient {
 
     }
 
-    search(query: GitHubSearchQuery) {
-        return this.gh().search(query.query).forIssues({
-            q: query.query
-        }).then((...args: any[]) => {
-            console.log(args);
-            return GitHubSearchResultFactory.create(sample);
+    search(query: GitHubSearchQuery): Promise<GitHubSearchResult> {
+        return this.gh.search().forIssues({
+            q: query.query,
+            sort: "updated" // always updated
+        }).then((response: { config: Object, data: Item[], header: Object, request: any, status: number, statusText: string }) => {
+            console.log(response);
+            return GitHubSearchResultFactory.create({
+                items: response.data
+            });
         });
-
     }
 }

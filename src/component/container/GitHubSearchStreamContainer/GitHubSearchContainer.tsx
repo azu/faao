@@ -6,12 +6,12 @@ import { SyntheticEvent } from "react";
 import { SearchResultList } from "../../project/SearchResultList/SearchResultList";
 import { GitHubSearchStreamState } from "../../../store/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { BaseContainer } from "../BaseContainer";
 
 export interface GitHubSearchStreamContainerProps {
     gitHubSearchStream: GitHubSearchStreamState
 }
-
-export class GitHubSearchStreamContainer extends React.Component<GitHubSearchStreamContainerProps, {}> {
+export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStreamContainerProps, {}> {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         console.log(event, item);
     };

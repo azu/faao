@@ -4,14 +4,16 @@ import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitH
 import { SearchQueryList } from "../../project/SearchQueryList/SearchQueryList";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
+import { BaseContainer } from "../BaseContainer";
+import { createSearchGitHubUseCase } from "../../../use-case/GitHubSearchList/SearchGitHubUseCase";
 
 export interface GitHubSearchContainerProps {
     gitHubSearchList: GitHubSearchListState
 }
 
-export class GitHubSearchContainer extends React.Component<GitHubSearchContainerProps, {}> {
-    onClickQuery = (event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        console.log(event, query);
+export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerProps, {}> {
+    onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+        this.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(query))
     };
 
     render() {

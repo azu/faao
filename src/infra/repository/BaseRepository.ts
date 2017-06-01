@@ -7,6 +7,7 @@ export interface Entity {
 }
 
 const key = "__lastUsed__";
+
 export class BaseRepository<T extends Entity> {
     private initialEntity: T;
 
@@ -21,17 +22,17 @@ export class BaseRepository<T extends Entity> {
         return this.map.get(key) || this.initialEntity;
     }
 
-    findById(entityId: Entity["id"]) {
+    findById(entityId: Entity["id"]): T | undefined {
         return this.map.get(entityId);
     }
 
-    save(entity: T) {
+    save(entity: T): void {
         this.map.set(key, entity);
         assert.ok(typeof entity.id !== "undefined", "Entity should have id property for key");
         this.map.set(entity.id, entity);
     }
 
-    clear() {
+    clear(): void {
         this.map.clear();
     }
 }

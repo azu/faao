@@ -17,4 +17,12 @@ export class GitHubSearchQuery {
         this.color = object.color;
         this.apiHost = object.apiHost;
     }
+
+    /**
+     * unique hash value
+     * @returns {string}
+     */
+    get hash() {
+        return `${this.name}-${this.query}-${this.apiHost}`;
+    }
 }

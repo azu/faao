@@ -1,9 +1,14 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
+import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 
 let id = 0;
 
+/**
+ * Stream has items
+ * It is saved with query.
+ */
 export class GitHubSearchStream {
     id: string;
     items: GitHubSearchResultItem[];
@@ -15,13 +20,7 @@ export class GitHubSearchStream {
     }
 
     mergeResult(result: GitHubSearchResult) {
+        this.items = this.items.concat(result.items);
         this.lastResult = result;
-    }
-
-    canContinueToFetch(): boolean {
-        if (!this.lastResult) {
-            return true;
-        }
-        return this.lastResult.incomplete_results;
     }
 }
