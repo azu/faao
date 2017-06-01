@@ -18,7 +18,7 @@ export class GitHubSettings {
 
     findGitHubSettingById(id: string): GitHubSetting | undefined {
         return this.settingList.find(setting => {
-            return setting.id === id;
+            return setting.id.toValue() === id;
         });
     }
 }
