@@ -1,9 +1,12 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 
-export type GitHubSearchQueryJSON = {
-    [P in keyof GitHubSearchQuery]: GitHubSearchQuery[P];
-    }
+export interface GitHubSearchQueryJSON {
+    name: string;
+    query: string;
+    color: GitHubSearchQueryColor;
+    apiHost: string;
+}
 
 export class GitHubSearchQuery {
     name: string;
