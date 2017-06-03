@@ -28,9 +28,9 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 color: getColorByBgColor(label.color),
                 backgroundColor: `#${label.color}`
             };
-            console.log(style)
-            return <span className="SearchResultListItem-label" style={style}>{label.name}</span>
-        })
+            return <span key={label.name} className="SearchResultListItem-label" style={style}>{label.name}</span>
+        });
+
         return <div className='SearchResultListItem' onClick={onClick}>
             <span className='SearchResultListItem-primaryText'>
                 <a className='SearchResultListItem-link'
@@ -50,7 +50,10 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                     className="SearchResultListItem-authorIcon"
                     title={item.user.htmlUrl}/>{item.user.login}</span>
                 <div className="SearchResultListItem-meta">
-                    <span className="SearchResultListItem-comments"><CommentIcon />{item.comments}</span>
+                    <span className="SearchResultListItem-comments">
+                        <CommentIcon className="SearchResultListItem-commentsIcon"/>
+                        <span className="SearchResultListItem-commentsCount">{item.comments}</span>
+                    </span>
                 </div>
             </footer>
         </div>
@@ -71,7 +74,8 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         return <List
             className={classnames("SearchResultList", this.props.className)}
             items={ this.props.items }
-            renderedWindowsAhead={5}
+            renderedWindowsBehind={10}
+            renderedWindowsAhead={10}
             onRenderCell={ (item: GitHubSearchResultItem) => (
                 <SearchResultListItem item={item} onClickItem={onClickItem}/>
             )}

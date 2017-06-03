@@ -2,11 +2,11 @@
 "use strict";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { App } from "./component/container/App";
 import { Context, Dispatcher } from "almin";
 import AlminReactContainer from "almin-react-container";
 import { AppStoreGroup } from "./store/AppStore";
 import { appLocator } from "./AppLocator";
+import { AppContainer } from "./component/container/AppContainer";
 
 const AlminLogger = require("almin-logger");
 // instances
@@ -27,5 +27,5 @@ if (process.env.NODE_ENV !== "production") {
 // set context to a single object.
 appLocator.context = context;
 // start render
-const AppContainer = AlminReactContainer.create<AppStoreGroup>(App, context);
-ReactDOM.render(<AppContainer />, document.getElementById("js-app"));
+const AppWrapContainer = AlminReactContainer.create<AppStoreGroup>(AppContainer, context);
+ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"));

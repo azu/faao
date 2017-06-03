@@ -25,7 +25,15 @@ Reation
 - settings
 - queries
 
-#### Internal Data
+
+#### User
+
+- User select settions
+- User open stream
+- User select item
+- User open item with browser
+
+#### GitHub Settings
 
 - GitHubSetting
     - `id`*1

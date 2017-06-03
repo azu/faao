@@ -7,19 +7,19 @@ import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHu
 import { BaseContainer } from "./BaseContainer";
 import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 
-export class App extends BaseContainer<AppStoreGroupState, {}> {
+export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
         const preview = process.env.RUNTIME_TARGET === "electron"
-            ? <main className="App-preview">
+            ? <main className="AppContainer-preview">
                 {/*<IframeBrowser html={"test"}/>*/}
             </main>
             : null;
-        return <div className="App">
-            <nav className="App-nav">
+        return <div className="AppContainer">
+            <nav className="AppContainer-nav">
                 <GitHubSearchContainer
                     gitHubSearchList={this.props.gitHubSearchList}/>
             </nav>
-            <main className="App-main">
+            <main className="AppContainer-main">
                 <GitHubSearchStreamContainer
                     gitHubSearchStream={this.props.gitHubSearchStream}/>
             </main>
