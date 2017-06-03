@@ -17,6 +17,12 @@ declare global {
     }
 }
 
+export function openURLInTab(url: string) {
+    if (window.electronNavigation) {
+        window.electronNavigation.changeTab(url);
+    }
+}
+
 export function openPage(url: string) {
     if (window.electronNavigation) {
         window.electronNavigation.changeTab(url);

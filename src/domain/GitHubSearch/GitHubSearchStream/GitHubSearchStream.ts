@@ -56,6 +56,11 @@ export class GitHubSearchStream {
         this.items = [];
     }
 
+
+    getFirstItem(): GitHubSearchResultItem | undefined {
+        return this.getItemAtIndex(0);
+    }
+
     getItemAtIndex(index: number): GitHubSearchResultItem | undefined {
         return this.items[index];
     }
