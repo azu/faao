@@ -27,6 +27,13 @@ module.exports = {
     },
     plugins: [
         new CheckerPlugin(),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify(process.env.NODE),
+                // "browser", "electron"
+                RUNTIME_TARGET: JSON.stringify(process.env.RUNTIME_TARGET)
+            }
+        }),
         new DotenvPlugin({
             sample: './.env.sample',
             path: './.env'

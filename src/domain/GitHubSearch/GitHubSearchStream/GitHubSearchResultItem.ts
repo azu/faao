@@ -1,42 +1,42 @@
 export interface Owner {
     login: string;
     id: number;
-    avatar_url: string;
-    gravatar_id: string;
+    avatarUrl: string;
+    gravatarId: string;
     url: string;
-    html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
+    htmlUrl: string;
+    FollowersUrl: string;
+    followingUrl: string;
+    gistsUrl: string;
+    starredUrl: string;
+    subscriptionsUrl: string;
+    organizationsUrl: string;
+    reposUrl: string;
+    eventsUrl: string;
+    receivedEventsUrl: string;
     type: string;
-    site_admin: boolean;
+    siteAdmin: boolean;
 }
 
 
 export interface User {
     login: string;
     id: number;
-    avatar_url: string;
-    gravatar_id: string;
+    avatarUrl: string;
+    gravatarId: string;
     url: string;
-    html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
+    htmlUrl: string;
+    followersUrl: string;
+    followingUrl: string;
+    gistsUrl: string;
+    starredUrl: string;
+    subscriptionsUrl: string;
+    organizationsUrl: string;
+    reposUrl: string;
+    eventsUrl: string;
+    receivedEventsUrl: string;
     type: string;
-    site_admin: boolean;
+    siteAdmin: boolean;
 }
 
 export interface Label {
@@ -48,116 +48,116 @@ export interface Label {
 }
 
 export interface Assignee {
-    login: string;
-    id: number;
-    avatar_url: string;
-    gravatar_id: string;
-    url: string;
-    html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
-    type: string;
-    site_admin: boolean;
+    login: String;
+    id: Number;
+    avatarUrl: String;
+    gravatarId: String;
+    url: String;
+    htmlUrl: String;
+    followersUrl: String;
+    followingUrl: String;
+    gistsUrl: String;
+    starredUrl: String;
+    subscriptionsUrl: String;
+    organizationsUrl: String;
+    reposUrl: String;
+    eventsUrl: String;
+    receivedEventsUrl: String;
+    type: String;
+    siteAdmin: Boolean;
 }
 
 export interface Creator {
     login: string;
-    id: number;
-    avatar_url: string;
-    gravatar_id: string;
+    id: Number;
+    avatarUrl: string;
+    gravatarId: string;
     url: string;
-    html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
+    htmlUrl: string;
+    followersUrl: string;
+    followingUrl: string;
+    gistsUrl: string;
+    starredUrl: string;
+    subscriptionsUrl: string;
+    organizationsUrl: string;
+    reposUrl: string;
+    eventsUrl: string;
+    receivedEventsUrl: string;
     type: string;
-    site_admin: boolean;
+    siteAdmin: boolean;
 }
 
 export interface Milestone {
     url: string;
-    html_url: string;
-    labels_url: string;
+    htmlUrl: string;
+    labelsUrl: string;
     id: number;
     number: number;
     title: string;
     description: string;
     creator: Creator;
-    open_issues: number;
-    closed_issues: number;
+    openIssues: number;
+    closedIssues: number;
     state: string;
-    created_at: string;
-    updated_at: string;
-    due_on: string;
-    closed_at?: any;
+    createdAt: string;
+    updatedAt: string;
+    dueOn: string;
+    closedAt?: any;
 }
 
 export interface Repository {
     id: number;
     name: string;
-    full_name: string;
+    fullName: string;
     owner: Owner;
     private: boolean;
-    html_url: string;
+    htmlUrl: string;
     description: string;
     fork: boolean;
     url: string;
-    forks_url: string;
-    keys_url: string;
-    collaborators_url: string;
-    teams_url: string;
-    hooks_url: string;
-    issue_events_url: string;
-    events_url: string;
-    assignees_url: string;
-    branches_url: string;
-    tags_url: string;
-    blobs_url: string;
-    git_tags_url: string;
-    git_refs_url: string;
-    trees_url: string;
-    statuses_url: string;
-    languages_url: string;
-    stargazers_url: string;
-    contributors_url: string;
-    subscribers_url: string;
-    subscription_url: string;
-    commits_url: string;
-    git_commits_url: string;
-    comments_url: string;
-    issue_comment_url: string;
-    contents_url: string;
-    compare_url: string;
-    merges_url: string;
-    archive_url: string;
-    downloads_url: string;
-    issues_url: string;
-    pulls_url: string;
-    milestones_url: string;
-    notifications_url: string;
-    labels_url: string;
+    forksUrl: string;
+    keysUrl: string;
+    collaboratorsUrl: string;
+    teamsUrl: string;
+    hooksUrl: string;
+    issueEventsUrl: string;
+    eventsUrl: string;
+    assigneesUrl: string;
+    branchesUrl: string;
+    tagsUrl: string;
+    blobsUrl: string;
+    gitTagsUrl: string;
+    gitRefsUrl: string;
+    treesUrl: string;
+    statusesUrl: string;
+    languagesUrl: string;
+    stargazersUrl: string;
+    contributorsUrl: string;
+    subscribersUrl: string;
+    subscriptionUrl: string;
+    commitsUrl: string;
+    gitCommitsUrl: string;
+    commentsUrl: string;
+    issueCommentUrl: string;
+    contentsUrl: string;
+    compareUrl: string;
+    mergesUrl: string;
+    archiveUrl: string;
+    downloadsUrl: string;
+    issuesUrl: string;
+    pullsUrl: string;
+    milestonesUrl: string;
+    notificationsUrl: string;
+    labelsUrl: string;
 }
 
 export interface Item {
     url: string;
-    repository_url: string;
-    labels_url: string;
-    comments_url: string;
-    events_url: string;
-    html_url: string;
+    repositoryUrl: string;
+    labelsUrl: string;
+    commentsUrl: string;
+    eventsUrl: string;
+    htmlUrl: string;
     id: number;
     number: number;
     title: string;
@@ -169,20 +169,20 @@ export interface Item {
     assignees: Assignee[];
     milestone: Milestone | null;
     comments: number;
-    created_at: string;
-    updated_at: string;
-    closed_at?: any;
+    createdAt: string;
+    updatedAt: string;
+    closedAt?: any;
     body: string;
     score: number;
 }
 
 export class GitHubSearchResultItem implements Item {
     url: string;
-    repository_url: string;
-    labels_url: string;
-    comments_url: string;
-    events_url: string;
-    html_url: string;
+    repositoryUrl: string;
+    labelsUrl: string;
+    commentsUrl: string;
+    eventsUrl: string;
+    htmlUrl: string;
     id: number;
     number: number;
     title: string;
@@ -194,8 +194,8 @@ export class GitHubSearchResultItem implements Item {
     assignees: Assignee[];
     milestone: Milestone | any;
     comments: number;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     body: string;
     score: number;
 
@@ -204,11 +204,11 @@ export class GitHubSearchResultItem implements Item {
     }
 
     get created_atDate() {
-        return new Date(this.created_at);
+        return new Date(this.createdAt);
     }
 
     get updated_atDate() {
-        return new Date(this.updated_at);
+        return new Date(this.updatedAt);
     }
 
     toJSON(): Item {

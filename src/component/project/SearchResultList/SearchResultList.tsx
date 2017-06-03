@@ -6,23 +6,23 @@ import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearc
 
 export interface SearchResultListItemProps {
     item: GitHubSearchResultItem;
-    onClickQuery: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
+    onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
 
 export class SearchResultListItem extends React.Component<SearchResultListItemProps, {}> {
     render() {
         const onClick = (event: SyntheticEvent<any>) => {
-            this.props.onClickQuery(event, this.props.item);
+            this.props.onClickItem(event, this.props.item);
         };
         return <div className='SearchResultListItem' onClick={onClick}>
             <span className='SearchResultListItem-primaryText'>
                 <a className='SearchResultListItem-link'
-                   href={this.props.item.html_url}>
+                   href={this.props.item.htmlUrl}>
                 { this.props.item.title }
                 </a>
             </span>
             <span className='SearchResultListItem-tertiaryText'>{ this.props.item.body }</span>
-            <span className='SearchResultListItem-metaText'>{this.props.item.updated_at}</span>
+            <span className='SearchResultListItem-metaText'>{this.props.item.updatedAt}</span>
         </div>
     }
 }
@@ -34,7 +34,7 @@ export interface SearchResultListProps {
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
     render() {
-        const onClickQuery = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+        const onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
             this.props.onClickItem(event, item);
         };
         return <List
@@ -42,7 +42,7 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
             items={ this.props.items }
             renderedWindowsAhead={5}
             onRenderCell={ (item: GitHubSearchResultItem) => (
-                <SearchResultListItem item={item} onClickQuery={onClickQuery}/>
+                <SearchResultListItem item={item} onClickItem={onClickItem}/>
             )}
         />
     }

@@ -6,6 +6,7 @@ import { GitHubSearchStreamState } from "../../../store/GitHubSearchStream/GitHu
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
+import { OpenItemInNewTabUseCase } from "../../../use-case/GitHubSearchStream/OpenItemInNewTabUseCase";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
@@ -14,7 +15,8 @@ export interface GitHubSearchStreamContainerProps {
 
 export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStreamContainerProps, {}> {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
-        console.log(event, item);
+        event.preventDefault();
+        this.useCase(new OpenItemInNewTabUseCase).execute(item.htmlUrl);
     };
 
     render() {

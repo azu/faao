@@ -4,22 +4,16 @@ import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStore";
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchContainer";
-import { Grid } from "../ui-kit/Grid/Grid";
-import GridCell from "../ui-kit/Grid/GridCell";
-import { createSearchGitHubUseCase } from "../../use-case/GitHubSearchList/SearchGitHubUseCase";
 import { BaseContainer } from "./BaseContainer";
+import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 
 export class App extends BaseContainer<AppStoreGroupState, {}> {
     render() {
-        console.log(this.props.gitHubSearchList);
-        const searchList = this.props.gitHubSearchList.queries.map(query => {
-            return <span key={`${query.name}-${query.apiHost}`} style={{
-                color: query.color
-            }}>{query.name}</span>
-        });
-        const searchStream = this.props.gitHubSearchStream.items.map(item => {
-            return <span key={item.id}>{item.title}</span>
-        });
+        const preview = process.env.RUNTIME_TARGET === "electron"
+            ? <main className="App-preview">
+                <IframeBrowser html={"test"}/>
+            </main>
+            : null;
         return <div className="App">
             <nav className="App-nav">
                 <GitHubSearchContainer
@@ -29,6 +23,7 @@ export class App extends BaseContainer<AppStoreGroupState, {}> {
                 <GitHubSearchStreamContainer
                     gitHubSearchStream={this.props.gitHubSearchStream}/>
             </main>
+            {preview}
         </div>
     }
 }
