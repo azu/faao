@@ -7,16 +7,19 @@ import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearc
 import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
 import { OpenItemInNewTabUseCase } from "../../../use-case/GitHubSearchStream/OpenItemInNewTabUseCase";
+import { AppState } from "../../../store/AppStore/AppStore";
+import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenItemUseCase";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
     gitHubSearchStream: GitHubSearchStreamState
+    app: AppState;
 }
 
 export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStreamContainerProps, {}> {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         event.preventDefault();
-        this.useCase(new OpenItemInNewTabUseCase).execute(item.htmlUrl);
+        this.useCase(createAppUserOpenItemUseCase()).executor(useCase => useCase.execute(item));
     };
 
     render() {
@@ -25,7 +28,9 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
             <div className='GitHubSearchStreamContainer-main'>
                 <SearchResultList
                     className="GitHubSearchStreamContainer-list"
-                    items={this.props.gitHubSearchStream.items} onClickItem={this.onClickItem}/>
+                    items={this.props.gitHubSearchStream.items}
+                    activeItem={this.props.app.activeItem}
+                    onClickItem={this.onClickItem}/>
             </div>
         </div>
     }

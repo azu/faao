@@ -1,11 +1,12 @@
 // LICENSE : MIT
 "use strict";
 import * as React from "react";
-import { AppStoreGroupState } from "../../store/AppStore";
+import { AppStoreGroupState } from "../../store/AppStoreGroup";
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchStreamContainer";
 import { BaseContainer } from "./BaseContainer";
 import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
+import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
@@ -15,13 +16,16 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             </main>
             : null;
         return <div className="AppContainer">
+            <ShortcutKeyContainer />
             <nav className="AppContainer-nav">
                 <GitHubSearchContainer
                     gitHubSearchList={this.props.gitHubSearchList}/>
             </nav>
             <main className="AppContainer-main">
                 <GitHubSearchStreamContainer
-                    gitHubSearchStream={this.props.gitHubSearchStream}/>
+                    app={this.props.app}
+                    gitHubSearchStream={this.props.gitHubSearchStream}
+                />
             </main>
             {preview}
         </div>

@@ -150,6 +150,7 @@ export interface Repository {
     notificationsUrl: string;
     labelsUrl: string;
 }
+
 // parse string
 // camelCase
 export interface Item {
@@ -202,6 +203,13 @@ export class GitHubSearchResultItem implements Item {
 
     constructor(item: Item) {
         Object.assign(this, item);
+    }
+
+    equals(item?: GitHubSearchResultItem) {
+        if (!item) {
+            return false;
+        }
+        return this.id === item.id;
     }
 
     toJSON(): Item {

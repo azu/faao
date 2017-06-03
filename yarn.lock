@@ -10,6 +10,10 @@
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.0.tgz#f2312039e780bdf89d7d4102a26ec11de5ec58aa"
 
+"@types/combokeys@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@types/combokeys/-/combokeys-2.4.5.tgz#98f794f4baf72a6219cf255516386252c95ac53d"
+
 "@types/electron@^1.4.38":
   version "1.4.38"
   resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.4.38.tgz#f3e5e58fdcd5462ee4b5817d33dfdb6700ba2415"
@@ -19,6 +23,12 @@
 "@types/jest@^19.2.4":
   version "19.2.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
+
+"@types/lodash.throttle@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.throttle/-/lodash.throttle-4.1.2.tgz#52356fa3fa52b0327e73e92763d607f76f9ced5b"
+  dependencies:
+    "@types/lodash" "*"
 
 "@types/lodash.uniqby@^4.7.2":
   version "4.7.2"
@@ -1227,7 +1237,7 @@ chokidar-cli@^1.2.0:
     shell-quote "^1.4.3"
     yargs "^3.7.2"
 
-chokidar@^1.0.1, chokidar@^1.4.3, chokidar@^1.5.1, chokidar@^1.6.0, chokidar@^1.6.1:
+chokidar@^1.0.1, chokidar@^1.4.3, chokidar@^1.6.0, chokidar@^1.6.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
   dependencies:
@@ -1313,6 +1323,10 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"
   dependencies:
     delayed-stream "~1.0.0"
+
+combokeys@^2.4.6:
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/combokeys/-/combokeys-2.4.6.tgz#a5c47599632af7a36d1d9c2f98518c95b253d83b"
 
 commander@^2.8.1:
   version "2.9.0"
@@ -1686,19 +1700,13 @@ electron-navigation@^1.5.2:
     electron "^1.6.0"
     jquery "^3.1.1"
 
-electron-reload@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/electron-reload/-/electron-reload-1.2.0.tgz#6cf3ed2faabd929dd929848de8f58f0bb34a4f86"
-  dependencies:
-    chokidar "^1.5.1"
-
 electron-to-chromium@^1.3.11:
   version "1.3.13"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.13.tgz#1b3a5eace6e087bb5e257a100b0cbfe81b2891fc"
 
-electron@^1.6.0, electron@^1.6.10:
-  version "1.6.10"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.10.tgz#4f0b9cd596e35700b57128f988cc1d2ce67e5671"
+electron@1.7.2, electron@^1.6.0:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.7.2.tgz#8115e6ae86128a8cd99360d3793d3618ca2c7619"
   dependencies:
     "@types/node" "^7.0.18"
     electron-download "^3.0.1"
@@ -3321,9 +3329,9 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash.camelcase@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.uniqby@^4.7.0:
   version "4.7.0"
@@ -4366,12 +4374,6 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "~15.5.7"
-
-react-electron-web-view@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-electron-web-view/-/react-electron-web-view-2.0.1.tgz#984b7bbbeb77e35bcca921dc50120fc8f2b0f27d"
-  dependencies:
-    lodash.camelcase "^4.3.0"
 
 react-octicons-svg@^1.1.13:
   version "1.1.13"

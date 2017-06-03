@@ -8,6 +8,7 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
+import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
 
 export const createSearchGitHubUseCase = () => {
     return new SearchGitHubUseCase(gitHubSettingsRepository, gitHubSearchStreamRepository);
@@ -38,6 +39,8 @@ export class SearchGitHubUseCase extends UseCase {
                 const continueToNext = !stream.alreadyHasResult(result);
                 console.log("continueToNext", continueToNext);
                 stream.mergeResult(result);
+                // open stream
+                this.context.useCase(createAppUserOpenStreamUseCase()).executor(useCase => useCase.execute(stream));
                 // refresh view
                 await gitHubSearchStreamRepository.saveWithQuery(stream, query);
                 this.dispatch(new ChangedPayload());

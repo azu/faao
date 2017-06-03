@@ -23,7 +23,7 @@ html, body, #js-app, .AppContainer {
 }
 
 .AppContainer-main {
-    padding: 0 var(--App--padding-top) 0 var(--App-nav--width);
+    padding: 0 0 0 var(--App-nav--width);
     /* scrollable main . body is not scroll*/
     height: 100%;
     overflow-y: scroll;

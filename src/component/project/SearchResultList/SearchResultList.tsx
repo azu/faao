@@ -1,14 +1,16 @@
 // MIT © 2017 azu
 import * as React from "react";
 import { List } from "office-ui-fabric-react";
-import { SyntheticEvent } from "react";
+import { ReactElement, SyntheticEvent } from "react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
 
 const { CommentIcon } = require("react-octicons-svg");
+const suitcssClassnames = require("suitcss-classnames");
 
 export interface SearchResultListItemProps {
+    isActive: boolean;
     item: GitHubSearchResultItem;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
@@ -31,7 +33,13 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
             return <span key={label.name} className="SearchResultListItem-label" style={style}>{label.name}</span>
         });
 
-        return <div className='SearchResultListItem' onClick={onClick}>
+        const className = suitcssClassnames({
+            component: "SearchResultListItem",
+            states: {
+                "is-active": this.props.isActive
+            }
+        });
+        return <div className={className} onClick={onClick}>
             <span className='SearchResultListItem-primaryText'>
                 <a className='SearchResultListItem-link'
                    href={item.htmlUrl}>
@@ -63,22 +71,65 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
 export interface SearchResultListProps {
     className?: string;
     items: GitHubSearchResultItem[];
+    activeItem?: GitHubSearchResultItem;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
+
+    private _list: List;
+    state: {
+        selectedIndex: number
+    };
+
+    constructor() {
+        super();
+        this.state = {
+            selectedIndex: 0
+        };
+    }
+
+    componentWillReceiveProps(nextProps: SearchResultListProps) {
+        const itemIndex = nextProps.items.findIndex(item => {
+            return item.equals(nextProps.activeItem);
+        });
+        if (itemIndex !== -1) {
+            console.log("Found", itemIndex);
+            this._scroll(itemIndex, nextProps.items);
+        }
+    }
+
     render() {
         const onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
             this.props.onClickItem(event, item);
         };
         return <List
+            data-is-scrollable="true"
+            ref={(c: List) => {
+                this._list = c;
+            } }
             className={classnames("SearchResultList", this.props.className)}
             items={ this.props.items }
             renderedWindowsBehind={10}
             renderedWindowsAhead={10}
-            onRenderCell={ (item: GitHubSearchResultItem) => (
-                <SearchResultListItem item={item} onClickItem={onClickItem}/>
-            )}
-        />
+            onRenderCell={ (item: GitHubSearchResultItem) => {
+                return <SearchResultListItem item={item}
+                                             isActive={item.equals(this.props.activeItem)}
+                                             onClickItem={onClickItem}
+                />
+            }}/>
+    }
+
+    private _scroll(index: number, items: GitHubSearchResultItem[]) {
+        const updatedSelectedIndex = Math.min(Math.max(index, 0), items.length - 1);
+        this.setState({
+            selectedIndex: updatedSelectedIndex
+        }, () => {
+            this._list.forceUpdate();
+            const activeElement = document.querySelector(`.ms-List-cell[data-list-index='${index}']`);
+            if (activeElement) {
+                activeElement.scrollIntoView();
+            }
+        });
     }
 }

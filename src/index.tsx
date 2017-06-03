@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";
 import AlminReactContainer from "almin-react-container";
-import { AppStoreGroup } from "./store/AppStore";
+import { AppStoreGroup } from "./store/AppStoreGroup";
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 
@@ -17,10 +17,7 @@ const context = new Context({
     store: AppStoreGroup.create()
 });
 if (process.env.NODE_ENV !== "production") {
-    context.onChange(() => {
-        console.info("onChange");
-    });
-    // start logger
+    (window as any)["alminContext"] = context;
     const logger = new AlminLogger();
     logger.startLogging(context);
 }

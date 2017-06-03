@@ -6,11 +6,14 @@ import { GitHubSearchListStore, GitHubSearchListState } from "./GitHubSearchList
 import gitHubSearchListRepository from "../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamStore, GitHubSearchStreamState } from "./GitHubSearchStream/GitHubSearchStream";
 import { gitHubSearchStreamRepository } from "../infra/repository/GitHubSearchStreamRepository";
+import { AppStore, AppState } from "./AppStore/AppStore";
+import { appRepository } from "../infra/repository/AppRepository";
 // repository
 // store
 
 // store mapping
 export const storeMapping = {
+    app: new AppStore(appRepository),
     gitHubSearchList: new GitHubSearchListStore(gitHubSearchListRepository),
     gitHubSearchStream: new GitHubSearchStreamStore(gitHubSearchStreamRepository),
 };

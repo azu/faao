@@ -55,4 +55,23 @@ export class GitHubSearchStream {
     clear() {
         this.items = [];
     }
+
+    getItemAtIndex(index: number): GitHubSearchResultItem | undefined {
+        return this.items[index];
+    }
+
+    getNextItem(currentItem: GitHubSearchResultItem): GitHubSearchResultItem | undefined {
+        const index = this.items.findIndex(item => {
+            return item.equals(currentItem);
+        });
+        return this.getItemAtIndex(index + 1);
+    }
+
+    getPrevItem(currentItem: GitHubSearchResultItem) {
+        const index = this.items.findIndex(item => {
+            return item.equals(currentItem);
+        });
+        return this.getItemAtIndex(index - 1);
+
+    }
 }

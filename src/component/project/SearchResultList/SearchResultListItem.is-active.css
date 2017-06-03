@@ -1,0 +1,4 @@
+.SearchResultListItem.is-active {
+    background-color: #c7e0f4;
+    outline: 1px solid transparent;
+}
