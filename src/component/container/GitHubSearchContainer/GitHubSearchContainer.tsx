@@ -15,7 +15,8 @@ export interface GitHubSearchContainerProps {
 
 export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerProps, {}> {
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(query))
+        this.useCase(createSearchGitHubUseCase())
+            .executor(useCase => useCase.execute(query));
     };
 
     render() {

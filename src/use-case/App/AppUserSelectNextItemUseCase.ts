@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { AppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
+import { createAppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
 
 const debug = require("debug")("faao:AppUserOpenNextItemUseCase");
 export const createAppUserSelectNextItemUseCase = () => {
@@ -28,10 +28,8 @@ export class AppUserSelectNextItemUseCase extends UseCase {
             debug("Not found next item");
             return;
         }
-        app.user.openItem(nextItem);
-        this.appRepository.save(app);
-        return this.context.useCase(new AppUserSelectItemUseCase()).executor(useCase => {
-            return useCase.execute(nextItem.htmlUrl);
+        return this.context.useCase(createAppUserSelectItemUseCase()).executor(useCase => {
+            return useCase.execute(nextItem);
         });
     }
 }

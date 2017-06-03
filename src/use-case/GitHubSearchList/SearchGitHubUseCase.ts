@@ -9,6 +9,8 @@ import {
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
+import { createAppUserSelectItemUseCase } from "../App/AppUserSelectItemUseCase";
+import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 
 export const createSearchGitHubUseCase = () => {
     return new SearchGitHubUseCase(gitHubSettingsRepository, gitHubSearchStreamRepository);
@@ -29,10 +31,13 @@ export class SearchGitHubUseCase extends UseCase {
         const stream = await gitHubSearchStreamRepository.findByQuery(query) || GitHubSearchStreamFactory.create();
         // save current stream
         await gitHubSearchStreamRepository.saveWithQuery(stream, query);
-        // open stream
-        this.context.useCase(createAppUserOpenStreamUseCase()).executor(useCase => useCase.execute(stream));
         // start fetch
         const gitHubClient = new GitHubClient(gitHubSetting);
+        // AppUser open stream and select first item
+        await this.context.useCase(createAppUserOpenStreamUseCase())
+            .executor(useCase => useCase.execute(stream));
+        await this.context.useCase(createAppUserSelectFirstItemUseCase())
+            .executor(useCase => useCase.execute());
         return new Promise((resolve, reject) => {
             gitHubClient.search(query, async (result: GitHubSearchResult) => {
                 console.log("Progress", result);

@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { AppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
+import { createAppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
 
 const debug = require("debug")("faao:AppUserOpenPrevItemUseCase");
 export const createAppUserSelectPrevItemUseCase = () => {
@@ -30,8 +30,8 @@ export class AppUserSelectPrevItemUseCase extends UseCase {
         }
         app.user.openItem(prevItem);
         this.appRepository.save(app);
-        return this.context.useCase(new AppUserSelectItemUseCase()).executor(useCase => {
-            return useCase.execute(prevItem.htmlUrl);
+        return this.context.useCase(createAppUserSelectItemUseCase()).executor(useCase => {
+            return useCase.execute(prevItem);
         });
     }
 }
