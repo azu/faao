@@ -20,15 +20,15 @@ export class App extends BaseContainer<AppStoreGroupState, {}> {
         const searchStream = this.props.gitHubSearchStream.items.map(item => {
             return <span key={item.id}>{item.title}</span>
         });
-        return <div>
-            <Grid>
-                <GridCell col="6of12">
-                    <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList}/>
-                </GridCell>
-                <GridCell col="6of12">
-                    <GitHubSearchStreamContainer gitHubSearchStream={this.props.gitHubSearchStream}/>
-                </GridCell>
-            </Grid>
+        return <div className="App">
+            <nav className="App-nav">
+                <GitHubSearchContainer
+                    gitHubSearchList={this.props.gitHubSearchList}/>
+            </nav>
+            <main className="App-main">
+                <GitHubSearchStreamContainer
+                    gitHubSearchStream={this.props.gitHubSearchStream}/>
+            </main>
         </div>
     }
 }

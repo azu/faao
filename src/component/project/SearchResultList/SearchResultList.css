@@ -1,0 +1,205 @@
+/* Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information. */
+/**
+ * Fabric 1.0.0
+ * The front-end framework for building experiences for Office 365.
+ **/
+.SearchResultList {
+    width: 100%;
+}
+
+.SearchResultListItem {
+    color: #333333;
+    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    *zoom: 1;
+    padding: 9px 28px 3px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+}
+
+.SearchResultListItem:before,
+.SearchResultListItem:after {
+    display: table;
+    content: '';
+    line-height: 0;
+}
+
+.SearchResultListItem:after {
+    clear: both;
+}
+
+.SearchResultListItem-primaryText,
+.SearchResultListItem-secondaryText,
+.SearchResultListItem-tertiaryText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.SearchResultListItem-primaryText {
+    color: #212121;
+    font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-size: 21px;
+    padding-right: 80px;
+    position: relative;
+    top: -4px;
+}
+
+.SearchResultListItem-secondaryText {
+    color: #333333;
+    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 25px;
+    position: relative;
+    top: -7px;
+    padding-right: 30px;
+}
+
+.SearchResultListItem-tertiaryText {
+    color: #767676;
+    font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 15px;
+    position: relative;
+    top: -7px;
+    padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.SearchResultListItem-metaText {
+    color: #333333;
+    font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    position: absolute;
+    right: 30px;
+    top: 39px;
+}
+
+.SearchResultListItem-image {
+    float: left;
+    height: 70px;
+    margin-left: -8px;
+    margin-right: 10px;
+    width: 70px;
+}
+
+.SearchResultListItem-selectionTarget {
+    display: none;
+}
+
+.SearchResultListItem-actions {
+    max-width: 80px;
+    position: absolute;
+    right: 30px;
+    text-align: right;
+    top: 10px;
+}
+
+.SearchResultListItem-action {
+    color: #a6a6a6;
+    display: inline-block;
+    font-size: 15px;
+    position: relative;
+    text-align: center;
+    top: 3px;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+}
+
+.SearchResultListItem-action .ms-Icon {
+    vertical-align: top;
+}
+
+.SearchResultListItem-action:hover {
+    color: #666666;
+    outline: 1px solid transparent;
+}
+
+.SearchResultListItem.is-unread {
+    border-left: 3px solid #0078d7;
+    padding-left: 27px;
+}
+
+.SearchResultListItem.is-unread .SearchResultListItem-secondaryText,
+.SearchResultListItem.is-unread .SearchResultListItem-metaText {
+    color: #0078d7;
+    font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe WP Semibold', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+}
+
+.SearchResultListItem.is-unseen:after {
+    border-right: 10px solid transparent;
+    border-top: 10px solid #0078d7;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.SearchResultListItem.is-selectable .SearchResultListItem-selectionTarget {
+    display: block;
+    height: 20px;
+    left: 6px;
+    position: absolute;
+    top: 13px;
+    width: 20px;
+}
+
+.SearchResultListItem.is-selectable:hover {
+    background-color: #eaeaea;
+    cursor: pointer;
+    outline: 1px solid transparent;
+}
+
+.SearchResultListItem.is-selectable:hover:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-family: 'Office365Icons';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    height: 15px;
+    width: 15px;
+    border: 1px solid #767676;
+}
+
+.SearchResultListItem.is-selected:before {
+    border: 1px solid transparent;
+}
+
+.SearchResultListItem.is-selected:before,
+.SearchResultListItem.is-selected:hover:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-family: 'Office365Icons';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+    content: '\e041';
+    font-size: 15px;
+    color: #767676;
+    position: absolute;
+    top: 12px;
+    left: 6px;
+}
+
+.SearchResultListItem.is-selected:hover {
+    background-color: #c7e0f4;
+    outline: 1px solid transparent;
+}

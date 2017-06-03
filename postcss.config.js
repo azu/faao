@@ -1,11 +1,15 @@
+const browserList = "> 5%";
 module.exports = {
     "plugins": {
         "postcss-easy-import": {},
         "postcss-custom-properties": {},
         "postcss-calc": {},
         "postcss-custom-media": {},
+        "postcss-normalize": {
+            "browsers": browserList
+        },
         "autoprefixer": {
-            "browsers": "> 5%"
+            "browsers": browserList
         },
         "postcss-reporter": {}
     }

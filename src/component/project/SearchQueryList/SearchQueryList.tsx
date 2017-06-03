@@ -18,8 +18,8 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
             borderLeft: `${this.props.query.color.hexCode} 2px solid`,
             paddingLeft: "0.5em"
         };
-        return <div className='ms-ListItem SearchQueryListItem' onClick={onClick}>
-            <span style={style} className='ms-ListItem-primaryText'>{ this.props.query.name }</span>
+        return <div className='SearchQueryListItem' onClick={onClick}>
+            <span style={style} className='SearchQueryListItem-primaryText'>{ this.props.query.name }</span>
         </div>
     }
 }

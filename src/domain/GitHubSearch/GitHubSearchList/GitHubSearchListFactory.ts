@@ -11,6 +11,12 @@ const defaultQueries = [
         apiHost: "https://api.github.com/"
     },
     {
+        name: "textlint",
+        color: "#dda7d9",
+        query: "textlint",
+        apiHost: "https://api.github.com/"
+    },
+    {
         name: "Test",
         color: "#4974af",
         query: "test",

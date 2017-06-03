@@ -1,15 +1,8 @@
 .GridCell {
     min-width: 1px;
+    display: table-cell;
     box-sizing: border-box;
-    display: inline;
-}
-
-.GridCell[class*='col-'] {
-    float: left;
-}
-
-.GridCell[class*='col-']:last-of-type {
-    padding-right: 0;
+    vertical-align: top;
 }
 
 .GridCell.col-1of12 {

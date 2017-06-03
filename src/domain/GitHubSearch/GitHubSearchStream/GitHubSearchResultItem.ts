@@ -210,4 +210,8 @@ export class GitHubSearchResultItem implements Item {
     get updated_atDate() {
         return new Date(this.updated_at);
     }
+
+    toJSON(): Item {
+        return Object.assign({}, this);
+    }
 }

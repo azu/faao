@@ -17,6 +17,9 @@ const context = new Context({
     store: AppStoreGroup.create()
 });
 if (process.env.NODE_ENV !== "production") {
+    context.onChange(() => {
+        console.info("onChange");
+    });
     // start logger
     const logger = new AlminLogger();
     logger.startLogging(context);
