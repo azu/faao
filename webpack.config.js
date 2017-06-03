@@ -1,5 +1,5 @@
 const path = require("path");
-
+const webpack = require("webpack");
 const DotenvPlugin = require('webpack-dotenv-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 module.exports = {

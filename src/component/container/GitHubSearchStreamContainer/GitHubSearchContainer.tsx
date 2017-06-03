@@ -16,7 +16,11 @@ export interface GitHubSearchStreamContainerProps {
 export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStreamContainerProps, {}> {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         event.preventDefault();
-        this.useCase(new OpenItemInNewTabUseCase).execute(item.htmlUrl);
+        if (process.env.RUNTIME_TARGET === "electron") {
+
+        } else {
+            this.useCase(new OpenItemInNewTabUseCase).execute(item.htmlUrl);
+        }
     };
 
     render() {

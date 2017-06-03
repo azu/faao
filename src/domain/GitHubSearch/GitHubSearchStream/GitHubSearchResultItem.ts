@@ -99,8 +99,8 @@ export interface Milestone {
     openIssues: number;
     closedIssues: number;
     state: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     dueOn: string;
     closedAt?: any;
 }
@@ -169,8 +169,8 @@ export interface Item {
     assignees: Assignee[];
     milestone: Milestone | null;
     comments: number;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     closedAt?: any;
     body: string;
     score: number;
@@ -194,21 +194,13 @@ export class GitHubSearchResultItem implements Item {
     assignees: Assignee[];
     milestone: Milestone | any;
     comments: number;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     body: string;
     score: number;
 
     constructor(item: Item) {
         Object.assign(this, item);
-    }
-
-    get created_atDate() {
-        return new Date(this.createdAt);
-    }
-
-    get updated_atDate() {
-        return new Date(this.updatedAt);
     }
 
     toJSON(): Item {

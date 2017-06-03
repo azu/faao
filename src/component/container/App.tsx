@@ -11,7 +11,7 @@ export class App extends BaseContainer<AppStoreGroupState, {}> {
     render() {
         const preview = process.env.RUNTIME_TARGET === "electron"
             ? <main className="App-preview">
-                <IframeBrowser html={"test"}/>
+                {/*<IframeBrowser html={"test"}/>*/}
             </main>
             : null;
         return <div className="App">

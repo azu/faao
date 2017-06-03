@@ -22,7 +22,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 </a>
             </span>
             <span className='SearchResultListItem-tertiaryText'>{ this.props.item.body }</span>
-            <span className='SearchResultListItem-metaText'>{this.props.item.updatedAt}</span>
+            <span className='SearchResultListItem-metaText'>{this.props.item.updatedAt.toISOString()}</span>
         </div>
     }
 }
