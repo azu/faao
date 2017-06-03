@@ -18,7 +18,8 @@ export class GitHubClient {
     constructor(gitHubSetting: GitHubSetting) {
         this.gh = new Octokat({
             token: gitHubSetting.token,
-            rootURL: gitHubSetting.apiHost
+            rootURL: gitHubSetting.apiHost,
+            disableHypermedia: true // Not parse date
         });
     }
 

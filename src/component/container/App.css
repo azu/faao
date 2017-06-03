@@ -9,7 +9,7 @@ html, body, #js-app, .App {
 }
 
 :root {
-    --App-nav--width: 220px;
+    --App-nav--width: 180px;
     --App--padding-top: 1rem;
 }
 

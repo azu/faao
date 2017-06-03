@@ -1,2 +1,3 @@
 @import "../node_modules/office-ui-fabric-react/dist/css/fabric.min.css";
-@import "./component/**/*.css"
+@import "./electron.css";
+@import "./component/**/*.css";

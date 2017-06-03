@@ -27,7 +27,7 @@ export class GitHubSearchStreamRepository extends BaseRepository<GitHubSearchStr
                 debug("Not Found Stream JSON: match query %o", query);
                 return undefined;
             }
-            debug("Found Stream JSON: match query %o", query);
+            debug("Found Stream JSON: %o match query %o", streamJSON, query);
             return GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
         }).catch(error => {
             debug("Not Found Error", error);

@@ -1300,6 +1300,10 @@ color-name@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.2.tgz#5c8ab72b64bd2215d617ae9559ebb148475cf98d"
 
+color.js@^0.1.2:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/color.js/-/color.js-0.1.3.tgz#8fef80437352b0003a9baad6a90243783db8db0a"
+
 colors@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
@@ -1674,6 +1678,14 @@ electron-download@^3.0.1:
     semver "^5.3.0"
     sumchecker "^1.2.0"
 
+electron-navigation@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/electron-navigation/-/electron-navigation-1.5.2.tgz#68216bfe7660c2d7f6aeb1c68fa090eb3db00fe3"
+  dependencies:
+    color.js "^0.1.2"
+    electron "^1.6.0"
+    jquery "^3.1.1"
+
 electron-reload@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/electron-reload/-/electron-reload-1.2.0.tgz#6cf3ed2faabd929dd929848de8f58f0bb34a4f86"
@@ -1684,7 +1696,7 @@ electron-to-chromium@^1.3.11:
   version "1.3.13"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.13.tgz#1b3a5eace6e087bb5e257a100b0cbfe81b2891fc"
 
-electron@^1.6.10:
+electron@^1.6.0, electron@^1.6.10:
   version "1.6.10"
   resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.10.tgz#4f0b9cd596e35700b57128f988cc1d2ce67e5671"
   dependencies:
@@ -3086,6 +3098,10 @@ jodid25519@^1.0.0:
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
   dependencies:
     jsbn "~0.1.0"
+
+jquery@^3.1.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
 js-base64@^2.1.9:
   version "2.1.9"

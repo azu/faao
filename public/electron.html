@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faao</title>
+    <link rel="stylesheet" href="build/build.css"/>
+</head>
+<body>
+<div id="js-app"></div>
+<div class="electron-nav">
+    <div id="nav-body-ctrls"></div>
+    <div id="nav-body-tabs"></div>
+    <div id="nav-body-views"></div>
+</div>
+<script src="build/bundle.js"></script>
+<script>
+    const ElectronNavigation = require('electron-navigation');
+    window.electronNavigation = new ElectronNavigation();
+    window.electronNavigation.newTab('https://github.com');
+</script>
+</body>
+</html>

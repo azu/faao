@@ -7,5 +7,5 @@ if (process.env.NODE_ENV !== "production") {
 // Standard stuff
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({ width: 800, height: 600 });
-    mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/public/electron.html`);
 });

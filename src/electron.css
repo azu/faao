@@ -1,0 +1,35 @@
+/* electron */
+@import "../node_modules/electron-navigation/themes/material-light.css";
+
+:root {
+    --electron-nav--width: 800px;
+}
+
+.electron-nav {
+    position: fixed;
+    height: 100%;
+    width: var(--electron-nav--width);
+    top: 0;
+    right: 0;
+    /* flex */
+    display: flex;
+    flex-direction: column;
+}
+
+#nav-body-ctrls {
+    height: 72px
+}
+
+#nav-body-tabs {
+    height: 36px;
+    overflow-y: hidden !important;
+}
+
+/* flexible view*/
+#nav-body-views {
+    flex: 1;
+}
+
+#js-app {
+    padding-right: var(--electron-nav--width);
+}

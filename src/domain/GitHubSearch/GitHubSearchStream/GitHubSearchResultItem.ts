@@ -99,8 +99,8 @@ export interface Milestone {
     openIssues: number;
     closedIssues: number;
     state: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     dueOn: string;
     closedAt?: any;
 }
@@ -150,7 +150,8 @@ export interface Repository {
     notificationsUrl: string;
     labelsUrl: string;
 }
-
+// parse string
+// camelCase
 export interface Item {
     url: string;
     repositoryUrl: string;
@@ -169,8 +170,8 @@ export interface Item {
     assignees: Assignee[];
     milestone: Milestone | null;
     comments: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     closedAt?: any;
     body: string;
     score: number;
@@ -194,8 +195,8 @@ export class GitHubSearchResultItem implements Item {
     assignees: Assignee[];
     milestone: Milestone | any;
     comments: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     body: string;
     score: number;
 
