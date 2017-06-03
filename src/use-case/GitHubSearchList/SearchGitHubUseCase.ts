@@ -29,9 +29,9 @@ export class SearchGitHubUseCase extends UseCase {
         const stream = await gitHubSearchStreamRepository.findByQuery(query) || GitHubSearchStreamFactory.create();
         // save current stream
         await gitHubSearchStreamRepository.saveWithQuery(stream, query);
-        // refresh view
-        this.dispatch(new ChangedPayload());
-        // fetch and save
+        // open stream
+        this.context.useCase(createAppUserOpenStreamUseCase()).executor(useCase => useCase.execute(stream));
+        // start fetch
         const gitHubClient = new GitHubClient(gitHubSetting);
         return new Promise((resolve, reject) => {
             gitHubClient.search(query, async (result: GitHubSearchResult) => {
@@ -39,10 +39,9 @@ export class SearchGitHubUseCase extends UseCase {
                 const continueToNext = !stream.alreadyHasResult(result);
                 console.log("continueToNext", continueToNext);
                 stream.mergeResult(result);
-                // open stream
-                this.context.useCase(createAppUserOpenStreamUseCase()).executor(useCase => useCase.execute(stream));
-                // refresh view
+                // save current stream
                 await gitHubSearchStreamRepository.saveWithQuery(stream, query);
+                // refresh view
                 this.dispatch(new ChangedPayload());
                 return continueToNext;
             }, async (error: Error) => {

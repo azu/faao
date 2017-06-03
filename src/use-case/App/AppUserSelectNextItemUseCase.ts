@@ -1,16 +1,16 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { OpenItemInNewTabUseCase } from "../GitHubSearchStream/OpenItemInNewTabUseCase";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import { AppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
 
-const debug = require("debug")("faao:AppUserOpenPrevItemUseCase");
-export const createAppUserOpenPrevItemUseCase = () => {
-    return new AppUserOpenPrevItemUseCase(
+const debug = require("debug")("faao:AppUserOpenNextItemUseCase");
+export const createAppUserSelectNextItemUseCase = () => {
+    return new AppUserSelectNextItemUseCase(
         appRepository
     );
 };
 
-export class AppUserOpenPrevItemUseCase extends UseCase {
+export class AppUserSelectNextItemUseCase extends UseCase {
     constructor(private appRepository: AppRepository) {
         super();
     }
@@ -23,15 +23,15 @@ export class AppUserOpenPrevItemUseCase extends UseCase {
             debug("Not found current item or stream");
             return;
         }
-        const prevItem = currentStream.getPrevItem(currentItem);
-        if (!prevItem) {
-            debug("Not found prev item");
+        const nextItem = currentStream.getNextItem(currentItem);
+        if (!nextItem) {
+            debug("Not found next item");
             return;
         }
-        app.user.openItem(prevItem);
+        app.user.openItem(nextItem);
         this.appRepository.save(app);
-        return this.context.useCase(new OpenItemInNewTabUseCase()).executor(useCase => {
-            return useCase.execute(prevItem.htmlUrl);
+        return this.context.useCase(new AppUserSelectItemUseCase()).executor(useCase => {
+            return useCase.execute(nextItem.htmlUrl);
         });
     }
 }

@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { OpenItemInNewTabUseCase } from "../GitHubSearchStream/OpenItemInNewTabUseCase";
+import { OpenItemInNewTabUseCase } from "./OpenItemInNewTabUseCase";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 

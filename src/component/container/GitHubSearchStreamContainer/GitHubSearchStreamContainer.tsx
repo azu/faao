@@ -6,7 +6,6 @@ import { GitHubSearchStreamState } from "../../../store/GitHubSearchStream/GitHu
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
-import { OpenItemInNewTabUseCase } from "../../../use-case/GitHubSearchStream/OpenItemInNewTabUseCase";
 import { AppState } from "../../../store/AppStore/AppStore";
 import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenItemUseCase";
 

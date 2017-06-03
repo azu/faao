@@ -2,8 +2,8 @@
 import React from "react";
 import { BaseContainer } from "../BaseContainer";
 import Combokeys from "combokeys"
-import { createAppUserOpenNextItemUseCase } from "../../../use-case/App/AppUserOpenNextItemUseCase";
-import { createAppUserOpenPrevItemUseCase } from "../../../use-case/App/AppUserOpenPrevItemUseCase";
+import { createAppUserSelectNextItemUseCase } from "../../../use-case/App/AppUserSelectNextItemUseCase";
+import { createAppUserSelectPrevItemUseCase } from "../../../use-case/App/AppUserSelectPrevItemUseCase";
 
 export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
     combokeys: any;
@@ -12,10 +12,10 @@ export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
         this.combokeys = new Combokeys(document.documentElement);
         const actionMap = {
             "move-next-item": (_event: Event) => {
-                this.useCase(createAppUserOpenNextItemUseCase()).executor(useCase => useCase.execute());
+                this.useCase(createAppUserSelectNextItemUseCase()).executor(useCase => useCase.execute());
             },
             "move-prev-item": (_event: Event) => {
-                this.useCase(createAppUserOpenPrevItemUseCase()).executor(useCase => useCase.execute())
+                this.useCase(createAppUserSelectPrevItemUseCase()).executor(useCase => useCase.execute())
             }
         };
         const keyMap: { [index: string]: keyof typeof actionMap } = {
