@@ -21,9 +21,11 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
 
     render() {
         return <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
-            <h1 className='ms-font-xxl'>Result</h1>
+            <h1 className='ms-font-xxl GitHubSearchStreamContainer-title'>Result</h1>
             <div className='GitHubSearchStreamContainer-main'>
-                <SearchResultList items={this.props.gitHubSearchStream.items} onClickItem={this.onClickItem}/>
+                <SearchResultList
+                    className="GitHubSearchStreamContainer-list"
+                    items={this.props.gitHubSearchStream.items} onClickItem={this.onClickItem}/>
             </div>
         </div>
     }

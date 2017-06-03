@@ -10,17 +10,12 @@
 .SearchResultListItem {
     color: #333333;
     font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-    font-size: 14px;
     font-weight: normal;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-shadow: none;
-    *zoom: 1;
-    position: relative;
     overflow: hidden;
     width: 100%;
-
 }
 
 .SearchResultListItem:before,
@@ -46,83 +41,51 @@
 .SearchResultListItem-primaryText {
     color: #212121;
     font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-    font-size: 21px;
-    padding-right: 80px;
-    position: relative;
-    top: -4px;
-}
-
-.SearchResultListItem-secondaryText {
-    color: #333333;
-    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 25px;
-    position: relative;
-    top: -7px;
-    padding-right: 30px;
+    font-size: 17px;
 }
 
 .SearchResultListItem-tertiaryText {
     color: #767676;
     font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
     font-size: 14px;
-    line-height: 15px;
-    position: relative;
-    top: -7px;
-    padding-right: 30px;
+    line-height: 1.5;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.SearchResultListItem-metaText {
+.SearchResultListItem-footer {
+    font-size: 12px;
+    padding: 0.2rem 0;
+    /* for .SearchResultListItem-meta is absolute */
+    position:relative;
+}
+
+.SearchResultListItem-authorIcon {
+    width: 1em;
+    height: 1em;
+}
+
+.SearchResultListItem-updateDate {
     color: #333333;
     font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe WP Semilight', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-    font-size: 11px;
-    position: absolute;
-    right: 30px;
-    top: 39px;
-}
-
-.SearchResultListItem-image {
-    float: left;
-    height: 70px;
-    margin-left: -8px;
-    margin-right: 10px;
-    width: 70px;
-}
-
-.SearchResultListItem-selectionTarget {
-    display: none;
-}
-
-.SearchResultListItem-actions {
-    max-width: 80px;
-    position: absolute;
-    right: 30px;
     text-align: right;
-    top: 10px;
 }
 
-.SearchResultListItem-action {
-    color: #a6a6a6;
+.SearchResultListItem-labels {
+    padding: 0.2rem 0;
+}
+
+.SearchResultListItem-label {
+    font-size: 12px;
+    padding: 3px 4px;
+    margin-right: 0.2rem;
+}
+
+.SearchResultListItem-meta {
     display: inline-block;
-    font-size: 15px;
-    position: relative;
-    text-align: center;
-    top: 3px;
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
-}
-
-.SearchResultListItem-action .ms-Icon {
-    vertical-align: top;
-}
-
-.SearchResultListItem-action:hover {
-    color: #666666;
-    outline: 1px solid transparent;
+    position: absolute;
+    right: 0;
 }
 
 .SearchResultListItem.is-unread {
@@ -131,7 +94,7 @@
 }
 
 .SearchResultListItem.is-unread .SearchResultListItem-secondaryText,
-.SearchResultListItem.is-unread .SearchResultListItem-metaText {
+.SearchResultListItem.is-unread .SearchResultListItem-updateDate {
     color: #0078d7;
     font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe WP Semibold', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
 }

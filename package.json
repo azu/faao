@@ -88,6 +88,9 @@
     "office-ui-fabric-react": "^4.3.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-electron-web-view": "^2.0.1",
+    "react-octicons": "^0.1.0",
+    "react-octicons-svg": "^1.1.13",
     "suitcss-classnames": "^1.1.0"
   },
   "jest": {

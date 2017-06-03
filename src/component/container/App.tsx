@@ -3,7 +3,7 @@
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStore";
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
-import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchContainer";
+import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchStreamContainer";
 import { BaseContainer } from "./BaseContainer";
 import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 

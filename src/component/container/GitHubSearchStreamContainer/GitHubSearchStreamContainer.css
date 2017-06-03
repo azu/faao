@@ -4,4 +4,21 @@
 }
 
 .GitHubSearchStreamContainer-main {
+
+}
+
+.GitHubSearchStreamContainer-title {
+    padding: 0.1rem
+}
+
+.GitHubSearchStreamContainer-list {
+    padding: 0.4rem;
+    /* top by item */
+    border-left: 1px #e1e4e8 solid;
+    border-bottom: 1px #e1e4e8 solid;
+}
+
+.GitHubSearchStreamContainer-list .SearchResultListItem {
+    padding: 0.4rem 0;
+    border-top: 1px solid #e1e4e8;
 }
