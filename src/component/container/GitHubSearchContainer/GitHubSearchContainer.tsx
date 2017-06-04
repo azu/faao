@@ -9,6 +9,7 @@ import { createSearchGitHubUseCase } from "../../../use-case/GitHubSearchList/Se
 import classNames from "classnames";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../use-case/QuickIssue/OpenQuickIssueUseCase";
+import { OpenQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 
 export interface GitHubSearchContainerProps {
     className?: string;
@@ -40,6 +41,10 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             .executor(useCase => useCase.execute(query));
     };
 
+    onClickAddingQuery = () => {
+        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute());
+    };
+
     render() {
         return <div className={classNames("GitHubSearchContainer", this.props.className)}>
             <header className="GitHubSearchContainer-header">
@@ -53,7 +58,9 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                     <IconButton
                         iconProps={ { iconName: 'Add' } }
                         title='Add query'
-                        ariaLabel='Add query'/>
+                        ariaLabel='Add query'
+                        onClick={this.onClickAddingQuery}
+                    />
                 </h1>
                 <SearchQueryList queries={this.props.gitHubSearchList.queries} onClickQuery={this.onClickQuery}/>
             </div>

@@ -31,6 +31,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             </main>
 
             <QuerySettingContainer
+                gitHubSearchList={this.props.gitHubSearchList}
                 gitHubSetting={this.props.gitHubSetting}
             />
             <QuickIssueContainer
