@@ -54,7 +54,10 @@ Save/read the search list to gist.
     - Name
     - Query(`q`)
     - Color
-    - API Host <- get from `id`*1
+    - gitHubSettingId *1
+        - API Host
+        - Token
+        - ...
 
 #### Search Result
 

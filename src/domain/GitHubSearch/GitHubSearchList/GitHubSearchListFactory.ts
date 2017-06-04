@@ -2,6 +2,7 @@
 import { GitHubSearchList } from "./GitHubSearchList";
 import { GitHubSearchQuery } from "./GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
+import { GitHubSettingFactory } from "../../GitHubSetting/GitHubSettingsFactory";
 
 const defaultQueries = [
     {
@@ -14,6 +15,12 @@ const defaultQueries = [
         name: "azu@todo",
         color: "#54dd00",
         query: "repo:azu/azu",
+        apiHost: "https://api.github.com/"
+    },
+    {
+        name: "azu/faao",
+        color: "#4974af",
+        query: "repo:azu/faao",
         apiHost: "https://api.github.com/"
     },
     {
@@ -43,7 +50,8 @@ export class GitHubSearchListFactory {
                 name: query.name,
                 query: query.query,
                 color: new GitHubSearchQueryColor(query.color),
-                apiHost: query.apiHost
+                apiHost: query.apiHost,
+                gitHubSettingId: GitHubSettingFactory.create().id // TODO: remove
             })
         });
         return new GitHubSearchList(initialQueries);

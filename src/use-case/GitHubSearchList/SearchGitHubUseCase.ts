@@ -25,7 +25,7 @@ export class SearchGitHubUseCase extends UseCase {
 
     async execute(query: GitHubSearchQuery) {
         // const gitHubSetting = this.gitHubSettingRepository.findGitHubSettingById(
-        //     new EntityId<GitHubSetting>("azu@github.com")
+        //     query.gitHubSettingId
         // );
         // TODO: use find | current use default setting
         const gitHubSetting = this.gitHubSettingRepository.get();

@@ -24,6 +24,10 @@ export class EntityId<Entity> {
         return id.toValue() === this.value;
     }
 
+    toString() {
+        return this.value;
+    }
+
     toValue(): string {
         return this.value!;
     }

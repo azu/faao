@@ -4,6 +4,8 @@ import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearch/GitHubSe
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryColor";
 import localForage from "localforage";
+import { EntityId } from "../../../domain/util/EntityId";
+import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
@@ -22,7 +24,8 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                apiHost: "https://api.github.com"
+                apiHost: "https://api.github.com",
+                gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
             return repository.findByQuery(testQuery).then((value) => {
                 expect(value).toBeUndefined();
@@ -39,7 +42,8 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                apiHost: "https://api.github.com"
+                apiHost: "https://api.github.com",
+                gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
             await repository.saveWithQuery(stream, testQuery);
             return repository.findByQuery(testQuery).then((value) => {

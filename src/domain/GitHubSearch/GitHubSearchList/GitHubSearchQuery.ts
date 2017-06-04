@@ -16,12 +16,14 @@ export class GitHubSearchQuery {
     query: string;
     color: GitHubSearchQueryColor;
     apiHost: string;
+    gitHubSettingId: EntityId<GitHubSetting>;
 
     constructor(object: GitHubSearchQueryJSON) {
         this.name = object.name;
         this.query = object.query;
         this.color = object.color;
         this.apiHost = object.apiHost;
+        this.gitHubSettingId = object.gitHubSettingId;
     }
 
     /**
@@ -29,6 +31,6 @@ export class GitHubSearchQuery {
      * @returns {string}
      */
     get hash() {
-        return `${this.name}-${this.query}-${this.apiHost}`;
+        return `${this.name}-${this.query}-${String(this.gitHubSettingId)}`;
     }
 }

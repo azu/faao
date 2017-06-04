@@ -33,7 +33,9 @@ export class GitHubSearchStream {
     alreadyHasResult(result: GitHubSearchResult): boolean {
         // check first item or last item is included in this stream
         const [firstItem, lastItem] = result.items;
-        const matchIds = [firstItem.id, lastItem.id];
+        const matchIds = [firstItem, lastItem]
+            .filter(item => item !== undefined)
+            .map(item => item.id);
         return this.items.some(item => {
             return matchIds.includes(item.id);
         })
