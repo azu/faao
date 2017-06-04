@@ -1,5 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery } from "./GitHubSearchQuery";
+import uniquBy from "lodash.uniqby";
 
 export type TO_JSON<T> = {
     [P in keyof T]: T[P];
@@ -30,7 +31,15 @@ export class GitHubSearchList {
         }
     }
 
-    addQuery(query: GitHubSearchQuery) {
-        this.queries = this.queries.concat(query);
+    saveQuery(aQuery: GitHubSearchQuery) {
+        this.queries = this.queries.concat(aQuery);
+    }
+
+    updateQuery(query: GitHubSearchQuery, index: number) {
+        if(!this.queries[index]) {
+            return;
+        }
+        this.queries[index] = query;
+        this.queries = this.queries.slice();
     }
 }

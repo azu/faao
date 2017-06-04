@@ -7,6 +7,7 @@ import { GitHubSearchQueryJSON } from "../../../domain/GitHubSearch/GitHubSearch
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { createSaveQueryToSearchListUseCase } from "../../../use-case/App/SaveQueryToSearchListUseCase";
+import { createUpdateQueryToSearchListUseCase } from "../../../use-case/App/UpdateQueryToSearchListUseCase";
 
 export interface QuickIssueContainerProps {
     gitHubSearchList: GitHubSearchListState;
@@ -19,8 +20,19 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
         this.useCase(new CloseQueryPanelUseCase).executor(useCase => useCase.execute());
     };
 
-    onSubmit = (queryJSON: GitHubSearchQueryJSON) => {
-        this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase => useCase.execute(queryJSON));
+    onSubmit = async (queryJSON: GitHubSearchQueryJSON) => {
+        try {
+            if (this.props.gitHubSearchList.editingQuery) {
+                await this.useCase(createUpdateQueryToSearchListUseCase()).executor(useCase => {
+                    return useCase.execute(queryJSON, this.props.gitHubSearchList.editingQueryIndex);
+                });
+            } else {
+                await this.useCase(createSaveQueryToSearchListUseCase())
+                    .executor(useCase => useCase.execute(queryJSON))
+            }
+        } finally {
+            await this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute())
+        }
     };
 
     render() {

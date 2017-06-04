@@ -7,19 +7,19 @@ import {
 import { GitHubSearchQueryJSON } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryFactory";
 
-export const createSaveQueryToSearchListUseCase = () => {
-    return new SaveQueryToSearchListUseCase(gitHubSearchListRepository);
+export const createUpdateQueryToSearchListUseCase = () => {
+    return new UpdateQueryToSearchListUseCase(gitHubSearchListRepository);
 };
 
-export class SaveQueryToSearchListUseCase extends UseCase {
+export class UpdateQueryToSearchListUseCase extends UseCase {
     constructor(public gitHubSearchListRepository: GitHubSearchListRepository) {
         super();
     }
 
-    execute(queryJSON: GitHubSearchQueryJSON) {
+    execute(queryJSON: GitHubSearchQueryJSON, index: number) {
         const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
         const searchList = this.gitHubSearchListRepository.get();
-        searchList.saveQuery(query);
+        searchList.updateQuery(query, index);
         this.gitHubSearchListRepository.save(searchList);
     }
 }

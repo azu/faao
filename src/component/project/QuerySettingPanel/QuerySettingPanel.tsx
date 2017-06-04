@@ -10,7 +10,7 @@ import {
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorResult, GithubPicker } from 'react-color';
 
-export interface QuickIssuePanelProps {
+export interface QuerySettingPanelProps {
     settings: GitHubSetting[];
     query?: GitHubSearchQuery;
     isOpen: boolean;
@@ -20,7 +20,7 @@ export interface QuickIssuePanelProps {
     onSubmit: (queryJSON: GitHubSearchQueryJSON) => void;
 }
 
-export interface QuickIssuePanelState {
+export interface QuerySettingPanelState {
     gitHubSettingId: string,
     query: string,
     name: string,
@@ -28,7 +28,7 @@ export interface QuickIssuePanelState {
     error: Error | null
 }
 
-export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, QuickIssuePanelState> {
+export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, QuerySettingPanelState> {
     state = {
         gitHubSettingId: "",
         query: "",
@@ -84,6 +84,18 @@ export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, Qui
         }
         return true;
     };
+
+    componentWillReceiveProps(nextProps: QuerySettingPanelProps) {
+        if (nextProps.query) {
+            this.setState({
+                gitHubSettingId: nextProps.query.gitHubSettingId.toValue(),
+                query: nextProps.query.query,
+                name: nextProps.query.name,
+                color: nextProps.query.color.hexCode
+            });
+        }
+    }
+
 
     render() {
         const errorMessage = this.state.error
