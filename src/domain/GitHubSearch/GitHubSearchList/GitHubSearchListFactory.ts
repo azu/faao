@@ -11,6 +11,12 @@ const defaultQueries = [
         apiHost: "https://api.github.com/"
     },
     {
+        name: "azu@todo",
+        color: "#54dd00",
+        query: "repo:azu/azu",
+        apiHost: "https://api.github.com/"
+    },
+    {
         name: "textlint",
         color: "#dda7d9",
         query: "textlint",

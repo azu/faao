@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { List } from "office-ui-fabric-react";
+import { Link, List } from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 
@@ -18,8 +18,10 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
             borderLeft: `${this.props.query.color.hexCode} 2px solid`,
             paddingLeft: "0.5em"
         };
-        return <div className='SearchQueryListItem' onClick={onClick}>
-            <span style={style} className='SearchQueryListItem-primaryText'>{ this.props.query.name }</span>
+        return <div className="SearchQueryListItem">
+            <Link className='SearchQueryListItem-button' onClick={onClick}>
+                <span style={style} className='SearchQueryListItem-primaryText'>{ this.props.query.name }</span>
+            </Link>
         </div>
     }
 }
