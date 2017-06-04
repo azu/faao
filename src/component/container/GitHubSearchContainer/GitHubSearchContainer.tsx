@@ -20,19 +20,12 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     menuItems = [
         {
             key: 'newItem',
-            icon: 'Add',
+            name: "Quick Issue",
+            icon: 'EditMirrored',
             ariaLabel: 'Quick New Issue',
             onClick: () => {
                 return this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
             }
-        },
-        {
-            key: 'upload',
-            icon: 'Upload',
-            onClick: () => {
-                return;
-            },
-            ['data-automation-id']: 'uploadNonFocusButton'
         }
     ];
 
@@ -54,7 +47,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                 />
             </header>
             <div className="GitHubSearchContainer-main">
-                <h1 className='ms-font-xxl'>Inbox
+                <h1 className='ms-font-xxl'>Queries
                     <IconButton
                         iconProps={ { iconName: 'Add' } }
                         title='Add query'

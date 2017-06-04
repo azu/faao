@@ -27,7 +27,21 @@
             nav.classList.remove("is-focus");
         });
         require('electron-context-menu')({
-            window: webview
+            window: webview,
+            prepend: (params, browserWindow) => {
+                const hasURL = params.linkURL !== undefined && params.linkURL.length > 0;
+                return [
+                    {
+                        label: 'Open in new tab',
+                        visible: hasURL,
+                        click () {
+                            if (hasURL) {
+                                window.electronNavigation.newTab(params.linkURL);
+                            }
+                        }
+                    }
+                ]
+            }
         });
     });
 </script>
