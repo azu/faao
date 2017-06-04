@@ -7,11 +7,10 @@ export interface Entity {
     id: string | EntityId<any>;
 }
 
-const LAST_USED = "__lastUsed__";
-
 export class BaseRepository<T extends Entity> {
     private initialEntity: T;
 
+    private lastUsed: T | null;
     map: MapLike<Entity["id"], T>;
 
     constructor(initialEntity: T) {
@@ -21,7 +20,7 @@ export class BaseRepository<T extends Entity> {
     }
 
     get(): T {
-        return this.map.get(LAST_USED) || this.initialEntity;
+        return this.lastUsed || this.initialEntity;
     }
 
     findById(entityId: Entity["id"]): T | undefined {
@@ -33,7 +32,7 @@ export class BaseRepository<T extends Entity> {
     }
 
     save(entity: T): void {
-        this.map.set(LAST_USED, entity);
+        this.lastUsed = entity;
         assert.ok(typeof entity.id !== "undefined", "Entity should have id property for key");
         if (entity.id instanceof EntityId) {
             this.map.set(entity.id.toValue(), entity);
@@ -43,6 +42,7 @@ export class BaseRepository<T extends Entity> {
     }
 
     clear(): void {
+        this.lastUsed = null;
         this.map.clear();
     }
 }

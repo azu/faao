@@ -8,6 +8,14 @@ const execall = require('execall');
 export interface GitHubSearchQueryJSON {
     name: string;
     query: string;
+    color: string;
+    apiHost: string;
+    gitHubSettingId: string;
+}
+
+export interface GitHubSearchQueryArgs {
+    name: string;
+    query: string;
     color: GitHubSearchQueryColor;
     apiHost: string;
     gitHubSettingId: EntityId<GitHubSetting>
@@ -20,7 +28,7 @@ export class GitHubSearchQuery {
     apiHost: string;
     gitHubSettingId: EntityId<GitHubSetting>;
 
-    constructor(object: GitHubSearchQueryJSON) {
+    constructor(object: GitHubSearchQueryArgs) {
         this.name = object.name;
         this.query = object.query;
         this.color = object.color;

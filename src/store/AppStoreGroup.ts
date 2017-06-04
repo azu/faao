@@ -10,9 +10,9 @@ import { GitHubSearchStreamStore, GitHubSearchStreamState } from "./GitHubSearch
 import { AppStore, AppState } from "./AppStore/AppStore";
 import { QuickIssueStore, QuickIssueState } from "./QuickIssueStore/QuickIssueStore";
 import { gitHubSettingRepository } from "../infra/repository/GitHubSettingsRepository";
+import { GitHubSettingStore, GitHubSettingState } from "./GitHubSettingStore/GitHubSettingStore";
 // repository
 // store
-
 // store mapping
 export const storeMapping = {
     app: new AppStore(appRepository),
@@ -22,7 +22,19 @@ export const storeMapping = {
         appRepository,
         gitHubSearchListRepository,
         gitHubSettingRepository
-    })
+    }),
+    gitHubSetting: new GitHubSettingStore(gitHubSettingRepository)
+};
+
+// debug
+(<any>window).faao = {
+    repositories: {
+        appRepository,
+        gitHubSettingRepository,
+        gitHubSearchListRepository,
+        gitHubSearchStreamRepository
+    },
+    stores: storeMapping
 };
 // state mapping
 export const stateMapping = StoreGroupTypes.StoreToState(storeMapping);

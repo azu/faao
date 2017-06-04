@@ -8,6 +8,7 @@ import { BaseContainer } from "./BaseContainer";
 import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
 import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
+import { QuerySettingContainer } from "./QuerySettingContainer/QuerySettionContainer";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
@@ -28,6 +29,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                     gitHubSearchStream={this.props.gitHubSearchStream}
                 />
             </main>
+
+            <QuerySettingContainer
+                gitHubSetting={this.props.gitHubSetting}
+            />
             <QuickIssueContainer
                 quickIssue={this.props.quickIssue}
             />

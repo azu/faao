@@ -20,7 +20,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
         {
             key: 'newItem',
             icon: 'Add',
-            ariaLabel: 'New. Use left and right arrow keys to navigate',
+            ariaLabel: 'Quick New Issue',
             onClick: () => {
                 return this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
             }
@@ -49,7 +49,12 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                 />
             </header>
             <div className="GitHubSearchContainer-main">
-                <h1 className='ms-font-xxl'>Inbox</h1>
+                <h1 className='ms-font-xxl'>Inbox
+                    <IconButton
+                        iconProps={ { iconName: 'Add' } }
+                        title='Add query'
+                        ariaLabel='Add query'/>
+                </h1>
                 <SearchQueryList queries={this.props.gitHubSearchList.queries} onClickQuery={this.onClickQuery}/>
             </div>
         </div>
