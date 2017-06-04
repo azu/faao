@@ -34,6 +34,10 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             .executor(useCase => useCase.execute(query));
     };
 
+    onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(query));
+    };
+
     onClickAddingQuery = () => {
         this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute());
     };
@@ -55,7 +59,11 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                         onClick={this.onClickAddingQuery}
                     />
                 </h1>
-                <SearchQueryList queries={this.props.gitHubSearchList.queries} onClickQuery={this.onClickQuery}/>
+                <SearchQueryList
+                    queries={this.props.gitHubSearchList.queries}
+                    onClickQuery={this.onClickQuery}
+                    onEditQuery={this.onEditQuery}
+                />
             </div>
         </div>
     }

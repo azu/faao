@@ -7,6 +7,7 @@ import { SyntheticEvent } from "react";
 export interface SearchQueryListItemProps {
     query: GitHubSearchQuery;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
 }
 
 export interface SearchQueryListItemState {
@@ -43,25 +44,15 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
                 items={
                     [
                         {
-                            key: 'newItem',
+                            key: 'edit-query',
                             iconProps: {
-                                iconName: 'Add'
+                                iconName: 'Edit'
                             },
-                            subMenuProps: {
-                                items: [
-                                    {
-                                        key: 'emailMessage',
-                                        name: 'Email message',
-                                        title: 'Create an email'
-                                    },
-                                    {
-                                        key: 'calendarEvent',
-                                        name: 'Calendar event',
-                                        title: 'Create a calendar event',
-                                    }
-                                ],
+                            onClick: (event: React.MouseEvent<any>) => {
+                                console.log(event, this.props.query);
+                                this.props.onEditQuery(event, this.props.query);
                             },
-                            name: 'New'
+                            name: 'Edit query'
                         }
                     ]
                 }
@@ -89,19 +80,21 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
 export interface SearchQueryListProps {
     queries: GitHubSearchQuery[];
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
 }
 
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
     render() {
-        const onClickQuery = (event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-            this.props.onClickQuery(event, query);
-        };
         return <List
             getPageHeight={() => 30}
             className="SearchQueryList"
             items={ this.props.queries }
             onRenderCell={ (query: GitHubSearchQuery) => (
-                <SearchQueryListItem query={query} onClickQuery={onClickQuery}/>
+                <SearchQueryListItem
+                    query={query}
+                    onClickQuery={this.props.onClickQuery}
+                    onEditQuery={this.props.onEditQuery}
+                />
             )}
         />
     }
