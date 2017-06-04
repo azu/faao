@@ -10,7 +10,6 @@ html, body, #js-app, .AppContainer {
 
 :root {
     --App-nav--width: 180px;
-    --App--padding-top: 1rem;
 }
 
 .AppContainer-nav {
@@ -18,8 +17,6 @@ html, body, #js-app, .AppContainer {
     top: 0;
     left: 0;
     width: var(--App-nav--width);
-    padding: 0 var(--App--padding-top);
-
 }
 
 .AppContainer-main {

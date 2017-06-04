@@ -7,6 +7,7 @@ import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHu
 import { BaseContainer } from "./BaseContainer";
 import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
+import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
@@ -27,7 +28,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                     gitHubSearchStream={this.props.gitHubSearchStream}
                 />
             </main>
+            <QuickIssueContainer
+                quickIssue={this.props.quickIssue}
+            />
             {preview}
-        </div>
+        </div>;
     }
 }

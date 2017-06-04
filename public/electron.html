@@ -17,6 +17,12 @@
     const ElectronNavigation = require('electron-navigation');
     window.electronNavigation = new ElectronNavigation();
     window.electronNavigation.newTab('https://github.com');
+    window.addEventListener('load', () => {
+        const webview = document.querySelector('webview.nav-views-view');
+        require('electron-context-menu')({
+            window: webview
+        });
+    });
 </script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 "use strict";
 const path = require("path");
 const { app, BrowserWindow } = require('electron');
+// context-menu for window
+require('electron-context-menu')();
 // Standard stuff
 app.on("gpu-process-crashed", (event) => {
     console.log("gpu-process-crashed", event);

@@ -7,4 +7,4 @@ export class GitHubSearchListRepository extends BaseRepository<GitHubSearchList>
 
 }
 
-export default new GitHubSearchListRepository(GitHubSearchListFactory.create());
+export const gitHubSearchListRepository =  new GitHubSearchListRepository(GitHubSearchListFactory.create());

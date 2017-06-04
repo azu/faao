@@ -39,7 +39,7 @@ export class SearchGitHubUseCase extends UseCase {
         const gitHubClient = new GitHubClient(gitHubSetting);
         // AppUser open stream and select first item
         await this.context.useCase(createAppUserOpenStreamUseCase())
-            .executor(useCase => useCase.execute(stream));
+            .executor(useCase => useCase.execute(query, stream));
         await this.context.useCase(createAppUserSelectFirstItemUseCase())
             .executor(useCase => useCase.execute());
         return new Promise((resolve, reject) => {

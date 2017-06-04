@@ -3,6 +3,8 @@ import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
 import { EntityId } from "../../util/EntityId";
 
+const execall = require('execall');
+
 export interface GitHubSearchQueryJSON {
     name: string;
     query: string;
@@ -24,6 +26,19 @@ export class GitHubSearchQuery {
         this.color = object.color;
         this.apiHost = object.apiHost;
         this.gitHubSettingId = object.gitHubSettingId;
+    }
+
+    /**
+     * if it contains `repo:xxx`, return [xxx]
+     * @returns {any}
+     */
+    get targetRepositories(): string[] {
+        const repoPattern = /repo:([^\s]+)/i;
+        let results: string[] = [];
+        execall(repoPattern, this.query).map((result: any) => {
+            results = results.concat(result.sub);
+        });
+        return results
     }
 
     /**

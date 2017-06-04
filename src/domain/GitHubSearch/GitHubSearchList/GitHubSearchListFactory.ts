@@ -6,6 +6,12 @@ import { GitHubSettingFactory } from "../../GitHubSetting/GitHubSettingsFactory"
 
 const defaultQueries = [
     {
+        name: "azu",
+        color: "#d2ddb9",
+        query: "user:azu involves:azu",
+        apiHost: "https://api.github.com/"
+    },
+    {
         name: "Almin",
         color: "#d1dddc",
         query: "almin",

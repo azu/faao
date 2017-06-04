@@ -2,6 +2,7 @@
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export const createAppUserOpenStreamUseCase = () => {
     return new AppUserOpenStreamUseCase(
@@ -14,8 +15,9 @@ export class AppUserOpenStreamUseCase extends UseCase {
         super();
     }
 
-    execute(stream: GitHubSearchStream) {
+    execute(query: GitHubSearchQuery, stream: GitHubSearchStream) {
         const app = this.appRepository.get();
+        app.user.openQuery(query);
         app.user.openStream(stream);
         this.appRepository.save(app);
     }

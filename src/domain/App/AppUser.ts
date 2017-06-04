@@ -3,6 +3,7 @@
 import { AppUserActivity } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchQuery } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export interface AppUserArgs {
     activity: AppUserActivity;
@@ -21,5 +22,9 @@ export class AppUser {
 
     openItem(item: GitHubSearchResultItem): void {
         this.activity.addItem(item);
+    }
+
+    openQuery(query: GitHubSearchQuery) {
+        this.activity.addQuery(query);
     }
 }
