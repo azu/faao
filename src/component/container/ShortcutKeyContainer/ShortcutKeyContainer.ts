@@ -23,7 +23,6 @@ export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
             "k": "move-prev-item"
         };
         Object.keys(keyMap).forEach(key => {
-            console.log(key);
             this.combokeys.bind(key, (event: Event) => {
                 actionMap[keyMap[key]](event);
             });

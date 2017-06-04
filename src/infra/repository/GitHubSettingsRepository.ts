@@ -1,8 +1,12 @@
 import { BaseRepository } from "./BaseRepository";
-import { GitHubSettings } from "../../domain/GitHubSetting/GitHubSettings";
-import { GitHubSettingsFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
+import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
+import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
+import { EntityId } from "../../domain/util/EntityId";
 
-export class GitHubSettingsRepository extends BaseRepository<GitHubSettings> {
-
+export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
+    findGitHubSettingById(id: EntityId<GitHubSetting>): GitHubSetting | undefined {
+        return this.findById(id);
+    }
 }
-export const gitHubSettingsRepository = new GitHubSettingsRepository(GitHubSettingsFactory.create());
+
+export const gitHubSettingRepository = new GitHubSettingRepository(GitHubSettingFactory.create());

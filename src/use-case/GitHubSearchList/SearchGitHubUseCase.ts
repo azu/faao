@@ -1,6 +1,6 @@
 import { UseCase, ChangedPayload } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
-import { gitHubSettingsRepository, GitHubSettingsRepository } from "../../infra/repository/GitHubSettingsRepository";
+import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
@@ -9,22 +9,26 @@ import {
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
-import { createAppUserSelectItemUseCase } from "../App/AppUserSelectItemUseCase";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
+import { EntityId } from "../../domain/util/EntityId";
+import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 
 export const createSearchGitHubUseCase = () => {
-    return new SearchGitHubUseCase(gitHubSettingsRepository, gitHubSearchStreamRepository);
+    return new SearchGitHubUseCase(gitHubSettingRepository, gitHubSearchStreamRepository);
 };
 
 export class SearchGitHubUseCase extends UseCase {
-    constructor(private gitHubSettingsRepository: GitHubSettingsRepository,
+    constructor(private gitHubSettingRepository: GitHubSettingRepository,
                 private gitHubSearchStreamRepository: GitHubSearchStreamRepository) {
         super();
     }
 
     async execute(query: GitHubSearchQuery) {
-        const gitHubSettings = this.gitHubSettingsRepository.get();
-        const gitHubSetting = gitHubSettings.findGitHubSettingById("azu@github.com");
+        // const gitHubSetting = this.gitHubSettingRepository.findGitHubSettingById(
+        //     new EntityId<GitHubSetting>("azu@github.com")
+        // );
+        // TODO: use find | current use default setting
+        const gitHubSetting = this.gitHubSettingRepository.get();
         if (!gitHubSetting) {
             return Promise.reject(new Error(`Not found GitHubSetting`));
         }

@@ -1,12 +1,13 @@
 // MIT © 2017 azu
 import MapLike from "map-like";
 import * as assert from "assert";
+import { EntityId } from "../../domain/util/EntityId";
 
 export interface Entity {
-    id: string;
+    id: string | EntityId<any>;
 }
 
-const key = "__lastUsed__";
+const LAST_USED = "__lastUsed__";
 
 export class BaseRepository<T extends Entity> {
     private initialEntity: T;
@@ -19,17 +20,25 @@ export class BaseRepository<T extends Entity> {
     }
 
     get(): T {
-        return this.map.get(key) || this.initialEntity;
+        return this.map.get(LAST_USED) || this.initialEntity;
     }
 
     findById(entityId: Entity["id"]): T | undefined {
-        return this.map.get(entityId);
+        if (entityId instanceof EntityId) {
+            return this.map.get(entityId.toValue());
+        } else {
+            return this.map.get(entityId);
+        }
     }
 
     save(entity: T): void {
-        this.map.set(key, entity);
+        this.map.set(LAST_USED, entity);
         assert.ok(typeof entity.id !== "undefined", "Entity should have id property for key");
-        this.map.set(entity.id, entity);
+        if (entity.id instanceof EntityId) {
+            this.map.set(entity.id.toValue(), entity);
+        } else {
+            this.map.set(entity.id, entity);
+        }
     }
 
     clear(): void {

@@ -14,11 +14,17 @@ export class EntityId<Entity> {
         this.value = value || String(id++);
     }
 
-    equals(id: EntityId<Entity>) {
+    equals(id: EntityId<Entity>): boolean {
+        if (id === null) {
+            return false;
+        }
+        if (!(id instanceof EntityId)) {
+            return false;
+        }
         return id.toValue() === this.value;
     }
 
-    toValue() {
-        return this.value;
+    toValue(): string {
+        return this.value!;
     }
 }

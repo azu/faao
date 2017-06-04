@@ -1,11 +1,14 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
+import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
+import { EntityId } from "../../util/EntityId";
 
 export interface GitHubSearchQueryJSON {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
     apiHost: string;
+    gitHubSettingId: EntityId<GitHubSetting>
 }
 
 export class GitHubSearchQuery {
