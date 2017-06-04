@@ -1,3 +1,17 @@
 .SearchQueryListItem {
+    height: 30px;
     padding: 0.2rem 0;
+    /* for SearchQueryListItem-settingButton */
+    position: relative;
+}
+
+.SearchQueryListItem-button {
+    vertical-align: middle;
+}
+
+.SearchQueryListItem-settingButton {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: auto;
 }
