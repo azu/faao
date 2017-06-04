@@ -3,11 +3,14 @@
 
 :root {
     --electron-nav--width: 800px;
+    --electron-nav-is-focus--width: 1024px;
 }
 
 .electron-nav {
     position: fixed;
     height: 100%;
+    will-change: width;
+    transition: width 0.1s ease-in-out;
     width: var(--electron-nav--width);
     top: 0;
     right: 0;
@@ -32,4 +35,9 @@
 
 #js-app {
     padding-right: var(--electron-nav--width);
+}
+
+/* focus webview and flexible width*/
+.electron-nav.is-focus {
+    width: var(--electron-nav-is-focus--width);
 }

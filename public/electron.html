@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="js-app"></div>
-<div class="electron-nav">
+<div class="electron-nav" tabindex="-1">
     <div id="nav-body-ctrls"></div>
     <div id="nav-body-tabs"></div>
     <div id="nav-body-views"></div>
@@ -18,7 +18,14 @@
     window.electronNavigation = new ElectronNavigation();
     window.electronNavigation.newTab('https://github.com');
     window.addEventListener('load', () => {
+        const nav = document.querySelector(".electron-nav");
         const webview = document.querySelector('webview.nav-views-view');
+        webview.addEventListener("focus", (event) => {
+            nav.classList.add("is-focus");
+        });
+        webview.addEventListener("blur", (event) => {
+            nav.classList.remove("is-focus");
+        });
         require('electron-context-menu')({
             window: webview
         });
