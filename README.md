@@ -99,6 +99,12 @@ For bugs and feature requests, [please create an issue](https://github.com/azu/f
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+## Related Efforts
+
+- [azu/github-issue-teev](https://github.com/azu/github-issue-teev): [NW.js] GitHub Issue Manager(Viewer)
+- [Jasper](https://jasperapp.io/): A flexible and powerful issue reader for GitHub
+- [Gitscout](https://gitscout.com/ "Gitscout | A beautiful and optimized GitHub Issues experience for macOS"): A beautiful and optimized GitHub Issues experience for macOS
+
 ## Author
 
 - [github/azu](https://github.com/azu)
