@@ -51,7 +51,7 @@ const createDefault = (): any => {
     ].map(json => {
         return {
             ...json,
-            gitHubSettingId: GitHubSettingFactory.create().id // TODO: remove
+            gitHubSettingId: GitHubSettingFactory.create().id.toValue() // TODO: remove
         }
     });
 };

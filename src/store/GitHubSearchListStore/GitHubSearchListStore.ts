@@ -10,16 +10,19 @@ import {
 
 export interface GitHubSearchListStateObject {
     queries: GitHubSearchQuery[];
+    editingQuery: GitHubSearchQuery | undefined;
     isOpenAddingPanel: boolean;
 }
 
 export class GitHubSearchListState implements GitHubSearchListStateObject {
+    editingQuery: GitHubSearchQuery | undefined;
     isOpenAddingPanel: boolean;
     queries: GitHubSearchQuery[];
 
     constructor(state: GitHubSearchListStateObject) {
         this.queries = state.queries;
         this.isOpenAddingPanel = state.isOpenAddingPanel;
+        this.editingQuery = state.editingQuery;
     }
 
     update(searchList: GitHubSearchList) {
@@ -33,12 +36,14 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
         if (payload instanceof OpenQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
-                isOpenAddingPanel: true
+                isOpenAddingPanel: true,
+                editingQuery: payload.query
             });
         } else if (payload instanceof CloseQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
-                isOpenAddingPanel: false
+                isOpenAddingPanel: false,
+                editingQuery: undefined
             });
         }
         return this;
@@ -54,6 +59,7 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         this.gitHubSearchRepository = gitHubSearchRepository;
         this.state = new GitHubSearchListState({
             isOpenAddingPanel: false,
+            editingQuery: undefined,
             queries: []
         });
     }

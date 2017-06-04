@@ -7,11 +7,11 @@ import {
 import { GitHubSearchQueryJSON } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryFactory";
 
-export const createAddQueryToSearchListUseCase = () => {
-    return new AddQueryToSearchListUseCase(gitHubSearchListRepository);
+export const createSaveQueryToSearchListUseCase = () => {
+    return new SaveQueryToSearchListUseCase(gitHubSearchListRepository);
 };
 
-export class AddQueryToSearchListUseCase extends UseCase {
+export class SaveQueryToSearchListUseCase extends UseCase {
     constructor(public gitHubSearchListRepository: GitHubSearchListRepository) {
         super();
     }

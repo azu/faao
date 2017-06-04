@@ -1,8 +1,9 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export class OpenQueryPanelUseCasePayload extends Payload {
-    constructor() {
+    constructor(public query?: GitHubSearchQuery) {
         super({ type: "OpenQueryPanelUseCasePayload" })
     }
 }
@@ -14,8 +15,8 @@ export class CloseQueryPanelUseCasePayload extends Payload {
 }
 
 export class OpenQueryPanelUseCase extends UseCase {
-    execute() {
-        this.dispatch(new OpenQueryPanelUseCasePayload());
+    execute(query?: GitHubSearchQuery) {
+        this.dispatch(new OpenQueryPanelUseCasePayload(query));
     }
 }
 

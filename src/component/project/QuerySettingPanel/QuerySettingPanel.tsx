@@ -5,13 +5,14 @@ import {
     IDropdownOption, Callout, DefaultButton, IconButton, Link, MessageBar, MessageBarType
 } from "office-ui-fabric-react";
 import {
-    GitHubSearchQueryJSON
+    GitHubSearchQueryJSON, GitHubSearchQuery
 } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorResult, GithubPicker } from 'react-color';
 
 export interface QuickIssuePanelProps {
     settings: GitHubSetting[];
+    query?: GitHubSearchQuery;
     isOpen: boolean;
     // when close panel
     onDismiss: () => void;
@@ -100,6 +101,7 @@ export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, Qui
             <Dropdown
                 label='Select your GitHub setting:'
                 onChanged={this.onChangedDropDown}
+                defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
                 options={
                     this.props.settings.map(setting => {
                         return {
@@ -113,6 +115,7 @@ export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, Qui
             <TextField
                 label='Name:'
                 placeholder="query name"
+                defaultValue={this.props.query && this.props.query.name}
                 onChanged={(text) => {
                     this.setState({ name: text });
                 }}
@@ -120,6 +123,7 @@ export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, Qui
             <TextField
                 label='Query:'
                 placeholder="repo:azu/faao"
+                defaultValue={this.props.query && this.props.query.query}
                 onChanged={(text) => this.setState({ query: text })}
             />
             <p className="ms-font-xs QuerySettingPanel-itemDescription">This query is same with GitHub Search query.
@@ -128,6 +132,7 @@ export class QuerySettingPanel extends React.Component<QuickIssuePanelProps, Qui
                 label='Color:'
                 addonString="#"
                 value={this.state.color.replace(/^#/, "")}
+                defaultValue={this.props.query && this.props.query.color.hexCode.replace(/^#/, "")}
                 onChanged={(text) => this.setState({ color: text })}
             />
             <GithubPicker onChange={this.onChangeColor}/>

@@ -4,9 +4,9 @@ import { BaseContainer } from "../BaseContainer";
 import { GitHubSettingState } from "../../../store/GitHubSettingStore/GitHubSettingStore";
 import { QuerySettingPanel } from "../../project/QuerySettingPanel/QuerySettingPanel";
 import { GitHubSearchQueryJSON } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { createAddQueryToSearchListUseCase } from "../../../use-case/App/AppUserAddQueryUseCase";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import { createSaveQueryToSearchListUseCase } from "../../../use-case/App/SaveQueryToSearchListUseCase";
 
 export interface QuickIssueContainerProps {
     gitHubSearchList: GitHubSearchListState;
@@ -20,12 +20,13 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
     };
 
     onSubmit = (queryJSON: GitHubSearchQueryJSON) => {
-        this.useCase(createAddQueryToSearchListUseCase()).executor(useCase => useCase.execute(queryJSON));
+        this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase => useCase.execute(queryJSON));
     };
 
     render() {
         return <QuerySettingPanel
-            isOpen={this.props.gitHubSearchList.isOpenAddingPanel}
+            isOpen={true}
+            query={this.props.gitHubSearchList.queries[0]}
             onDismiss={this.onDismiss}
             onSubmit={this.onSubmit}
             settings={this.props.gitHubSetting.settings}
