@@ -1,17 +1,17 @@
 // MIT © 2017 azu
-import { GitHubSettingId } from "./GitHubSettingId";
+import { EntityId } from "../util/EntityId";
 
 export type GitHubSettingJSON = {
     [P in keyof GitHubSetting]: GitHubSetting[P];
     }
 
 export class GitHubSetting {
-    id: GitHubSettingId;
+    id: EntityId<GitHubSetting>;
     token: string;
     apiHost: string;
     webHost: string;
 
-    constructor(id: GitHubSettingId, token: string, apiHost: string, webHost: string) {
+    constructor(id: EntityId<GitHubSetting>, token: string, apiHost: string, webHost: string) {
         this.id = id;// unique
         this.token = token;
         this.apiHost = apiHost;
