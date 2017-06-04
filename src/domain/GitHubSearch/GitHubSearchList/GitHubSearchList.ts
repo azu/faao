@@ -29,4 +29,8 @@ export class GitHubSearchList {
             queries: this.queries
         }
     }
+
+    addQuery(query: GitHubSearchQuery) {
+        this.queries = this.queries.concat(query);
+    }
 }

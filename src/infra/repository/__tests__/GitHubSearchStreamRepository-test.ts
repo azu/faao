@@ -24,7 +24,6 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                apiHost: "https://api.github.com",
                 gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
             return repository.findByQuery(testQuery).then((value) => {
@@ -42,7 +41,6 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                apiHost: "https://api.github.com",
                 gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
             await repository.saveWithQuery(stream, testQuery);

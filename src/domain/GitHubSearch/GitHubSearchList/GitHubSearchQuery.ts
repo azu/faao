@@ -9,7 +9,6 @@ export interface GitHubSearchQueryJSON {
     name: string;
     query: string;
     color: string;
-    apiHost: string;
     gitHubSettingId: string;
 }
 
@@ -17,7 +16,6 @@ export interface GitHubSearchQueryArgs {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
-    apiHost: string;
     gitHubSettingId: EntityId<GitHubSetting>
 }
 
@@ -25,14 +23,12 @@ export class GitHubSearchQuery {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
-    apiHost: string;
     gitHubSettingId: EntityId<GitHubSetting>;
 
     constructor(object: GitHubSearchQueryArgs) {
         this.name = object.name;
         this.query = object.query;
         this.color = object.color;
-        this.apiHost = object.apiHost;
         this.gitHubSettingId = object.gitHubSettingId;
     }
 
@@ -54,6 +50,6 @@ export class GitHubSearchQuery {
      * @returns {string}
      */
     get hash() {
-        return `${this.name}-${this.query}-${String(this.gitHubSettingId)}`;
+        return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
 }

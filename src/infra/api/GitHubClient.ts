@@ -38,10 +38,10 @@ export class GitHubClient {
             debug("response %o", response);
             // Support incompleteResults
             const gitHubSearchResult = GitHubSearchResultFactory.create({
-                items: response.items
+                items: response.items || []
             });
             onProgress(gitHubSearchResult).then(isContinue => {
-                if (response.incompleteResults) {
+                if (!response.incompleteResults) {
                     onComplete();
                 } else if (isContinue) {
                     response.fetch().then(onFetch);
