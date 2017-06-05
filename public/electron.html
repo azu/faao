@@ -23,10 +23,10 @@
         webview.addEventListener("focus", (event) => {
             nav.classList.add("is-focus");
         });
-        webview.addEventListener("mouseenter", (event) => {
+        nav.addEventListener("mouseenter", (event) => {
             nav.classList.add("is-focus");
         });
-        webview.addEventListener("mouseleave", (event) => {
+        nav.addEventListener("mouseleave", (event) => {
             nav.classList.remove("is-focus");
         });
         webview.addEventListener("blur", (event) => {

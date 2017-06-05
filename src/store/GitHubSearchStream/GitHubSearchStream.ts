@@ -3,14 +3,11 @@ import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
-import sortBy from "lodash.sortby";
 
 export interface GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
+    sortedItems: GitHubSearchResultItem[];
 }
-
-type SortType = "updated" | "created";
-const sortType = "update";
 
 export class GitHubSearchStreamState {
     items: GitHubSearchResultItem[];
@@ -18,16 +15,14 @@ export class GitHubSearchStreamState {
 
     constructor(state: GitHubSearchStreamStateObject) {
         this.items = state.items;
-        // sortedItems
-        this.sortedItems = sortBy(this.items, (item: GitHubSearchResultItem) => {
-            return item.updatedAt;
-        }).reverse();
+        this.sortedItems = state.sortedItems;
     }
 
     update(stream: GitHubSearchStream) {
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
-            items: stream.itemSortedCollection.items
+            items: stream.items,
+            sortedItems: stream.itemSortedCollection.items
         });
     }
 }
@@ -40,7 +35,8 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
         super();
         this.gitHubSearchStreamRepository = gitHubSearchStreamRepository;
         this.state = new GitHubSearchStreamState({
-            items: []
+            items: [],
+            sortedItems: []
         });
     }
 
