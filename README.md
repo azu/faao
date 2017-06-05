@@ -2,7 +2,7 @@
 
 Faao is a GitHub issue client like jasper.
 
-![gif](https://media.giphy.com/media/l4FGxHRrgC1bv6OeQ/giphy.gif)
+[![gif](https://media.giphy.com/media/l4FGxHRrgC1bv6OeQ/giphy.gif)](https://giphy.com/gifs/l4FGxHRrgC1bv6OeQ/fullscreen)
 
 ## Install
 
