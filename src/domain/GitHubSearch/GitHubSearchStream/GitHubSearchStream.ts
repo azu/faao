@@ -3,6 +3,12 @@ import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import uniqBy from "lodash.uniqby"
+import { GitHubSearchResultItemCollection } from "./GitHubSearchResultItemCollection";
+import {
+    GitHubSearchResultItemSortedCollection,
+    SortType,
+    SortTypeArgs
+} from "./GitHubSearchResultItemSortedCollection";
 
 let id = 0;
 
@@ -17,11 +23,12 @@ export interface GitHubSearchStreamJSON {
 export class GitHubSearchStream {
     id: string;
     items: GitHubSearchResultItem[];
-    private lastResult: GitHubSearchResult | undefined;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(items: GitHubSearchResultItem[]) {
         this.id = `GitHubSearchStream${id++}`;
         this.items = items;
+        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(items, "updated");
     }
 
     /**
@@ -33,22 +40,20 @@ export class GitHubSearchStream {
     alreadyHasResult(result: GitHubSearchResult): boolean {
         // check first item or last item is included in this stream
         const [firstItem, lastItem] = result.items;
-        const matchIds = [firstItem, lastItem]
-            .filter(item => item !== undefined)
-            .map(item => item.id);
-        return this.items.some(item => {
-            return matchIds.includes(item.id);
-        })
+        const matchingItems = [firstItem, lastItem]
+            .filter(item => item !== undefined);
+        return matchingItems.some(matchingItem => {
+            return this.itemSortedCollection.includes(matchingItem);
+        });
     }
 
     mergeResult(result: GitHubSearchResult) {
-        this.items = uniqBy(this.items.concat(result.items), "id");
-        this.lastResult = result;
+        this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
     }
 
     toJSON(): GitHubSearchStreamJSON {
         return {
-            items: this.items.map(item => {
+            items: this.itemSortedCollection.items.map(item => {
                 return item.toJSON();
             })
         }
@@ -56,29 +61,6 @@ export class GitHubSearchStream {
 
     clear() {
         this.items = [];
-    }
-
-
-    getFirstItem(): GitHubSearchResultItem | undefined {
-        return this.getItemAtIndex(0);
-    }
-
-    getItemAtIndex(index: number): GitHubSearchResultItem | undefined {
-        return this.items[index];
-    }
-
-    getNextItem(currentItem: GitHubSearchResultItem): GitHubSearchResultItem | undefined {
-        const index = this.items.findIndex(item => {
-            return item.equals(currentItem);
-        });
-        return this.getItemAtIndex(index + 1);
-    }
-
-    getPrevItem(currentItem: GitHubSearchResultItem) {
-        const index = this.items.findIndex(item => {
-            return item.equals(currentItem);
-        });
-        return this.getItemAtIndex(index - 1);
-
+        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection([], "updated");
     }
 }

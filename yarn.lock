@@ -24,6 +24,12 @@
   version "19.2.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
 
+"@types/lodash.sortby@^4.7.2":
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.sortby/-/lodash.sortby-4.7.2.tgz#00df83251e2c4be0a90e0c015ed5de50a72b92c3"
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.throttle@^4.1.2":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@types/lodash.throttle/-/lodash.throttle-4.1.2.tgz#52356fa3fa52b0327e73e92763d607f76f9ced5b"
@@ -3377,6 +3383,10 @@ locate-path@^2.0.0:
   dependencies:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
+
+lodash.sortby@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
 lodash.throttle@^4.1.1:
   version "4.1.1"

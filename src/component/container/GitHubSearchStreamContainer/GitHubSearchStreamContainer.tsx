@@ -27,7 +27,7 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
             <div className='GitHubSearchStreamContainer-main'>
                 <SearchResultList
                     className="GitHubSearchStreamContainer-list"
-                    items={this.props.gitHubSearchStream.items}
+                    items={this.props.gitHubSearchStream.sortedItems}
                     activeItem={this.props.app.activeItem}
                     onClickItem={this.onClickItem}/>
             </div>

@@ -21,7 +21,7 @@ export class AppUserSelectFirstItemUseCase extends UseCase {
         if (!currentStream) {
             return;
         }
-        const firstItem = currentStream.getFirstItem();
+        const firstItem = currentStream.itemSortedCollection.getFirstItem();
         if (!firstItem) {
             return;
         }

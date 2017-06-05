@@ -205,6 +205,14 @@ export class GitHubSearchResultItem implements Item {
         Object.assign(this, item);
     }
 
+    get createdAtDate() {
+        return new Date(this.createdAt);
+    }
+
+    get updatedAtDate() {
+        return new Date(this.updatedAt);
+    }
+
     equals(item?: GitHubSearchResultItem) {
         if (!item) {
             return false;

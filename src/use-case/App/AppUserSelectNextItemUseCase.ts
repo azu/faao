@@ -23,7 +23,7 @@ export class AppUserSelectNextItemUseCase extends UseCase {
             debug("Not found current item or stream");
             return;
         }
-        const nextItem = currentStream.getNextItem(currentItem);
+        const nextItem = currentStream.itemSortedCollection.getNextItem(currentItem);
         if (!nextItem) {
             debug("Not found next item");
             return;
