@@ -8,7 +8,7 @@ export class GitHubSettingFactory {
             new EntityId<GitHubSetting>("azu@github.com"),
             process.env.GH_TOKEN,
             "https://api.github.com",
-            'https://github.com'
+            "https://github.com"
         );
     }
 }

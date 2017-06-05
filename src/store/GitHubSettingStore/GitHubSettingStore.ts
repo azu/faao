@@ -4,7 +4,7 @@ import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
 
 export interface GitHubSettingStateObject {
-    settings: GitHubSetting[]
+    settings: GitHubSetting[];
 }
 
 export class GitHubSettingState implements GitHubSettingStateObject {
@@ -27,9 +27,11 @@ export class GitHubSettingStore extends Store<GitHubSettingState> {
 
     receivePayload() {
         const settings = this.gitHubSettingRepository.findAll();
-        this.setState(new GitHubSettingState({
-            settings
-        }));
+        this.setState(
+            new GitHubSettingState({
+                settings
+            })
+        );
     }
 
     getState(): GitHubSettingState {

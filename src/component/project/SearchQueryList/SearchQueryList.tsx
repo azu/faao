@@ -35,45 +35,50 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
         };
         const contextMenu = this.state.contextTarget && this.state.isContextMenuVisible
             ? <ContextualMenu
-                shouldFocusOnMount={ true }
-                target={ this.state.contextTarget }
-                directionalHint={ DirectionalHint.rightBottomEdge }
-                onDismiss={() => {
-                    this.setState({ contextTarget: undefined, isContextMenuVisible: false })
-                }}
-                items={
-                    [
-                        {
-                            key: 'edit-query',
-                            iconProps: {
-                                iconName: 'Edit'
-                            },
-                            onClick: (event: React.MouseEvent<any>) => {
-                                console.log(event, this.props.query);
-                                this.props.onEditQuery(event, this.props.query);
-                            },
-                            name: 'Edit query'
-                        }
-                    ]
-                }
-            />
+                  shouldFocusOnMount={true}
+                  target={this.state.contextTarget}
+                  directionalHint={DirectionalHint.rightBottomEdge}
+                  onDismiss={() => {
+                      this.setState({
+                          contextTarget: undefined,
+                          isContextMenuVisible: false
+                      });
+                  }}
+                  items={[
+                      {
+                          key: "edit-query",
+                          iconProps: {
+                              iconName: "Edit"
+                          },
+                          onClick: (event: React.MouseEvent<any>) => {
+                              console.log(event, this.props.query);
+                              this.props.onEditQuery(event, this.props.query);
+                          },
+                          name: "Edit query"
+                      }
+                  ]}
+              />
             : null;
-        return <div className="SearchQueryListItem">
-            {contextMenu}
-            <Link className='SearchQueryListItem-button' onClick={onClick}>
-                <span style={style} className='SearchQueryListItem-primaryText'>{ this.props.query.name }</span>
-            </Link>
+        return (
+            <div className="SearchQueryListItem">
+                {contextMenu}
+                <Link className="SearchQueryListItem-button" onClick={onClick}>
+                    <span style={style} className="SearchQueryListItem-primaryText">
+                        {this.props.query.name}
+                    </span>
+                </Link>
 
-            <IconButton
-                className="SearchQueryListItem-settingButton"
-                iconProps={ { iconName: 'Settings' } }
-                title='Open Context Menu'
-                ariaLabel='Open Context Menu'
-                text={ "More" }
-                onClick={this.onClickOpenContextMenu}
-            />
+                <IconButton
+                    className="SearchQueryListItem-settingButton"
+                    iconProps={{ iconName: "Settings" }}
+                    title="Open Context Menu"
+                    ariaLabel="Open Context Menu"
+                    text={"More"}
+                    onClick={this.onClickOpenContextMenu}
+                />
 
-        </div>
+            </div>
+        );
     }
 }
 
@@ -85,17 +90,18 @@ export interface SearchQueryListProps {
 
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
     render() {
-        return <List
-            getPageHeight={() => 30}
-            className="SearchQueryList"
-            items={ this.props.queries }
-            onRenderCell={ (query: GitHubSearchQuery) => (
-                <SearchQueryListItem
-                    query={query}
-                    onClickQuery={this.props.onClickQuery}
-                    onEditQuery={this.props.onEditQuery}
-                />
-            )}
-        />
+        return (
+            <List
+                getPageHeight={() => 30}
+                className="SearchQueryList"
+                items={this.props.queries}
+                onRenderCell={(query: GitHubSearchQuery) =>
+                    <SearchQueryListItem
+                        query={query}
+                        onClickQuery={this.props.onClickQuery}
+                        onEditQuery={this.props.onEditQuery}
+                    />}
+            />
+        );
     }
 }

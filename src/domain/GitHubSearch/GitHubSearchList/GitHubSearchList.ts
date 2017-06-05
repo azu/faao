@@ -2,12 +2,10 @@
 import { GitHubSearchQuery } from "./GitHubSearchQuery";
 import uniquBy from "lodash.uniqby";
 
-export type TO_JSON<T> = {
-    [P in keyof T]: T[P];
-    };
+export type TO_JSON<T> = { [P in keyof T]: T[P] };
 
 export interface GitHubSearchListJSON {
-    queries: TO_JSON<GitHubSearchQuery>[]
+    queries: TO_JSON<GitHubSearchQuery>[];
 }
 
 let GitHubSearchListID = 0;
@@ -28,7 +26,7 @@ export class GitHubSearchList {
     toJSON(): GitHubSearchListJSON {
         return {
             queries: this.queries
-        }
+        };
     }
 
     saveQuery(aQuery: GitHubSearchQuery) {
@@ -36,7 +34,7 @@ export class GitHubSearchList {
     }
 
     updateQuery(query: GitHubSearchQuery, index: number) {
-        if(!this.queries[index]) {
+        if (!this.queries[index]) {
             return;
         }
         this.queries[index] = query;

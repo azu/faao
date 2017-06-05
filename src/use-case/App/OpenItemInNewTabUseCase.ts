@@ -2,7 +2,7 @@
 
 import { UseCase } from "almin";
 
-export declare interface ElectronNavigation {
+export interface ElectronNavigation {
     newTab(url: string, options?: object): void;
 
     changeTab(url: string, options?: object): void;
@@ -13,7 +13,7 @@ export declare interface ElectronNavigation {
 // extends
 declare global {
     interface Window {
-        electronNavigation?: ElectronNavigation
+        electronNavigation?: ElectronNavigation;
     }
 }
 

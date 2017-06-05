@@ -5,9 +5,7 @@ import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export const createAppUserOpenStreamUseCase = () => {
-    return new AppUserOpenStreamUseCase(
-        appRepository
-    );
+    return new AppUserOpenStreamUseCase(appRepository);
 };
 
 export class AppUserOpenStreamUseCase extends UseCase {

@@ -14,30 +14,29 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
         const preview = process.env.RUNTIME_TARGET === "electron"
             ? <main className="AppContainer-preview">
-                {/*<IframeBrowser html={"test"}/>*/}
-            </main>
+                  {/*<IframeBrowser html={"test"}/>*/}
+              </main>
             : null;
-        return <div className="AppContainer">
-            <ShortcutKeyContainer />
-            <nav className="AppContainer-nav">
-                <GitHubSearchContainer
-                    gitHubSearchList={this.props.gitHubSearchList}/>
-            </nav>
-            <main className="AppContainer-main">
-                <GitHubSearchStreamContainer
-                    app={this.props.app}
-                    gitHubSearchStream={this.props.gitHubSearchStream}
-                />
-            </main>
+        return (
+            <div className="AppContainer">
+                <ShortcutKeyContainer />
+                <nav className="AppContainer-nav">
+                    <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList} />
+                </nav>
+                <main className="AppContainer-main">
+                    <GitHubSearchStreamContainer
+                        app={this.props.app}
+                        gitHubSearchStream={this.props.gitHubSearchStream}
+                    />
+                </main>
 
-            <QuerySettingContainer
-                gitHubSearchList={this.props.gitHubSearchList}
-                gitHubSetting={this.props.gitHubSetting}
-            />
-            <QuickIssueContainer
-                quickIssue={this.props.quickIssue}
-            />
-            {preview}
-        </div>;
+                <QuerySettingContainer
+                    gitHubSearchList={this.props.gitHubSearchList}
+                    gitHubSetting={this.props.gitHubSetting}
+                />
+                <QuickIssueContainer quickIssue={this.props.quickIssue} />
+                {preview}
+            </div>
+        );
     }
 }

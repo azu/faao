@@ -12,6 +12,6 @@ export class GitHubSearchQueryFactory {
             query: json.query,
             color: new GitHubSearchQueryColor(json.color),
             gitHubSettingId: new EntityId<GitHubSetting>(json.gitHubSettingId)
-        })
+        });
     }
 }

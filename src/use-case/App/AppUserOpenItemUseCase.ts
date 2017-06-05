@@ -5,9 +5,7 @@ import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchSt
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 
 export const createAppUserOpenItemUseCase = () => {
-    return new AppUserOpenItemUseCase(
-        appRepository
-    );
+    return new AppUserOpenItemUseCase(appRepository);
 };
 
 export class AppUserOpenItemUseCase extends UseCase {

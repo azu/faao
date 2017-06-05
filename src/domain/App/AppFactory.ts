@@ -7,7 +7,7 @@ export class AppFactory {
     static create(): App {
         return new App({
             user: new AppUser({
-                activity: new AppUserActivity
+                activity: new AppUserActivity()
             })
         });
     }

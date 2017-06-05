@@ -40,5 +40,4 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         });
         return this.getItemAtIndex(index - 1);
     }
-
 }

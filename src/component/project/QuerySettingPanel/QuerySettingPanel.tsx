@@ -1,14 +1,27 @@
 // MIT © 2017 azu
 import React from "react";
 import {
-    Button, Dropdown, Panel, TextField, PrimaryButton, Label, PanelType,
-    IDropdownOption, Callout, DefaultButton, IconButton, Link, MessageBar, MessageBarType
+    Button,
+    Dropdown,
+    Panel,
+    TextField,
+    PrimaryButton,
+    Label,
+    PanelType,
+    IDropdownOption,
+    Callout,
+    DefaultButton,
+    IconButton,
+    Link,
+    MessageBar,
+    MessageBarType
 } from "office-ui-fabric-react";
 import {
-    GitHubSearchQueryJSON, GitHubSearchQuery
+    GitHubSearchQueryJSON,
+    GitHubSearchQuery
 } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
-import { ColorResult, GithubPicker } from 'react-color';
+import { ColorResult, GithubPicker } from "react-color";
 
 export interface QuerySettingPanelProps {
     settings: GitHubSetting[];
@@ -21,11 +34,11 @@ export interface QuerySettingPanelProps {
 }
 
 export interface QuerySettingPanelState {
-    gitHubSettingId: string,
-    query: string,
-    name: string,
-    color: string, // #hex,
-    error: Error | null
+    gitHubSettingId: string;
+    query: string;
+    name: string;
+    color: string; // #hex,
+    error: Error | null;
 }
 
 export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, QuerySettingPanelState> {
@@ -57,16 +70,19 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
             });
         }
         // remove error and callback
-        this.setState({
-            error: null
-        }, () => {
-            this.props.onSubmit({
-                name: this.state.name,
-                query: this.state.query,
-                color: this.state.color,
-                gitHubSettingId: this.state.gitHubSettingId
-            })
-        });
+        this.setState(
+            {
+                error: null
+            },
+            () => {
+                this.props.onSubmit({
+                    name: this.state.name,
+                    query: this.state.query,
+                    color: this.state.color,
+                    gitHubSettingId: this.state.gitHubSettingId
+                });
+            }
+        );
     };
 
     validateForm = (): Error | boolean => {
@@ -96,68 +112,72 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
         }
     }
 
-
     render() {
         const errorMessage = this.state.error
-            ? <MessageBar
-                messageBarType={ MessageBarType.error }>{String(this.state.error)}</MessageBar>
+            ? <MessageBar messageBarType={MessageBarType.error}>
+                  {String(this.state.error)}
+              </MessageBar>
             : null;
-        return <Panel
-            className="QuerySettingPanel"
-            isOpen={ this.props.isOpen }
-            type={ PanelType.medium }
-            isLightDismiss={ true }
-            headerText='Query Settings'
-            onDismiss={ () => this.props.onDismiss() }
-        >
-            <Dropdown
-                label='Select your GitHub setting:'
-                onChanged={this.onChangedDropDown}
-                defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
-                options={
-                    this.props.settings.map(setting => {
+        return (
+            <Panel
+                className="QuerySettingPanel"
+                isOpen={this.props.isOpen}
+                type={PanelType.medium}
+                isLightDismiss={true}
+                headerText="Query Settings"
+                onDismiss={() => this.props.onDismiss()}
+            >
+                <Dropdown
+                    label="Select your GitHub setting:"
+                    onChanged={this.onChangedDropDown}
+                    defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
+                    options={this.props.settings.map(setting => {
                         return {
                             key: String(setting.id.toValue()),
                             text: `${setting.apiHost}@${setting.token.slice(0, 10)}...`
                         };
-                    })
-                }
-            />
-            <p className="ms-font-xs QuerySettingPanel-itemDescription">This GitHub setting has token and api host.</p>
-            <TextField
-                label='Name:'
-                placeholder="query name"
-                defaultValue={this.props.query && this.props.query.name}
-                onChanged={(text) => {
-                    this.setState({ name: text });
-                }}
-            />
-            <TextField
-                label='Query:'
-                placeholder="repo:azu/faao"
-                defaultValue={this.props.query && this.props.query.query}
-                onChanged={(text) => this.setState({ query: text })}
-            />
-            <p className="ms-font-xs QuerySettingPanel-itemDescription">This query is same with GitHub Search query.
-                Please see <Link href="https://help.github.com/articles/searching-issues/">GitHub document</Link></p>
-            <TextField
-                label='Color:'
-                addonString="#"
-                value={this.state.color.replace(/^#/, "")}
-                defaultValue={this.props.query && this.props.query.color.hexCode.replace(/^#/, "")}
-                onChanged={(text) => this.setState({ color: text })}
-            />
-            <GithubPicker onChange={this.onChangeColor}/>
-            <div className="QuickIssuePanelState-footer">
-                {errorMessage}
-                <PrimaryButton
-                    onClick={this.onSubmit}
-                    data-automation-id='save-query'
-                    ariaDescription='Save query'>
-                    Save
-                </PrimaryButton>
-            </div>
-        </Panel>;
-
+                    })}
+                />
+                <p className="ms-font-xs QuerySettingPanel-itemDescription">
+                    This GitHub setting has token and api host.
+                </p>
+                <TextField
+                    label="Name:"
+                    placeholder="query name"
+                    defaultValue={this.props.query && this.props.query.name}
+                    onChanged={text => {
+                        this.setState({ name: text });
+                    }}
+                />
+                <TextField
+                    label="Query:"
+                    placeholder="repo:azu/faao"
+                    defaultValue={this.props.query && this.props.query.query}
+                    onChanged={text => this.setState({ query: text })}
+                />
+                <p className="ms-font-xs QuerySettingPanel-itemDescription">
+                    This query is same with GitHub Search query.
+                    Please see
+                    {" "}
+                    <Link href="https://help.github.com/articles/searching-issues/">
+                        GitHub document
+                    </Link>
+                </p>
+                <TextField
+                    label="Color:"
+                    addonString="#"
+                    value={this.state.color.replace(/^#/, "")}
+                    defaultValue={this.props.query && this.props.query.color.hexCode.replace(/^#/, "")}
+                    onChanged={text => this.setState({ color: text })}
+                />
+                <GithubPicker onChange={this.onChangeColor} />
+                <div className="QuickIssuePanelState-footer">
+                    {errorMessage}
+                    <PrimaryButton onClick={this.onSubmit} data-automation-id="save-query" ariaDescription="Save query">
+                        Save
+                    </PrimaryButton>
+                </div>
+            </Panel>
+        );
     }
 }

@@ -26,7 +26,7 @@ describe("GitHubSearchStreamRepository", () => {
                 color: new GitHubSearchQueryColor("#000000"),
                 gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
-            return repository.findByQuery(testQuery).then((value) => {
+            return repository.findByQuery(testQuery).then(value => {
                 expect(value).toBeUndefined();
             });
         });
@@ -44,7 +44,7 @@ describe("GitHubSearchStreamRepository", () => {
                 gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
             });
             await repository.saveWithQuery(stream, testQuery);
-            return repository.findByQuery(testQuery).then((stream) => {
+            return repository.findByQuery(testQuery).then(stream => {
                 expect(stream).not.toBeUndefined();
                 const actualItems = stream.items.map(item => item.toJSON());
                 expect(actualItems).toEqual(streamJSON.items);

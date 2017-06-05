@@ -11,7 +11,7 @@ import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenI
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
-    gitHubSearchStream: GitHubSearchStreamState
+    gitHubSearchStream: GitHubSearchStreamState;
     app: AppState;
 }
 
@@ -22,15 +22,20 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
     };
 
     render() {
-        return <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
-            <h1 className='ms-font-xxl GitHubSearchStreamContainer-title'>Result</h1>
-            <div className='GitHubSearchStreamContainer-main'>
-                <SearchResultList
-                    className="GitHubSearchStreamContainer-list"
-                    items={this.props.gitHubSearchStream.sortedItems}
-                    activeItem={this.props.app.activeItem}
-                    onClickItem={this.onClickItem}/>
+        return (
+            <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
+                <h1 className="ms-font-xxl GitHubSearchStreamContainer-title">
+                    Result
+                </h1>
+                <div className="GitHubSearchStreamContainer-main">
+                    <SearchResultList
+                        className="GitHubSearchStreamContainer-list"
+                        items={this.props.gitHubSearchStream.sortedItems}
+                        activeItem={this.props.app.activeItem}
+                        onClickItem={this.onClickItem}
+                    />
+                </div>
             </div>
-        </div>
+        );
     }
 }

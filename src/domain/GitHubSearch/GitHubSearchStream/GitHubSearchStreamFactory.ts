@@ -8,7 +8,7 @@ export class GitHubSearchStreamFactory {
     }
 
     static createFromStreamJSON(json: GitHubSearchStreamJSON) {
-        const items = json.items.map((rawItem) => {
+        const items = json.items.map(rawItem => {
             return new GitHubSearchResultItem(rawItem);
         });
         return new GitHubSearchStream(items);

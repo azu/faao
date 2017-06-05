@@ -18,7 +18,6 @@ export interface Owner {
     siteAdmin: boolean;
 }
 
-
 export interface User {
     login: string;
     id: number;

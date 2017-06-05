@@ -11,6 +11,6 @@ export class OpenQuickIssueUseCasePayload extends Payload {
 
 export class OpenQuickIssueUseCase extends UseCase {
     execute() {
-        this.dispatch(new OpenQuickIssueUseCasePayload);
+        this.dispatch(new OpenQuickIssueUseCasePayload());
     }
 }

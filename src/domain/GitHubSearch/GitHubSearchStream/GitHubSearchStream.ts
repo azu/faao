@@ -2,7 +2,7 @@
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
-import uniqBy from "lodash.uniqby"
+import uniqBy from "lodash.uniqby";
 import { GitHubSearchResultItemCollection } from "./GitHubSearchResultItemCollection";
 import {
     GitHubSearchResultItemSortedCollection,
@@ -13,7 +13,7 @@ import {
 let id = 0;
 
 export interface GitHubSearchStreamJSON {
-    items: Item[]
+    items: Item[];
 }
 
 /**
@@ -40,8 +40,7 @@ export class GitHubSearchStream {
     alreadyHasResult(result: GitHubSearchResult): boolean {
         // check first item or last item is included in this stream
         const [firstItem, lastItem] = result.items;
-        const matchingItems = [firstItem, lastItem]
-            .filter(item => item !== undefined);
+        const matchingItems = [firstItem, lastItem].filter(item => item !== undefined);
         return matchingItems.some(matchingItem => {
             return this.itemSortedCollection.includes(matchingItem);
         });
@@ -56,7 +55,7 @@ export class GitHubSearchStream {
             items: this.itemSortedCollection.items.map(item => {
                 return item.toJSON();
             })
-        }
+        };
     }
 
     clear() {

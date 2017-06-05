@@ -3,7 +3,7 @@ import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 import { GitHubSearchResult } from "./GitHubSearchResult";
 
 export interface GitHubSearchResultJSON {
-    items: Item[]
+    items: Item[];
 }
 
 export class GitHubSearchResultFactory {
@@ -18,6 +18,6 @@ export class GitHubSearchResultFactory {
         const items = result.items.map(item => new GitHubSearchResultItem(item));
         return new GitHubSearchResult({
             items
-        })
+        });
     }
 }

@@ -3,7 +3,7 @@ import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
 import { EntityId } from "../../util/EntityId";
 
-const execall = require('execall');
+const execall = require("execall");
 
 export interface GitHubSearchQueryJSON {
     name: string;
@@ -16,7 +16,7 @@ export interface GitHubSearchQueryArgs {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
-    gitHubSettingId: EntityId<GitHubSetting>
+    gitHubSettingId: EntityId<GitHubSetting>;
 }
 
 export class GitHubSearchQuery {
@@ -42,7 +42,7 @@ export class GitHubSearchQuery {
         execall(repoPattern, this.query).map((result: any) => {
             results = results.concat(result.sub);
         });
-        return results
+        return results;
     }
 
     /**
