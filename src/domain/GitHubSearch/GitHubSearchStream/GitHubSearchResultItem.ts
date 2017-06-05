@@ -104,6 +104,13 @@ export interface Milestone {
     closedAt?: any;
 }
 
+export interface PullRequest {
+    url: string;
+    htmlUrl: string;
+    diffUrl: string;
+    patchUrl: string;
+}
+
 export interface Repository {
     id: number;
     name: string;
@@ -189,7 +196,8 @@ export class GitHubSearchResultItem implements Item {
     title: string;
     user: User;
     labels: Label[];
-    state: string;
+    state: "merged" | "closed" | "open";
+    pullRequest?: PullRequest;
     locked: boolean;
     assignee: Assignee | any;
     assignees: Assignee[];

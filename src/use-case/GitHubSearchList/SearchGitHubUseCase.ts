@@ -10,8 +10,6 @@ import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearc
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
-import { EntityId } from "../../domain/util/EntityId";
-import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 
 export const createSearchGitHubUseCase = () => {
     return new SearchGitHubUseCase(gitHubSettingRepository, gitHubSearchStreamRepository);
@@ -59,7 +57,7 @@ export class SearchGitHubUseCase extends UseCase {
                     return continueToNext;
                 },
                 async (error: Error) => {
-                    console.error(error.message);
+                    console.error(error.message, error.stack);
                     stream.clear();
                     await gitHubSearchStreamRepository.saveWithQuery(stream, query);
                     reject(error);

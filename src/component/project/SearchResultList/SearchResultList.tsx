@@ -1,23 +1,40 @@
 // MIT © 2017 azu
 import * as React from "react";
 import { List } from "office-ui-fabric-react";
-import { ReactElement, SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
+import { GitHubSearchStreamStateItem, IconType } from "../../../store/GitHubSearchStream/GitHubSearchStream";
 
-const { CommentIcon } = require("react-octicons-svg");
+const { CommentIcon, IssueOpenedIcon, IssueClosedIcon, GitMergeIcon, GitPullRequestIcon } = require("react-octicons");
 const suitcssClassnames = require("suitcss-classnames");
 
 export interface SearchResultListItemProps {
     isActive: boolean;
-    item: GitHubSearchResultItem;
+    item: GitHubSearchStreamStateItem;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
 
 function getColorByBgColor(bgColor: string) {
     return parseInt(bgColor.replace("#", ""), 16) > 0xffffff / 2 ? "#000" : "#fff";
 }
+
+export const createIcon = (iconType: IconType, color: string) => {
+    const style = {
+        fill: color
+    };
+    switch (iconType) {
+        case "IssueOpenedIcon":
+            return <IssueOpenedIcon style={style} />;
+        case "IssueClosedIcon":
+            return <IssueClosedIcon style={style} />;
+        case "GitPullRequestIcon":
+            return <GitPullRequestIcon style={style} />;
+        case "GitMergeIcon":
+            return <GitMergeIcon style={style} />;
+    }
+};
 
 export class SearchResultListItem extends React.Component<SearchResultListItemProps, {}> {
     render() {
@@ -43,11 +60,13 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 "is-active": this.props.isActive
             }
         });
+
+        const icon = createIcon(item.iconType, item.iconColor);
         return (
             <div className={className} onClick={onClick}>
                 <span className="SearchResultListItem-primaryText">
                     <a className="SearchResultListItem-link" href={item.htmlUrl}>
-                        {item.title}
+                        {icon} {item.title}
                     </a>
                 </span>
                 <span className="SearchResultListItem-tertiaryText">{item.body}</span>
@@ -85,7 +104,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
 
 export interface SearchResultListProps {
     className?: string;
-    items: GitHubSearchResultItem[];
+    items: GitHubSearchStreamStateItem[];
     activeItem?: GitHubSearchResultItem;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
@@ -127,7 +146,7 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
                 items={this.props.items}
                 renderedWindowsBehind={10}
                 renderedWindowsAhead={10}
-                onRenderCell={(item: GitHubSearchResultItem) => {
+                onRenderCell={item => {
                     return (
                         <SearchResultListItem
                             item={item}

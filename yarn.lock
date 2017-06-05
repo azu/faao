@@ -1771,9 +1771,9 @@ electron-is-dev@^0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.1.2.tgz#8a1043e32b3a1da1c3f553dce28ce764246167e3"
 
-electron-navigation@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/electron-navigation/-/electron-navigation-1.5.2.tgz#68216bfe7660c2d7f6aeb1c68fa090eb3db00fe3"
+electron-navigation@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/electron-navigation/-/electron-navigation-1.5.3.tgz#60dd9744f32f049895e11d72ccc8dd915fa26f76"
   dependencies:
     color.js "^0.1.2"
     electron "^1.6.0"
@@ -1817,19 +1817,19 @@ empower-assert@^1.0.0:
   dependencies:
     estraverse "^4.2.0"
 
-empower-core@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/empower-core/-/empower-core-0.6.1.tgz#6c187f502fcef7554d57933396aac655483772b1"
+empower-core@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/empower-core/-/empower-core-0.6.2.tgz#5adef566088e31fba80ba0a36df47d7094169144"
   dependencies:
     call-signature "0.0.2"
     core-js "^2.0.0"
 
-empower@^1.1.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/empower/-/empower-1.2.1.tgz#b63302741b6d503a241bff115befc948c8362c60"
+empower@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/empower/-/empower-1.2.2.tgz#8b4f288c1c3990094e254c8dce15c553d07f39a4"
   dependencies:
     core-js "^2.0.0"
-    empower-core "^0.6.1"
+    empower-core "^0.6.2"
 
 encodeurl@~1.0.1:
   version "1.0.1"
@@ -3971,11 +3971,7 @@ obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.1.tgz#104124b6c602c6796881a042541d36db43a5264e"
 
-octicons@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/octicons/-/octicons-5.0.1.tgz#0fa0c4fd3680d251266f073736539317cb846e4f"
-
-octokat@^0.8.0:
+octokat@^0.8:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/octokat/-/octokat-0.8.0.tgz#50841ca255743f91a715d11a1bde76f2eefcd97a"
   dependencies:
@@ -4473,12 +4469,12 @@ power-assert-util-string-width@^1.1.1:
   dependencies:
     eastasianwidth "^0.1.1"
 
-power-assert@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/power-assert/-/power-assert-1.4.2.tgz#43319cd0fecd3221f276f1cc49ffa2eaeb9a1815"
+power-assert@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/power-assert/-/power-assert-1.4.3.tgz#190997419d162baab7e72199675adc8d1c99fb24"
   dependencies:
     define-properties "^1.1.2"
-    empower "^1.1.0"
+    empower "^1.2.2"
     power-assert-formatter "^1.3.1"
     universal-deep-strict-equal "^1.2.1"
     xtend "^4.0.0"
@@ -4652,12 +4648,6 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "~15.5.7"
-
-react-octicons-svg@^1.1.13:
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/react-octicons-svg/-/react-octicons-svg-1.1.13.tgz#3a02b9435eadb3d84a55f65af6a06316bb594910"
-  dependencies:
-    octicons "^5.0.1"
 
 react-octicons@^0.1.0:
   version "0.1.0"
