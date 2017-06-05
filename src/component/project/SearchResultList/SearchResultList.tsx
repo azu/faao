@@ -16,7 +16,7 @@ export interface SearchResultListItemProps {
 }
 
 function getColorByBgColor(bgColor: string) {
-    return (parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2) ? '#000' : '#fff';
+    return parseInt(bgColor.replace("#", ""), 16) > 0xffffff / 2 ? "#000" : "#fff";
 }
 
 export class SearchResultListItem extends React.Component<SearchResultListItemProps, {}> {
@@ -30,7 +30,11 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 color: getColorByBgColor(label.color),
                 backgroundColor: `#${label.color}`
             };
-            return <span key={label.name} className="SearchResultListItem-label" style={style}>{label.name}</span>
+            return (
+                <span key={label.name} className="SearchResultListItem-label" style={style}>
+                    {label.name}
+                </span>
+            );
         });
 
         const className = suitcssClassnames({
@@ -39,32 +43,43 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 "is-active": this.props.isActive
             }
         });
-        return <div className={className} onClick={onClick}>
-            <span className='SearchResultListItem-primaryText'>
-                <a className='SearchResultListItem-link'
-                   href={item.htmlUrl}>
-                { item.title }
-                </a>
-            </span>
-            <span className='SearchResultListItem-tertiaryText'>{ item.body }</span>
-            <div className="SearchResultListItem-labels">{labels}</div>
-            <footer className="SearchResultListItem-footer">
-                <span className="SearchResultListItem-issueNumber">#{item.number}</span>
-                <span> updated </span>
-                <span className='SearchResultListItem-updateDate'>{item.updatedAt}</span>
-                <span> by </span>
-                <span className="SearchResultListItem-author"><img
-                    src={item.user.avatarUrl}
-                    className="SearchResultListItem-authorIcon"
-                    title={item.user.htmlUrl}/>{item.user.login}</span>
-                <div className="SearchResultListItem-meta">
-                    <span className="SearchResultListItem-comments">
-                        <CommentIcon className="SearchResultListItem-commentsIcon"/>
-                        <span className="SearchResultListItem-commentsCount">{item.comments}</span>
+        return (
+            <div className={className} onClick={onClick}>
+                <span className="SearchResultListItem-primaryText">
+                    <a className="SearchResultListItem-link" href={item.htmlUrl}>
+                        {item.title}
+                    </a>
+                </span>
+                <span className="SearchResultListItem-tertiaryText">{item.body}</span>
+                <div className="SearchResultListItem-labels">{labels}</div>
+                <footer className="SearchResultListItem-footer">
+                    <span className="SearchResultListItem-issueNumber">
+                        #{item.number}
                     </span>
-                </div>
-            </footer>
-        </div>
+                    <span> updated </span>
+                    <span className="SearchResultListItem-updateDate">
+                        {item.updatedAt}
+                    </span>
+                    <span> by </span>
+                    <span className="SearchResultListItem-author">
+                        <img
+                            src={item.user.avatarUrl}
+                            className="SearchResultListItem-authorIcon"
+                            title={item.user.htmlUrl}
+                        />
+                        {item.user.login}
+                    </span>
+                    <div className="SearchResultListItem-meta">
+                        <span className="SearchResultListItem-comments">
+                            <CommentIcon className="SearchResultListItem-commentsIcon" />
+                            <span className="SearchResultListItem-commentsCount">
+                                {item.comments}
+                            </span>
+                        </span>
+                    </div>
+                </footer>
+            </div>
+        );
     }
 }
 
@@ -76,10 +91,9 @@ export interface SearchResultListProps {
 }
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
-
     private _list: List;
     state: {
-        selectedIndex: number
+        selectedIndex: number;
     };
 
     constructor() {
@@ -103,33 +117,42 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         const onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
             this.props.onClickItem(event, item);
         };
-        return <List
-            data-is-scrollable="true"
-            ref={(c: List) => {
-                this._list = c;
-            } }
-            className={classnames("SearchResultList", this.props.className)}
-            items={ this.props.items }
-            renderedWindowsBehind={10}
-            renderedWindowsAhead={10}
-            onRenderCell={ (item: GitHubSearchResultItem) => {
-                return <SearchResultListItem item={item}
-                                             isActive={item.equals(this.props.activeItem)}
-                                             onClickItem={onClickItem}
-                />
-            }}/>
+        return (
+            <List
+                data-is-scrollable="true"
+                ref={(c: List) => {
+                    this._list = c;
+                }}
+                className={classnames("SearchResultList", this.props.className)}
+                items={this.props.items}
+                renderedWindowsBehind={10}
+                renderedWindowsAhead={10}
+                onRenderCell={(item: GitHubSearchResultItem) => {
+                    return (
+                        <SearchResultListItem
+                            item={item}
+                            isActive={item.equals(this.props.activeItem)}
+                            onClickItem={onClickItem}
+                        />
+                    );
+                }}
+            />
+        );
     }
 
     private _scroll(index: number, items: GitHubSearchResultItem[]) {
         const updatedSelectedIndex = Math.min(Math.max(index, 0), items.length - 1);
-        this.setState({
-            selectedIndex: updatedSelectedIndex
-        }, () => {
-            this._list.forceUpdate();
-            const activeElement = document.querySelector(`.ms-List-cell[data-list-index='${index}']`);
-            if (activeElement) {
-                activeElement.scrollIntoView();
+        this.setState(
+            {
+                selectedIndex: updatedSelectedIndex
+            },
+            () => {
+                this._list.forceUpdate();
+                const activeElement = document.querySelector(`.ms-List-cell[data-list-index='${index}']`);
+                if (activeElement) {
+                    activeElement.scrollIntoView();
+                }
             }
-        });
+        );
     }
 }

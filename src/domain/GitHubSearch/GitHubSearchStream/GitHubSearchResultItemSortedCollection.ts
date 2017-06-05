@@ -5,16 +5,16 @@ import { GitHubSearchResultItemCollection } from "./GitHubSearchResultItemCollec
 import uniqBy from "lodash.uniqby";
 
 export const SortType = {
-    "updated": "updated",
-    "created": "updated"
+    updated: "updated",
+    created: "updated"
 };
 export type SortTypeArgs = "updated" | "created";
 
 export function sort(items: GitHubSearchResultItem[], sortType: SortTypeArgs): GitHubSearchResultItem[] {
     if (sortType === SortType.created) {
-        return sortBy(items, (item) => item.createdAtDate).reverse()
+        return sortBy(items, item => item.createdAtDate).reverse();
     } else if (sortType === SortType.updated) {
-        return sortBy(items, (item) => item.updatedAtDate).reverse()
+        return sortBy(items, item => item.updatedAtDate).reverse();
     }
     return items;
 }
@@ -31,5 +31,4 @@ export class GitHubSearchResultItemSortedCollection extends GitHubSearchResultIt
     mergeItems(items: GitHubSearchResultItem[]): GitHubSearchResultItemSortedCollection {
         return new GitHubSearchResultItemSortedCollection(this.items.concat(items), this.sortType);
     }
-
 }

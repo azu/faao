@@ -15,9 +15,8 @@ export interface QuickIssueContainerProps {
 }
 
 export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProps, {}> {
-
     onDismiss = () => {
-        this.useCase(new CloseQueryPanelUseCase).executor(useCase => useCase.execute());
+        this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute());
     };
 
     onSubmit = async (queryJSON: GitHubSearchQueryJSON) => {
@@ -27,21 +26,24 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
                     return useCase.execute(queryJSON, this.props.gitHubSearchList.editingQueryIndex);
                 });
             } else {
-                await this.useCase(createSaveQueryToSearchListUseCase())
-                    .executor(useCase => useCase.execute(queryJSON))
+                await this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase =>
+                    useCase.execute(queryJSON)
+                );
             }
         } finally {
-            await this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute())
+            await this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute());
         }
     };
 
     render() {
-        return <QuerySettingPanel
-            isOpen={this.props.gitHubSearchList.isOpenAddingPanel}
-            query={this.props.gitHubSearchList.editingQuery}
-            onDismiss={this.onDismiss}
-            onSubmit={this.onSubmit}
-            settings={this.props.gitHubSetting.settings}
-        />
+        return (
+            <QuerySettingPanel
+                isOpen={this.props.gitHubSearchList.isOpenAddingPanel}
+                query={this.props.gitHubSearchList.editingQuery}
+                onDismiss={this.onDismiss}
+                onSubmit={this.onSubmit}
+                settings={this.props.gitHubSetting.settings}
+            />
+        );
     }
 }

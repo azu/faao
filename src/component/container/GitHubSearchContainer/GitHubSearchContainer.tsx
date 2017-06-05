@@ -19,10 +19,10 @@ export interface GitHubSearchContainerProps {
 export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerProps, {}> {
     menuItems = [
         {
-            key: 'newItem',
+            key: "newItem",
             name: "Quick Issue",
-            icon: 'EditMirrored',
-            ariaLabel: 'Quick New Issue',
+            icon: "EditMirrored",
+            ariaLabel: "Quick New Issue",
             onClick: () => {
                 return this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
             }
@@ -30,8 +30,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     ];
 
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(createSearchGitHubUseCase())
-            .executor(useCase => useCase.execute(query));
+        this.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(query));
     };
 
     onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
@@ -43,28 +42,28 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     };
 
     render() {
-        return <div className={classNames("GitHubSearchContainer", this.props.className)}>
-            <header className="GitHubSearchContainer-header">
-                <CommandBar
-                    isSearchBoxVisible={ false }
-                    items={this.menuItems}
-                />
-            </header>
-            <div className="GitHubSearchContainer-main">
-                <h1 className='ms-font-xxl'>Queries
-                    <IconButton
-                        iconProps={ { iconName: 'Add' } }
-                        title='Add query'
-                        ariaLabel='Add query'
-                        onClick={this.onClickAddingQuery}
+        return (
+            <div className={classNames("GitHubSearchContainer", this.props.className)}>
+                <header className="GitHubSearchContainer-header">
+                    <CommandBar isSearchBoxVisible={false} items={this.menuItems} />
+                </header>
+                <div className="GitHubSearchContainer-main">
+                    <h1 className="ms-font-xxl">
+                        Queries
+                        <IconButton
+                            iconProps={{ iconName: "Add" }}
+                            title="Add query"
+                            ariaLabel="Add query"
+                            onClick={this.onClickAddingQuery}
+                        />
+                    </h1>
+                    <SearchQueryList
+                        queries={this.props.gitHubSearchList.queries}
+                        onClickQuery={this.onClickQuery}
+                        onEditQuery={this.onEditQuery}
                     />
-                </h1>
-                <SearchQueryList
-                    queries={this.props.gitHubSearchList.queries}
-                    onClickQuery={this.onClickQuery}
-                    onEditQuery={this.onEditQuery}
-                />
+                </div>
             </div>
-        </div>
+        );
     }
 }

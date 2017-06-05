@@ -6,7 +6,7 @@ import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { Item } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 const debug = require("debug")("faao:GitHubClient");
-const Octokat = require('octokat');
+const Octokat = require("octokat");
 
 if (!process.env.GH_TOKEN) {
     throw new Error("process.env.GH_TOKEN should be set GitHub Personal token");
@@ -29,26 +29,34 @@ export class GitHubClient {
      * @param onError call with error when occur error
      * @param onComplete call when complete fetch
      */
-    search(query: GitHubSearchQuery,
-           onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
-           onError: (error: Error) => void,
-           onComplete: () => void): void {
-        type FetchResponse = { items: Item[], incompleteResults: boolean, fetch: () => Promise<FetchResponse> }
+    search(
+        query: GitHubSearchQuery,
+        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ): void {
+        type FetchResponse = {
+            items: Item[];
+            incompleteResults: boolean;
+            fetch: () => Promise<FetchResponse>;
+        };
         const onFetch = (response: FetchResponse) => {
             debug("response %o", response);
             // Support incompleteResults
             const gitHubSearchResult = GitHubSearchResultFactory.create({
                 items: response.items || []
             });
-            onProgress(gitHubSearchResult).then(isContinue => {
-                if (!response.incompleteResults) {
-                    onComplete();
-                } else if (isContinue) {
-                    response.fetch().then(onFetch);
-                } else {
-                    onComplete();
-                }
-            }).catch(onError);
+            onProgress(gitHubSearchResult)
+                .then(isContinue => {
+                    if (!response.incompleteResults) {
+                        onComplete();
+                    } else if (isContinue) {
+                        response.fetch().then(onFetch);
+                    } else {
+                        onComplete();
+                    }
+                })
+                .catch(onError);
         };
         this.gh.search.issues
             .fetch({

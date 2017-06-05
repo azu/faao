@@ -2,7 +2,7 @@
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 
 export interface GitHubSearchResultJSON {
-    items: GitHubSearchResultItem[]
+    items: GitHubSearchResultItem[];
 }
 
 // Interface of API result

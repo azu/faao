@@ -4,13 +4,13 @@ import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/Gi
 
 export class OpenQueryPanelUseCasePayload extends Payload {
     constructor(public query?: GitHubSearchQuery) {
-        super({ type: "OpenQueryPanelUseCasePayload" })
+        super({ type: "OpenQueryPanelUseCasePayload" });
     }
 }
 
 export class CloseQueryPanelUseCasePayload extends Payload {
     constructor() {
-        super({ type: "CloseQueryPanelUseCasePayload" })
+        super({ type: "CloseQueryPanelUseCasePayload" });
     }
 }
 

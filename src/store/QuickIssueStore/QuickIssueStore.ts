@@ -68,36 +68,44 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         const activeQuery = app.user.activity.activeQuery;
         const gitHubSearchList = this.repositories.gitHubSearchListRepository.get();
         const queries = gitHubSearchList.queries;
-        const newIssueURLs = queries.map(query => {
-            const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
-            if (!gitHubSetting) {
-                return [];
-            }
-            return query.targetRepositories.map(repository => {
-                // http://:host/:repo/issues/new
-                return urlJoin(gitHubSetting.webHost, repository, "issues/new");
-            });
-        }).reduce((compute, repo) => {
-            return compute.concat(repo);
-        }, []);
+        const newIssueURLs = queries
+            .map(query => {
+                const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(
+                    query.gitHubSettingId
+                );
+                if (!gitHubSetting) {
+                    return [];
+                }
+                return query.targetRepositories.map(repository => {
+                    // http://:host/:repo/issues/new
+                    return urlJoin(gitHubSetting.webHost, repository, "issues/new");
+                });
+            })
+            .reduce((compute, repo) => {
+                return compute.concat(repo);
+            }, []);
         if (activeItem && activeQuery) {
             // TODO: Move to domain
             // http://:host/:repo/issues/new
-            const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(activeQuery.gitHubSettingId);
+            const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(
+                activeQuery.gitHubSettingId
+            );
             if (!gitHubSetting) {
                 return;
             }
             // api-host/repos/ -> web-host/
-            const webHost = activeItem.repositoryUrl.replace(urlJoin(gitHubSetting.apiHost, "repos"), gitHubSetting.webHost);
+            const webHost = activeItem.repositoryUrl.replace(
+                urlJoin(gitHubSetting.apiHost, "repos"),
+                gitHubSetting.webHost
+            );
             const newIssueURL = urlJoin(webHost, "issues/new");
             newIssueURLs.unshift(newIssueURL);
         }
-        const newState = this.state.update(uniqBy(newIssueURLs, (x) => x)).reduce(payload);
+        const newState = this.state.update(uniqBy(newIssueURLs, x => x)).reduce(payload);
         this.setState(newState);
     }
 
     getState(): QuickIssueState {
         return this.state;
     }
-
 }

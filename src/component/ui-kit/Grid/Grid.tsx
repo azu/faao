@@ -19,7 +19,7 @@ const suitClassNames = require("suitcss-classnames");
 export { GridCell };
 
 export interface GridProps {
-    className?: string
+    className?: string;
     children: React.ReactChild[];
 }
 

@@ -5,9 +5,7 @@ import { createAppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
 
 const debug = require("debug")("faao:AppUserOpenNextItemUseCase");
 export const createAppUserSelectNextItemUseCase = () => {
-    return new AppUserSelectNextItemUseCase(
-        appRepository
-    );
+    return new AppUserSelectNextItemUseCase(appRepository);
 };
 
 export class AppUserSelectNextItemUseCase extends UseCase {

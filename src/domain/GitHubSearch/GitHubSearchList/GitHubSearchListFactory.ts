@@ -52,7 +52,7 @@ const createDefault = (): any => {
         return {
             ...json,
             gitHubSettingId: GitHubSettingFactory.create().id.toValue() // TODO: remove
-        }
+        };
     });
 };
 

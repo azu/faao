@@ -7,6 +7,6 @@ export interface IframeBrowserProps {
 
 export default class IframeBrowser extends React.Component<IframeBrowserProps, {}> {
     render() {
-        return <iframe srcDoc={this.props.html}/>
+        return <iframe srcDoc={this.props.html} />;
     }
 }

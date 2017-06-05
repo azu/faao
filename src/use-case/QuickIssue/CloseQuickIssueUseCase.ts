@@ -11,6 +11,6 @@ export class CloseQuickIssueUseCasePayload extends Payload {
 
 export class CloseQuickIssueUseCase extends UseCase {
     execute() {
-        this.dispatch(new CloseQuickIssueUseCasePayload);
+        this.dispatch(new CloseQuickIssueUseCasePayload());
     }
 }
