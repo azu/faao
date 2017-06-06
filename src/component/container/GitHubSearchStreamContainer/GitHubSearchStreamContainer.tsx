@@ -8,6 +8,7 @@ import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
 import { AppState } from "../../../store/AppStore/AppStore";
 import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenItemUseCase";
+import { GitHubSearchStreamCommandBarContainer } from "./GitHubSearchStreamCommandBarContainer/GitHubSearchStreamCommandBarContainer";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
@@ -24,9 +25,7 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
     render() {
         return (
             <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
-                <h1 className="ms-font-xxl GitHubSearchStreamContainer-title">
-                    Result
-                </h1>
+                <GitHubSearchStreamCommandBarContainer />
                 <div className="GitHubSearchStreamContainer-main">
                     <SearchResultList
                         className="GitHubSearchStreamContainer-list"
