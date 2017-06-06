@@ -24,11 +24,7 @@ export class SearchGitHubUseCase extends UseCase {
     }
 
     async execute(query: GitHubSearchQuery) {
-        // const gitHubSetting = this.gitHubSettingRepository.findGitHubSettingById(
-        //     query.gitHubSettingId
-        // );
-        // TODO: use find | current use default setting
-        const gitHubSetting = this.gitHubSettingRepository.get();
+        const gitHubSetting = this.gitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
         if (!gitHubSetting) {
             return Promise.reject(new Error(`Not found GitHubSetting`));
         }
