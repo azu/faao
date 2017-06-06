@@ -11,6 +11,7 @@ import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 
+const debug = require("debug")("faao:SearchGitHubUseCase");
 export const createSearchGitHubUseCase = () => {
     return new SearchGitHubUseCase(gitHubSettingRepository, gitHubSearchStreamRepository);
 };
@@ -42,9 +43,9 @@ export class SearchGitHubUseCase extends UseCase {
             gitHubClient.search(
                 query,
                 async (result: GitHubSearchResult) => {
-                    console.log("Progress", result);
+                    debug("Searching result", result);
                     const continueToNext = !stream.alreadyHasResult(result);
-                    console.log("continueToNext", continueToNext);
+                    debug("continueToNext", continueToNext);
                     stream.mergeResult(result);
                     // save current stream
                     await gitHubSearchStreamRepository.saveWithQuery(stream, query);
@@ -59,7 +60,7 @@ export class SearchGitHubUseCase extends UseCase {
                     reject(error);
                 },
                 () => {
-                    console.log("Complete!");
+                    debug("Searching Complete!");
                     resolve();
                 }
             );

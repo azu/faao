@@ -127,7 +127,6 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
             return item.equals(nextProps.activeItem);
         });
         if (itemIndex !== -1) {
-            console.log("Found", itemIndex);
             this._scroll(itemIndex, nextProps.items);
         }
     }

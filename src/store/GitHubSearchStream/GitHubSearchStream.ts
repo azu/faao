@@ -3,6 +3,7 @@ import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
+import { AppRepository } from "../../infra/repository/AppRepository";
 
 export interface GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
@@ -56,7 +57,10 @@ export class GitHubSearchStreamState {
         this.sortedItems = state.sortedItems.map(item => new GitHubSearchStreamStateItem(item));
     }
 
-    update(stream: GitHubSearchStream) {
+    update(stream?: GitHubSearchStream) {
+        if (!stream) {
+            return this;
+        }
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
@@ -67,11 +71,9 @@ export class GitHubSearchStreamState {
 
 export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     state: GitHubSearchStreamState;
-    gitHubSearchStreamRepository: GitHubSearchStreamRepository;
 
-    constructor(gitHubSearchStreamRepository: GitHubSearchStreamRepository) {
+    constructor(public appRepository: AppRepository) {
         super();
-        this.gitHubSearchStreamRepository = gitHubSearchStreamRepository;
         this.state = new GitHubSearchStreamState({
             items: [],
             sortedItems: []
@@ -79,9 +81,9 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     }
 
     receivePayload() {
-        // TODO: display query
-        const stream = this.gitHubSearchStreamRepository.get();
-        this.setState(this.state.update(stream));
+        const app = this.appRepository.get();
+        const activeStream = app.user.activity.activeStream;
+        this.setState(this.state.update(activeStream));
     }
 
     getState() {

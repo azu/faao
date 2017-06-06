@@ -17,7 +17,7 @@ import { GitHubSettingStore, GitHubSettingState } from "./GitHubSettingStore/Git
 export const storeMapping = {
     app: new AppStore(appRepository),
     gitHubSearchList: new GitHubSearchListStore(gitHubSearchListRepository),
-    gitHubSearchStream: new GitHubSearchStreamStore(gitHubSearchStreamRepository),
+    gitHubSearchStream: new GitHubSearchStreamStore(appRepository),
     quickIssue: new QuickIssueStore({
         appRepository,
         gitHubSearchListRepository,
@@ -36,6 +36,7 @@ export const storeMapping = {
     },
     stores: storeMapping
 };
+GitHubSearchListStore;
 // state mapping
 export const stateMapping = StoreGroupTypes.StoreToState(storeMapping);
 export type AppStoreGroupState = typeof stateMapping;
