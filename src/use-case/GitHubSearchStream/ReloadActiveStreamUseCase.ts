@@ -18,6 +18,7 @@ export class ReloadActiveStreamUseCase extends UseCase {
         if (!activeQuery) {
             return;
         }
+        // TODO: will not focus active item
         return this.context.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(activeQuery));
     }
 }
