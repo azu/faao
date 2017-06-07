@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { AppState } from "../../../store/AppStore/AppStore";
 import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenItemUseCase";
 import { GitHubSearchStreamCommandBarContainer } from "./GitHubSearchStreamCommandBarContainer/GitHubSearchStreamCommandBarContainer";
+import { EmptySearchResultList } from "../../project/EmptySearchResultList/EmptySearchResultList";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
@@ -23,16 +24,19 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
     };
 
     render() {
+        const list = this.props.gitHubSearchStream.hasResult
+            ? <SearchResultList
+                  className="GitHubSearchStreamContainer-list"
+                  items={this.props.gitHubSearchStream.sortedItems}
+                  activeItem={this.props.app.activeItem}
+                  onClickItem={this.onClickItem}
+              />
+            : <EmptySearchResultList />;
         return (
             <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
-                <GitHubSearchStreamCommandBarContainer />
+                <GitHubSearchStreamCommandBarContainer className="GitHubSearchStreamContainer-header" />
                 <div className="GitHubSearchStreamContainer-main">
-                    <SearchResultList
-                        className="GitHubSearchStreamContainer-list"
-                        items={this.props.gitHubSearchStream.sortedItems}
-                        activeItem={this.props.app.activeItem}
-                        onClickItem={this.onClickItem}
-                    />
+                    {list}
                 </div>
             </div>
         );

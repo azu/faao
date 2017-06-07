@@ -57,6 +57,10 @@ export class GitHubSearchStreamState {
         this.sortedItems = state.sortedItems.map(item => new GitHubSearchStreamStateItem(item));
     }
 
+    get hasResult(): boolean {
+        return this.sortedItems.length > 0;
+    }
+
     update(stream?: GitHubSearchStream) {
         if (!stream) {
             return this;

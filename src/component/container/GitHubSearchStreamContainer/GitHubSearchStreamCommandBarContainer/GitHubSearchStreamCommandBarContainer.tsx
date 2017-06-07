@@ -3,6 +3,7 @@ import * as React from "react";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { BaseContainer } from "../../BaseContainer";
 import { createReloadActiveStreamUseCase } from "../../../../use-case/GitHubSearchStream/ReloadActiveStreamUseCase";
+import classNames from "classnames";
 
 export interface GitHubSearchStreamCommandBarContainerProps {
     className?: string;
@@ -26,7 +27,7 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
     render() {
         return (
             <CommandBar
-                className="GitHubSearchStreamCommandBarContainer"
+                className={classNames("GitHubSearchStreamCommandBarContainer", this.props.className)}
                 isSearchBoxVisible={false}
                 items={this.menuItems}
             />
