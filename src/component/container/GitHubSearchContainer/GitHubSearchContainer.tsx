@@ -5,7 +5,7 @@ import { SearchQueryList } from "../../project/SearchQueryList/SearchQueryList";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 import { BaseContainer } from "../BaseContainer";
-import { createSearchGitHubUseCase } from "../../../use-case/GitHubSearchList/SearchGitHubUseCase";
+import { createSearchGitHubAndOpenStreamUseCase } from "../../../use-case/GitHubSearchList/SearchGitHubAndOpenStreamUseCase";
 import classNames from "classnames";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../use-case/QuickIssue/OpenQuickIssueUseCase";
@@ -30,7 +30,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     ];
 
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(query));
+        this.useCase(createSearchGitHubAndOpenStreamUseCase()).executor(useCase => useCase.execute(query));
     };
 
     onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {

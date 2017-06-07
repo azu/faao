@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
-import { createSearchGitHubUseCase } from "../GitHubSearchList/SearchGitHubUseCase";
+import { createSearchGitHubAbstractUseCase } from "../GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 
 export const createReloadActiveStreamUseCase = () => {
     return new ReloadActiveStreamUseCase(appRepository);
@@ -12,13 +12,15 @@ export class ReloadActiveStreamUseCase extends UseCase {
         super();
     }
 
-    execute() {
+    async execute() {
         const app = this.appRepository.get();
         const activeQuery = app.user.activity.activeQuery;
-        if (!activeQuery) {
+        const activeStream = app.user.activity.activeStream;
+        if (!activeQuery || !activeStream) {
             return;
         }
-        // TODO: will not focus active item
-        return this.context.useCase(createSearchGitHubUseCase()).executor(useCase => useCase.execute(activeQuery));
+        return this.context.useCase(createSearchGitHubAbstractUseCase()).executor(useCase => {
+            return useCase.execute(activeQuery, activeStream);
+        });
     }
 }
