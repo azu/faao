@@ -2,15 +2,12 @@
 import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchStreamStateItem } from "./GitHubSearchStreamStateItem";
 
-const filterable = require("filterable");
-
 export interface GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
-    sortedItems: GitHubSearchResultItem[];
+    displayItems: GitHubSearchResultItem[];
 }
 
 export class GitHubSearchStreamState {
@@ -19,31 +16,7 @@ export class GitHubSearchStreamState {
 
     constructor(state: GitHubSearchStreamStateObject) {
         this.items = state.items;
-        this.displayItems = state.sortedItems.map(item => new GitHubSearchStreamStateItem(item));
-
-        const query = filterable.Query("Refresh state:open").parse();
-        this.displayItems = this.displayItems.filter((item: any) => {
-            return query.toJSON().every((query: any): boolean => {
-                if (!item.hasOwnProperty(query.field)) {
-                    // full match
-                    return item.includes(query.value);
-                }
-                if (query.type === "=") {
-                    console.log(item[query.field] === query.value, item);
-                    return item[query.field] === query.value;
-                } else if (query.type === ">") {
-                    return item[query.field] > query.value;
-                } else if (query.type === ">=") {
-                    return item[query.field] >= query.value;
-                } else if (query.type === "<") {
-                    return item[query.field] < query.value;
-                } else if (query.type === "<=") {
-                    return item[query.field] <= query.value;
-                }
-                return false;
-            });
-        });
-        console.log(query.toJSON());
+        this.displayItems = state.displayItems.map(item => new GitHubSearchStreamStateItem(item));
     }
 
     get hasResult(): boolean {
@@ -57,7 +30,7 @@ export class GitHubSearchStreamState {
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
-            sortedItems: stream.itemSortedCollection.items
+            displayItems: stream.sortedItems
         });
     }
 }
@@ -69,7 +42,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
         super();
         this.state = new GitHubSearchStreamState({
             items: [],
-            sortedItems: []
+            displayItems: []
         });
     }
 

@@ -1,19 +1,19 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
-import uniqBy from "lodash.uniqby";
-import { GitHubSearchResultItemCollection } from "./GitHubSearchResultItemCollection";
-import {
-    GitHubSearchResultItemSortedCollection,
-    SortType,
-    SortTypeArgs
-} from "./GitHubSearchResultItemSortedCollection";
+import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
+import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
+import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 let id = 0;
 
 export interface GitHubSearchStreamJSON {
     items: Item[];
+}
+
+export interface GitHubSearchStreamArgs {
+    items: GitHubSearchResultItem[];
+    filters?: SearchFilter[];
 }
 
 /**
@@ -22,13 +22,23 @@ export interface GitHubSearchStreamJSON {
  */
 export class GitHubSearchStream {
     id: string;
+    filters: SearchFilter[];
+    // no filter | no sort item
     items: GitHubSearchResultItem[];
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
-    constructor(items: GitHubSearchResultItem[]) {
+    constructor(args: GitHubSearchStreamArgs) {
         this.id = `GitHubSearchStream${id++}`;
-        this.items = items;
-        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(items, "updated");
+        this.items = args.items;
+        this.filters = args.filters || [];
+        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(args.items, "updated");
+    }
+
+    /**
+     * sort/filtered items
+     */
+    get sortedItems() {
+        return this.itemSortedCollection.filterBySearchFilter(this.filters);
     }
 
     /**
@@ -48,6 +58,10 @@ export class GitHubSearchStream {
 
     mergeResult(result: GitHubSearchResult) {
         this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
+    }
+
+    static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
+        return GitHubSearchStreamFactory.createFromStreamJSON(json);
     }
 
     toJSON(): GitHubSearchStreamJSON {

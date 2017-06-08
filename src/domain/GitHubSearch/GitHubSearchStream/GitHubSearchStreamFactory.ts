@@ -4,13 +4,17 @@ import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 
 export class GitHubSearchStreamFactory {
     static create() {
-        return new GitHubSearchStream([]);
+        return new GitHubSearchStream({
+            items: []
+        });
     }
 
     static createFromStreamJSON(json: GitHubSearchStreamJSON) {
         const items = json.items.map(rawItem => {
             return new GitHubSearchResultItem(rawItem);
         });
-        return new GitHubSearchStream(items);
+        return new GitHubSearchStream({
+            items
+        });
     }
 }

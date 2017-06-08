@@ -11,11 +11,14 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     }
 
     filterBySearchFilter(filters: SearchFilter[]) {
+        console.log();
         return this.items.filter(item => {
             return filters.every((filter): boolean => {
                 const itemValue: any = (item as any)[filter.field];
                 if (filter.type === "in") {
                     return item.includes(filter.value);
+                } else if (filter.type === "nin") {
+                    return item.includes(filter.value) === false;
                 } else if (filter.type === "=") {
                     return itemValue === filter.value;
                 } else if (filter.type === ">") {

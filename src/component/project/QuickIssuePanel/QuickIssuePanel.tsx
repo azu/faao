@@ -34,7 +34,6 @@ export class QuickIssuePanel extends React.Component<QuickIssuePanelProps, {}> {
     };
 
     onSubmit = () => {
-        console.log(this.state.issueURL);
         if (this.state.issueURL.length > 0) {
             this.props.onSubmit(this.state.issueURL, this.state.title, this.state.body);
         }
@@ -79,7 +78,6 @@ export class QuickIssuePanel extends React.Component<QuickIssuePanelProps, {}> {
                 <TextField
                     label="Issue Title:"
                     onChanged={text => {
-                        console.log(text);
                         this.setState({ title: text });
                     }}
                 />
