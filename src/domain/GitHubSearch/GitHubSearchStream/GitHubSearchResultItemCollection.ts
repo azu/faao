@@ -1,12 +1,35 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import uniqBy from "lodash.uniqby";
+import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
     readonly items: T[];
 
     constructor(items: T[]) {
         this.items = uniqBy(items, "id");
+    }
+
+    filterBySearchFilter(filters: SearchFilter[]) {
+        return this.items.filter(item => {
+            return filters.every((filter): boolean => {
+                const itemValue: any = (item as any)[filter.field];
+                if (filter.type === "in") {
+                    return item.includes(filter.value);
+                } else if (filter.type === "=") {
+                    return itemValue === filter.value;
+                } else if (filter.type === ">") {
+                    return itemValue > filter.value;
+                } else if (filter.type === ">=") {
+                    return itemValue >= filter.value;
+                } else if (filter.type === "<") {
+                    return itemValue < filter.value;
+                } else if (filter.type === "<=") {
+                    return itemValue <= filter.value;
+                }
+                return false;
+            });
+        });
     }
 
     includes(aItem: T): boolean {

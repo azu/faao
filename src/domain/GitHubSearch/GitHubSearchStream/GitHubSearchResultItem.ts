@@ -220,6 +220,22 @@ export class GitHubSearchResultItem implements Item {
         return new Date(this.updatedAt);
     }
 
+    /**
+     * Is `value` included in title, body?
+     */
+    includes(value: string): boolean {
+        if (this.title.includes(value)) {
+            return true;
+        }
+        if (this.url.includes(value)) {
+            return true;
+        }
+        if (this.body.includes(value)) {
+            return true;
+        }
+        return false;
+    }
+
     equals(item?: GitHubSearchResultItem) {
         if (!item) {
             return false;

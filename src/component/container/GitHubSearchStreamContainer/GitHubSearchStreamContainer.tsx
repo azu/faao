@@ -27,7 +27,7 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
         const list = this.props.gitHubSearchStream.hasResult
             ? <SearchResultList
                   className="GitHubSearchStreamContainer-list"
-                  items={this.props.gitHubSearchStream.sortedItems}
+                  items={this.props.gitHubSearchStream.displayItems}
                   activeItem={this.props.app.activeItem}
                   onClickItem={this.onClickItem}
               />

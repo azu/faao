@@ -5,7 +5,7 @@ import { SyntheticEvent } from "react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
-import { GitHubSearchStreamStateItem, IconType } from "../../../store/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchStreamStateItem, IconType } from "../../../store/GitHubSearchStream/GitHubSearchStreamStateItem";
 
 const { CommentIcon, IssueOpenedIcon, IssueClosedIcon, GitMergeIcon, GitPullRequestIcon } = require("react-octicons");
 const suitcssClassnames = require("suitcss-classnames");

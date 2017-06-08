@@ -4,61 +4,50 @@ import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { AppRepository } from "../../infra/repository/AppRepository";
+import { GitHubSearchStreamStateItem } from "./GitHubSearchStreamStateItem";
+
+const filterable = require("filterable");
 
 export interface GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
     sortedItems: GitHubSearchResultItem[];
 }
 
-export type IconType = "IssueOpenedIcon" | "IssueClosedIcon" | "GitPullRequestIcon" | "GitMergeIcon";
-// TODO: it will be performance de-merit
-// should measure performant
-export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
-    constructor(item: GitHubSearchResultItem) {
-        super(item);
-    }
-
-    get iconType(): IconType {
-        if (this.pullRequest) {
-            if (this.state === "merged") {
-                return "GitMergeIcon";
-            } else {
-                return "GitPullRequestIcon";
-            }
-        } else {
-            if (this.state === "open") {
-                return "IssueOpenedIcon";
-            } else {
-                return "IssueClosedIcon";
-            }
-        }
-    }
-
-    get iconColor(): string {
-        switch (this.state) {
-            case "open": // Issue | PR opened
-                return "#28a745";
-            case "closed": // Issue | PR closed
-                return "#cb2431";
-            case "merged": // PR merged
-                // FIXME: It is not work
-                // because GitHub API not return "closed" insteadof "merged"
-                return "#6f42c1";
-        }
-    }
-}
-
 export class GitHubSearchStreamState {
     items: GitHubSearchResultItem[];
-    sortedItems: GitHubSearchStreamStateItem[];
+    displayItems: GitHubSearchStreamStateItem[];
 
     constructor(state: GitHubSearchStreamStateObject) {
         this.items = state.items;
-        this.sortedItems = state.sortedItems.map(item => new GitHubSearchStreamStateItem(item));
+        this.displayItems = state.sortedItems.map(item => new GitHubSearchStreamStateItem(item));
+
+        const query = filterable.Query("Refresh state:open").parse();
+        this.displayItems = this.displayItems.filter((item: any) => {
+            return query.toJSON().every((query: any): boolean => {
+                if (!item.hasOwnProperty(query.field)) {
+                    // full match
+                    return item.includes(query.value);
+                }
+                if (query.type === "=") {
+                    console.log(item[query.field] === query.value, item);
+                    return item[query.field] === query.value;
+                } else if (query.type === ">") {
+                    return item[query.field] > query.value;
+                } else if (query.type === ">=") {
+                    return item[query.field] >= query.value;
+                } else if (query.type === "<") {
+                    return item[query.field] < query.value;
+                } else if (query.type === "<=") {
+                    return item[query.field] <= query.value;
+                }
+                return false;
+            });
+        });
+        console.log(query.toJSON());
     }
 
     get hasResult(): boolean {
-        return this.sortedItems.length > 0;
+        return this.displayItems.length > 0;
     }
 
     update(stream?: GitHubSearchStream) {
