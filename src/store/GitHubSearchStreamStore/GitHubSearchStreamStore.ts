@@ -7,16 +7,19 @@ import { GitHubSearchStreamStateItem } from "./GitHubSearchStreamStateItem";
 
 export interface GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
+    filterWord?: string;
     displayItems: GitHubSearchResultItem[];
 }
 
-export class GitHubSearchStreamState {
+export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
     items: GitHubSearchResultItem[];
+    filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 
     constructor(state: GitHubSearchStreamStateObject) {
         this.items = state.items;
         this.displayItems = state.displayItems.map(item => new GitHubSearchStreamStateItem(item));
+        this.filterWord = state.filterWord;
     }
 
     get hasResult(): boolean {
@@ -30,7 +33,8 @@ export class GitHubSearchStreamState {
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
-            displayItems: stream.sortedItems
+            displayItems: stream.sortedItems,
+            filterWord: stream.filterWord
         });
     }
 }
@@ -42,6 +46,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
         super();
         this.state = new GitHubSearchStreamState({
             items: [],
+            filterWord: undefined,
             displayItems: []
         });
     }

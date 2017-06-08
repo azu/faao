@@ -1,22 +1,18 @@
 // MIT © 2017 azu
-// ome from https://github.com/GitbookIO/filterable
-export interface SearchFilterJSON {
-    type: "in" | "nin" | "=" | "!=" | ">" | ">=" | "<" | "<=";
-    field: string;
-    value: string;
-    originalField: string;
-}
+import { SearchFilterItem, SearchFilterItemJSON } from "./SearchFilterItem";
 
-export class SearchFilter implements SearchFilterJSON {
-    type: "in" | "nin" | "=" | "!=" | ">" | ">=" | "<" | "<=";
-    field: string;
-    value: string;
-    originalField: string;
+const filterable = require("filterable");
 
-    constructor(json: SearchFilterJSON) {
-        this.type = json.type;
-        this.field = json.field;
-        this.value = json.value;
-        this.originalField = json.originalField;
+export class SearchFilter {
+    filterText: string;
+    items: SearchFilterItem[];
+
+    constructor(filterText: string) {
+        this.filterText = filterText;
+        this.items = filterable
+            .Query(filterText)
+            .parse()
+            .toJSON()
+            .map((json: SearchFilterItemJSON) => new SearchFilterItem(json));
     }
 }

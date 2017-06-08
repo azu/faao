@@ -220,6 +220,15 @@ export class GitHubSearchResultItem implements Item {
         return new Date(this.updatedAt);
     }
 
+    // type: https://developer.github.com/v3/search/#search-issues
+    get type(): "issue" | "pr" {
+        if (this.pullRequest) {
+            return "pr";
+        } else {
+            return "issue";
+        }
+    }
+
     /**
      * Is `value` included in title, body?
      */

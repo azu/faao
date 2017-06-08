@@ -3,6 +3,7 @@ import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
+import { SearchFilterItem } from "./SearchFilter/SearchFilterItem";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 let id = 0;
@@ -13,7 +14,7 @@ export interface GitHubSearchStreamJSON {
 
 export interface GitHubSearchStreamArgs {
     items: GitHubSearchResultItem[];
-    filters?: SearchFilter[];
+    filter?: SearchFilter;
 }
 
 /**
@@ -22,7 +23,7 @@ export interface GitHubSearchStreamArgs {
  */
 export class GitHubSearchStream {
     id: string;
-    filters: SearchFilter[];
+    filter?: SearchFilter;
     // no filter | no sort item
     items: GitHubSearchResultItem[];
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
@@ -30,7 +31,7 @@ export class GitHubSearchStream {
     constructor(args: GitHubSearchStreamArgs) {
         this.id = `GitHubSearchStream${id++}`;
         this.items = args.items;
-        this.filters = args.filters || [];
+        this.filter = args.filter;
         this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(args.items, "updated");
     }
 
@@ -38,7 +39,21 @@ export class GitHubSearchStream {
      * sort/filtered items
      */
     get sortedItems() {
-        return this.itemSortedCollection.filterBySearchFilter(this.filters);
+        if (!this.filter) {
+            return this.itemSortedCollection.items;
+        }
+        return this.itemSortedCollection.filterBySearchFilter(this.filter);
+    }
+
+    get filterWord() {
+        if (!this.filter) {
+            return undefined;
+        }
+        return this.filter.filterText;
+    }
+
+    setFilters(filter: SearchFilter) {
+        this.filter = filter;
     }
 
     /**

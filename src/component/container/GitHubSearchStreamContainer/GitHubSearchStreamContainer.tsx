@@ -2,7 +2,7 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import { SearchResultList } from "../../project/SearchResultList/SearchResultList";
-import { GitHubSearchStreamState } from "../../../store/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchStreamState } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStore";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
@@ -34,7 +34,10 @@ export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStrea
             : <EmptySearchResultList />;
         return (
             <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
-                <GitHubSearchStreamCommandBarContainer className="GitHubSearchStreamContainer-header" />
+                <GitHubSearchStreamCommandBarContainer
+                    className="GitHubSearchStreamContainer-header"
+                    filterWord={this.props.gitHubSearchStream.filterWord}
+                />
                 <div className="GitHubSearchStreamContainer-main">
                     {list}
                 </div>

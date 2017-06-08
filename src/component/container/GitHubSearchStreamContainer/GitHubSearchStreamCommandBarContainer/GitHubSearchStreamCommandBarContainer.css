@@ -1,0 +1,18 @@
+.GitHubSearchStreamCommandBarContainer {
+    width: 100%;
+    min-height: 40px;
+    background-color: #f4f4f4;
+    display: flex;
+}
+
+.GitHubSearchStreamCommandBarContainer {
+    flex: 1;
+}
+
+.ExpandableSearchBox-searchBox {
+    background-color: white;
+}
+
+.ExpandableSearchBox-reloadButton {
+    margin: auto 0;
+}

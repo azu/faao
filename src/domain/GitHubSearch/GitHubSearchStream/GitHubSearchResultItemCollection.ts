@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import uniqBy from "lodash.uniqby";
+import { SearchFilterItem } from "./SearchFilter/SearchFilterItem";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
@@ -10,25 +11,24 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         this.items = uniqBy(items, "id");
     }
 
-    filterBySearchFilter(filters: SearchFilter[]) {
-        console.log();
+    filterBySearchFilter(filter: SearchFilter) {
         return this.items.filter(item => {
-            return filters.every((filter): boolean => {
-                const itemValue: any = (item as any)[filter.field];
-                if (filter.type === "in") {
-                    return item.includes(filter.value);
-                } else if (filter.type === "nin") {
-                    return item.includes(filter.value) === false;
-                } else if (filter.type === "=") {
-                    return itemValue === filter.value;
-                } else if (filter.type === ">") {
-                    return itemValue > filter.value;
-                } else if (filter.type === ">=") {
-                    return itemValue >= filter.value;
-                } else if (filter.type === "<") {
-                    return itemValue < filter.value;
-                } else if (filter.type === "<=") {
-                    return itemValue <= filter.value;
+            return filter.items.every((filterItem): boolean => {
+                const itemValue: any = (item as any)[filterItem.field];
+                if (filterItem.type === "in") {
+                    return item.includes(filterItem.value);
+                } else if (filterItem.type === "nin") {
+                    return item.includes(filterItem.value) === false;
+                } else if (filterItem.type === "=") {
+                    return itemValue === filterItem.value;
+                } else if (filterItem.type === ">") {
+                    return itemValue > filterItem.value;
+                } else if (filterItem.type === ">=") {
+                    return itemValue >= filterItem.value;
+                } else if (filterItem.type === "<") {
+                    return itemValue < filterItem.value;
+                } else if (filterItem.type === "<=") {
+                    return itemValue <= filterItem.value;
                 }
                 return false;
             });
