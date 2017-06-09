@@ -38,7 +38,7 @@ export class QuickIssueState implements QuickIssueStateObject {
 
     get newIssueURLs(): string[] {
         const getSetting = (id: EntityId<GitHubSetting>): GitHubSetting | undefined => {
-            return this.settings.find(setting => setting.id === id);
+            return this.settings.find(setting => setting.id.equals(id));
         };
         // create issue list
         const newIssueURLs = this.queries
@@ -68,10 +68,12 @@ export class QuickIssueState implements QuickIssueStateObject {
                 newIssueURLs.unshift(newIssueURL);
             }
         }
+        console.log(newIssueURLs);
         return uniqBy(newIssueURLs, x => x);
     }
 
     update(object: Partial<QuickIssueStateObject>) {
+        console.log(object);
         return new QuickIssueState({
             ...this as QuickIssueStateObject,
             ...object
@@ -112,14 +114,7 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         });
     }
 
-    shouldStateUpdate(prevState: QuickIssueState, nextState: QuickIssueState): boolean {
-        if (!prevState || !nextState) {
-            return true;
-        }
-        return !(shallowEqual(prevState, nextState) || shallowEqual(prevState.newIssueURLs, nextState.newIssueURLs));
-    }
-
-    async receivePayload() {
+    async receivePayload(payload: Payload) {
         const app = this.repositories.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeQuery = app.user.activity.activeQuery;
@@ -128,12 +123,14 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         const resolvedRepository = await this.repositories.gitHubSettingRepository.ready();
         const settings = resolvedRepository.findAll();
         this.setState(
-            this.state.update({
-                queries,
-                settings,
-                activeItem,
-                activeQuery
-            })
+            this.state
+                .update({
+                    queries,
+                    settings,
+                    activeItem,
+                    activeQuery
+                })
+                .reduce(payload)
         );
     }
 
