@@ -51,7 +51,6 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
                               iconName: "Edit"
                           },
                           onClick: (event: React.MouseEvent<any>) => {
-                              console.log(event, this.props.query);
                               this.props.onEditQuery(event, this.props.query);
                           },
                           name: "Edit query"

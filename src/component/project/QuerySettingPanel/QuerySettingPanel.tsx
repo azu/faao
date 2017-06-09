@@ -132,7 +132,6 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                     onChanged={this.onChangedDropDown}
                     defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
                     options={this.props.settings.map(setting => {
-                        console.log("id", setting.id.toValue());
                         return {
                             key: setting.id.toValue(),
                             text: setting.id.toValue()

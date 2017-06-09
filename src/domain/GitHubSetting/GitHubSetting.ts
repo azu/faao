@@ -21,12 +21,16 @@ export class GitHubSetting {
         this.webHost = webHost;
     }
 
-    toJSON() {
-        return {
-            id: this.id.toValue(),
-            token: this.token,
-            apiHost: this.apiHost,
-            webHost: this.webHost
-        };
+    static fromJSON(json: GitHubSettingJSON): GitHubSetting {
+        const setting = Object.create(GitHubSetting.prototype);
+        return Object.assign(setting, json, {
+            id: new EntityId(json.id)
+        });
+    }
+
+    toJSON(): GitHubSettingJSON {
+        return Object.assign({}, this, {
+            id: this.id.toValue()
+        });
     }
 }

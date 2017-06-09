@@ -18,7 +18,7 @@ export class SaveGitHubSettingUseCase extends UseCase {
     }
 
     execute(settingJSON: GitHubSettingJSON, id?: EntityId<GitHubSetting>) {
-        const setting = GitHubSettingFactory.createFromJSON(settingJSON);
+        const setting = GitHubSetting.fromJSON(settingJSON);
         if (!id) {
             // add
             this.gitHubSettingRepository.save(setting);

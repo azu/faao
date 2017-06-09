@@ -11,8 +11,4 @@ export class GitHubSettingFactory {
             "https://github.com"
         );
     }
-
-    static createFromJSON(json: GitHubSettingJSON) {
-        return new GitHubSetting(new EntityId<GitHubSetting>(json.id), json.token, json.apiHost, json.webHost);
-    }
 }
