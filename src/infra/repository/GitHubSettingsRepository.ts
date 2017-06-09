@@ -11,6 +11,11 @@ export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
     findGitHubSettingById(id: EntityId<GitHubSetting>): GitHubSetting | undefined {
         return this.findById(id);
     }
+
+    replace(prevSetting: GitHubSetting, newSetting: GitHubSetting) {
+        newSetting.id = prevSetting.id;
+        this.save(newSetting);
+    }
 }
 
 export const gitHubSettingRepository = new GitHubSettingRepository(GitHubSettingFactory.create());

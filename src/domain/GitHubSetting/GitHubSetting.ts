@@ -1,7 +1,12 @@
 // MIT © 2017 azu
 import { EntityId } from "../util/EntityId";
 
-export type GitHubSettingJSON = { [P in keyof GitHubSetting]: GitHubSetting[P] };
+export interface GitHubSettingJSON {
+    id: string;
+    token: string;
+    apiHost: string;
+    webHost: string;
+}
 
 export class GitHubSetting {
     id: EntityId<GitHubSetting>;

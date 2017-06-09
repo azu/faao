@@ -68,6 +68,7 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         const activeQuery = app.user.activity.activeQuery;
         const gitHubSearchList = this.repositories.gitHubSearchListRepository.get();
         const queries = gitHubSearchList.queries;
+        // create issue list
         const newIssueURLs = queries
             .map(query => {
                 const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(

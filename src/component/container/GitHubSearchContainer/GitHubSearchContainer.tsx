@@ -10,9 +10,14 @@ import classNames from "classnames";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { OpenQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import { GitHubSettingList } from "../../project/GitHubSettingList/GitHubSettingList";
+import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
+import { GitHubSettingState } from "../../../store/GitHubSettingStore/GitHubSettingStore";
+import { OpenSettingPanelUseCase } from "../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 
 export interface GitHubSearchContainerProps {
     className?: string;
+    gitHubSetting: GitHubSettingState;
     gitHubSearchList: GitHubSearchListState;
 }
 
@@ -28,6 +33,18 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             }
         }
     ];
+
+    onClickSetting = (event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        console.log(event, setting);
+    };
+
+    onEditSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        this.useCase(new OpenSettingPanelUseCase()).executor(useCase => useCase.execute(setting));
+    };
+
+    onClickAddSetting = () => {
+        this.useCase(new OpenSettingPanelUseCase()).executor(useCase => useCase.execute());
+    };
 
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
         this.useCase(createSearchGitHubAndOpenStreamUseCase()).executor(useCase => useCase.execute(query));
@@ -48,6 +65,20 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                     <CommandBar isSearchBoxVisible={false} items={this.menuItems} />
                 </header>
                 <div className="GitHubSearchContainer-main">
+                    <h1 className="ms-font-xxl">
+                        Accounts
+                        <IconButton
+                            iconProps={{ iconName: "Add" }}
+                            title="Add GitHub account"
+                            ariaLabel="Add GitHub account"
+                            onClick={this.onClickAddSetting}
+                        />
+                    </h1>
+                    <GitHubSettingList
+                        settings={this.props.gitHubSetting.settings}
+                        onClickSetting={this.onClickSetting}
+                        onEditSetting={this.onEditSetting}
+                    />
                     <h1 className="ms-font-xxl">
                         Queries
                         <IconButton

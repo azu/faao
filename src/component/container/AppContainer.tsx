@@ -9,6 +9,7 @@ import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
 import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
 import { QuerySettingContainer } from "./QuerySettingContainer/QuerySettionContainer";
+import { GitHubSettingPanelContainer } from "./GitHubSettingPanelContainer/GitHubSettingPanelContainer";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
@@ -21,7 +22,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             <div className="AppContainer">
                 <ShortcutKeyContainer />
                 <nav className="AppContainer-nav">
-                    <GitHubSearchContainer gitHubSearchList={this.props.gitHubSearchList} />
+                    <GitHubSearchContainer
+                        gitHubSetting={this.props.gitHubSetting}
+                        gitHubSearchList={this.props.gitHubSearchList}
+                    />
                 </nav>
                 <main className="AppContainer-main">
                     <GitHubSearchStreamContainer
@@ -29,7 +33,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                         gitHubSearchStream={this.props.gitHubSearchStream}
                     />
                 </main>
-
+                <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
                 <QuerySettingContainer
                     gitHubSearchList={this.props.gitHubSearchList}
                     gitHubSetting={this.props.gitHubSetting}

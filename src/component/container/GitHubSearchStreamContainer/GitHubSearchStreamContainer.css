@@ -10,6 +10,7 @@
 .GitHubSearchStreamContainer-header {
     /* fix header in flex */
     flex-shrink: 0;
+    border: 1px solid #ddd;
 }
 
 .GitHubSearchStreamContainer-main {

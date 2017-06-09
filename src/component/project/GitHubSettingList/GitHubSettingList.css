@@ -1,0 +1,17 @@
+.GitHubSettingListItem {
+    height: 30px;
+    padding: 0.2rem 0;
+    /* for GitHubSettingListItem-settingButton */
+    position: relative;
+}
+
+.GitHubSettingListItem-button {
+    vertical-align: middle;
+}
+
+.GitHubSettingListItem-settingButton {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: auto;
+}

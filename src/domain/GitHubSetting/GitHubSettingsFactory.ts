@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSetting } from "./GitHubSetting";
+import { GitHubSetting, GitHubSettingJSON } from "./GitHubSetting";
 import { EntityId } from "../util/EntityId";
 
 export class GitHubSettingFactory {
@@ -10,5 +10,9 @@ export class GitHubSettingFactory {
             "https://api.github.com",
             "https://github.com"
         );
+    }
+
+    static createFromJSON(json: GitHubSettingJSON) {
+        return new GitHubSetting(new EntityId<GitHubSetting>(json.id), json.token, json.apiHost, json.webHost);
     }
 }
