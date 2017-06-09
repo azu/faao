@@ -21,6 +21,7 @@ export class GitHubSettingState implements GitHubSettingStateObject {
 
     constructor(args: GitHubSettingStateObject) {
         this.settings = args.settings;
+        this.editingSetting = args.editingSetting;
         this.isOpenSettingPanel = args.isOpenSettingPanel;
     }
 

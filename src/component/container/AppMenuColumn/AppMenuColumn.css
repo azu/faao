@@ -1,0 +1,11 @@
+.AppMenuColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.AppMenuColumn-header {
+}
+
+.AppMenuColumn-search, .AppMenuColumn-setting {
+    flex: 1;
+}
