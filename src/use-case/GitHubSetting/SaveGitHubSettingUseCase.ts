@@ -25,7 +25,8 @@ export class SaveGitHubSettingUseCase extends UseCase {
             return;
         }
         // update
-        const savedSetting = await this.gitHubSettingRepository.findGitHubSettingById(id);
+        const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
+        const savedSetting = resolvedGitHubSettingRepository.findGitHubSettingById(id);
         if (savedSetting) {
             return this.gitHubSettingRepository.replace(savedSetting, setting);
         }

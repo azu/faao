@@ -10,25 +10,71 @@ import uniqBy from "lodash.uniqby";
 import { EntityId } from "../../domain/util/EntityId";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { shallowEqual } from "shallow-equal-object";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;
-    newIssueURLs: string[];
+    queries: GitHubSearchQuery[];
+    settings: GitHubSetting[];
+    activeItem?: GitHubSearchResultItem;
+    activeQuery?: GitHubSearchQuery;
 }
 
 export class QuickIssueState implements QuickIssueStateObject {
+    queries: GitHubSearchQuery[];
+    settings: GitHubSetting[];
+    activeItem?: GitHubSearchResultItem;
+    activeQuery?: GitHubSearchQuery;
     isOpened: boolean;
-    newIssueURLs: string[];
 
     constructor(args: QuickIssueStateObject) {
-        this.newIssueURLs = args.newIssueURLs;
+        this.queries = args.queries;
+        this.settings = args.settings;
+        this.activeItem = args.activeItem;
+        this.activeQuery = args.activeQuery;
         this.isOpened = args.isOpened;
     }
 
-    update(newIssueURLs: string[]) {
+    get newIssueURLs(): string[] {
+        const getSetting = (id: EntityId<GitHubSetting>): GitHubSetting | undefined => {
+            return this.settings.find(setting => setting.id === id);
+        };
+        // create issue list
+        const newIssueURLs = this.queries
+            .map(query => {
+                const gitHubSetting = getSetting(query.gitHubSettingId);
+                if (!gitHubSetting) {
+                    return [];
+                }
+                return query.targetRepositories.map(repository => {
+                    // http://:host/:repo/issues/new
+                    return urlJoin(gitHubSetting.webHost, repository, "issues/new");
+                });
+            })
+            .reduce((compute, repo) => {
+                return compute.concat(repo);
+            }, []);
+        if (this.activeItem && this.activeQuery) {
+            // http://:host/:repo/issues/new
+            const gitHubSetting = getSetting(this.activeQuery.gitHubSettingId);
+            if (gitHubSetting) {
+                // api-host/repos/ -> web-host/
+                const webHost = this.activeItem.repositoryUrl.replace(
+                    urlJoin(gitHubSetting.apiHost, "repos"),
+                    gitHubSetting.webHost
+                );
+                const newIssueURL = urlJoin(webHost, "issues/new");
+                newIssueURLs.unshift(newIssueURL);
+            }
+        }
+        return uniqBy(newIssueURLs, x => x);
+    }
+
+    update(object: Partial<QuickIssueStateObject>) {
         return new QuickIssueState({
             ...this as QuickIssueStateObject,
-            newIssueURLs
+            ...object
         });
     }
 
@@ -60,63 +106,35 @@ export class QuickIssueStore extends Store<QuickIssueState> {
     constructor(public repositories: QuickIssueStoreArgs) {
         super();
         this.state = new QuickIssueState({
-            newIssueURLs: [],
+            queries: [],
+            settings: [],
             isOpened: false
         });
     }
 
     shouldStateUpdate(prevState: QuickIssueState, nextState: QuickIssueState): boolean {
-        if (shallowEqual(prevState, nextState)) {
-            return false;
-        }
         if (!prevState || !nextState) {
             return true;
         }
-        return shallowEqual(prevState.newIssueURLs, nextState.newIssueURLs);
+        return !(shallowEqual(prevState, nextState) || shallowEqual(prevState.newIssueURLs, nextState.newIssueURLs));
     }
 
-    async receivePayload(payload: Payload) {
+    async receivePayload() {
         const app = this.repositories.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeQuery = app.user.activity.activeQuery;
         const gitHubSearchList = this.repositories.gitHubSearchListRepository.get();
         const queries = gitHubSearchList.queries;
-        const settings = await this.repositories.gitHubSettingRepository.findAll();
-        const getSetting = (id: EntityId<GitHubSetting>): GitHubSetting | undefined => {
-            return settings.find(setting => setting.id === id);
-        };
-        // create issue list
-        const newIssueURLs = queries
-            .map(query => {
-                const gitHubSetting = getSetting(query.gitHubSettingId);
-                if (!gitHubSetting) {
-                    return [];
-                }
-                return query.targetRepositories.map(repository => {
-                    // http://:host/:repo/issues/new
-                    return urlJoin(gitHubSetting.webHost, repository, "issues/new");
-                });
+        const resolvedRepository = await this.repositories.gitHubSettingRepository.ready();
+        const settings = resolvedRepository.findAll();
+        this.setState(
+            this.state.update({
+                queries,
+                settings,
+                activeItem,
+                activeQuery
             })
-            .reduce((compute, repo) => {
-                return compute.concat(repo);
-            }, []);
-        if (activeItem && activeQuery) {
-            // TODO: Move to domain
-            // http://:host/:repo/issues/new
-            const gitHubSetting = getSetting(activeQuery.gitHubSettingId);
-            if (!gitHubSetting) {
-                return;
-            }
-            // api-host/repos/ -> web-host/
-            const webHost = activeItem.repositoryUrl.replace(
-                urlJoin(gitHubSetting.apiHost, "repos"),
-                gitHubSetting.webHost
-            );
-            const newIssueURL = urlJoin(webHost, "issues/new");
-            newIssueURLs.unshift(newIssueURL);
-        }
-        const newState = this.state.update(uniqBy(newIssueURLs, x => x)).reduce(payload);
-        this.setState(newState);
+        );
     }
 
     getState(): QuickIssueState {

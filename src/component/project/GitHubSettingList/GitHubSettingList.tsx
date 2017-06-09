@@ -96,6 +96,7 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps, {
                 }}
                 onRenderCell={(setting: GitHubSetting) =>
                     <GitHubSettingListItem
+                        key={setting.id.toValue()}
                         setting={setting}
                         onClickSetting={this.props.onClickSetting}
                         onEditSetting={this.props.onEditSetting}

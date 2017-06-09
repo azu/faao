@@ -16,7 +16,6 @@ export class BaseRepository<T extends Entity> {
     constructor(initialEntity: T) {
         this.initialEntity = initialEntity;
         this.map = new MapLike<Entity["id"], T>();
-        this.save(initialEntity);
     }
 
     get(): T {
