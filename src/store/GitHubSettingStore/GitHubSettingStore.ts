@@ -48,7 +48,8 @@ export class GitHubSettingState implements GitHubSettingStateObject {
         } else if (payload instanceof CloseSettingPanelUseCasePayload) {
             return new GitHubSettingState({
                 ...this as GitHubSettingStateObject,
-                isOpenSettingPanel: false
+                isOpenSettingPanel: false,
+                editingSetting: undefined
             });
         }
         return this;
@@ -68,9 +69,7 @@ export class GitHubSettingStore extends Store<GitHubSettingState> {
 
     receivePayload(payload: Payload) {
         const settings = this.gitHubSettingRepository.findAll();
-        const newState = this.state.update(settings).reduce(payload);
-        console.log(newState);
-        this.setState(newState);
+        this.setState(this.state.update(settings).reduce(payload));
     }
 
     getState(): GitHubSettingState {
