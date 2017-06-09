@@ -2,19 +2,25 @@ import { BaseRepository } from "./BaseRepository";
 import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { EntityId } from "../../domain/util/EntityId";
+import localForge from "localforage";
 
 export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
-    findAll() {
-        return this.map.values();
+    findAll(): Promise<GitHubSetting[]> {
+        return Promise.resolve(this.map.values());
     }
 
-    findGitHubSettingById(id: EntityId<GitHubSetting>): GitHubSetting | undefined {
-        return this.findById(id);
+    findGitHubSettingById(id: EntityId<GitHubSetting>): Promise<GitHubSetting | undefined> {
+        return Promise.resolve(this.findById(id));
     }
 
-    replace(prevSetting: GitHubSetting, newSetting: GitHubSetting) {
+    save(entity: GitHubSetting): Promise<void> {
+        super.save(entity);
+        return Promise.resolve();
+    }
+
+    replace(prevSetting: GitHubSetting, newSetting: GitHubSetting): Promise<void> {
         newSetting.id = prevSetting.id;
-        this.save(newSetting);
+        return this.save(newSetting);
     }
 }
 

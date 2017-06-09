@@ -7,6 +7,9 @@ import urlJoin from "url-join";
 import { OpenQuickIssueUseCasePayload } from "../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQuickIssueUseCase";
 import uniqBy from "lodash.uniqby";
+import { EntityId } from "../../domain/util/EntityId";
+import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
+import { shallowEqual } from "shallow-equal-object";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;
@@ -62,18 +65,30 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         });
     }
 
-    receivePayload(payload: Payload) {
+    shouldStateUpdate(prevState: QuickIssueState, nextState: QuickIssueState): boolean {
+        if (shallowEqual(prevState, nextState)) {
+            return false;
+        }
+        if (!prevState || !nextState) {
+            return true;
+        }
+        return shallowEqual(prevState.newIssueURLs, nextState.newIssueURLs);
+    }
+
+    async receivePayload(payload: Payload) {
         const app = this.repositories.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeQuery = app.user.activity.activeQuery;
         const gitHubSearchList = this.repositories.gitHubSearchListRepository.get();
         const queries = gitHubSearchList.queries;
+        const settings = await this.repositories.gitHubSettingRepository.findAll();
+        const getSetting = (id: EntityId<GitHubSetting>): GitHubSetting | undefined => {
+            return settings.find(setting => setting.id === id);
+        };
         // create issue list
         const newIssueURLs = queries
             .map(query => {
-                const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(
-                    query.gitHubSettingId
-                );
+                const gitHubSetting = getSetting(query.gitHubSettingId);
                 if (!gitHubSetting) {
                     return [];
                 }
@@ -88,9 +103,7 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         if (activeItem && activeQuery) {
             // TODO: Move to domain
             // http://:host/:repo/issues/new
-            const gitHubSetting = this.repositories.gitHubSettingRepository.findGitHubSettingById(
-                activeQuery.gitHubSettingId
-            );
+            const gitHubSetting = getSetting(activeQuery.gitHubSettingId);
             if (!gitHubSetting) {
                 return;
             }

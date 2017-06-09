@@ -17,7 +17,7 @@ export class SaveGitHubSettingUseCase extends UseCase {
         super();
     }
 
-    execute(settingJSON: GitHubSettingJSON, id?: EntityId<GitHubSetting>) {
+    async execute(settingJSON: GitHubSettingJSON, id?: EntityId<GitHubSetting>) {
         const setting = GitHubSetting.fromJSON(settingJSON);
         if (!id) {
             // add
@@ -25,9 +25,9 @@ export class SaveGitHubSettingUseCase extends UseCase {
             return;
         }
         // update
-        const savedSetting = this.gitHubSettingRepository.findGitHubSettingById(id);
+        const savedSetting = await this.gitHubSettingRepository.findGitHubSettingById(id);
         if (savedSetting) {
-            this.gitHubSettingRepository.replace(savedSetting, setting);
+            return this.gitHubSettingRepository.replace(savedSetting, setting);
         }
     }
 }

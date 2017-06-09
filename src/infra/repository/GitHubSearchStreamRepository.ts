@@ -6,13 +6,12 @@ import {
     GitHubSearchStreamJSON
 } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import localForge from "localforage";
-
-localForge.config({
-    name: "Faao"
-});
+import localForage from "localforage";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
+const storage = localForage.createInstance({
+    name: "GitHubSearchStreamRepository"
+});
 
 export class GitHubSearchStreamRepository extends BaseRepository<GitHubSearchStream> {
     findByQuery(query: GitHubSearchQuery): Promise<GitHubSearchStream> {
@@ -21,7 +20,7 @@ export class GitHubSearchStreamRepository extends BaseRepository<GitHubSearchStr
             return Promise.resolve(this.map.get(hash));
         }
         // from storage
-        return localForge
+        return storage
             .getItem<GitHubSearchStreamJSON>(hash)
             .then(streamJSON => {
                 if (!streamJSON) {
@@ -41,7 +40,7 @@ export class GitHubSearchStreamRepository extends BaseRepository<GitHubSearchStr
         const hash = query.hash;
         this.map.set(hash, stream);
         super.save(stream);
-        return localForge.setItem(hash, JSON.parse(JSON.stringify(stream))).then(() => {
+        return storage.setItem(hash, stream.toJSON()).then(() => {
             debug("Save stream");
         });
     }
