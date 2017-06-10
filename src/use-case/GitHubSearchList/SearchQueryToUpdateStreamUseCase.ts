@@ -9,6 +9,7 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
+import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -33,7 +34,9 @@ export class SearchGitHubAbstractUseCase extends UseCase {
         const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
         const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
         if (!gitHubSetting) {
-            return Promise.reject(new Error(`Not found GitHubSetting`));
+            return Promise.reject(
+                new Error(`Not found GitHubSetting. Please check the GitHubSetting of the query:${query.name}`)
+            );
         }
         const gitHubClient = new GitHubClient(gitHubSetting);
         return new Promise((resolve, reject) => {
@@ -54,6 +57,10 @@ export class SearchGitHubAbstractUseCase extends UseCase {
                     console.error(error.message, error.stack);
                     stream.clear();
                     await gitHubSearchStreamRepository.saveWithQuery(stream, query);
+                    const notice = new SearchQueryErrorNotice({
+                        query,
+                        error
+                    });
                     reject(error);
                 },
                 () => {

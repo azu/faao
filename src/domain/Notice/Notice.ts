@@ -1,19 +1,19 @@
 // MIT © 2017 azu
+import { GenericErrorNotice, isGenericErrorNotice } from "./GenericErrorNotice";
+import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "./SearchQueryErrorNotice";
+
 let id = 0;
 
-export interface NoticeArgs {
-    id: string;
-    message: string;
-}
+export type Notice = AbstractNotice | GenericErrorNotice | SearchQueryErrorNotice;
 
-export abstract class Notice {
+export abstract class AbstractNotice {
     id: string;
+    type: string;
     message: string;
     timeStamp: number;
 
-    constructor(args: NoticeArgs) {
+    constructor() {
         this.id = `Notice${id++}`;
-        this.message = args.message;
         this.timeStamp = Date.now();
     }
 }

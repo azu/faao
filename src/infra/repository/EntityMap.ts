@@ -16,18 +16,18 @@ export const toKey = (entityId: string | EntityId<any>): string => {
  */
 export class EntityMap<T extends Entity> extends MapLike<string | EntityId<T>, T> {
     get(entityId: string | EntityId<T>): T | undefined {
-        return this.get(toKey(entityId));
+        return super.get(toKey(entityId));
     }
 
     has(entityId: string | EntityId<T>): boolean {
-        return this.has(toKey(entityId));
+        return super.has(toKey(entityId));
     }
 
     set(entityId: string | EntityId<T>, value?: T): this {
-        return this.set(toKey(entityId), value);
+        return super.set(toKey(entityId), value);
     }
 
     delete(entityId: string | EntityId<T>): boolean {
-        return this.delete(toKey(entityId));
+        return super.delete(toKey(entityId));
     }
 }

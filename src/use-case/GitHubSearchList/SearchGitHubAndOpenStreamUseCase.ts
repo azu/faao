@@ -8,6 +8,8 @@ import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase"
 import { createSearchGitHubAbstractUseCase, SearchGitHubAbstractUseCase } from "./SearchQueryToUpdateStreamUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
+import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
+import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 export const createSearchGitHubAndOpenStreamUseCase = () => {
@@ -31,8 +33,19 @@ export class SearchGitHubAndOpenStreamUseCase extends SearchGitHubAbstractUseCas
             .useCase(createAppUserOpenStreamUseCase())
             .executor(useCase => useCase.execute(query, stream));
         await this.context.useCase(createAppUserSelectFirstItemUseCase()).executor(useCase => useCase.execute());
-        return this.context.useCase(createSearchGitHubAbstractUseCase()).executor(useCase => {
-            return useCase.execute(query, stream);
-        });
+        return this.context
+            .useCase(createSearchGitHubAbstractUseCase())
+            .executor(useCase => {
+                return useCase.execute(query, stream);
+            })
+            .catch((error: Error) => {
+                const notice = new SearchQueryErrorNotice({
+                    query,
+                    error
+                });
+                return this.context
+                    .useCase(createShowErrorNoticeUseCase())
+                    .executor(useCase => useCase.execute(notice));
+            });
     }
 }

@@ -10,6 +10,7 @@ import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
 import { QuerySettingContainer } from "./QuerySettingContainer/QuerySettionContainer";
 import { GitHubSettingPanelContainer } from "./GitHubSettingPanelContainer/GitHubSettingPanelContainer";
 import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
+import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
@@ -20,6 +21,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             : null;
         return (
             <div className="AppContainer">
+                <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />
                 <AppMenuColumn
                     className="AppContainer-nav"

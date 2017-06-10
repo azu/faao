@@ -11,6 +11,8 @@ import { AppStore, AppState } from "./AppStore/AppStore";
 import { QuickIssueStore, QuickIssueState } from "./QuickIssueStore/QuickIssueStore";
 import { gitHubSettingRepository } from "../infra/repository/GitHubSettingsRepository";
 import { GitHubSettingStore, GitHubSettingState } from "./GitHubSettingStore/GitHubSettingStore";
+import { NoticeStore, NoticeState } from "./Notice/NoticeStore";
+import { noticeRepository } from "../infra/repository/NoticeRepository";
 // repository
 // store
 // store mapping
@@ -23,7 +25,8 @@ export const storeMapping = {
         gitHubSearchListRepository,
         gitHubSettingRepository
     }),
-    gitHubSetting: new GitHubSettingStore(gitHubSettingRepository)
+    gitHubSetting: new GitHubSettingStore(gitHubSettingRepository),
+    notice: new NoticeStore(noticeRepository)
 };
 
 // debug
@@ -32,7 +35,8 @@ export const storeMapping = {
         appRepository,
         gitHubSettingRepository,
         gitHubSearchListRepository,
-        gitHubSearchStreamRepository
+        gitHubSearchStreamRepository,
+        noticeRepository
     },
     stores: storeMapping
 };

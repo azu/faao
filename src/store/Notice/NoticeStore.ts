@@ -1,21 +1,34 @@
 // MIT © 2017 azu
 import { Store } from "almin";
-import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { AppRepository } from "../../infra/repository/AppRepository";
-import { AppUserActivity } from "../../domain/App/AppUserActivity";
 import { NoticeRepository } from "../../infra/repository/NoticeRepository";
+import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 
-export interface NoticeStateArgs {}
+export interface NoticeStateArgs {
+    searchQueryErrorNotices: SearchQueryErrorNotice[];
+}
 
 export class NoticeState implements NoticeStateArgs {
-    constructor(args: NoticeStateArgs) {}
+    searchQueryErrorNotices: SearchQueryErrorNotice[];
 
-    update(activity: AppUserActivity) {
+    constructor(args: NoticeStateArgs) {
+        this.searchQueryErrorNotices = args.searchQueryErrorNotices;
+    }
+
+    get searchQueryErrorNotice() {
+        if (this.searchQueryErrorNotices.length === 0) {
+            return undefined;
+        }
+        return this.searchQueryErrorNotices[0];
+    }
+
+    get hasNotice(): boolean {
+        return this.searchQueryErrorNotices.length > 0;
+    }
+
+    update(args: NoticeStateArgs) {
         return new NoticeState({
             ...this as NoticeState,
-            activeStream: activity.activeStream,
-            activeItem: activity.activeItem
+            searchQueryErrorNotices: args.searchQueryErrorNotices
         });
     }
 }
@@ -25,12 +38,16 @@ export class NoticeStore extends Store<NoticeState> {
 
     constructor(public noticeRepository: NoticeRepository) {
         super();
-        this.state = new NoticeState({});
+        this.state = new NoticeState({
+            searchQueryErrorNotices: []
+        });
     }
 
     receivePayload() {
-        const appRepository = this.noticeRepository.findAllByType(NoticeType);
-        const newState = this.state.update(appRepository.user.activity);
+        const searchQueryErrorNotices = this.noticeRepository.findAllByType(isSearchQueryErrorNotice);
+        const newState = this.state.update({
+            searchQueryErrorNotices: searchQueryErrorNotices
+        });
         this.setState(newState);
     }
 
