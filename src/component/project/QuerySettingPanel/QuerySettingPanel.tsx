@@ -144,7 +144,7 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <TextField
                     label="Name:"
                     placeholder="query name"
-                    defaultValue={this.props.query && this.props.query.name}
+                    value={this.state.name}
                     onChanged={text => {
                         this.setState({ name: text });
                     }}
@@ -152,7 +152,7 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <TextField
                     label="Query:"
                     placeholder="repo:azu/faao"
-                    defaultValue={this.props.query && this.props.query.query}
+                    value={this.state.query}
                     onChanged={text => this.setState({ query: text })}
                 />
                 <p className="ms-font-xs QuerySettingPanel-itemDescription">
@@ -166,7 +166,7 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <TextField
                     label="Color:"
                     addonString="#"
-                    defaultValue={this.props.query && this.props.query.color.hexCode.replace(/^#/, "")}
+                    value={this.state.color.replace(/^#/, "")}
                     onChanged={text => this.setState({ color: text })}
                 />
                 <GithubPicker onChange={this.onChangeColor} />

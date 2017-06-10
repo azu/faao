@@ -15,26 +15,28 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         name: "GitHubSearchStreamRepository"
     });
 
-    findByQuery(query: GitHubSearchQuery): Promise<GitHubSearchStream> {
-        const hash = query.hash;
-        if (this.map.has(hash)) {
-            return Promise.resolve(this.map.get(hash));
+    async ready() {
+        if (this.map.size > 0) {
+            return Promise.resolve(this);
         }
-        // from storage
-        return this.storage
-            .getItem<GitHubSearchStreamJSON>(hash)
-            .then(streamJSON => {
-                if (!streamJSON) {
-                    debug("Not Found Stream JSON: match query %o", query);
-                    return undefined;
-                }
-                debug("Found Stream JSON: %o match query %o", streamJSON, query);
-                return GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
-            })
-            .catch(error => {
-                debug("Not Found Error", error);
-                return Promise.reject(error);
-            });
+        const values: [string, GitHubSearchStreamJSON][] = [];
+        await this.storage.iterate((value, key) => {
+            values.push([key, value]);
+        });
+        values.forEach(([hash, json]) => {
+            const stream = GitHubSearchStream.fromJSON(json);
+            this.map.set(hash, stream);
+        });
+        return this;
+    }
+
+    findByQuery(query: GitHubSearchQuery): GitHubSearchStream | undefined {
+        const hash = query.hash;
+        return this.map.get(hash);
+    }
+
+    save(_stream: GitHubSearchStream) {
+        throw new Error("Use saveWithQuery");
     }
 
     saveWithQuery(stream: GitHubSearchStream, query: GitHubSearchQuery): Promise<void> {

@@ -13,7 +13,7 @@ import { Entity, EntityId } from "../../domain/Entity";
  */
 export class NonNullableBaseRepository<T extends Entity> {
     map: EntityMap<T>;
-    private lastUsed: T | null;
+    protected lastUsed: T | null;
 
     constructor(protected initialEntity: T) {
         this.initialEntity = initialEntity;

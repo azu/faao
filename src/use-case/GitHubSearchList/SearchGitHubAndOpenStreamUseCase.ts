@@ -25,7 +25,7 @@ export class SearchGitHubAndOpenStreamUseCase extends SearchGitHubAbstractUseCas
     }
 
     async execute(query: GitHubSearchQuery) {
-        const stream = (await gitHubSearchStreamRepository.findByQuery(query)) || GitHubSearchStreamFactory.create();
+        const stream = gitHubSearchStreamRepository.findByQuery(query) || GitHubSearchStreamFactory.create();
         // save current stream
         await gitHubSearchStreamRepository.saveWithQuery(stream, query);
         // AppUser open stream and select first item

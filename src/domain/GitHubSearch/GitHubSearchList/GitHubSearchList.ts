@@ -1,11 +1,8 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery } from "./GitHubSearchQuery";
-import uniquBy from "lodash.uniqby";
-
-export type TO_JSON<T> = { [P in keyof T]: T[P] };
+import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 
 export interface GitHubSearchListJSON {
-    queries: TO_JSON<GitHubSearchQuery>[];
+    queries: GitHubSearchQueryJSON[];
 }
 
 let GitHubSearchListID = 0;
@@ -20,13 +17,16 @@ export class GitHubSearchList {
     }
 
     static fromJSON(json: GitHubSearchListJSON) {
-        return new GitHubSearchList(json.queries);
+        const list = Object.create(GitHubSearchList.prototype);
+        return Object.assign(list, json, {
+            queries: json.queries.map(query => GitHubSearchQuery.fromJSON(query))
+        });
     }
 
     toJSON(): GitHubSearchListJSON {
-        return {
-            queries: this.queries
-        };
+        return Object.assign({}, this, {
+            queries: this.queries.map(query => query.toJSON())
+        });
     }
 
     saveQuery(aQuery: GitHubSearchQuery) {

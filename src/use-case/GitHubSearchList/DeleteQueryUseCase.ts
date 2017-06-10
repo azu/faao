@@ -18,6 +18,6 @@ export class DeleteQueryUseCase extends UseCase {
     execute(query: GitHubSearchQuery) {
         const searchList = this.gitHubSearchListRepository.get();
         searchList.deleteQuery(query);
-        this.gitHubSearchListRepository.save(searchList);
+        return this.gitHubSearchListRepository.save(searchList);
     }
 }

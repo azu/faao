@@ -61,6 +61,6 @@ export class GitHubSearchListFactory {
         const initialQueries = createDefault().map((query: GitHubSearchQueryJSON) => {
             return GitHubSearchQueryFactory.createFromJSON(query);
         });
-        return new GitHubSearchList(initialQueries);
+        return new GitHubSearchList([]);
     }
 }

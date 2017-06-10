@@ -52,4 +52,19 @@ export class GitHubSearchQuery {
     get hash() {
         return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
+
+    static fromJSON(json: GitHubSearchQueryJSON): GitHubSearchQuery {
+        const setting = Object.create(GitHubSearchQuery.prototype);
+        return Object.assign(setting, json, {
+            color: GitHubSearchQueryColor.createFromHexCode(json.color),
+            gitHubSettingId: new EntityId<GitHubSetting>(json.gitHubSettingId)
+        });
+    }
+
+    toJSON() {
+        return Object.assign({}, this, {
+            color: this.color.hexCode,
+            gitHubSettingId: this.gitHubSettingId.toValue()
+        });
+    }
 }

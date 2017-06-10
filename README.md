@@ -28,12 +28,12 @@ Reation
 - queries
 
 
-#### User
+#### AppUser
 
-- User select settions
-- User open stream
-- User select item
-- User open item with browser
+- AppUser select settings
+- AppUser open stream
+- AppUser select item
+- AppUser open item with browser
 
 #### GitHub Settings
 
