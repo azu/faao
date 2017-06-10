@@ -156,15 +156,15 @@ almin-logger@^4.0.3:
   dependencies:
     map-like "^1.0.3"
 
-almin-react-container@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.3.0.tgz#d3d36afd2c2b71481885c03934db7d16d523f120"
+almin-react-container@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.3.2.tgz#c028f901e1e2508f339c0f6f340ec2055fc78436"
   dependencies:
     shallow-equal-object "^1.0.1"
 
-almin@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/almin/-/almin-0.13.0.tgz#6f24a9a27f3368ce3066008e4b423b58c68a4550"
+almin@0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/almin/-/almin-0.13.2.tgz#969678cbb5fb2228212539817fd395872f25621d"
   dependencies:
     map-like "^1.1.2"
     object-assign "^4.1.0"
@@ -2310,6 +2310,12 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
+filterable@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/filterable/-/filterable-2.0.1.tgz#e22ba8c25f0ec9037ae8b598573af18974346b6b"
+  dependencies:
+    lodash "^3.10.1"
+
 finalhandler@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.3.tgz#ef47e77950e999780e86022a560e3217e0d0cc89"
@@ -3551,7 +3557,7 @@ lodash.uniqby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
 
-lodash@^3.7.0:
+lodash@^3.10.1, lodash@^3.7.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 

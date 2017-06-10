@@ -30,7 +30,8 @@ export class SearchGitHubAbstractUseCase extends UseCase {
     }
 
     async execute(query: GitHubSearchQuery, stream: GitHubSearchStream) {
-        const gitHubSetting = this.gitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
+        const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
+        const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
         if (!gitHubSetting) {
             return Promise.reject(new Error(`Not found GitHubSetting`));
         }

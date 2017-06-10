@@ -1,0 +1,25 @@
+:root {
+    --AppMenuColumn-header--height: 40px;
+}
+
+.AppMenuColumn {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.AppMenuColumn-header {
+    height: var(--AppMenuColumn-header--height);
+}
+
+.AppMenuColumn-search, .AppMenuColumn-setting {
+    flex: 1;
+}
+
+.AppMenuColumn-search {
+    min-height: calc(20% - var(--AppMenuColumn-header--height));
+}
+
+.AppMenuColumn-search {
+    min-height: calc(80% - var(--AppMenuColumn-header--height));
+}

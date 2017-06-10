@@ -19,6 +19,9 @@ export function sort(items: GitHubSearchResultItem[], sortType: SortTypeArgs): G
     return items;
 }
 
+/**
+ * Always sorted items
+ */
 export class GitHubSearchResultItemSortedCollection extends GitHubSearchResultItemCollection<GitHubSearchResultItem> {
     sortType: SortTypeArgs;
 

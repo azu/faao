@@ -1,19 +1,20 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
-import uniqBy from "lodash.uniqby";
-import { GitHubSearchResultItemCollection } from "./GitHubSearchResultItemCollection";
-import {
-    GitHubSearchResultItemSortedCollection,
-    SortType,
-    SortTypeArgs
-} from "./GitHubSearchResultItemSortedCollection";
+import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
+import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
+import { SearchFilterItem } from "./SearchFilter/SearchFilterItem";
+import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 let id = 0;
 
 export interface GitHubSearchStreamJSON {
     items: Item[];
+}
+
+export interface GitHubSearchStreamArgs {
+    items: GitHubSearchResultItem[];
+    filter?: SearchFilter;
 }
 
 /**
@@ -22,13 +23,37 @@ export interface GitHubSearchStreamJSON {
  */
 export class GitHubSearchStream {
     id: string;
+    filter?: SearchFilter;
+    // no filter | no sort item
     items: GitHubSearchResultItem[];
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
-    constructor(items: GitHubSearchResultItem[]) {
+    constructor(args: GitHubSearchStreamArgs) {
         this.id = `GitHubSearchStream${id++}`;
-        this.items = items;
-        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(items, "updated");
+        this.items = args.items;
+        this.filter = args.filter;
+        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(args.items, "updated");
+    }
+
+    /**
+     * sort/filtered items
+     */
+    get sortedItems() {
+        if (!this.filter) {
+            return this.itemSortedCollection.items;
+        }
+        return this.itemSortedCollection.filterBySearchFilter(this.filter);
+    }
+
+    get filterWord() {
+        if (!this.filter) {
+            return undefined;
+        }
+        return this.filter.filterText;
+    }
+
+    setFilters(filter: SearchFilter) {
+        this.filter = filter;
     }
 
     /**
@@ -48,6 +73,10 @@ export class GitHubSearchStream {
 
     mergeResult(result: GitHubSearchResult) {
         this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
+    }
+
+    static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
+        return GitHubSearchStreamFactory.createFromStreamJSON(json);
     }
 
     toJSON(): GitHubSearchStreamJSON {

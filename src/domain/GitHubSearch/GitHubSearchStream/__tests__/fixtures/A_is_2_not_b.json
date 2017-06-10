@@ -1,0 +1,151 @@
+{
+  "total_count": 3344,
+  "incomplete_results": false,
+  "items": [
+    {
+      "url": "https://api.github.com/repos/sympy/sympy/issues/3552",
+      "repository_url": "https://api.github.com/repos/sympy/sympy",
+      "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3552/labels{/name}",
+      "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3552/comments",
+      "events_url": "https://api.github.com/repos/sympy/sympy/issues/3552/events",
+      "html_url": "https://github.com/sympy/sympy/issues/3552",
+      "id": 28948669,
+      "number": 3552,
+      "title": "ironpython: AttributeError: 'dictproxy' object has no attribute 'get'",
+      "user": {
+        "login": "sympy-issue-migrator",
+        "id": 6188475,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/sympy-issue-migrator",
+        "html_url": "https://github.com/sympy-issue-migrator",
+        "followers_url": "https://api.github.com/users/sympy-issue-migrator/followers",
+        "following_url": "https://api.github.com/users/sympy-issue-migrator/following{/other_user}",
+        "gists_url": "https://api.github.com/users/sympy-issue-migrator/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/sympy-issue-migrator/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/sympy-issue-migrator/subscriptions",
+        "organizations_url": "https://api.github.com/users/sympy-issue-migrator/orgs",
+        "repos_url": "https://api.github.com/users/sympy-issue-migrator/repos",
+        "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/sympy-issue-migrator/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 84627441,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
+          "name": "Alternate Python",
+          "color": "800080",
+          "default": false
+        },
+        {
+          "id": 84627344,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+          "name": "bug",
+          "color": "ededed",
+          "default": true
+        },
+        {
+          "id": 84627341,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+          "name": "imported",
+          "color": "ededed",
+          "default": false
+        },
+        {
+          "id": 84627345,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+          "name": "valid",
+          "color": "d4c5f9",
+          "default": false
+        }
+      ],
+      "state": "closed",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+      ],
+      "milestone": null,
+      "comments": 11,
+      "created_at": "2007-11-18T04:48:18Z",
+      "updated_at": "2015-04-17T16:58:11Z",
+      "closed_at": null,
+      "body": "AAAAA de is",
+      "score": 0.3513895
+    },
+    {
+      "url": "https://api.github.com/repos/sympy/sympy/issues/3408",
+      "repository_url": "https://api.github.com/repos/sympy/sympy",
+      "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3408/labels{/name}",
+      "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3408/comments",
+      "events_url": "https://api.github.com/repos/sympy/sympy/issues/3408/events",
+      "html_url": "https://github.com/sympy/sympy/issues/3408",
+      "id": 28948494,
+      "number": 3408,
+      "title": "A",
+      "user": {
+        "login": "certik",
+        "id": 20568,
+        "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/certik",
+        "html_url": "https://github.com/certik",
+        "followers_url": "https://api.github.com/users/certik/followers",
+        "following_url": "https://api.github.com/users/certik/following{/other_user}",
+        "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+        "organizations_url": "https://api.github.com/users/certik/orgs",
+        "repos_url": "https://api.github.com/users/certik/repos",
+        "events_url": "https://api.github.com/users/certik/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/certik/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 84627344,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+          "name": "bug",
+          "color": "ededed",
+          "default": true
+        },
+        {
+          "id": 84627341,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+          "name": "imported",
+          "color": "ededed",
+          "default": false
+        },
+        {
+          "id": 84627346,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/plotting",
+          "name": "plotting",
+          "color": "0000FF",
+          "default": false
+        },
+        {
+          "id": 84627345,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+          "name": "valid",
+          "color": "d4c5f9",
+          "default": false
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+      ],
+      "milestone": null,
+      "comments": 17,
+      "created_at": "2007-08-20T05:37:18Z",
+      "updated_at": "2016-03-07T03:34:54Z",
+      "closed_at": null,
+      "body": "AAAAA is BBBBB",
+      "score": 0.14507581
+    }
+
+  ]
+}

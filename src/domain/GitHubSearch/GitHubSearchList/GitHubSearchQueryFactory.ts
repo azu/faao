@@ -1,7 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
-import { GitHubSettingFactory } from "../../GitHubSetting/GitHubSettingsFactory";
 import { EntityId } from "../../util/EntityId";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
 

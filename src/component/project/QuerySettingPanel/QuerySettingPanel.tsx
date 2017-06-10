@@ -133,8 +133,8 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                     defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
                     options={this.props.settings.map(setting => {
                         return {
-                            key: String(setting.id.toValue()),
-                            text: `${setting.apiHost}@${setting.token.slice(0, 10)}...`
+                            key: setting.id.toValue(),
+                            text: setting.id.toValue()
                         };
                     })}
                 />
@@ -166,7 +166,6 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <TextField
                     label="Color:"
                     addonString="#"
-                    value={this.state.color.replace(/^#/, "")}
                     defaultValue={this.props.query && this.props.query.color.hexCode.replace(/^#/, "")}
                     onChanged={text => this.setState({ color: text })}
                 />

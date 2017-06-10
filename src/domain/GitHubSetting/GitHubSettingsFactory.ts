@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSetting } from "./GitHubSetting";
+import { GitHubSetting, GitHubSettingJSON } from "./GitHubSetting";
 import { EntityId } from "../util/EntityId";
 
 export class GitHubSettingFactory {

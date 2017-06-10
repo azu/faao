@@ -220,6 +220,31 @@ export class GitHubSearchResultItem implements Item {
         return new Date(this.updatedAt);
     }
 
+    // type: https://developer.github.com/v3/search/#search-issues
+    get type(): "issue" | "pr" {
+        if (this.pullRequest) {
+            return "pr";
+        } else {
+            return "issue";
+        }
+    }
+
+    /**
+     * Is `value` included in title, body?
+     */
+    includes(value: string): boolean {
+        if (this.title.includes(value)) {
+            return true;
+        }
+        if (this.url.includes(value)) {
+            return true;
+        }
+        if (this.body.includes(value)) {
+            return true;
+        }
+        return false;
+    }
+
     equals(item?: GitHubSearchResultItem) {
         if (!item) {
             return false;

@@ -1,0 +1,19 @@
+.ExpandableSearch {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.ExpandableSearchBox-menuButton {
+    margin: auto;
+    background-color: transparent;
+}
+
+/* overwrite it and fit outer */
+.ExpandableSearchBox {
+    flex-grow: 1;
+    font-size: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+}

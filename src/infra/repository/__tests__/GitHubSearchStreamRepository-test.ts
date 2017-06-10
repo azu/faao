@@ -9,10 +9,10 @@ import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
-    beforeEach(() => {
-        return localForage.defineDriver(memoryStorageDriver).then(() => {
-            return localForage.setDriver(memoryStorageDriver._driver);
-        });
+    beforeEach(async () => {
+        await localForage.defineDriver(memoryStorageDriver);
+        await localForage.setDriver(memoryStorageDriver._driver);
+        await localForage.ready();
     });
     afterEach(() => {
         return localForage.clear();
@@ -20,6 +20,7 @@ describe("GitHubSearchStreamRepository", () => {
     describe("#findByQuery", () => {
         test("should return undefined at first", () => {
             const repository = new GitHubSearchStreamRepository(GitHubSearchStreamFactory.create());
+            repository.storage = localForage;
             const testQuery = new GitHubSearchQuery({
                 name: "test",
                 query: "test",
@@ -37,6 +38,7 @@ describe("GitHubSearchStreamRepository", () => {
             };
             const stream = GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
             const repository = new GitHubSearchStreamRepository(stream);
+            repository.storage = localForage;
             const testQuery = new GitHubSearchQuery({
                 name: "test",
                 query: "test",

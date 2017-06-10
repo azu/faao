@@ -1,7 +1,12 @@
 // MIT © 2017 azu
 import { EntityId } from "../util/EntityId";
 
-export type GitHubSettingJSON = { [P in keyof GitHubSetting]: GitHubSetting[P] };
+export interface GitHubSettingJSON {
+    id: string;
+    token: string;
+    apiHost: string;
+    webHost: string;
+}
 
 export class GitHubSetting {
     id: EntityId<GitHubSetting>;
@@ -16,12 +21,16 @@ export class GitHubSetting {
         this.webHost = webHost;
     }
 
-    toJSON() {
-        return {
-            id: this.id.toValue(),
-            token: this.token,
-            apiHost: this.apiHost,
-            webHost: this.webHost
-        };
+    static fromJSON(json: GitHubSettingJSON): GitHubSetting {
+        const setting = Object.create(GitHubSetting.prototype);
+        return Object.assign(setting, json, {
+            id: new EntityId(json.id)
+        });
+    }
+
+    toJSON(): GitHubSettingJSON {
+        return Object.assign({}, this, {
+            id: this.id.toValue()
+        });
     }
 }
