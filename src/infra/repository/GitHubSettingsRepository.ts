@@ -5,14 +5,11 @@ import { EntityId } from "../../domain/util/EntityId";
 import localForge from "localforage";
 
 const debug = require("debug")("faao:GitHubSettingRepository");
-const storage = localForge.createInstance({
-    name: "GitHubSettingRepository"
-});
 
 export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
-    constructor(initialEntity: GitHubSetting) {
-        super(initialEntity);
-    }
+    storage = localForge.createInstance({
+        name: "GitHubSettingRepository"
+    });
 
     /**
      * Please call this before find* API
@@ -23,7 +20,7 @@ export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
             return Promise.resolve(this);
         }
         const values: GitHubSettingJSON[] = [];
-        await storage.iterate(value => {
+        await this.storage.iterate(value => {
             values.push(value);
         });
         values
@@ -46,7 +43,7 @@ export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
 
     save(entity: GitHubSetting): Promise<void> {
         super.save(entity);
-        return storage.setItem(entity.id.toValue(), entity.toJSON()).then(() => {
+        return this.storage.setItem(entity.id.toValue(), entity.toJSON()).then(() => {
             debug("Save entity");
         });
     }

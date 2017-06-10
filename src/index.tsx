@@ -7,7 +7,7 @@ import AlminReactContainer from "almin-react-container";
 import { AppStoreGroup } from "./store/AppStoreGroup";
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
-import localForge from "localforage";
+import localForage from "localforage";
 
 const AlminLogger = require("almin-logger");
 // instances
@@ -18,7 +18,7 @@ const context = new Context({
     store: AppStoreGroup.create()
 });
 // setup localForage
-localForge.config({
+localForage.config({
     name: "Faao"
 });
 if (process.env.NODE_ENV !== "production") {
