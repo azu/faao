@@ -68,9 +68,8 @@ export class GitHubSettingStore extends Store<GitHubSettingState> {
         });
     }
 
-    async receivePayload(payload: Payload) {
-        const resolvedRepository = await this.gitHubSettingRepository.ready();
-        const settings = resolvedRepository.findAll();
+    receivePayload(payload: Payload) {
+        const settings = this.gitHubSettingRepository.findAll();
         this.setState(this.state.update(settings).reduce(payload));
     }
 

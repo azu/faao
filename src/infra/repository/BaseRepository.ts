@@ -40,6 +40,18 @@ export class BaseRepository<T extends Entity> {
         }
     }
 
+    delete(entity: T) {
+        assert.ok(typeof entity.id !== "undefined", "Entity should have id property for key");
+        if (entity.id instanceof EntityId) {
+            this.map.delete(entity.id.toValue());
+        } else {
+            this.map.delete(entity.id);
+        }
+        if (this.lastUsed === entity) {
+            this.lastUsed = null;
+        }
+    }
+
     clear(): void {
         this.lastUsed = null;
         this.map.clear();

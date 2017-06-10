@@ -11,6 +11,7 @@ import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { OpenQueryPanelUseCase } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
+import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
 
 export interface GitHubSearchContainerProps {
     className?: string;
@@ -39,6 +40,10 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
         this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(query));
     };
 
+    onDeleteQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+        this.useCase(createDeleteQueryUseCase()).executor(useCase => useCase.execute(query));
+    };
+
     onClickAddingQuery = () => {
         this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute());
     };
@@ -59,6 +64,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                     queries={this.props.gitHubSearchList.queries}
                     onClickQuery={this.onClickQuery}
                     onEditQuery={this.onEditQuery}
+                    onDeleteQuery={this.onDeleteQuery}
                 />
             </div>
         );

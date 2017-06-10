@@ -8,6 +8,7 @@ export interface SearchQueryListItemProps {
     query: GitHubSearchQuery;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
 }
 
 export interface SearchQueryListItemState {
@@ -54,6 +55,18 @@ export class SearchQueryListItem extends React.Component<SearchQueryListItemProp
                               this.props.onEditQuery(event, this.props.query);
                           },
                           name: "Edit query"
+                      },
+                      {
+                          key: "delete-query",
+                          iconProps: {
+                              iconName: "Delete"
+                          },
+                          onClick: (event: React.MouseEvent<any>) => {
+                              if (confirm(`Does delete "${this.props.query.name}"?`)) {
+                                  this.props.onDeleteQuery(event, this.props.query);
+                              }
+                          },
+                          name: "Delete query"
                       }
                   ]}
               />
@@ -85,6 +98,7 @@ export interface SearchQueryListProps {
     queries: GitHubSearchQuery[];
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
 }
 
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
@@ -99,6 +113,7 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                         query={query}
                         onClickQuery={this.props.onClickQuery}
                         onEditQuery={this.props.onEditQuery}
+                        onDeleteQuery={this.props.onDeleteQuery}
                     />}
             />
         );

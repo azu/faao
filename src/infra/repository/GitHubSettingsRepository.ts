@@ -3,6 +3,7 @@ import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsF
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { EntityId } from "../../domain/util/EntityId";
 import localForge from "localforage";
+import set = Reflect.set;
 
 const debug = require("debug")("faao:GitHubSettingRepository");
 
@@ -51,6 +52,11 @@ export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
     replace(prevSetting: GitHubSetting, newSetting: GitHubSetting): Promise<void> {
         newSetting.id = prevSetting.id;
         return this.save(newSetting);
+    }
+
+    delete(setting: GitHubSetting): Promise<void> {
+        super.delete(setting);
+        return this.storage.removeItem(setting.id.toValue());
     }
 }
 

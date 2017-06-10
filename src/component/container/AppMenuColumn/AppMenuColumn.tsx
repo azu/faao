@@ -16,6 +16,7 @@ export interface AppMenuColumnProps {
 
 export class AppMenuColumn extends BaseContainer<AppMenuColumnProps, {}> {
     render() {
+        console.log("this.props.gitHubSetting", this.props.gitHubSetting);
         return (
             <nav className={classNames("AppMenuColumn", this.props.className)}>
                 <AppMenuHeaderContainer

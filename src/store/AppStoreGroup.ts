@@ -36,7 +36,6 @@ export const storeMapping = {
     },
     stores: storeMapping
 };
-GitHubSearchListStore;
 // state mapping
 export const stateMapping = StoreGroupTypes.StoreToState(storeMapping);
 export type AppStoreGroupState = typeof stateMapping;

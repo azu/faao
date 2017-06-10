@@ -9,6 +9,7 @@ export interface GitHubSettingListItemProps {
     setting: GitHubSetting;
     onClickSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
+    onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
 }
 
 export interface GitHubSettingListItemState {
@@ -51,6 +52,18 @@ export class GitHubSettingListItem extends React.Component<GitHubSettingListItem
                               this.props.onEditSetting(event, this.props.setting);
                           },
                           name: "Edit Setting"
+                      },
+                      {
+                          key: "delete-setting",
+                          iconProps: {
+                              iconName: "Delete"
+                          },
+                          onClick: (event: React.MouseEvent<any>) => {
+                              if (confirm(`Does delete "${this.props.setting.id.toValue()}"?`)) {
+                                  this.props.onDeleteSetting(event, this.props.setting);
+                              }
+                          },
+                          name: "Delete Setting"
                       }
                   ]}
               />
@@ -82,6 +95,7 @@ export interface GitHubSettingListProps {
     settings: GitHubSetting[];
     onClickSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
+    onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
 }
 
 export class GitHubSettingList extends React.Component<GitHubSettingListProps, {}> {
@@ -100,6 +114,7 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps, {
                         setting={setting}
                         onClickSetting={this.props.onClickSetting}
                         onEditSetting={this.props.onEditSetting}
+                        onDeleteSetting={this.props.onDeleteSetting}
                     />}
             />
         );

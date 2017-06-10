@@ -40,4 +40,13 @@ export class GitHubSearchList {
         this.queries[index] = query;
         this.queries = this.queries.slice();
     }
+
+    deleteQuery(aQuery: GitHubSearchQuery) {
+        const index = this.queries.indexOf(aQuery);
+        if (index === -1) {
+            return;
+        }
+        this.queries.splice(index, 1);
+        this.queries = this.queries.slice();
+    }
 }

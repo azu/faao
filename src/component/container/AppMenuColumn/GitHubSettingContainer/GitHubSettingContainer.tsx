@@ -9,6 +9,7 @@ import { GitHubSetting } from "../../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { OpenSettingPanelUseCase } from "../../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { IconButton } from "office-ui-fabric-react";
+import { createDeleteSettingUseCase } from "../../../../use-case/GitHubSetting/DeleteSettingUseCase";
 
 export interface GitHubSettingContainerProps {
     className?: string;
@@ -29,7 +30,12 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
         this.useCase(new OpenSettingPanelUseCase()).executor(useCase => useCase.execute());
     };
 
+    onDeleteSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        this.useCase(createDeleteSettingUseCase()).executor(useCase => useCase.execute(setting));
+    };
+
     render() {
+        console.log("this.props.gitHubSetting.settings", this.props.gitHubSetting.settings);
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
                 <h1 className="ms-font-xxl">
@@ -45,6 +51,7 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
                     settings={this.props.gitHubSetting.settings}
                     onClickSetting={this.onClickSetting}
                     onEditSetting={this.onEditSetting}
+                    onDeleteSetting={this.onDeleteSetting}
                 />
             </div>
         );

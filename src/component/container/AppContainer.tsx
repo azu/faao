@@ -13,6 +13,7 @@ import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
+        console.log("this.props.gitHubSetting", this.props.gitHubSetting);
         const preview = process.env.RUNTIME_TARGET === "electron"
             ? <main className="AppContainer-preview">
                   {/*<IframeBrowser html={"test"}/>*/}
