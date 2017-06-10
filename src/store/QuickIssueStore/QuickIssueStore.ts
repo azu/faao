@@ -7,7 +7,7 @@ import urlJoin from "url-join";
 import { OpenQuickIssueUseCasePayload } from "../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQuickIssueUseCase";
 import uniqBy from "lodash.uniqby";
-import { EntityId } from "../../domain/util/EntityId";
+import { EntityId } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { shallowEqual } from "shallow-equal-object";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
@@ -68,12 +68,10 @@ export class QuickIssueState implements QuickIssueStateObject {
                 newIssueURLs.unshift(newIssueURL);
             }
         }
-        console.log(newIssueURLs);
         return uniqBy(newIssueURLs, x => x);
     }
 
     update(object: Partial<QuickIssueStateObject>) {
-        console.log(object);
         return new QuickIssueState({
             ...this as QuickIssueStateObject,
             ...object

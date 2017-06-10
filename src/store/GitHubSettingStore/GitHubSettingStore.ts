@@ -6,7 +6,7 @@ import {
     CloseSettingPanelUseCasePayload,
     OpenSettingPanelUseCasePayload
 } from "../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
-import { EntityId } from "../../domain/util/EntityId";
+import { EntityId } from "../../domain/Entity";
 
 export interface GitHubSettingStateObject {
     settings: GitHubSetting[];

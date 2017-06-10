@@ -35,7 +35,6 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
     };
 
     render() {
-        console.log("this.props.gitHubSetting.settings", this.props.gitHubSetting.settings);
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
                 <h1 className="ms-font-xxl">

@@ -3,7 +3,7 @@ import { UseCase } from "almin";
 import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
-import { EntityId } from "../../domain/util/EntityId";
+import { EntityId } from "../../domain/Entity";
 
 export const createSaveGitHubSettingUseCase = () => {
     return new SaveGitHubSettingUseCase(gitHubSettingRepository);

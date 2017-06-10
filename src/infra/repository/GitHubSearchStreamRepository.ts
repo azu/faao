@@ -1,5 +1,4 @@
 // MIT © 2017 azu
-import { BaseRepository } from "./BaseRepository";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import {
     GitHubSearchStream,
@@ -7,10 +6,11 @@ import {
 } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import localForage from "localforage";
+import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
-export class GitHubSearchStreamRepository extends BaseRepository<GitHubSearchStream> {
+export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitHubSearchStream> {
     storage = localForage.createInstance({
         name: "GitHubSearchStreamRepository"
     });

@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
-import { EntityId } from "../../util/EntityId";
+import { EntityId } from "../../Entity";
 
 const execall = require("execall");
 

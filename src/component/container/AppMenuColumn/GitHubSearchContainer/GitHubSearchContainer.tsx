@@ -33,7 +33,11 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     ];
 
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(createSearchGitHubAndOpenStreamUseCase()).executor(useCase => useCase.execute(query));
+        this.useCase(createSearchGitHubAndOpenStreamUseCase())
+            .executor(useCase => useCase.execute(query))
+            .catch((error: Error) => {
+                console.error("onClickQuery", error);
+            });
     };
 
     onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {

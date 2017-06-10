@@ -1,13 +1,12 @@
-import { BaseRepository } from "./BaseRepository";
+import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
-import { EntityId } from "../../domain/util/EntityId";
+import { EntityId } from "../../domain/Entity";
 import localForge from "localforage";
-import set = Reflect.set;
 
 const debug = require("debug")("faao:GitHubSettingRepository");
 
-export class GitHubSettingRepository extends BaseRepository<GitHubSetting> {
+export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSetting> {
     storage = localForge.createInstance({
         name: "GitHubSettingRepository"
     });

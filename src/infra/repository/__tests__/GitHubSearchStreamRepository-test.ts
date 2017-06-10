@@ -4,7 +4,7 @@ import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearch/GitHubSe
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryColor";
 import localForage from "localforage";
-import { EntityId } from "../../../domain/util/EntityId";
+import { EntityId } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");

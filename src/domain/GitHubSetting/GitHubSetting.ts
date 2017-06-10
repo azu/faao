@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { EntityId } from "../util/EntityId";
+import { EntityId } from "../Entity";
 
 export interface GitHubSettingJSON {
     id: string;

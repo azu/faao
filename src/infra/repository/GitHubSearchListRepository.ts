@@ -1,8 +1,8 @@
 // MIT © 2017 azu
-import { BaseRepository } from "./BaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
+import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 
-export class GitHubSearchListRepository extends BaseRepository<GitHubSearchList> {}
+export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHubSearchList> {}
 
 export const gitHubSearchListRepository = new GitHubSearchListRepository(GitHubSearchListFactory.create());

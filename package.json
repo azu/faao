@@ -97,7 +97,7 @@
     "lodash.sortby": "^4.7.0",
     "lodash.throttle": "^4.1.1",
     "lodash.uniqby": "^4.7.0",
-    "map-like": "^1.1.2",
+    "map-like": "1.1.3",
     "octokat": "^0.8",
     "office-ui-fabric-react": "^4.3.0",
     "prettier": "^1.4.2",

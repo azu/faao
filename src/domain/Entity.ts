@@ -2,6 +2,10 @@
 // global uuid
 let id = 0;
 
+export interface Entity {
+    id: string | EntityId<any>;
+}
+
 /**
  * ## example
  *

@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSetting, GitHubSettingJSON } from "./GitHubSetting";
-import { EntityId } from "../util/EntityId";
+import { EntityId } from "../Entity";
 
 export class GitHubSettingFactory {
     static create() {
