@@ -27,7 +27,9 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             icon: "EditMirrored",
             ariaLabel: "Quick New Issue",
             onClick: () => {
-                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
+                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
             }
         }
     ];

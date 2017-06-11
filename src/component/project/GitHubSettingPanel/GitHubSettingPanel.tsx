@@ -36,7 +36,10 @@ export interface GitHubSettingPanelState {
     error: Error | null;
 }
 
-export class GitHubSettingPanel extends React.Component<GitHubSettingPanelProps, GitHubSettingPanelState> {
+export class GitHubSettingPanel extends React.Component<
+    GitHubSettingPanelProps,
+    GitHubSettingPanelState
+> {
     state = {
         id: "",
         token: "",

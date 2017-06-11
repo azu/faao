@@ -10,7 +10,13 @@ import {
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 
-const { CommentIcon, IssueOpenedIcon, IssueClosedIcon, GitMergeIcon, GitPullRequestIcon } = require("react-octicons");
+const {
+    CommentIcon,
+    IssueOpenedIcon,
+    IssueClosedIcon,
+    GitMergeIcon,
+    GitPullRequestIcon
+} = require("react-octicons");
 const suitcssClassnames = require("suitcss-classnames");
 
 export interface SearchResultListItemProps {
@@ -169,7 +175,9 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
             },
             () => {
                 this._list.forceUpdate();
-                const activeElement = document.querySelector(`.ms-List-cell[data-list-index='${index}']`);
+                const activeElement = document.querySelector(
+                    `.ms-List-cell[data-list-index='${index}']`
+                );
                 if (activeElement) {
                     activeElement.scrollIntoView();
                 }

@@ -17,7 +17,10 @@ export interface GitHubSettingPanelContainerProps {
     gitHubSetting: GitHubSettingState;
 }
 
-export class GitHubSettingPanelContainer extends BaseContainer<GitHubSettingPanelContainerProps, {}> {
+export class GitHubSettingPanelContainer extends BaseContainer<
+    GitHubSettingPanelContainerProps,
+    {}
+> {
     onDismiss = () => {
         this.useCase(new CloseSettingPanelUseCase()).executor(useCase => useCase.execute());
     };
@@ -29,10 +32,14 @@ export class GitHubSettingPanelContainer extends BaseContainer<GitHubSettingPane
                     return useCase.execute(settingJSON, this.props.gitHubSetting.editingSettingId);
                 });
             } else {
-                await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase => useCase.execute(settingJSON));
+                await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase =>
+                    useCase.execute(settingJSON)
+                );
             }
         } finally {
-            await this.useCase(new CloseSettingPanelUseCase()).executor(useCase => useCase.execute());
+            await this.useCase(new CloseSettingPanelUseCase()).executor(useCase =>
+                useCase.execute()
+            );
         }
     };
 

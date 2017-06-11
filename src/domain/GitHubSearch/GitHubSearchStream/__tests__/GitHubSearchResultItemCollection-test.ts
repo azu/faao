@@ -48,14 +48,18 @@ describe("GitHubSearchResultItemCollection", () => {
                 // comments 100 is 1
                 {
                     const searchFilter = SearchFilterFactory.create("comments:>99");
-                    const collection = createCollection(require("./fixtures/comments-100-is-1.json"));
+                    const collection = createCollection(
+                        require("./fixtures/comments-100-is-1.json")
+                    );
                     const results = collection.filterBySearchFilter(searchFilter);
                     expect(results).toHaveLength(1);
                 }
                 // comments 100> is 0
                 {
                     const searchFilter = SearchFilterFactory.create("comments:>100");
-                    const collection = createCollection(require("./fixtures/comments-100-is-1.json"));
+                    const collection = createCollection(
+                        require("./fixtures/comments-100-is-1.json")
+                    );
                     const results = collection.filterBySearchFilter(searchFilter);
                     expect(results).toHaveLength(0);
                 }

@@ -49,4 +49,6 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     }
 }
 
-export const gitHubSearchStreamRepository = new GitHubSearchStreamRepository(GitHubSearchStreamFactory.create());
+export const gitHubSearchStreamRepository = new GitHubSearchStreamRepository(
+    GitHubSearchStreamFactory.create()
+);

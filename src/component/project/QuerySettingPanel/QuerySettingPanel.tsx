@@ -41,7 +41,10 @@ export interface QuerySettingPanelState {
     error: Error | null;
 }
 
-export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, QuerySettingPanelState> {
+export class QuerySettingPanel extends React.Component<
+    QuerySettingPanelProps,
+    QuerySettingPanelState
+> {
     state = {
         gitHubSettingId: "",
         query: "",
@@ -130,7 +133,9 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <Dropdown
                     label="Select your GitHub setting:"
                     onChanged={this.onChangedDropDown}
-                    defaultSelectedKey={this.props.query && this.props.query.gitHubSettingId.toValue()}
+                    defaultSelectedKey={
+                        this.props.query && this.props.query.gitHubSettingId.toValue()
+                    }
                     options={this.props.settings.map(setting => {
                         return {
                             key: setting.id.toValue(),
@@ -172,7 +177,11 @@ export class QuerySettingPanel extends React.Component<QuerySettingPanelProps, Q
                 <GithubPicker onChange={this.onChangeColor} />
                 <div className="QuickIssuePanelState-footer">
                     {errorMessage}
-                    <PrimaryButton onClick={this.onSubmit} data-automation-id="save-query" ariaDescription="Save query">
+                    <PrimaryButton
+                        onClick={this.onSubmit}
+                        data-automation-id="save-query"
+                        ariaDescription="Save query"
+                    >
                         Save
                     </PrimaryButton>
                 </div>

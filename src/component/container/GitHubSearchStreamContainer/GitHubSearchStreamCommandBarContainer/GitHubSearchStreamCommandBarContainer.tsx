@@ -29,7 +29,9 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
 
     onChangeSearchValue = (value: any) => {
         if (typeof value === "string") {
-            this.useCase(createApplyFilterToStreamUseCase()).executor(useCase => useCase.execute(value));
+            this.useCase(createApplyFilterToStreamUseCase()).executor(useCase =>
+                useCase.execute(value)
+            );
         }
     };
 
@@ -53,7 +55,12 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
 
     render() {
         return (
-            <div className={classNames("GitHubSearchStreamCommandBarContainer", this.props.className)}>
+            <div
+                className={classNames(
+                    "GitHubSearchStreamCommandBarContainer",
+                    this.props.className
+                )}
+            >
                 <ExpandableSearch
                     className="ExpandableSearchBox-searchBox"
                     value={this.state.value}

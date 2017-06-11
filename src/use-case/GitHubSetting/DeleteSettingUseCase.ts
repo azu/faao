@@ -1,6 +1,9 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    gitHubSettingRepository,
+    GitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 
 export const createDeleteSettingUseCase = () => {

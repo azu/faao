@@ -14,7 +14,10 @@ export interface ExpandableSearchBoxState {
     isContextMenuVisible: boolean;
 }
 
-export class ExpandableSearch extends React.Component<ExpandableSearchBoxProps, ExpandableSearchBoxState> {
+export class ExpandableSearch extends React.Component<
+    ExpandableSearchBoxProps,
+    ExpandableSearchBoxState
+> {
     state = {
         contextTarget: undefined,
         isContextMenuVisible: false

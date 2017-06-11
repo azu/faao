@@ -1,6 +1,13 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { ContextualMenu, DefaultButton, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
+import {
+    ContextualMenu,
+    DefaultButton,
+    DirectionalHint,
+    IconButton,
+    Link,
+    List
+} from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 
@@ -16,7 +23,10 @@ export interface SearchQueryListItemState {
     isContextMenuVisible: boolean;
 }
 
-export class SearchQueryListItem extends React.Component<SearchQueryListItemProps, SearchQueryListItemState> {
+export class SearchQueryListItem extends React.Component<
+    SearchQueryListItemProps,
+    SearchQueryListItemState
+> {
     state = {
         contextTarget: undefined,
         isContextMenuVisible: false

@@ -23,7 +23,10 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
         try {
             if (this.props.gitHubSearchList.editingQuery) {
                 await this.useCase(createUpdateQueryToSearchListUseCase()).executor(useCase => {
-                    return useCase.execute(queryJSON, this.props.gitHubSearchList.editingQueryIndex);
+                    return useCase.execute(
+                        queryJSON,
+                        this.props.gitHubSearchList.editingQueryIndex
+                    );
                 });
             } else {
                 await this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase =>

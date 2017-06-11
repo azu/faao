@@ -8,7 +8,10 @@ import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
-import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    gitHubSettingRepository,
+    GitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 
 export const createReadyRepositoryUseCase = () => {

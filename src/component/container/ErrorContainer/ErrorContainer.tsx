@@ -22,7 +22,9 @@ export interface ErrorContainerProps {
 export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     onDismiss = () => {
         if (this.notice !== undefined) {
-            return this.useCase(createDismissErrorNoticeUseCase()).executor(useCase => useCase.execute(this.notice!));
+            return this.useCase(createDismissErrorNoticeUseCase()).executor(useCase =>
+                useCase.execute(this.notice!)
+            );
         }
     };
 
@@ -52,7 +54,9 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
         }
         const onClick = () => {
             this.onDismiss();
-            this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(genericErrorNotice.query));
+            this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
+                useCase.execute(genericErrorNotice.query)
+            );
         };
         return (
             <div className="ErrorContainer-genericErrorNotice">

@@ -28,7 +28,9 @@
     clear: both;
 }
 
-.SearchResultListItem-primaryText, .SearchResultListItem-secondaryText, .SearchResultListItem-tertiaryText {
+.SearchResultListItem-primaryText,
+.SearchResultListItem-secondaryText,
+.SearchResultListItem-tertiaryText {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -1,7 +1,10 @@
 // MIT © 2017 azu
 import { Store } from "almin";
 import { NoticeRepository } from "../../infra/repository/NoticeRepository";
-import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
+import {
+    isSearchQueryErrorNotice,
+    SearchQueryErrorNotice
+} from "../../domain/Notice/SearchQueryErrorNotice";
 
 export interface NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
@@ -44,7 +47,9 @@ export class NoticeStore extends Store<NoticeState> {
     }
 
     receivePayload() {
-        const searchQueryErrorNotices = this.noticeRepository.findAllByType(isSearchQueryErrorNotice);
+        const searchQueryErrorNotices = this.noticeRepository.findAllByType(
+            isSearchQueryErrorNotice
+        );
         const newState = this.state.update({
             searchQueryErrorNotices: searchQueryErrorNotices
         });

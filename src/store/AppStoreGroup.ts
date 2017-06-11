@@ -5,8 +5,14 @@ import { StoreGroup, StoreGroupTypes } from "almin";
 import { appRepository } from "../infra/repository/AppRepository";
 import { gitHubSearchListRepository } from "../infra/repository/GitHubSearchListRepository";
 import { gitHubSearchStreamRepository } from "../infra/repository/GitHubSearchStreamRepository";
-import { GitHubSearchListStore, GitHubSearchListState } from "./GitHubSearchListStore/GitHubSearchListStore";
-import { GitHubSearchStreamStore, GitHubSearchStreamState } from "./GitHubSearchStreamStore/GitHubSearchStreamStore";
+import {
+    GitHubSearchListStore,
+    GitHubSearchListState
+} from "./GitHubSearchListStore/GitHubSearchListStore";
+import {
+    GitHubSearchStreamStore,
+    GitHubSearchStreamState
+} from "./GitHubSearchStreamStore/GitHubSearchStreamStore";
 import { AppStore, AppState } from "./AppStore/AppStore";
 import { QuickIssueStore, QuickIssueState } from "./QuickIssueStore/QuickIssueStore";
 import { gitHubSettingRepository } from "../infra/repository/GitHubSettingsRepository";

@@ -41,7 +41,10 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         });
     }
 
-    mergeItems(this: GitHubSearchResultItemCollection<T>, items: T[]): GitHubSearchResultItemCollection<T> {
+    mergeItems(
+        this: GitHubSearchResultItemCollection<T>,
+        items: T[]
+    ): GitHubSearchResultItemCollection<T> {
         return new GitHubSearchResultItemCollection(this.items.concat(items));
     }
 

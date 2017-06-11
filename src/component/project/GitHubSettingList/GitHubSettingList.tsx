@@ -1,6 +1,13 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { ContextualMenu, DefaultButton, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
+import {
+    ContextualMenu,
+    DefaultButton,
+    DirectionalHint,
+    IconButton,
+    Link,
+    List
+} from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
@@ -17,7 +24,10 @@ export interface GitHubSettingListItemState {
     isContextMenuVisible: boolean;
 }
 
-export class GitHubSettingListItem extends React.Component<GitHubSettingListItemProps, GitHubSettingListItemState> {
+export class GitHubSettingListItem extends React.Component<
+    GitHubSettingListItemProps,
+    GitHubSettingListItemState
+> {
     state = {
         contextTarget: undefined,
         isContextMenuVisible: false

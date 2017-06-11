@@ -19,7 +19,9 @@ export class AppMenuHeaderContainer extends BaseContainer<AppMenuHeaderContainer
             icon: "EditMirrored",
             ariaLabel: "Quick New Issue",
             onClick: () => {
-                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
+                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
             }
         }
     ];

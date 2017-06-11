@@ -32,7 +32,10 @@ export class GitHubSearchStream {
         this.id = `GitHubSearchStream${id++}`;
         this.items = args.items;
         this.filter = args.filter;
-        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(args.items, "updated");
+        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(
+            args.items,
+            "updated"
+        );
     }
 
     /**

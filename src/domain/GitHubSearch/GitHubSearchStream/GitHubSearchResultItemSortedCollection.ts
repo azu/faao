@@ -10,7 +10,10 @@ export const SortType = {
 };
 export type SortTypeArgs = "updated" | "created";
 
-export function sort(items: GitHubSearchResultItem[], sortType: SortTypeArgs): GitHubSearchResultItem[] {
+export function sort(
+    items: GitHubSearchResultItem[],
+    sortType: SortTypeArgs
+): GitHubSearchResultItem[] {
     if (sortType === SortType.created) {
         return sortBy(items, item => item.createdAtDate).reverse();
     } else if (sortType === SortType.updated) {
@@ -22,7 +25,9 @@ export function sort(items: GitHubSearchResultItem[], sortType: SortTypeArgs): G
 /**
  * Always sorted items
  */
-export class GitHubSearchResultItemSortedCollection extends GitHubSearchResultItemCollection<GitHubSearchResultItem> {
+export class GitHubSearchResultItemSortedCollection extends GitHubSearchResultItemCollection<
+    GitHubSearchResultItem
+> {
     sortType: SortTypeArgs;
 
     constructor(items: GitHubSearchResultItem[], sortType: SortTypeArgs) {

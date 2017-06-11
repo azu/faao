@@ -12,10 +12,14 @@ export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
         this.combokeys = new Combokeys(document.documentElement);
         const actionMap = {
             "move-next-item": (_event: Event) => {
-                this.useCase(createAppUserSelectNextItemUseCase()).executor(useCase => useCase.execute());
+                this.useCase(createAppUserSelectNextItemUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
             },
             "move-prev-item": (_event: Event) => {
-                this.useCase(createAppUserSelectPrevItemUseCase()).executor(useCase => useCase.execute());
+                this.useCase(createAppUserSelectPrevItemUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
             }
         };
         const keyMap: { [index: string]: keyof typeof actionMap } = {

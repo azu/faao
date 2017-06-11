@@ -1,7 +1,10 @@
 // MIT © 2017 azu
 import { UseCase, ChangedPayload } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
-import { GitHubSettingRepository, gitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    GitHubSettingRepository,
+    gitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
@@ -32,10 +35,14 @@ export class SearchGitHubAbstractUseCase extends UseCase {
 
     async execute(query: GitHubSearchQuery, stream: GitHubSearchStream) {
         const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
-        const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(query.gitHubSettingId);
+        const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(
+            query.gitHubSettingId
+        );
         if (!gitHubSetting) {
             return Promise.reject(
-                new Error(`Not found GitHubSetting. Please check the GitHubSetting of the query:${query.name}`)
+                new Error(
+                    `Not found GitHubSetting. Please check the GitHubSetting of the query:${query.name}`
+                )
             );
         }
         const gitHubClient = new GitHubClient(gitHubSetting);

@@ -39,7 +39,9 @@ export class GitHubSettingState implements GitHubSettingStateObject {
         });
     }
 
-    reduce(payload: OpenSettingPanelUseCasePayload | CloseSettingPanelUseCasePayload): GitHubSettingState {
+    reduce(
+        payload: OpenSettingPanelUseCasePayload | CloseSettingPanelUseCasePayload
+    ): GitHubSettingState {
         if (payload instanceof OpenSettingPanelUseCasePayload) {
             return new GitHubSettingState({
                 ...this as GitHubSettingStateObject,

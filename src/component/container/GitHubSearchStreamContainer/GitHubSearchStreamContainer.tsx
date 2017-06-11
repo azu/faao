@@ -17,7 +17,10 @@ export interface GitHubSearchStreamContainerProps {
     app: AppState;
 }
 
-export class GitHubSearchStreamContainer extends BaseContainer<GitHubSearchStreamContainerProps, {}> {
+export class GitHubSearchStreamContainer extends BaseContainer<
+    GitHubSearchStreamContainerProps,
+    {}
+> {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         event.preventDefault();
         this.useCase(createAppUserOpenItemUseCase()).executor(useCase => useCase.execute(item));

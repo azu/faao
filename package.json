@@ -17,7 +17,7 @@
     "test": "jest",
     "prepublishOnly": "npm run --if-present build",
     "precommit": "lint-staged",
-    "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 120 --tab-width 4",
+    "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 100 --tab-width 4",
     "start": "npm-run-all clean --parallel watch:css server",
     "start:electron": "npm-run-all clean --parallel watch:electron:js watch:css electron",
     "electron": "electron electron.js",
@@ -127,7 +127,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,css}": [
-      "prettier --write --print-width 120 --tab-width 4",
+      "prettier --write --print-width 100 --tab-width 4",
       "git add"
     ]
   }

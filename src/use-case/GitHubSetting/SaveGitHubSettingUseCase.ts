@@ -1,6 +1,9 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    gitHubSettingRepository,
+    GitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { EntityId } from "../../domain/Entity";

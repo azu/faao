@@ -1,7 +1,11 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
-export type IconType = "IssueOpenedIcon" | "IssueClosedIcon" | "GitPullRequestIcon" | "GitMergeIcon";
+export type IconType =
+    | "IssueOpenedIcon"
+    | "IssueClosedIcon"
+    | "GitPullRequestIcon"
+    | "GitMergeIcon";
 // TODO: it will be performance de-merit
 // should measure performant
 export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {

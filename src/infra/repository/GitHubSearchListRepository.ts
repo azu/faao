@@ -1,5 +1,8 @@
 // MIT © 2017 azu
-import { GitHubSearchList, GitHubSearchListJSON } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import {
+    GitHubSearchList,
+    GitHubSearchListJSON
+} from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import localForge from "localforage";
@@ -42,4 +45,6 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
     }
 }
 
-export const gitHubSearchListRepository = new GitHubSearchListRepository(GitHubSearchListFactory.create());
+export const gitHubSearchListRepository = new GitHubSearchListRepository(
+    GitHubSearchListFactory.create()
+);
