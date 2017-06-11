@@ -6,6 +6,7 @@ import {
 import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import localForge from "localforage";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 const debug = require("debug")("faao:GitHubSearchListRepository");
 
@@ -39,6 +40,10 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
 
     findAll(): GitHubSearchList[] {
         return this.map.values();
+    }
+
+    findByQuery(aQuery: GitHubSearchQuery): GitHubSearchList | undefined {
+        return this.map.values().find(query => query.includesQuery(aQuery));
     }
 
     save(entity: GitHubSearchList): Promise<void> {

@@ -37,6 +37,12 @@ export class GitHubSearchList {
         });
     }
 
+    includesQuery(aQuery: GitHubSearchQuery): boolean {
+        return this.queries.some(query => {
+            return query.equals(aQuery);
+        });
+    }
+
     saveQuery(aQuery: GitHubSearchQuery) {
         this.queries = this.queries.concat(aQuery);
     }

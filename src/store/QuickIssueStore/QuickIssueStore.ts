@@ -9,27 +9,27 @@ import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQu
 import uniqBy from "lodash.uniqby";
 import { EntityId } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { shallowEqual } from "shallow-equal-object";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;
-    queries: GitHubSearchQuery[];
+    gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
     activeQuery?: GitHubSearchQuery;
 }
 
 export class QuickIssueState implements QuickIssueStateObject {
-    queries: GitHubSearchQuery[];
+    gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
     activeQuery?: GitHubSearchQuery;
     isOpened: boolean;
 
     constructor(args: QuickIssueStateObject) {
-        this.queries = args.queries;
+        this.gitHubSearchLists = args.gitHubSearchLists;
         this.settings = args.settings;
         this.activeItem = args.activeItem;
         this.activeQuery = args.activeQuery;
@@ -41,7 +41,11 @@ export class QuickIssueState implements QuickIssueStateObject {
             return this.settings.find(setting => setting.id.equals(id));
         };
         // create issue list
-        const newIssueURLs = this.queries
+        let queries: GitHubSearchQuery[] = [];
+        this.gitHubSearchLists.forEach(searchList => {
+            queries = queries.concat(searchList.queries);
+        });
+        const newIssueURLs = queries
             .map(query => {
                 const gitHubSetting = getSetting(query.gitHubSettingId);
                 if (!gitHubSetting) {
@@ -106,7 +110,7 @@ export class QuickIssueStore extends Store<QuickIssueState> {
     constructor(public repositories: QuickIssueStoreArgs) {
         super();
         this.state = new QuickIssueState({
-            queries: [],
+            gitHubSearchLists: [],
             settings: [],
             isOpened: false
         });
@@ -116,14 +120,13 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         const app = this.repositories.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeQuery = app.user.activity.activeQuery;
-        const gitHubSearchList = this.repositories.gitHubSearchListRepository.get();
-        const queries = gitHubSearchList.queries;
+        const gitHubSearchLists = this.repositories.gitHubSearchListRepository.findAll();
         const resolvedRepository = await this.repositories.gitHubSettingRepository.ready();
         const settings = resolvedRepository.findAll();
         this.setState(
             this.state
                 .update({
-                    queries,
+                    gitHubSearchLists,
                     settings,
                     activeItem,
                     activeQuery

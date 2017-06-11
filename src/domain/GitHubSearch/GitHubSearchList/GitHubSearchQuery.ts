@@ -53,6 +53,10 @@ export class GitHubSearchQuery {
         return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
 
+    equals(aQuery: GitHubSearchQuery): boolean {
+        return aQuery.hash === this.hash;
+    }
+
     static fromJSON(json: GitHubSearchQueryJSON): GitHubSearchQuery {
         const setting = Object.create(GitHubSearchQuery.prototype);
         return Object.assign(setting, json, {
