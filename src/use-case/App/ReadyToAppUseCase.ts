@@ -13,9 +13,11 @@ import {
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import { AppNetworkStatus } from "../../domain/App/AppNetwork";
+import { createUpdateAppNetworkStatusUseCase } from "./UpdateAppNetworkStatusUseCase";
 
-export const createReadyRepositoryUseCase = () => {
-    return new ReadyRepositoryUseCase({
+export const createReadyToAppUseCase = () => {
+    return new ReadyToAppUseCase({
         gitHubSearchListRepository,
         gitHubSearchStreamRepository,
         gitHubSettingRepository,
@@ -24,10 +26,13 @@ export const createReadyRepositoryUseCase = () => {
 };
 
 /**
- * setup repositories.
- * Restore data from database to repository instance.
+ * Initial application
+ *
+ * - Initialize app
+ * - Setup repositories.
+ *    - restore data from database to repository instance.
  */
-export class ReadyRepositoryUseCase extends UseCase {
+export class ReadyToAppUseCase extends UseCase {
     constructor(
         private args: {
             gitHubSearchListRepository: GitHubSearchListRepository;
@@ -40,6 +45,12 @@ export class ReadyRepositoryUseCase extends UseCase {
     }
 
     async execute() {
+        const networkStatus: AppNetworkStatus = typeof navigator !== "undefined"
+            ? navigator.onLine ? "online" : "offline"
+            : "online";
+        await this.context
+            .useCase(createUpdateAppNetworkStatusUseCase())
+            .executor(useCase => useCase.execute(networkStatus));
         await this.args.gitHubSettingRepository.ready();
         await this.args.gitHubSearchListRepository.ready();
         await this.args.gitHubSearchStreamRepository.ready();

@@ -4,12 +4,15 @@ import {
     ContextualMenu,
     DefaultButton,
     DirectionalHint,
+    GroupedList,
     IconButton,
+    IGroupDividerProps,
     Link,
     List
 } from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
+import { GitHubSearchList } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export interface SearchQueryListItemProps {
     query: GitHubSearchQuery;
@@ -105,7 +108,9 @@ export class SearchQueryListItem extends React.Component<
 }
 
 export interface SearchQueryListProps {
-    queries: GitHubSearchQuery[];
+    searchList: GitHubSearchList;
+    onClickSearchList: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
+    onClickAddingQuery: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
@@ -114,18 +119,44 @@ export interface SearchQueryListProps {
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
     render() {
         return (
-            <List
-                getPageHeight={() => 30}
+            <GroupedList
                 className="SearchQueryList"
-                items={this.props.queries}
-                onRenderCell={(query: GitHubSearchQuery) =>
+                items={this.props.searchList.queries}
+                onRenderCell={(_depth: number, query: GitHubSearchQuery) =>
                     <SearchQueryListItem
                         query={query}
                         onClickQuery={this.props.onClickQuery}
                         onEditQuery={this.props.onEditQuery}
                         onDeleteQuery={this.props.onDeleteQuery}
                     />}
+                groupProps={{
+                    onRenderHeader: this._onRenderHeader
+                }}
             />
         );
     }
+
+    onClick = (event: SyntheticEvent<any>) => {
+        this.props.onClickSearchList(event, this.props.searchList);
+    };
+
+    onClickAddingQuery = (event: SyntheticEvent<any>) => {
+        this.props.onClickAddingQuery(event, this.props.searchList);
+    };
+
+    private _onRenderHeader = (_props: IGroupDividerProps): JSX.Element => {
+        return (
+            <div className="ms-GroupedListExample-header ms-font-xl" onClick={this.onClick}>
+                <h1 className="ms-font-xxl">
+                    Queries
+                    <IconButton
+                        iconProps={{ iconName: "Add" }}
+                        title="Add query"
+                        ariaLabel="Add query"
+                        onClick={this.onClickAddingQuery}
+                    />
+                </h1>
+            </div>
+        );
+    };
 }

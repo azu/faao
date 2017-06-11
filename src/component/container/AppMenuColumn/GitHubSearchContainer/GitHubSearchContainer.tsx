@@ -12,6 +12,7 @@ import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuick
 import { OpenQueryPanelUseCase } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
+import { GitHubSearchList } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export interface GitHubSearchContainerProps {
     className?: string;
@@ -54,24 +55,27 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
         this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute());
     };
 
+    onClickSearchList = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {
+        console.log(searchList);
+    };
+
     render() {
-        return (
-            <div className={classNames("GitHubSearchContainer", this.props.className)}>
-                <h1 className="ms-font-xxl">
-                    Queries
-                    <IconButton
-                        iconProps={{ iconName: "Add" }}
-                        title="Add query"
-                        ariaLabel="Add query"
-                        onClick={this.onClickAddingQuery}
-                    />
-                </h1>
+        const searchQueryList = this.props.gitHubSearchList.searchLists.map(searchList => {
+            return (
                 <SearchQueryList
-                    queries={this.props.gitHubSearchList.queries}
+                    key={searchList.id}
+                    searchList={searchList}
+                    onClickSearchList={this.onClickSearchList}
+                    onClickAddingQuery={this.onClickAddingQuery}
                     onClickQuery={this.onClickQuery}
                     onEditQuery={this.onEditQuery}
                     onDeleteQuery={this.onDeleteQuery}
                 />
+            );
+        });
+        return (
+            <div className={classNames("GitHubSearchContainer", this.props.className)}>
+                {searchQueryList}
             </div>
         );
     }

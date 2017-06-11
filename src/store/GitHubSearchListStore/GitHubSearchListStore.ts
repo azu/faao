@@ -9,20 +9,27 @@ import {
 } from "../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 
 export interface GitHubSearchListStateObject {
-    queries: GitHubSearchQuery[];
+    searchLists: GitHubSearchList[];
     editingQuery: GitHubSearchQuery | undefined;
     isOpenAddingPanel: boolean;
 }
 
 export class GitHubSearchListState implements GitHubSearchListStateObject {
-    editingQuery: GitHubSearchQuery | undefined;
     isOpenAddingPanel: boolean;
-    queries: GitHubSearchQuery[];
+    editingQuery: GitHubSearchQuery | undefined;
+    searchLists: GitHubSearchList[];
 
     constructor(state: GitHubSearchListStateObject) {
-        this.queries = state.queries;
+        this.searchLists = state.searchLists;
         this.isOpenAddingPanel = state.isOpenAddingPanel;
         this.editingQuery = state.editingQuery;
+    }
+
+    get queries() {
+        if (this.searchLists.length === 0) {
+            return [];
+        }
+        return this.searchLists[0].queries;
     }
 
     get editingQueryIndex() {
@@ -32,10 +39,10 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
         return this.queries.indexOf(this.editingQuery);
     }
 
-    update(searchList: GitHubSearchList) {
+    update(gitHubSearchLists: GitHubSearchList[]) {
         return new GitHubSearchListState({
             ...this as GitHubSearchListState,
-            queries: searchList.queries
+            searchLists: gitHubSearchLists
         });
     }
 
@@ -67,13 +74,13 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         this.state = new GitHubSearchListState({
             isOpenAddingPanel: false,
             editingQuery: undefined,
-            queries: []
+            searchLists: []
         });
     }
 
     receivePayload(payload: Payload) {
-        const gitHubSearchList = this.gitHubSearchRepository.get();
-        this.setState(this.state.update(gitHubSearchList).reduce(payload));
+        const gitHubSearchLists = this.gitHubSearchRepository.findAll();
+        this.setState(this.state.update(gitHubSearchLists).reduce(payload));
     }
 
     getState() {

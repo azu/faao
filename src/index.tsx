@@ -8,7 +8,7 @@ import { AppStoreGroup } from "./store/AppStoreGroup";
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
-import { createReadyRepositoryUseCase } from "./use-case/App/ReadyRepositoryUseCase";
+import { createReadyToAppUseCase } from "./use-case/App/ReadyToAppUseCase";
 
 const AlminLogger = require("almin-logger");
 // instances
@@ -33,5 +33,5 @@ appLocator.context = context;
 const AppWrapContainer = AlminReactContainer.create<AppStoreGroup>(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), () => {
     // render and restore repositories
-    context.useCase(createReadyRepositoryUseCase()).executor(useCase => useCase.execute());
+    context.useCase(createReadyToAppUseCase()).executor(useCase => useCase.execute());
 });

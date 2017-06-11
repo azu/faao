@@ -3,7 +3,6 @@ import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
-import { SearchFilterItem } from "./SearchFilter/SearchFilterItem";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 let id = 0;

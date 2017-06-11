@@ -37,6 +37,10 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         return this;
     }
 
+    findAll(): GitHubSearchList[] {
+        return this.map.values();
+    }
+
     save(entity: GitHubSearchList): Promise<void> {
         super.save(entity);
         return this.storage.setItem(entity.id, entity.toJSON()).then(() => {

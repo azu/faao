@@ -2,18 +2,26 @@
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 
 export interface GitHubSearchListJSON {
+    name: string;
     queries: GitHubSearchQueryJSON[];
 }
 
 let GitHubSearchListID = 0;
 
+export interface GitHubSearchListArgs {
+    name: string;
+    queries: GitHubSearchQuery[];
+}
+
 export class GitHubSearchList {
     id: string;
+    name: string;
     queries: GitHubSearchQuery[];
 
-    constructor(queries: GitHubSearchQuery[]) {
+    constructor(args: GitHubSearchListArgs) {
         this.id = `GitHubSearchList${GitHubSearchListID++}`;
-        this.queries = queries;
+        this.name = args.name;
+        this.queries = args.queries;
     }
 
     static fromJSON(json: GitHubSearchListJSON) {
