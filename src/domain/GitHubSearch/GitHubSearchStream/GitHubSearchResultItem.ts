@@ -184,6 +184,8 @@ export interface Item {
     score: number;
 }
 
+const ghUrlToObject = require("github-url-to-object");
+
 export class GitHubSearchResultItem implements Item {
     url: string;
     repositoryUrl: string;
@@ -227,6 +229,14 @@ export class GitHubSearchResultItem implements Item {
         } else {
             return "issue";
         }
+    }
+
+    // owner/repo
+    get shortPath() {
+        // TODO: support GHE
+        // https://github.com/zeke/github-url-to-object#github-enterprise
+        const object = ghUrlToObject(this.htmlUrl);
+        return `${object.user}/${object.repo}`;
     }
 
     /**

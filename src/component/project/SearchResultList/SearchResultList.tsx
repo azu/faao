@@ -82,7 +82,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 <div className="SearchResultListItem-labels">{labels}</div>
                 <footer className="SearchResultListItem-footer">
                     <span className="SearchResultListItem-issueNumber">
-                        #{item.number}
+                        {item.shortPath}#{item.number}
                     </span>
                     <span> updated </span>
                     <span className="SearchResultListItem-updateDate">
