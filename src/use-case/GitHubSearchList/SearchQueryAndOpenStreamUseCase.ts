@@ -18,14 +18,14 @@ import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
-export const createSearchGitHubAndOpenStreamUseCase = () => {
-    return new SearchGitHubAndOpenStreamUseCase(
+export const createSearchQueryAndOpenStreamUseCase = () => {
+    return new SearchQueryAndOpenStreamUseCase(
         gitHubSettingRepository,
         gitHubSearchStreamRepository
     );
 };
 
-export class SearchGitHubAndOpenStreamUseCase extends SearchGitHubAbstractUseCase {
+export class SearchQueryAndOpenStreamUseCase extends SearchGitHubAbstractUseCase {
     constructor(
         protected gitHubSettingRepository: GitHubSettingRepository,
         protected gitHubSearchStreamRepository: GitHubSearchStreamRepository
@@ -45,6 +45,7 @@ export class SearchGitHubAndOpenStreamUseCase extends SearchGitHubAbstractUseCas
         await this.context
             .useCase(createAppUserSelectFirstItemUseCase())
             .executor(useCase => useCase.execute());
+        console.log(stream);
         return this.context
             .useCase(createSearchGitHubAbstractUseCase())
             .executor(useCase => {

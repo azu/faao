@@ -12,7 +12,6 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -64,10 +63,6 @@ export class SearchGitHubAbstractUseCase extends UseCase {
                     console.error(error.message, error.stack);
                     stream.clear();
                     await gitHubSearchStreamRepository.saveWithQuery(stream, query);
-                    const notice = new SearchQueryErrorNotice({
-                        query,
-                        error
-                    });
                     reject(error);
                 },
                 () => {

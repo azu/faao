@@ -2,13 +2,14 @@
 import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export class AppUserActivity {
     openedStream?: GitHubSearchStream;
     openedItem?: GitHubSearchResultItem;
-    openedQuery?: GitHubSearchQuery;
+    openedQuery?: GitHubSearchQuery | GitHubSearchList | undefined;
 
-    get activeQuery(): GitHubSearchQuery | undefined {
+    get activeQuery(): GitHubSearchQuery | GitHubSearchList | undefined {
         return this.openedQuery;
     }
 
@@ -28,7 +29,7 @@ export class AppUserActivity {
         this.openedItem = item;
     }
 
-    addQuery(query: GitHubSearchQuery) {
+    addQuery(query: GitHubSearchQuery | GitHubSearchList | undefined) {
         this.openedQuery = query;
     }
 }

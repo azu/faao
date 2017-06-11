@@ -73,6 +73,10 @@ export class GitHubSearchStream {
         });
     }
 
+    mergeStream(stream: GitHubSearchStream) {
+        this.itemSortedCollection = this.itemSortedCollection.mergeItems(stream.sortedItems);
+    }
+
     mergeResult(result: GitHubSearchResult) {
         this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
     }

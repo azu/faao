@@ -7,6 +7,7 @@ import {
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import localForage from "localforage";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
+import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
@@ -35,6 +36,10 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         return this.map.get(hash);
     }
 
+    findBySearchList(searchList: GitHubSearchList): GitHubSearchStream | undefined {
+        return this.map.get(searchList.id);
+    }
+
     save(_stream: GitHubSearchStream) {
         throw new Error("Use saveWithQuery");
     }
@@ -42,8 +47,14 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     saveWithQuery(stream: GitHubSearchStream, query: GitHubSearchQuery): Promise<void> {
         const hash = query.hash;
         this.map.set(hash, stream);
-        super.save(stream);
         return this.storage.setItem(hash, stream.toJSON()).then(() => {
+            debug("Save stream");
+        });
+    }
+
+    saveWithSearchList(stream: GitHubSearchStream, searchList: GitHubSearchList): Promise<void> {
+        this.map.set(searchList.id, stream);
+        return this.storage.setItem(searchList.id, stream.toJSON()).then(() => {
             debug("Save stream");
         });
     }

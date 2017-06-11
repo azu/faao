@@ -5,7 +5,7 @@ import { SearchQueryList } from "../../../project/SearchQueryList/SearchQueryLis
 import { GitHubSearchQuery } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 import { BaseContainer } from "../../BaseContainer";
-import { createSearchGitHubAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchGitHubAndOpenStreamUseCase";
+import { createSearchQueryAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueryAndOpenStreamUseCase";
 import classNames from "classnames";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
@@ -16,6 +16,7 @@ import {
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
 import { GitHubSearchList } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { createSearchQueriesAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueriesAndOpenStreamUseCase";
 
 export interface GitHubSearchContainerProps {
     className?: string;
@@ -39,7 +40,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     ];
 
     onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(createSearchGitHubAndOpenStreamUseCase())
+        this.useCase(createSearchQueryAndOpenStreamUseCase())
             .executor(useCase => useCase.execute(query))
             .catch((error: Error) => {
                 console.error("onClickQuery", error);
@@ -59,7 +60,9 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     };
 
     onClickSearchList = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {
-        console.log(searchList);
+        this.useCase(createSearchQueriesAndOpenStreamUseCase()).executor(useCase =>
+            useCase.execute(searchList)
+        );
     };
 
     render() {

@@ -6,6 +6,7 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
 import { SearchFilterFactory } from "../../domain/GitHubSearch/GitHubSearchStream/SearchFilter/SearchFilterFactory";
+import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 
 export const createApplyFilterToStreamUseCase = () => {
     return new ApplyFilterToStreamUseCase(appRepository, gitHubSearchStreamRepository);
@@ -28,6 +29,10 @@ export class ApplyFilterToStreamUseCase extends UseCase {
         }
         const filters = SearchFilterFactory.create(filterWord);
         activeStream.setFilters(filters);
-        return this.gitHubSearchStreamRepository.saveWithQuery(activeStream, activeQuery);
+        if (activeQuery instanceof GitHubSearchQuery) {
+            return this.gitHubSearchStreamRepository.saveWithQuery(activeStream, activeQuery);
+        } else {
+            return this.gitHubSearchStreamRepository.saveWithSearchList(activeStream, activeQuery);
+        }
     }
 }
