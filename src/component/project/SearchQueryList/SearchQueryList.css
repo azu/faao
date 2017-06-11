@@ -1,0 +1,24 @@
+.SearchQueryList-header {
+    height: 40px;
+    margin: 4px 0;
+    position: relative;
+}
+
+.SearchQueryList-headerTitle {
+    height: 32px;
+    vertical-align: top;
+    line-height: 1;
+}
+
+.SearchQueryList-headerLink {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.SearchQueryList-addButton {
+    right: 0;
+    margin: auto;
+    vertical-align: middle;
+    position: absolute !important;
+}
