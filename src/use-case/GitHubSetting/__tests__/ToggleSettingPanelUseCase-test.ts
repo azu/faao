@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { createStubContext } from "../../../test/AlminUseCaseMock";
+import { createStubContext } from "../../../test/AlminUseCaseStub";
 import {
     CloseSettingPanelUseCase,
     CloseSettingPanelUseCasePayload,
