@@ -9,7 +9,10 @@ import { createSearchGitHubAndOpenStreamUseCase } from "../../../../use-case/Git
 import classNames from "classnames";
 import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
-import { OpenQueryPanelUseCase } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import {
+    EditQueryPanelUseCase,
+    OpenQueryPanelUseCase
+} from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
 import { GitHubSearchList } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
@@ -44,15 +47,15 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
     };
 
     onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
-        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(query));
+        this.useCase(new EditQueryPanelUseCase()).executor(useCase => useCase.execute(query));
     };
 
     onDeleteQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
         this.useCase(createDeleteQueryUseCase()).executor(useCase => useCase.execute(query));
     };
 
-    onClickAddingQuery = () => {
-        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute());
+    onClickAddingQuery = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {
+        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(searchList));
     };
 
     onClickSearchList = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {

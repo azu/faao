@@ -76,6 +76,10 @@ export class QuickIssueState implements QuickIssueStateObject {
     }
 
     update(object: Partial<QuickIssueStateObject>) {
+        // prevent update when open panel is not opened
+        if (!this.isOpened) {
+            return this;
+        }
         return new QuickIssueState({
             ...this as QuickIssueStateObject,
             ...object
@@ -124,14 +128,12 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         const resolvedRepository = await this.repositories.gitHubSettingRepository.ready();
         const settings = resolvedRepository.findAll();
         this.setState(
-            this.state
-                .update({
-                    gitHubSearchLists,
-                    settings,
-                    activeItem,
-                    activeQuery
-                })
-                .reduce(payload)
+            this.state.reduce(payload).update({
+                gitHubSearchLists,
+                settings,
+                activeItem,
+                activeQuery
+            })
         );
     }
 

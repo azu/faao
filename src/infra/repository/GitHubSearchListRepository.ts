@@ -43,7 +43,7 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
     }
 
     findByQuery(aQuery: GitHubSearchQuery): GitHubSearchList | undefined {
-        return this.map.values().find(query => query.includesQuery(aQuery));
+        return this.map.values().find(searchList => searchList.includesQuery(aQuery));
     }
 
     save(entity: GitHubSearchList): Promise<void> {

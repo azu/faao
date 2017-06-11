@@ -5,23 +5,27 @@ import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/Git
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import {
     CloseQueryPanelUseCasePayload,
+    EditQueryPanelUseCasePayload,
     OpenQueryPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 
 export interface GitHubSearchListStateObject {
     searchLists: GitHubSearchList[];
+    editingSearchList: GitHubSearchList | undefined;
     editingQuery: GitHubSearchQuery | undefined;
     isOpenAddingPanel: boolean;
 }
 
 export class GitHubSearchListState implements GitHubSearchListStateObject {
     isOpenAddingPanel: boolean;
+    editingSearchList: GitHubSearchList | undefined;
     editingQuery: GitHubSearchQuery | undefined;
     searchLists: GitHubSearchList[];
 
     constructor(state: GitHubSearchListStateObject) {
         this.searchLists = state.searchLists;
         this.isOpenAddingPanel = state.isOpenAddingPanel;
+        this.editingSearchList = state.editingSearchList;
         this.editingQuery = state.editingQuery;
     }
 
@@ -46,8 +50,19 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
         });
     }
 
-    reduce(payload: OpenQueryPanelUseCasePayload | CloseQueryPanelUseCasePayload) {
+    reduce(
+        payload:
+            | OpenQueryPanelUseCasePayload
+            | CloseQueryPanelUseCasePayload
+            | EditQueryPanelUseCasePayload
+    ) {
         if (payload instanceof OpenQueryPanelUseCasePayload) {
+            return new GitHubSearchListState({
+                ...this as GitHubSearchListState,
+                isOpenAddingPanel: true,
+                editingSearchList: payload.searchList
+            });
+        } else if (payload instanceof EditQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
                 isOpenAddingPanel: true,
@@ -57,6 +72,7 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
                 isOpenAddingPanel: false,
+                editingSearchList: undefined,
                 editingQuery: undefined
             });
         }
@@ -73,6 +89,7 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         this.gitHubSearchRepository = gitHubSearchRepository;
         this.state = new GitHubSearchListState({
             isOpenAddingPanel: false,
+            editingSearchList: undefined,
             editingQuery: undefined,
             searchLists: []
         });

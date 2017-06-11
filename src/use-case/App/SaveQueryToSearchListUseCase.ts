@@ -6,6 +6,7 @@ import {
 } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchQueryJSON } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryFactory";
+import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export const createSaveQueryToSearchListUseCase = () => {
     return new SaveQueryToSearchListUseCase(gitHubSearchListRepository);
@@ -16,12 +17,8 @@ export class SaveQueryToSearchListUseCase extends UseCase {
         super();
     }
 
-    execute(queryJSON: GitHubSearchQueryJSON) {
+    execute(searchList: GitHubSearchList, queryJSON: GitHubSearchQueryJSON) {
         const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
-        const searchList = this.gitHubSearchListRepository.findByQuery(query);
-        if (!searchList) {
-            return;
-        }
         searchList.saveQuery(query);
         return this.gitHubSearchListRepository.save(searchList);
     }

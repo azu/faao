@@ -7,10 +7,27 @@ import { Item } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchR
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
+/**
+ * The plugins we'll use with Octokat.
+ *
+ * Most notably, this doesn't include:
+ *   - hypermedia // Not parse date
+ * Both take a _lot_ of time in post-processing and are unnecessary.
+ */
+const OctokatPlugins = [
+    require("octokat/dist/node/plugins/object-chainer"),
+    require("octokat/dist/node/plugins/path-validator"),
+    require("octokat/dist/node/plugins/authorization"),
+    require("octokat/dist/node/plugins/preview-apis"),
+    require("octokat/dist/node/plugins/use-post-instead-of-patch"),
 
-if (!process.env.GH_TOKEN) {
-    throw new Error("process.env.GH_TOKEN should be set GitHub Personal token");
-}
+    require("octokat/dist/node/plugins/simple-verbs"),
+    require("octokat/dist/node/plugins/fetch-all"),
+
+    require("octokat/dist/node/plugins/read-binary"),
+    require("octokat/dist/node/plugins/pagination"),
+    require("octokat/dist/node/plugins/camel-case")
+];
 
 export class GitHubClient {
     gh: any;
@@ -19,7 +36,7 @@ export class GitHubClient {
         this.gh = new Octokat({
             token: gitHubSetting.token,
             rootURL: gitHubSetting.apiHost,
-            disableHypermedia: true // Not parse date
+            plugins: OctokatPlugins
         });
     }
 

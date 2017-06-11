@@ -6,6 +6,37 @@
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@microsoft/load-themed-styles/-/load-themed-styles-1.4.0.tgz#1830bddbcf101712ca260217e55ab744a52041dc"
 
+"@types/babel-core@^6.7.14":
+  version "6.7.14"
+  resolved "https://registry.yarnpkg.com/@types/babel-core/-/babel-core-6.7.14.tgz#a08c900a98e8987c1a98d2ea4fa0a1805a7d131f"
+  dependencies:
+    "@types/babel-template" "*"
+    "@types/babel-traverse" "*"
+    "@types/babel-types" "*"
+
+"@types/babel-template@*":
+  version "6.7.14"
+  resolved "https://registry.yarnpkg.com/@types/babel-template/-/babel-template-6.7.14.tgz#8088a56f9d697d620d3d079c3ef66025b7a08d02"
+  dependencies:
+    "@types/babel-types" "*"
+    "@types/babylon" "*"
+
+"@types/babel-traverse@*":
+  version "6.7.17"
+  resolved "https://registry.yarnpkg.com/@types/babel-traverse/-/babel-traverse-6.7.17.tgz#5212a4edced81f53a6c4fb1fd7a34aa4ff6cf36b"
+  dependencies:
+    "@types/babel-types" "*"
+
+"@types/babel-types@*":
+  version "6.7.16"
+  resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-6.7.16.tgz#e2602896636858a0067971f7ca4bb8678038293f"
+
+"@types/babylon@*":
+  version "6.16.1"
+  resolved "https://registry.yarnpkg.com/@types/babylon/-/babylon-6.16.1.tgz#e4d10ab9e43a73703a17c6f41438bede28769340"
+  dependencies:
+    "@types/babel-types" "*"
+
 "@types/classnames@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.0.tgz#f2312039e780bdf89d7d4102a26ec11de5ec58aa"
@@ -14,11 +45,11 @@
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/@types/combokeys/-/combokeys-2.4.5.tgz#98f794f4baf72a6219cf255516386252c95ac53d"
 
-"@types/electron@^1.4.38":
-  version "1.4.38"
-  resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.4.38.tgz#f3e5e58fdcd5462ee4b5817d33dfdb6700ba2415"
+"@types/electron@^1.6.10":
+  version "1.6.10"
+  resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.6.10.tgz#7e87888ed3888767cca68e92772c2c8ea46bc873"
   dependencies:
-    "@types/node" "*"
+    electron "*"
 
 "@types/jest@^19.2.4":
   version "19.2.4"
@@ -46,9 +77,9 @@
   version "4.14.65"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.65.tgz#a0f78d71ffcd3c02628d5f616410c98c424326d5"
 
-"@types/node@*", "@types/node@^7.0.18", "@types/node@^7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.27.tgz#ba5e1a87aca2b4f5817289615ffe56472927687e"
+"@types/node@^7.0.18", "@types/node@^7.0.29":
+  version "7.0.29"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.29.tgz#ccfcec5b7135c7caf6c4ffb8c7f33102340d99df"
 
 "@types/prop-types@^15.5.1":
   version "15.5.1"
@@ -66,27 +97,30 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^15.0.26":
-  version "15.0.26"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.26.tgz#19d8969edcabb2aa6d10ccfba807e67a93a0a8f4"
+"@types/react@*", "@types/react@^15.0.27":
+  version "15.0.27"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.27.tgz#d64ad424aa24a101fd50cdeae6eab3d53e65513d"
 
 "@types/url-join@^0.8.2":
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-0.8.2.tgz#1181ecbe1d97b7034e0ea1e35e62e86cc26b422d"
 
-"@uifabric/styling@>=0.4.3 <1.0.0":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.4.3.tgz#f6323e5f2e92ab8e8c301d9f1069ddb6b4a9f455"
+"@uifabric/styling@>=0.7.1 <1.0.0":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.7.2.tgz#b42f4c63ce25902fbe352d089d928e05a744b3e2"
   dependencies:
-    "@uifabric/utilities" ">=4.0.1 <5.0.0"
+    "@microsoft/load-themed-styles" "^1.2.2"
+    "@uifabric/utilities" ">=4.1.2 <5.0.0"
     glamor "^2.20.24"
-    rtl-css-js "^1.1.0"
+    rtl-css-js "^1.1.1"
+    tslib "^1.6.0"
 
-"@uifabric/utilities@>=4.0.1 <5.0.0":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-4.0.1.tgz#790770d733b9558daa8e9b9b2dabe9d9c0fd0849"
+"@uifabric/utilities@>=4.1.2 <5.0.0":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-4.1.2.tgz#d5cbabe2845824e39e16b069e8a2bdc3011e2ef8"
   dependencies:
     prop-types "^15.5.10"
+    tslib "^1.6.0"
 
 abab@^1.0.3:
   version "1.0.3"
@@ -881,9 +915,9 @@ babel-polyfill@^6.23.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-preset-env@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.5.1.tgz#d2eca6af179edf27cdc305a84820f601b456dd0b"
+babel-preset-env@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.5.2.tgz#cd4ae90a6e94b709f97374b33e5f8b983556adef"
   dependencies:
     babel-plugin-check-es2015-constants "^6.22.0"
     babel-plugin-syntax-trailing-function-commas "^6.22.0"
@@ -1521,9 +1555,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cross-env@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.0.0.tgz#565ccae4d09676441a5087f406fe7661a29c931b"
+cross-env@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.0.1.tgz#ff4e72ea43b47da2486b43a7f2043b2609e44913"
   dependencies:
     cross-spawn "^5.1.0"
     is-windows "^1.0.0"
@@ -1787,7 +1821,7 @@ electron-to-chromium@^1.3.11:
   version "1.3.13"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.13.tgz#1b3a5eace6e087bb5e257a100b0cbfe81b2891fc"
 
-electron@1.7.2, electron@^1.6.0:
+electron@*, electron@1.7.2, electron@^1.6.0:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/electron/-/electron-1.7.2.tgz#8115e6ae86128a8cd99360d3793d3618ca2c7619"
   dependencies:
@@ -1828,9 +1862,9 @@ empower-core@^0.6.2:
     call-signature "0.0.2"
     core-js "^2.0.0"
 
-empower@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/empower/-/empower-1.2.2.tgz#8b4f288c1c3990094e254c8dce15c553d07f39a4"
+empower@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/empower/-/empower-1.2.3.tgz#6f0da73447f4edd838fec5c60313a88ba5cb852b"
   dependencies:
     core-js "^2.0.0"
     empower-core "^0.6.2"
@@ -2141,9 +2175,9 @@ execa@^0.5.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^0.6.0:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-0.6.3.tgz#57b69a594f081759c69e5370f0d17b9cb11658fe"
+execa@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
   dependencies:
     cross-spawn "^5.0.1"
     get-stream "^3.0.0"
@@ -3425,13 +3459,13 @@ lie@3.0.2:
     inline-process-browser "^1.0.0"
     unreachable-branch-transform "^0.3.0"
 
-lint-staged@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-3.6.0.tgz#cda8f0bef16e7928cc14b735186ae12cd662599c"
+lint-staged@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-3.6.1.tgz#24423c8b7bd99d96e15acd1ac8cb392a78e58582"
   dependencies:
     app-root-path "^2.0.0"
     cosmiconfig "^1.1.0"
-    execa "^0.6.0"
+    execa "^0.7.0"
     listr "^0.12.0"
     lodash.chunk "^4.2.0"
     minimatch "^3.0.0"
@@ -3988,14 +4022,15 @@ octokat@^0.8:
     lodash "^4.16.4"
     xmlhttprequest "~1.8.0"
 
-office-ui-fabric-react@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.3.0.tgz#34467301b8e253f2b16be8e9eb3534d60a7d5ed5"
+office-ui-fabric-react@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.4.2.tgz#df2604f066ccc4831a30502535dbf424b500f7f2"
   dependencies:
     "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/styling" ">=0.4.3 <1.0.0"
-    "@uifabric/utilities" ">=4.0.1 <5.0.0"
+    "@uifabric/styling" ">=0.7.1 <1.0.0"
+    "@uifabric/utilities" ">=4.1.2 <5.0.0"
     prop-types "^15.5.10"
+    tslib "^1.6.0"
 
 on-finished@~2.3.0:
   version "2.3.0"
@@ -4279,9 +4314,9 @@ postcss-calc@^6.0.0:
     postcss-selector-parser "^2.2.2"
     reduce-css-calc "^2.0.0"
 
-postcss-cli@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-4.0.0.tgz#b13e1b1019ab4581ed7147104e0191e9335502d3"
+postcss-cli@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-4.1.0.tgz#8f6803678acd7a4f21483f1a4039136f6e1c214f"
   dependencies:
     chalk "^1.1.3"
     chokidar "^1.6.1"
@@ -4292,7 +4327,7 @@ postcss-cli@^4.0.0:
     ora "^1.1.0"
     postcss "^6.0.1"
     postcss-load-config "^1.1.0"
-    postcss-reporter "^3.0.0"
+    postcss-reporter "^4.0.0"
     read-cache "^1.0.0"
     yargs "^8.0.1"
 
@@ -4309,9 +4344,9 @@ postcss-custom-properties@^6.0.1:
     balanced-match "^0.4.2"
     postcss "^6.0.1"
 
-postcss-easy-import@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-easy-import/-/postcss-easy-import-2.0.0.tgz#a874d4de054b9242545bf553e438c1823c108512"
+postcss-easy-import@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-easy-import/-/postcss-easy-import-2.1.0.tgz#1d49f8a7c404415cfee4e5cb7a15fdf866c13022"
   dependencies:
     globby "^6.1.0"
     is-glob "^3.1.0"
@@ -4363,14 +4398,13 @@ postcss-normalize@^3.0.0:
     browserslist "^2.1.2"
     postcss "^6.0.1"
 
-postcss-reporter@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-reporter/-/postcss-reporter-3.0.0.tgz#09ea0f37a444c5693878606e09b018ebeff7cf8f"
+postcss-reporter@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-reporter/-/postcss-reporter-4.0.0.tgz#13356c365c36783adde88e28e09dbba6ec6c6501"
   dependencies:
     chalk "^1.0.0"
     lodash "^4.1.0"
     log-symbols "^1.0.2"
-    postcss "^5.0.0"
 
 postcss-selector-parser@^2.2.2:
   version "2.2.3"
@@ -4384,7 +4418,7 @@ postcss-value-parser@^3.2.3, postcss-value-parser@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
 
-postcss@^5.0.0, postcss@^5.0.14, postcss@^5.0.15:
+postcss@^5.0.14, postcss@^5.0.15:
   version "5.2.17"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.17.tgz#cf4f597b864d65c8a492b2eabe9d706c879c388b"
   dependencies:
@@ -4483,12 +4517,12 @@ power-assert-util-string-width@^1.1.1:
   dependencies:
     eastasianwidth "^0.1.1"
 
-power-assert@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/power-assert/-/power-assert-1.4.3.tgz#190997419d162baab7e72199675adc8d1c99fb24"
+power-assert@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/power-assert/-/power-assert-1.4.4.tgz#9295ea7437196f5a601fde420f042631186d7517"
   dependencies:
     define-properties "^1.1.2"
-    empower "^1.2.2"
+    empower "^1.2.3"
     power-assert-formatter "^1.3.1"
     universal-deep-strict-equal "^1.2.1"
     xtend "^4.0.0"
@@ -4501,9 +4535,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.4.2.tgz#bcdd95ed1eca434ac7f98ca26ea4d25a2af6a2ac"
+prettier@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.4.4.tgz#a8d1447b14c9bf67e6d420dcadd10fb9a4fad65a"
 
 pretty-bytes@^1.0.2:
   version "1.0.4"
@@ -4925,7 +4959,7 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-rtl-css-js@^1.1.0:
+rtl-css-js@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/rtl-css-js/-/rtl-css-js-1.1.1.tgz#219d10721b8044845771a03bea2e5c4387821024"
 
@@ -5456,10 +5490,11 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-jest@^20.0.5:
-  version "20.0.5"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-20.0.5.tgz#6cb151e718e8739529d0a79459e09f7280fe044f"
+ts-jest@^20.0.6:
+  version "20.0.6"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-20.0.6.tgz#39c2810c05d6f6908dac15929dae206b494b73f4"
   dependencies:
+    "@types/babel-core" "^6.7.14"
     babel-core "^6.24.1"
     babel-plugin-istanbul "^4.1.4"
     babel-plugin-transform-es2015-modules-commonjs "^6.24.1"
@@ -5478,6 +5513,10 @@ tsconfig@^6.0.0:
   dependencies:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
+
+tslib@^1.6.0:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
 
 tty-browserify@0.0.0:
   version "0.0.0"

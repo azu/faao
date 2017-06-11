@@ -11,7 +11,10 @@ import {
 } from "office-ui-fabric-react";
 import { GenericErrorNotice } from "../../../domain/Notice/GenericErrorNotice";
 import { BaseContainer } from "../BaseContainer";
-import { OpenQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import {
+    EditQueryPanelUseCase,
+    OpenQueryPanelUseCase
+} from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { SearchQueryErrorNotice } from "../../../domain/Notice/SearchQueryErrorNotice";
 import { createDismissErrorNoticeUseCase } from "../../../use-case/Notice/DismissErrorNoticeUseCase";
 
@@ -54,7 +57,7 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
         }
         const onClick = () => {
             this.onDismiss();
-            this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
+            this.useCase(new EditQueryPanelUseCase()).executor(useCase =>
                 useCase.execute(genericErrorNotice.query)
             );
         };

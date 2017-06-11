@@ -22,15 +22,17 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
     onSubmit = async (queryJSON: GitHubSearchQueryJSON) => {
         try {
             if (this.props.gitHubSearchList.editingQuery) {
+                // edit query
                 await this.useCase(createUpdateQueryToSearchListUseCase()).executor(useCase => {
                     return useCase.execute(
                         queryJSON,
                         this.props.gitHubSearchList.editingQueryIndex
                     );
                 });
-            } else {
+            } else if (this.props.gitHubSearchList.editingSearchList) {
+                // add query
                 await this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase =>
-                    useCase.execute(queryJSON)
+                    useCase.execute(this.props.gitHubSearchList.editingSearchList!, queryJSON)
                 );
             }
         } finally {
