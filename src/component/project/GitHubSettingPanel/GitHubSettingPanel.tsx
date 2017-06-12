@@ -43,8 +43,8 @@ export class GitHubSettingPanel extends React.Component<
     state = {
         id: "",
         token: "",
-        apiHost: "",
-        webHost: "",
+        apiHost: "https://api.github.com",
+        webHost: "https://github.com",
         error: null
     };
 
@@ -128,12 +128,9 @@ export class GitHubSettingPanel extends React.Component<
                     onChanged={text => this.setState({ token: text })}
                 />
                 <p className="ms-font-xs GitHubSettingPanel-itemDescription">
-                    This query is same with GitHub Search query.
-                    Please see
-                    {" "}
-                    <Link href="https://help.github.com/articles/searching-issues/">
-                        GitHub document
-                    </Link>
+                    <a href="https://github.com/settings/tokens">Personal Access Tokens</a> should
+                    have <b>repo</b>
+                    permission.
                 </p>
                 <TextField
                     label="apiHost:"
