@@ -104,14 +104,24 @@ export class QuerySettingPanel extends React.Component<
         return true;
     };
 
+    updateStateWithQuery = (query: GitHubSearchQuery) => {
+        this.setState({
+            gitHubSettingId: query.gitHubSettingId.toValue(),
+            query: query.query,
+            name: query.name,
+            color: query.color.hexCode
+        });
+    };
+
+    componentWillMount() {
+        if (this.props.query) {
+            this.updateStateWithQuery(this.props.query);
+        }
+    }
+
     componentWillReceiveProps(nextProps: QuerySettingPanelProps) {
         if (nextProps.query) {
-            this.setState({
-                gitHubSettingId: nextProps.query.gitHubSettingId.toValue(),
-                query: nextProps.query.query,
-                name: nextProps.query.name,
-                color: nextProps.query.color.hexCode
-            });
+            this.updateStateWithQuery(nextProps.query);
         }
     }
 

@@ -87,14 +87,24 @@ export class GitHubSettingPanel extends React.Component<
         return true;
     };
 
+    updateStateWithSetting = (setting: GitHubSetting) => {
+        this.setState({
+            id: setting.id.toValue(),
+            token: setting.token,
+            apiHost: setting.apiHost,
+            webHost: setting.webHost
+        });
+    };
+
+    componentWillMount() {
+        if (this.props.setting) {
+            this.updateStateWithSetting(this.props.setting);
+        }
+    }
+
     componentWillReceiveProps(nextProps: GitHubSettingPanelProps) {
         if (nextProps.setting) {
-            this.setState({
-                id: nextProps.setting.id.toValue(),
-                token: nextProps.setting.token,
-                apiHost: nextProps.setting.apiHost,
-                webHost: nextProps.setting.webHost
-            });
+            this.updateStateWithSetting(nextProps.setting);
         }
     }
 
