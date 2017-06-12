@@ -38,6 +38,9 @@ export class GitHubSettingPanelContainer extends BaseContainer<
     };
 
     render() {
+        if (!this.props.gitHubSetting.isOpenSettingPanel) {
+            return null;
+        }
         return (
             <GitHubSettingPanel
                 isOpen={this.props.gitHubSetting.isOpenSettingPanel}

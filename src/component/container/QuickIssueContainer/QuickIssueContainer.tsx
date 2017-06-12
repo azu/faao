@@ -22,6 +22,9 @@ export class QuickIssueContainer extends BaseContainer<QuickIssueContainerProps,
     };
 
     render() {
+        if (!this.props.quickIssue.isOpened) {
+            return null;
+        }
         return (
             <QuickIssuePanel
                 isOpen={this.props.quickIssue.isOpened}

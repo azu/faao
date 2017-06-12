@@ -41,6 +41,9 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
     };
 
     render() {
+        if (!this.props.gitHubSearchList.isOpenAddingPanel) {
+            return null;
+        }
         return (
             <QuerySettingPanel
                 isOpen={this.props.gitHubSearchList.isOpenAddingPanel}

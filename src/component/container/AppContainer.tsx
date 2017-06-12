@@ -1,5 +1,5 @@
 // LICENSE : MIT
-"use strict";
+("use strict");
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStoreGroup";
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchStreamContainer";

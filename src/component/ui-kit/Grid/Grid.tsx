@@ -1,4 +1,4 @@
-"use strict";
+("use strict");
 import * as React from "react";
 import GridCell from "./GridCell";
 

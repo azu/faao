@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-"use strict";
+("use strict");
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";
