@@ -6,13 +6,12 @@ import { GitHubSearchQueryColor } from "../../../domain/GitHubSearch/GitHubSearc
 import localForage from "localforage";
 import { EntityId } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
+import { storageManger } from "../Storage";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
     beforeEach(async () => {
-        await localForage.defineDriver(memoryStorageDriver);
-        await localForage.setDriver(memoryStorageDriver._driver);
-        await localForage.ready();
+        await storageManger.useMemoryDriver();
     });
     afterEach(() => {
         return localForage.clear();
@@ -20,7 +19,6 @@ describe("GitHubSearchStreamRepository", () => {
     describe("#findByQuery", () => {
         test("should return undefined at first", async () => {
             const repository = new GitHubSearchStreamRepository(GitHubSearchStreamFactory.create());
-            repository.storage = localForage;
             await repository.ready();
             const testQuery = new GitHubSearchQuery({
                 name: "test",
@@ -38,7 +36,6 @@ describe("GitHubSearchStreamRepository", () => {
             };
             const stream = GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
             const repository = new GitHubSearchStreamRepository(stream);
-            repository.storage = localForage;
             await repository.ready();
             const testQuery = new GitHubSearchQuery({
                 name: "test",

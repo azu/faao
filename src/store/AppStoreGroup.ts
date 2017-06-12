@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-"use strict";
+("use strict");
 import { StoreGroup, StoreGroupTypes } from "almin";
 // FIXME: TypeScript compiler if the state interface was not imported
 import { appRepository } from "../infra/repository/AppRepository";
@@ -19,6 +19,8 @@ import { gitHubSettingRepository } from "../infra/repository/GitHubSettingsRepos
 import { GitHubSettingStore, GitHubSettingState } from "./GitHubSettingStore/GitHubSettingStore";
 import { NoticeStore, NoticeState } from "./Notice/NoticeStore";
 import { noticeRepository } from "../infra/repository/NoticeRepository";
+import { storageManger } from "../infra/repository/Storage";
+
 // repository
 // store
 // store mapping
@@ -44,7 +46,14 @@ export const storeMapping = {
         gitHubSearchStreamRepository,
         noticeRepository
     },
-    stores: storeMapping
+    stores: storeMapping,
+    async debugOn() {
+        await storageManger.useMemoryDriver();
+        console.log("use memory driver for storage");
+    },
+    async debugOff() {
+        return storageManger.resetDriver();
+    }
 };
 // state mapping
 export const stateMapping = StoreGroupTypes.StoreToState(storeMapping);

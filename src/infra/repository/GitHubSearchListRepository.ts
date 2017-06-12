@@ -5,15 +5,13 @@ import {
 } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
-import localForge from "localforage";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { createStorageInstance } from "./Storage";
 
 const debug = require("debug")("faao:GitHubSearchListRepository");
 
 export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHubSearchList> {
-    storage = localForge.createInstance({
-        name: "GitHubSearchListRepository"
-    });
+    storage: LocalForage;
 
     /**
      * Please call this before find* API
@@ -23,6 +21,10 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         if (this.map.size > 0) {
             return Promise.resolve(this);
         }
+        this.storage = createStorageInstance({
+            name: "GitHubSearchListRepository"
+        });
+        await this.storage.ready();
         const values: GitHubSearchListJSON[] = [];
         await this.storage.iterate(value => {
             values.push(value);

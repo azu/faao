@@ -5,21 +5,23 @@ import {
     GitHubSearchStreamJSON
 } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import localForage from "localforage";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { createStorageInstance } from "./Storage";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
 export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitHubSearchStream> {
-    storage = localForage.createInstance({
-        name: "GitHubSearchStreamRepository"
-    });
+    storage: LocalForage;
 
     async ready() {
         if (this.map.size > 0) {
             return Promise.resolve(this);
         }
+        this.storage = createStorageInstance({
+            name: "GitHubSearchStreamRepository"
+        });
+        await this.storage.ready();
         const values: [string, GitHubSearchStreamJSON][] = [];
         await this.storage.iterate((value, key) => {
             values.push([key, value]);

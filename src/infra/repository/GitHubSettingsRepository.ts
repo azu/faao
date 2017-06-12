@@ -2,14 +2,12 @@ import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { EntityId } from "../../domain/Entity";
-import localForge from "localforage";
+import { createStorageInstance } from "./Storage";
 
 const debug = require("debug")("faao:GitHubSettingRepository");
 
 export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSetting> {
-    storage = localForge.createInstance({
-        name: "GitHubSettingRepository"
-    });
+    storage: LocalForage;
 
     /**
      * Please call this before find* API
@@ -19,6 +17,10 @@ export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSet
         if (this.map.size > 0) {
             return Promise.resolve(this);
         }
+        this.storage = createStorageInstance({
+            name: "GitHubSettingRepository"
+        });
+        await this.storage.ready();
         const values: GitHubSettingJSON[] = [];
         await this.storage.iterate(value => {
             values.push(value);
