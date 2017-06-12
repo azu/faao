@@ -1,3 +1,25 @@
 .GitHubSettingContainer {
     padding-left: 1rem;
 }
+.GitHubSettingContainer-header {
+    /* for addButton */
+    position: relative;
+}
+.GitHubSettingContainer-headerTitle {
+    height: 32px;
+    vertical-align: top;
+    line-height: 1;
+}
+
+.GitHubSettingContainer-headerLink {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.GitHubSettingContainer-addButton {
+    right: 0;
+    margin: auto;
+    vertical-align: middle;
+    position: absolute !important;
+}

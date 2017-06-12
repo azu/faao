@@ -37,15 +37,20 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
     render() {
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
-                <h1 className="ms-font-xxl">
-                    Accounts
-                    <IconButton
-                        iconProps={{ iconName: "Add" }}
-                        title="Add GitHub account"
-                        ariaLabel="Add GitHub account"
-                        onClick={this.onClickAddSetting}
-                    />
-                </h1>
+                <header className="GitHubSettingContainer-header">
+                    <h1 className="ms-font-xxl GitHubSettingContainer-headerTitle">
+                        <span className="GitHubSettingContainer-headerLink">
+                            Accounts
+                        </span>
+                        <IconButton
+                            className="GitHubSettingContainer-addButton"
+                            iconProps={{ iconName: "Add" }}
+                            title="Add GitHub account"
+                            ariaLabel="Add GitHub account"
+                            onClick={this.onClickAddSetting}
+                        />
+                    </h1>
+                </header>
                 <GitHubSettingList
                     settings={this.props.gitHubSetting.settings}
                     onClickSetting={this.onClickSetting}
