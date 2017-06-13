@@ -4,7 +4,10 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQueryJSON } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import {
+    GitHubSearchQuery,
+    GitHubSearchQueryJSON
+} from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryFactory";
 
 export const createUpdateQueryToSearchListUseCase = () => {
@@ -16,13 +19,13 @@ export class UpdateQueryToSearchListUseCase extends UseCase {
         super();
     }
 
-    execute(queryJSON: GitHubSearchQueryJSON, index: number) {
+    execute(queryJSON: GitHubSearchQueryJSON, editQuery: GitHubSearchQuery) {
         const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
         const searchList = this.gitHubSearchListRepository.findByQuery(query);
         if (!searchList) {
             return;
         }
-        searchList.updateQuery(query, index);
+        searchList.replaceQuery(editQuery, query);
         return this.gitHubSearchListRepository.save(searchList);
     }
 }

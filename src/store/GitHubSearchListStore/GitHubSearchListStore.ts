@@ -29,20 +29,6 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
         this.editingQuery = state.editingQuery;
     }
 
-    get queries() {
-        if (this.searchLists.length === 0) {
-            return [];
-        }
-        return this.searchLists[0].queries;
-    }
-
-    get editingQueryIndex() {
-        if (!this.editingQuery) {
-            return -1;
-        }
-        return this.queries.indexOf(this.editingQuery);
-    }
-
     update(gitHubSearchLists: GitHubSearchList[]) {
         return new GitHubSearchListState({
             ...this as GitHubSearchListState,

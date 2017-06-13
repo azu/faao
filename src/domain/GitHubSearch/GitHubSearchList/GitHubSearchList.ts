@@ -47,11 +47,12 @@ export class GitHubSearchList {
         this.queries = this.queries.concat(aQuery);
     }
 
-    updateQuery(query: GitHubSearchQuery, index: number) {
+    replaceQuery(oldQuery: GitHubSearchQuery, newQuery: GitHubSearchQuery) {
+        const index = this.queries.indexOf(oldQuery);
         if (!this.queries[index]) {
             return;
         }
-        this.queries[index] = query;
+        this.queries[index] = newQuery;
         this.queries = this.queries.slice();
     }
 

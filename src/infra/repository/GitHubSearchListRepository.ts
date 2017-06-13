@@ -29,11 +29,13 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
             name: "GitHubSearchListRepository"
         });
         await this.storage.ready();
-        await this.save(this.initialEntity);
         const values: GitHubSearchListJSON[] = [];
         await this.storage.iterate(value => {
             values.push(value);
         });
+        if (values.length === 0) {
+            await this.save(this.initialEntity);
+        }
         values
             .map(json => {
                 return GitHubSearchList.fromJSON(json);
