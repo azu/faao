@@ -1,5 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import moment from "moment";
 
 export type IconType =
     | "IssueOpenedIcon"
@@ -40,5 +41,9 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
                 // because GitHub API not return "closed" insteadof "merged"
                 return "#6f42c1";
         }
+    }
+
+    get formattedUpdatedDateString(): string {
+        return moment(this.updatedAtDate).format("YYYY-MM-DD HH:MM");
     }
 }

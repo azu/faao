@@ -86,7 +86,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                     </span>
                     <span> updated </span>
                     <span className="SearchResultListItem-updateDate">
-                        {item.updatedAt}
+                        {item.formattedUpdatedDateString}
                     </span>
                     <span> by </span>
                     <span className="SearchResultListItem-author">
