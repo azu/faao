@@ -27,6 +27,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 <ShortcutKeyContainer />
                 <AppMenuColumn
                     className="AppContainer-nav"
+                    app={this.props.app}
                     gitHubSetting={this.props.gitHubSetting}
                     gitHubSearchList={this.props.gitHubSearchList}
                 />

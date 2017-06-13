@@ -7,7 +7,6 @@ import { SyntheticEvent } from "react";
 import { BaseContainer } from "../../BaseContainer";
 import { createSearchQueryAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueryAndOpenStreamUseCase";
 import classNames from "classnames";
-import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import {
     EditQueryPanelUseCase,
@@ -17,9 +16,11 @@ import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubS
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
 import { GitHubSearchList } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { createSearchQueriesAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueriesAndOpenStreamUseCase";
+import { AppState } from "../../../../store/AppStore/AppStore";
 
 export interface GitHubSearchContainerProps {
     className?: string;
+    app: AppState;
     gitHubSetting: GitHubSettingState;
     gitHubSearchList: GitHubSearchListState;
 }
@@ -71,6 +72,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                 <SearchQueryList
                     key={searchList.id}
                     searchList={searchList}
+                    activeQuery={this.props.app.activeQuery}
                     onClickSearchList={this.onClickSearchList}
                     onClickAddingQuery={this.onClickAddingQuery}
                     onClickQuery={this.onClickQuery}

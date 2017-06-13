@@ -53,7 +53,10 @@ export class GitHubSearchQuery {
         return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
 
-    equals(aQuery: GitHubSearchQuery): boolean {
+    equals(aQuery?: GitHubSearchQuery): boolean {
+        if (aQuery === undefined) {
+            return false;
+        }
         return aQuery.hash === this.hash;
     }
 

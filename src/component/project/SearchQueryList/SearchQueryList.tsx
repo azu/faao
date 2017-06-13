@@ -4,9 +4,13 @@ import { ContextualMenu, DirectionalHint, IconButton, Link, List } from "office-
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
 import { GitHubSearchList } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { shallowEqual } from "shallow-equal-object";
+
+const suitcssClassnames = require("suitcss-classnames");
 
 export interface SearchQueryListItemProps {
     query: GitHubSearchQuery;
+    isActive: boolean;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
     onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
@@ -75,8 +79,15 @@ export class SearchQueryListItem extends React.Component<
                   ]}
               />
             : null;
+
+        const className = suitcssClassnames({
+            component: "SearchQueryListItem",
+            states: {
+                "is-active": this.props.isActive
+            }
+        });
         return (
-            <div className="SearchQueryListItem">
+            <div className={className}>
                 {contextMenu}
                 <Link style={style} className="SearchQueryListItem-button" onClick={onClick}>
                     <span className="SearchQueryListItem-primaryText">
@@ -100,6 +111,7 @@ export class SearchQueryListItem extends React.Component<
 
 export interface SearchQueryListProps {
     searchList: GitHubSearchList;
+    activeQuery?: GitHubSearchQuery;
     onClickSearchList: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
     onClickAddingQuery: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
@@ -108,6 +120,17 @@ export interface SearchQueryListProps {
 }
 
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
+    private list?: List;
+
+    componentWillReceiveProps(nextProps: SearchQueryListProps) {
+        if (!shallowEqual(this.props, nextProps)) {
+            if (this.list) {
+                // update list with active query change
+                this.list.forceUpdate();
+            }
+        }
+    }
+
     render() {
         return (
             <div className="SearchQueryList">
@@ -126,12 +149,14 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                     </h1>
                 </header>
                 <List
+                    ref={(c: List) => (this.list = c)}
                     className="SearchQueryList"
                     items={this.props.searchList.queries}
                     getPageHeight={() => 32}
                     onRenderCell={(query: GitHubSearchQuery) =>
                         <SearchQueryListItem
                             query={query}
+                            isActive={query.equals(this.props.activeQuery)}
                             onClickQuery={this.props.onClickQuery}
                             onEditQuery={this.props.onEditQuery}
                             onDeleteQuery={this.props.onDeleteQuery}

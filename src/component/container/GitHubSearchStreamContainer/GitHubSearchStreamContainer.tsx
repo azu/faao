@@ -10,6 +10,7 @@ import { AppState } from "../../../store/AppStore/AppStore";
 import { createAppUserOpenItemUseCase } from "../../../use-case/App/AppUserOpenItemUseCase";
 import { GitHubSearchStreamCommandBarContainer } from "./GitHubSearchStreamCommandBarContainer/GitHubSearchStreamCommandBarContainer";
 import { EmptySearchResultList } from "../../project/EmptySearchResultList/EmptySearchResultList";
+import { ColorBar } from "../../project/ColorBar/ColorBar";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
@@ -35,12 +36,16 @@ export class GitHubSearchStreamContainer extends BaseContainer<
                   onClickItem={this.onClickItem}
               />
             : <EmptySearchResultList />;
+        const colorBar = this.props.app.activeQuery
+            ? <ColorBar color={this.props.app.activeQuery.color.hexCode} height="2px" />
+            : null;
         return (
             <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
                 <GitHubSearchStreamCommandBarContainer
                     className="GitHubSearchStreamContainer-header"
                     filterWord={this.props.gitHubSearchStream.filterWord}
                 />
+                {colorBar}
                 <div className="GitHubSearchStreamContainer-main">
                     {list}
                 </div>
