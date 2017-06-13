@@ -13,6 +13,10 @@ const debug = require("debug")("faao:GitHubSearchListRepository");
 export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHubSearchList> {
     storage: LocalForage;
 
+    constructor(protected initialEntity: GitHubSearchList) {
+        super(initialEntity);
+    }
+
     /**
      * Please call this before find* API
      * @returns {Promise<any>}
@@ -25,6 +29,7 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
             name: "GitHubSearchListRepository"
         });
         await this.storage.ready();
+        await this.save(this.initialEntity);
         const values: GitHubSearchListJSON[] = [];
         await this.storage.iterate(value => {
             values.push(value);
