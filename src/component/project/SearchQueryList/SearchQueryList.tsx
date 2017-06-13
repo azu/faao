@@ -125,6 +125,7 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
     componentWillReceiveProps(nextProps: SearchQueryListProps) {
         if (!shallowEqual(this.props, nextProps)) {
             if (this.list) {
+                // TODO: We want to get more efficient way
                 // update list with active query change
                 this.list.forceUpdate();
             }
