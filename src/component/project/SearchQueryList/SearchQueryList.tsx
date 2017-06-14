@@ -112,6 +112,7 @@ export class SearchQueryListItem extends React.Component<
 export interface SearchQueryListProps {
     searchList: GitHubSearchList;
     activeQuery?: GitHubSearchQuery;
+    activeSearchList?: GitHubSearchList;
     onClickSearchList: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
     onClickAddingQuery: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
     onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
@@ -133,8 +134,15 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
     }
 
     render() {
+        const isActiveSearchList = this.props.activeSearchList === this.props.searchList;
+        const className = suitcssClassnames({
+            component: "SearchQueryList",
+            states: {
+                "is-active": isActiveSearchList
+            }
+        });
         return (
-            <div className="SearchQueryList">
+            <div className={className}>
                 <header className="SearchQueryList-header">
                     <h1 className="ms-font-xxl SearchQueryList-headerTitle">
                         <Link className="SearchQueryList-headerLink" onClick={this.onClick}>

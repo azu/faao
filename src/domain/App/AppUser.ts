@@ -18,14 +18,18 @@ export class AppUser {
     }
 
     openStream(stream: GitHubSearchStream): void {
-        this.activity.addStream(stream);
+        this.activity.activateStream(stream);
     }
 
     openItem(item: GitHubSearchResultItem): void {
-        this.activity.addItem(item);
+        this.activity.activateItem(item);
     }
 
-    openQuery(query: GitHubSearchQuery | GitHubSearchList) {
-        this.activity.addQuery(query);
+    openSearchListSelf(searchList: GitHubSearchList) {
+        this.activity.activateSearchList(searchList);
+    }
+
+    openQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
+        this.activity.activateQuery(searchList, query);
     }
 }

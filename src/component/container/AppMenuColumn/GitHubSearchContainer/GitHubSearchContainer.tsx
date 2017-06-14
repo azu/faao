@@ -72,6 +72,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                 <SearchQueryList
                     key={searchList.id}
                     searchList={searchList}
+                    activeSearchList={this.props.app.activeSearchList}
                     activeQuery={this.props.app.activeQuery}
                     onClickSearchList={this.onClickSearchList}
                     onClickAddingQuery={this.onClickAddingQuery}

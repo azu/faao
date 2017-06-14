@@ -5,22 +5,26 @@ import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchSt
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { AppUserActivity } from "../../domain/App/AppUserActivity";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export interface AppStateArgs {
     activeStream?: GitHubSearchStream;
     activeItem?: GitHubSearchResultItem;
     activeQuery?: GitHubSearchQuery;
+    activeSearchList?: GitHubSearchList;
 }
 
 export class AppState implements AppStateArgs {
     activeStream?: GitHubSearchStream;
     activeItem?: GitHubSearchResultItem;
     activeQuery?: GitHubSearchQuery;
+    activeSearchList?: GitHubSearchList;
 
     constructor(args: AppStateArgs) {
         this.activeItem = args.activeItem;
         this.activeStream = args.activeStream;
         this.activeQuery = args.activeQuery;
+        this.activeSearchList = args.activeSearchList;
     }
 
     update(activity: AppUserActivity) {
@@ -28,9 +32,8 @@ export class AppState implements AppStateArgs {
             ...this as AppState,
             activeStream: activity.activeStream,
             activeItem: activity.activeItem,
-            activeQuery: activity.activeQuery instanceof GitHubSearchQuery
-                ? activity.activeQuery
-                : undefined
+            activeQuery: activity.activeQuery,
+            activeSearchList: activity.activeSearchList
         });
     }
 }

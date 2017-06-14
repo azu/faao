@@ -7,10 +7,15 @@ import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchL
 export class AppUserActivity {
     openedStream?: GitHubSearchStream;
     openedItem?: GitHubSearchResultItem;
-    openedQuery?: GitHubSearchQuery | GitHubSearchList | undefined;
+    openedQuery?: GitHubSearchQuery;
+    openedSearchList?: GitHubSearchList;
 
-    get activeQuery(): GitHubSearchQuery | GitHubSearchList | undefined {
+    get activeQuery(): GitHubSearchQuery | undefined {
         return this.openedQuery;
+    }
+
+    get activeSearchList(): GitHubSearchList | undefined {
+        return this.openedSearchList;
     }
 
     get activeStream(): GitHubSearchStream | undefined {
@@ -21,15 +26,21 @@ export class AppUserActivity {
         return this.openedItem;
     }
 
-    addStream(stream: GitHubSearchStream) {
+    activateStream(stream: GitHubSearchStream) {
         this.openedStream = stream;
     }
 
-    addItem(item: GitHubSearchResultItem) {
+    activateItem(item: GitHubSearchResultItem) {
         this.openedItem = item;
     }
 
-    addQuery(query: GitHubSearchQuery | GitHubSearchList | undefined) {
+    activateSearchList(searchList: GitHubSearchList) {
+        this.openedSearchList = searchList;
+        this.openedQuery = undefined;
+    }
+
+    activateQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
+        this.openedSearchList = searchList;
         this.openedQuery = query;
     }
 }

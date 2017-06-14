@@ -25,6 +25,10 @@ export class GitHubSearchQuery {
     color: GitHubSearchQueryColor;
     gitHubSettingId: EntityId<GitHubSetting>;
 
+    static isQuery(v: any): v is GitHubSearchQuery {
+        return v instanceof this;
+    }
+
     constructor(object: GitHubSearchQueryArgs) {
         this.name = object.name;
         this.query = object.query;
