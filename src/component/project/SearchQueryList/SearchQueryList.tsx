@@ -161,7 +161,6 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                     ref={(c: List) => (this.list = c)}
                     className="SearchQueryList"
                     items={this.props.searchList.queries}
-                    getPageHeight={() => 32}
                     onRenderCell={(query: GitHubSearchQuery) =>
                         <SearchQueryListItem
                             query={query}

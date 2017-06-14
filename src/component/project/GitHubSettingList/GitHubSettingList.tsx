@@ -112,7 +112,6 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps, {
     render() {
         return (
             <List
-                getPageHeight={() => 30}
                 className="GitHubSettingList"
                 items={this.props.settings}
                 getKey={(setting: GitHubSetting) => {
