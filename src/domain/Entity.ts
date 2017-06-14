@@ -1,6 +1,5 @@
 // MIT © 2017 azu
-// global uuid
-let id = 0;
+const ulid = require("ulid");
 
 export interface Entity {
     id: string | EntityId<any>;
@@ -15,7 +14,7 @@ export class EntityId<Entity> {
     entity?: Entity;
 
     constructor(private value?: string) {
-        this.value = value || String(id++);
+        this.value = value || ulid();
     }
 
     equals(id: EntityId<Entity>): boolean {

@@ -5,8 +5,7 @@ import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItem
 import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
-let id = 0;
-
+const ulid = require("ulid");
 export interface GitHubSearchStreamJSON {
     items: Item[];
 }
@@ -28,7 +27,7 @@ export class GitHubSearchStream {
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
-        this.id = `GitHubSearchStream${id++}`;
+        this.id = ulid();
         this.items = args.items;
         this.filter = args.filter;
         this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(

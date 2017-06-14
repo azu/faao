@@ -111,6 +111,7 @@
     "react-octicons": "^0.1.0",
     "shallow-equal-object": "^1.0.1",
     "suitcss-classnames": "^1.1.0",
+    "ulid": "^0.1.0",
     "url-join": "^2.0.2"
   },
   "jest": {

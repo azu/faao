@@ -1,12 +1,12 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 
+const ulid = require("ulid");
+
 export interface GitHubSearchListJSON {
     name: string;
     queries: GitHubSearchQueryJSON[];
 }
-
-let GitHubSearchListID = 0;
 
 export interface GitHubSearchListArgs {
     name: string;
@@ -19,7 +19,7 @@ export class GitHubSearchList {
     queries: GitHubSearchQuery[];
 
     constructor(args: GitHubSearchListArgs) {
-        this.id = `GitHubSearchList${GitHubSearchListID++}`;
+        this.id = ulid();
         this.name = args.name;
         this.queries = args.queries;
     }

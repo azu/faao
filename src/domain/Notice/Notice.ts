@@ -2,8 +2,7 @@
 import { GenericErrorNotice, isGenericErrorNotice } from "./GenericErrorNotice";
 import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "./SearchQueryErrorNotice";
 
-let id = 0;
-
+const ulid = require("ulid");
 export type Notice = AbstractNotice | GenericErrorNotice | SearchQueryErrorNotice;
 
 export abstract class AbstractNotice {
@@ -13,7 +12,7 @@ export abstract class AbstractNotice {
     timeStamp: number;
 
     constructor() {
-        this.id = `Notice${id++}`;
+        this.id = ulid();
         this.timeStamp = Date.now();
     }
 }

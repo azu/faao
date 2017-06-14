@@ -8,7 +8,7 @@
     "outDir": "./lib/",
     "target": "es5",
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
     "jsx": "react",
     // Transform jsx syntax in babels phase
     "lib": [

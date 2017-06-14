@@ -2,8 +2,7 @@
 import { AppUser } from "./AppUser";
 import { AppNetwork, AppNetworkStatus } from "./AppNetwork";
 
-let id = 0;
-
+const ulid = require("ulid");
 export interface AppArgs {
     user: AppUser;
     network: AppNetwork;
@@ -15,7 +14,7 @@ export class App {
     network: AppNetwork;
 
     constructor(args: AppArgs) {
-        this.id = `App${id++}`;
+        this.id = ulid();
         this.user = args.user;
         this.network = args.network;
     }
