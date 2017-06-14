@@ -64,5 +64,5 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
 }
 
 export const gitHubSearchListRepository = new GitHubSearchListRepository(
-    GitHubSearchListFactory.create()
+    GitHubSearchListFactory.createDefaultSearchList()
 );

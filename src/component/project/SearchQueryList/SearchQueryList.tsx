@@ -138,7 +138,7 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                 <header className="SearchQueryList-header">
                     <h1 className="ms-font-xxl SearchQueryList-headerTitle">
                         <Link className="SearchQueryList-headerLink" onClick={this.onClick}>
-                            Queries
+                            {this.props.searchList.name}
                         </Link>
                         <IconButton
                             className="SearchQueryList-addButton"

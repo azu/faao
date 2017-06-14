@@ -8,6 +8,7 @@ import { AppMenuHeaderContainer } from "./AppMenuHeaderContainer/AppMenuHeaderCo
 import { GitHubSearchContainer } from "./GitHubSearchContainer/GitHubSearchContainer";
 import classNames from "classnames";
 import { AppState } from "../../../store/AppStore/AppStore";
+import { AppMenuFooterContainer } from "./AppMenuFooterContainer/AppMenuFooterContainer";
 
 export interface AppMenuColumnProps {
     app: AppState;
@@ -33,6 +34,12 @@ export class AppMenuColumn extends BaseContainer<AppMenuColumnProps, {}> {
                 />
                 <GitHubSearchContainer
                     className="AppMenuColumn-search"
+                    app={this.props.app}
+                    gitHubSetting={this.props.gitHubSetting}
+                    gitHubSearchList={this.props.gitHubSearchList}
+                />
+                <AppMenuFooterContainer
+                    className="AppMenuColumn-footer"
                     app={this.props.app}
                     gitHubSetting={this.props.gitHubSetting}
                     gitHubSearchList={this.props.gitHubSearchList}

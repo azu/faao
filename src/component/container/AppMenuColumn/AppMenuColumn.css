@@ -1,6 +1,14 @@
 :root {
     --AppMenuColumn-header--height: 40px;
+    --AppMenuColumn-footer--height: 40px;
 }
+
+/*
+    | header | fixed height
+    | setting | 20%
+    | search | 80%
+    | footer | fixed height
+*/
 
 .AppMenuColumn {
     display: flex;
@@ -16,10 +24,18 @@
     flex: 1;
 }
 
-.AppMenuColumn-search {
-    min-height: calc(20% - var(--AppMenuColumn-header--height));
+.AppMenuColumn-setting {
+    min-height: calc(
+        20% - (var(--AppMenuColumn-header--height) + var(--AppMenuColumn-footer--height))
+    );
 }
 
 .AppMenuColumn-search {
-    min-height: calc(80% - var(--AppMenuColumn-header--height));
+    min-height: calc(
+        80% - (var(--AppMenuColumn-header--height) + var(--AppMenuColumn-footer--height))
+    );
+}
+
+.AppMenuColumn-footer {
+    height: var(--AppMenuColumn-footer--height);
 }
