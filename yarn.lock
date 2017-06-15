@@ -83,9 +83,9 @@
   dependencies:
     moment "*"
 
-"@types/node@^7.0.18", "@types/node@^7.0.29":
-  version "7.0.29"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.29.tgz#ccfcec5b7135c7caf6c4ffb8c7f33102340d99df"
+"@types/node@^7.0.18", "@types/node@^7.0.31":
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
 "@types/prop-types@^15.5.1":
   version "15.5.1"
@@ -103,27 +103,27 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^15.0.27":
-  version "15.0.27"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.27.tgz#d64ad424aa24a101fd50cdeae6eab3d53e65513d"
+"@types/react@*", "@types/react@^15.0.28":
+  version "15.0.28"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.28.tgz#0120d64ca143b74196324ccbe132d09df48a8d46"
 
 "@types/url-join@^0.8.2":
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-0.8.2.tgz#1181ecbe1d97b7034e0ea1e35e62e86cc26b422d"
 
-"@uifabric/styling@>=0.7.1 <1.0.0":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.7.2.tgz#b42f4c63ce25902fbe352d089d928e05a744b3e2"
+"@uifabric/styling@>=0.8.1 <1.0.0":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.8.1.tgz#0b709a66c3841ae12bd7bcc2222d93f791f93beb"
   dependencies:
     "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/utilities" ">=4.1.2 <5.0.0"
+    "@uifabric/utilities" ">=4.3.0 <5.0.0"
     glamor "^2.20.24"
     rtl-css-js "^1.1.1"
     tslib "^1.6.0"
 
-"@uifabric/utilities@>=4.1.2 <5.0.0":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-4.1.2.tgz#d5cbabe2845824e39e16b069e8a2bdc3011e2ef8"
+"@uifabric/utilities@>=4.3.0 <5.0.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-4.3.0.tgz#b0ed8da750f651c56075fd4daaf7ef45710a2b6f"
   dependencies:
     prop-types "^15.5.10"
     tslib "^1.6.0"
@@ -1388,6 +1388,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+codemirror@^5.18.2, codemirror@^5.26.0:
+  version "5.26.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.26.0.tgz#bcbee86816ed123870c260461c2b5c40b68746e5"
+
 color-convert@^1.0.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.0.tgz#1accf97dd739b983bf994d56fec8f95853641b7a"
@@ -1560,6 +1564,14 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+create-react-class@^15.5.1, create-react-class@^15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 cross-env@^5.0.1:
   version "5.0.1"
@@ -2777,13 +2789,9 @@ husky@^0.13.4:
     is-ci "^1.0.9"
     normalize-path "^1.0.0"
 
-iconv-lite@0.4.13:
+iconv-lite@0.4.13, iconv-lite@~0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
-
-iconv-lite@~0.4.13:
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.17.tgz#4fdaa3b38acbc2c031b045d0edcdfe1ecab18c8d"
 
 ieee754@^1.1.4:
   version "1.1.8"
@@ -3595,6 +3603,10 @@ lodash.chunk@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -4038,13 +4050,13 @@ octokat@^0.8:
     lodash "^4.16.4"
     xmlhttprequest "~1.8.0"
 
-office-ui-fabric-react@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.4.2.tgz#df2604f066ccc4831a30502535dbf424b500f7f2"
+office-ui-fabric-react@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.7.0.tgz#10590338414482b7ed5640dca8172040211cd466"
   dependencies:
     "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/styling" ">=0.7.1 <1.0.0"
-    "@uifabric/utilities" ">=4.1.2 <5.0.0"
+    "@uifabric/styling" ">=0.8.1 <1.0.0"
+    "@uifabric/utilities" ">=4.3.0 <5.0.0"
     prop-types "^15.5.10"
     tslib "^1.6.0"
 
@@ -4600,7 +4612,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -4694,9 +4706,19 @@ rc@^1.1.2, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-color@^2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.12.0.tgz#54bf93e51bb8dc2c76282ac127f85b34b86cd734"
+"react-codemirror@git://github.com/skidding/react-codemirror.git#106-fix-update":
+  version "1.0.0"
+  resolved "git://github.com/skidding/react-codemirror.git#bcbb50bf0e1042397a9c8eb39b2c515e4c040b57"
+  dependencies:
+    classnames "^2.2.5"
+    codemirror "^5.18.2"
+    create-react-class "^15.5.1"
+    lodash.isequal "^4.5.0"
+    prop-types "^15.5.4"
+
+react-color@^2.12.1:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.12.1.tgz#ef5a4dc4260ed7d1642047d5b6693d68939b19f7"
   dependencies:
     lodash "^4.0.1"
     material-colors "^1.2.1"
@@ -4704,27 +4726,28 @@ react-color@^2.12.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.1.2"
 
-react-dom@^15.5.4:
-  version "15.5.4"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
+react-dom@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "~15.5.7"
+    prop-types "^15.5.10"
 
 react-octicons@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/react-octicons/-/react-octicons-0.1.0.tgz#98de0a3e1b1b7c9a12d40b7701d6695980875d0f"
 
-react@^15.5.4:
-  version "15.5.4"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
+react@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
+    create-react-class "^15.6.0"
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "^15.5.7"
+    prop-types "^15.5.10"
 
 reactcss@^1.2.0:
   version "1.2.2"

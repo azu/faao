@@ -1,0 +1,6 @@
+@import "../../../../../node_modules/codemirror/lib/codemirror.css";
+
+.ProfileJSONEditor .CodeMirror {
+    width: 100%;
+    height: 100%;
+}

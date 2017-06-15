@@ -1,5 +1,6 @@
 // MIT © 2017 azu
 ("use strict");
+import { ProfileStore } from "./ProfileStore/ProfileStore";
 import { StoreGroup, StoreGroupTypes } from "almin";
 // FIXME: TypeScript compiler if the state interface was not imported
 import { appRepository } from "../infra/repository/AppRepository";
@@ -34,7 +35,8 @@ export const storeMapping = {
         gitHubSettingRepository
     }),
     gitHubSetting: new GitHubSettingStore(gitHubSettingRepository),
-    notice: new NoticeStore(noticeRepository)
+    notice: new NoticeStore(noticeRepository),
+    profile: new ProfileStore()
 };
 
 // debug

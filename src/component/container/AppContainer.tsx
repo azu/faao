@@ -1,4 +1,6 @@
 // LICENSE : MIT
+import { ProfileContainer } from "./ProfileContainer/ProfileContainer";
+
 ("use strict");
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStoreGroup";
@@ -22,6 +24,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             : null;
         return (
             <div className="AppContainer">
+                <ProfileContainer profile={this.props.profile} />
                 <ObserverContainer />
                 <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />

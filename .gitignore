@@ -86,3 +86,4 @@ crashlytics-build.properties
 public/build
 /.env
 !Profile/
+/.awcache/

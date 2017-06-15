@@ -1,0 +1,48 @@
+.ProfileModal {
+    width: 80vw;
+    height: 80vh;
+}
+
+.ProfileModal {
+    display: flex;
+}
+
+.ProfileModal-left {
+    flex: 1;
+    max-width: 50%;
+    border-right: 1px solid #ddd;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.ProfileModal-right {
+    flex: 1;
+    max-width: 50%;
+    border-left: 1px solid #ddd;
+    padding: 0 1rem 1rem 1rem;
+}
+
+/* Left column */
+.ProfileModal-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileModal-leftTitle {
+    height: 44px;
+}
+
+.ProfileModal-editor {
+    flex: 1;
+    min-height: 3em;
+}
+
+/* override */
+.ProfileModal-exportButton, .ProfileModal-importButton {
+    border-bottom: 1px solid #dddddd !important;
+}
+
+/* Utils */
+
+.u-height-44 {
+    height: 44px;
+}
