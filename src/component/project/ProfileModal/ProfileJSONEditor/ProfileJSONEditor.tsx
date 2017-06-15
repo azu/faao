@@ -8,6 +8,7 @@ require("codemirror/mode/javascript/javascript");
 export interface ProfileJSONEditorProps {
     className?: string;
     code: string;
+    onChange: (newValue: string) => void;
 }
 
 export interface ProfileJSONEditorState {
@@ -38,14 +39,15 @@ export class ProfileJSONEditor extends React.Component<
 
     render() {
         const options = {
-            mode: "javascript"
+            mode: "javascript",
+            lineNumbers: true
         };
-        console.log(this.state.value);
         return (
             <CodeMirror
                 className={classNames("ProfileJSONEditor", this.props.className)}
                 value={this.state.value}
                 options={options}
+                onChange={this.props.onChange}
             />
         );
     }

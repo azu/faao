@@ -3,6 +3,8 @@ import { ProfileModal } from "../../project/ProfileModal/ProfileModal";
 import { ProfileState } from "../../../store/ProfileStore/ProfileStore";
 import { BaseContainer } from "../BaseContainer";
 import { createExportProfileUseCase } from "../../../use-case/Profile/ExportProfileUseCase";
+import { createImportProfileJSONUseCase } from "../../../use-case/Profile/ImportProfileJSONUseCase";
+import { ProfileJSON } from "../../../domain/Profile/Profile";
 
 export interface ProfileContainerProps {
     profile: ProfileState;
@@ -13,12 +15,11 @@ export class ProfileContainer extends BaseContainer<ProfileContainerProps, {}> {
         console.log("dissmiss");
     };
 
-    onClickImportButton = () => {
-        console.log("import");
+    onClickImportButton = (_event: React.MouseEvent<any>, json: ProfileJSON) => {
+        this.useCase(createImportProfileJSONUseCase()).executor(useCase => useCase.execute(json));
     };
 
     onClickExportButton = () => {
-        console.log("export");
         this.useCase(createExportProfileUseCase()).executor(useCase => useCase.execute());
     };
 

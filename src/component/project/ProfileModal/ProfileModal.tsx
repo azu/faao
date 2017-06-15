@@ -2,17 +2,54 @@ import * as React from "react";
 import { Modal } from "office-ui-fabric-react/lib/components/Modal";
 import { ProfileJSONEditor } from "./ProfileJSONEditor/ProfileJSONEditor";
 import { CommandButton, CompoundButton, MessageBar, MessageBarType } from "office-ui-fabric-react";
+import { ProfileJSON } from "../../../domain/Profile/Profile";
 
 export interface ProfileModalProps {
     isOpen: boolean;
     code: string;
     onDismiss: () => void;
     onClickExportButton: (event: React.MouseEvent<any>) => void;
-    onClickImportButton: (event: React.MouseEvent<any>) => void;
+    onClickImportButton: (event: React.MouseEvent<any>, json: ProfileJSON) => void;
 }
 
-export class ProfileModal extends React.Component<ProfileModalProps, {}> {
+export interface ProfileModalState {
+    editorJSON: ProfileJSON | undefined;
+    validateJSONError: Error | undefined;
+}
+
+export class ProfileModal extends React.Component<ProfileModalProps, ProfileModalState> {
+    state = {
+        editorJSON: undefined,
+        validateJSONError: undefined
+    };
+    onChangeEditorValue = (value: string) => {
+        try {
+            const json = JSON.parse(value);
+            this.setState({
+                editorJSON: json,
+                validateJSONError: undefined
+            });
+        } catch (error) {
+            this.setState({
+                editorJSON: undefined,
+                validateJSONError: error
+            });
+        }
+    };
+    onClickImportButton = (event: React.MouseEvent<any>) => {
+        const editorJSON = this.state.editorJSON;
+        if (editorJSON !== undefined) {
+            this.props.onClickImportButton(event, editorJSON);
+        }
+    };
+
     render() {
+        const validateJSONError = this.state.validateJSONError;
+        const errorMessageJSON = validateJSONError !== undefined
+            ? <MessageBar messageBarType={MessageBarType.error} className="u-height-44">
+                  {String(validateJSONError)}
+              </MessageBar>
+            : null;
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -22,7 +59,12 @@ export class ProfileModal extends React.Component<ProfileModalProps, {}> {
             >
                 <div className="ProfileModal-left">
                     <h2 className="ms-font-xxl ProfileModal-leftTitle">Current data as JSON</h2>
-                    <ProfileJSONEditor className="ProfileModal-editor" code={this.props.code} />
+                    <ProfileJSONEditor
+                        className="ProfileModal-editor"
+                        code={this.props.code}
+                        onChange={this.onChangeEditorValue}
+                    />
+                    {errorMessageJSON}
                 </div>
                 <div className="ProfileModal-right">
                     <div className="ms-Grid">
@@ -58,7 +100,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, {}> {
                                     iconProps={{
                                         iconName: "PageRight"
                                     }}
-                                    onClick={this.props.onClickImportButton}
+                                    onClick={this.onClickImportButton}
                                 >
                                     Import from JSON
                                 </CommandButton>
