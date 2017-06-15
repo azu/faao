@@ -1,12 +1,13 @@
 // MIT © 2017 azu
-
+/**
+ * @jest-environment null
+ */
 import { GitHubSearchResultItemCollection } from "../GitHubSearchResultItemCollection";
 import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchResultItemSortedCollection } from "../GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 
-const filterable = require("filterable");
 const createCollection = (json: GitHubSearchStreamJSON): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromStreamJSON(json);
     return stream.itemSortedCollection;

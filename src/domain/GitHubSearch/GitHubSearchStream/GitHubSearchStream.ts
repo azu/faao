@@ -6,6 +6,7 @@ import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 const ulid = require("ulid");
+
 export interface GitHubSearchStreamJSON {
     items: Item[];
 }

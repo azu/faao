@@ -30,10 +30,24 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
         }
     ];
 
+    farItems = [
+        {
+            key: "back",
+            name: "Imports/Exports",
+            icon: "Setting",
+            ariaLabel: "Imports/Exports",
+            onClick: () => {}
+        }
+    ];
+
     render() {
         return (
             <header className="AppMenuFooterContainer">
-                <CommandBar isSearchBoxVisible={false} items={this.menuItems} />
+                <CommandBar
+                    isSearchBoxVisible={false}
+                    items={this.menuItems}
+                    farItems={this.farItems}
+                />
             </header>
         );
     }
