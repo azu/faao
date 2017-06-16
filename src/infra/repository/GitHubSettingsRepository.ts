@@ -59,6 +59,11 @@ export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSet
         super.delete(setting);
         return this.storage.removeItem(setting.id.toValue());
     }
+
+    clear() {
+        super.clear();
+        return this.storage.clear();
+    }
 }
 
 export const gitHubSettingRepository = new GitHubSettingRepository(GitHubSettingFactory.create());

@@ -60,6 +60,11 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
             debug("Save stream");
         });
     }
+
+    clear() {
+        super.clear();
+        return this.storage.clear();
+    }
 }
 
 export const gitHubSearchStreamRepository = new GitHubSearchStreamRepository(

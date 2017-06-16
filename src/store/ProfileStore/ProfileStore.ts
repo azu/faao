@@ -8,16 +8,16 @@ import {
 } from "../../use-case/Profile/ToggleProfileWindowUseCase";
 
 export interface ProfileStateArgs {
-    isShown: boolean;
+    isShow: boolean;
     exportedJSON?: ProfileJSON;
 }
 
 export class ProfileState {
-    isShown: boolean;
+    isShow: boolean;
     exportedJSON?: ProfileJSON;
 
     constructor(args: ProfileStateArgs) {
-        this.isShown = args.isShown;
+        this.isShow = args.isShow;
         this.exportedJSON = args.exportedJSON;
     }
 
@@ -35,12 +35,12 @@ export class ProfileState {
         } else if (payload instanceof OpenProfileWindowUseCasePayload) {
             return new ProfileState({
                 ...this as ProfileState,
-                isShown: true
+                isShow: true
             });
         } else if (payload instanceof CloseProfileWindowUseCasePayload) {
             return new ProfileState({
                 ...this as ProfileState,
-                isShown: false
+                isShow: false
             });
         }
 
@@ -54,7 +54,7 @@ export class ProfileStore extends Store<ProfileState> {
     constructor() {
         super();
         this.state = new ProfileState({
-            isShown: false
+            isShow: false
         });
     }
 

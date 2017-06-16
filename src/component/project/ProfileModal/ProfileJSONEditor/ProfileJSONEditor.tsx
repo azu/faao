@@ -30,7 +30,7 @@ export class ProfileJSONEditor extends React.Component<
     }
 
     componentWillReceiveProps(nextProps: ProfileJSONEditorProps) {
-        if (this.props.code !== nextProps.code) {
+        if (this.state.value !== nextProps.code) {
             this.setState({
                 value: nextProps.code
             });

@@ -7,6 +7,8 @@ import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuick
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { AppState } from "../../../../store/AppStore/AppStore";
 import { createAddSearchListUseCase } from "../../../../use-case/GitHubSearchList/AddSearchListUseCase";
+import { OpenProfileWindowUseCase } from "../../../../use-case/Profile/ToggleProfileWindowUseCase";
+import { createExportProfileUseCase } from "../../../../use-case/Profile/ExportProfileUseCase";
 
 export interface AppMenuFooterContainerProps {
     className?: string;
@@ -27,18 +29,24 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
                     useCase.execute("ME")
                 );
             }
-        }
-    ];
-
-    farItems = [
+        },
         {
-            key: "back",
+            key: "profile",
             name: "Imports/Exports",
             icon: "Setting",
             ariaLabel: "Imports/Exports",
-            onClick: () => {}
+            onClick: async () => {
+                await this.useCase(new OpenProfileWindowUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
+                await this.useCase(createExportProfileUseCase()).executor(useCase =>
+                    useCase.execute()
+                );
+            }
         }
     ];
+
+    farItems = [];
 
     render() {
         return (

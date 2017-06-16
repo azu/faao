@@ -28,17 +28,21 @@ export class ImportProfileJSONUseCase extends UseCase {
         super();
     }
 
-    execute(json: ProfileJSON) {
+    async execute(json: ProfileJSON) {
         const profile = ProfileService.fromJSON(json);
         // clear
-        this.args.gitHubSearchListRepository.clear();
-        this.args.gitHubSettingRepository.clear();
+        const clear = [
+            this.args.gitHubSearchListRepository.clear(),
+            this.args.gitHubSettingRepository.clear()
+        ];
+        await Promise.all(clear);
         // set new profile
-        profile.GitHubSettings.forEach(setting => {
-            this.args.gitHubSettingRepository.save(setting);
+        const settingsUpdatingPromises = profile.GitHubSettings.map(setting => {
+            return this.args.gitHubSettingRepository.save(setting);
         });
-        profile.GitHubSearchLists.forEach(searchList => {
-            this.args.gitHubSearchListRepository.save(searchList);
+        const searchListUpdatingPromises = profile.GitHubSearchLists.map(searchList => {
+            return this.args.gitHubSearchListRepository.save(searchList);
         });
+        return Promise.all([...settingsUpdatingPromises, ...searchListUpdatingPromises]);
     }
 }

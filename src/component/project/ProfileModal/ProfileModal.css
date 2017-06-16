@@ -36,7 +36,12 @@
     min-height: 3em;
 }
 
-/* override */
+/* override office-fabric */
+/* TODO: very hack */
+.ProfileModal-messageBar .ms-MessageBar-content {
+    padding: 16px !important;
+}
+
 .ProfileModal-exportButton, .ProfileModal-importButton {
     border-bottom: 1px solid #dddddd !important;
 }

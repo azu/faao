@@ -5,6 +5,7 @@ import { BaseContainer } from "../BaseContainer";
 import { createExportProfileUseCase } from "../../../use-case/Profile/ExportProfileUseCase";
 import { createImportProfileJSONUseCase } from "../../../use-case/Profile/ImportProfileJSONUseCase";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
+import { CloseProfileWindowUseCase } from "../../../use-case/Profile/ToggleProfileWindowUseCase";
 
 export interface ProfileContainerProps {
     profile: ProfileState;
@@ -12,7 +13,7 @@ export interface ProfileContainerProps {
 
 export class ProfileContainer extends BaseContainer<ProfileContainerProps, {}> {
     onDismiss = () => {
-        console.log("dissmiss");
+        this.useCase(new CloseProfileWindowUseCase()).executor(useCase => useCase.execute());
     };
 
     onClickImportButton = (_event: React.MouseEvent<any>, json: ProfileJSON) => {
@@ -26,7 +27,7 @@ export class ProfileContainer extends BaseContainer<ProfileContainerProps, {}> {
     render() {
         return (
             <ProfileModal
-                isOpen={true}
+                isOpen={this.props.profile.isShow}
                 code={JSON.stringify(this.props.profile.exportedJSON, null, 4)}
                 onDismiss={this.onDismiss}
                 onClickExportButton={this.onClickExportButton}

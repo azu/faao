@@ -61,6 +61,11 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
             debug("Save entity");
         });
     }
+
+    clear() {
+        super.clear();
+        return this.storage.clear();
+    }
 }
 
 export const gitHubSearchListRepository = new GitHubSearchListRepository(

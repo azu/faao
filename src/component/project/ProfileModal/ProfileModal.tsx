@@ -46,7 +46,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
     render() {
         const validateJSONError = this.state.validateJSONError;
         const errorMessageJSON = validateJSONError !== undefined
-            ? <MessageBar messageBarType={MessageBarType.error} className="u-height-44">
+            ? <MessageBar messageBarType={MessageBarType.error} className="ProfileModal-messageBar">
                   {String(validateJSONError)}
               </MessageBar>
             : null;
@@ -58,7 +58,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                 containerClassName="ProfileModal"
             >
                 <div className="ProfileModal-left">
-                    <h2 className="ms-font-xxl ProfileModal-leftTitle">Current data as JSON</h2>
+                    <h2 className="ms-font-xxl ProfileModal-leftTitle">Current Profile(JSON)</h2>
                     <ProfileJSONEditor
                         className="ProfileModal-editor"
                         code={this.props.code}
@@ -67,6 +67,14 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                     {errorMessageJSON}
                 </div>
                 <div className="ProfileModal-right">
+                    <div className="ProfileModal-description ms-Grid">
+                        <h2 className="ms-font-xxl ProfileModal-title">Profile</h2>
+                        <p>A "Profile" contains following sensitive data:</p>
+                        <ul>
+                            <li>GitHubSettings - includes token</li>
+                            <li>GitHubSearchLists - includes Queries</li>
+                        </ul>
+                    </div>
                     <div className="ms-Grid">
                         <h2 className="ms-font-xxl">Exports</h2>
                         <div className="ms-Grid-row">
@@ -111,12 +119,12 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                                 </p>
                             </div>
                             <MessageBar
-                                className="u-height-44"
+                                className="ProfileModal-messageBar"
                                 messageBarType={MessageBarType.warning}
                                 ariaLabel="Warning on import"
                             >
                                 Warning - Import data and it overwrite exist data.
-                                It means that current data will be deleted.
+                                It means that current profile will be deleted.
                             </MessageBar>
                         </div>
                     </div>
