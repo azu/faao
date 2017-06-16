@@ -80,7 +80,7 @@
     "@types/lodash.uniqby": "^4.7.2",
     "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.1",
-    "@types/react": "^15.0.28",
+    "@types/react": "^15.0.29",
     "@types/react-color": "^2.11.2",
     "@types/react-dom": "^15.5.0",
     "@types/url-join": "^0.8.2",
@@ -103,8 +103,8 @@
     "lodash.uniqby": "^4.7.0",
     "map-like": "1.1.3",
     "moment": "^2.18.1",
-    "octokat": "^0.8",
-    "office-ui-fabric-react": "^4.7.0",
+    "octokat": "^0.9.0",
+    "office-ui-fabric-react": "^4.7.1",
     "prettier": "^1.4.4",
     "react": "^15.6.1",
     "react-codemirror": "git://github.com/skidding/react-codemirror.git#106-fix-update",
@@ -114,7 +114,8 @@
     "shallow-equal-object": "^1.0.1",
     "suitcss-classnames": "^1.1.0",
     "ulid": "^0.1.0",
-    "url-join": "^2.0.2"
+    "url-join": "^2.0.2",
+    "whatwg-fetch": "^2.0.3"
   },
   "jest": {
     "transform": {

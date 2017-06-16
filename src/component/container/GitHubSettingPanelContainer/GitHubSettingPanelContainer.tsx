@@ -6,6 +6,7 @@ import { GitHubSettingJSON } from "../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingPanel } from "../../project/GitHubSettingPanel/GitHubSettingPanel";
 import { createSaveGitHubSettingUseCase } from "../../../use-case/GitHubSetting/SaveGitHubSettingUseCase";
 import { CloseSettingPanelUseCase } from "../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
+import { CheckGrantGitHubAPIUseCase } from "../../../use-case/GitHubSetting/CheckGrantGitHubAPIUseCase";
 
 export interface GitHubSettingPanelContainerProps {
     gitHubSetting: GitHubSettingState;
@@ -21,6 +22,10 @@ export class GitHubSettingPanelContainer extends BaseContainer<
 
     onSubmit = async (settingJSON: GitHubSettingJSON) => {
         try {
+            // check grant
+            await this.useCase(new CheckGrantGitHubAPIUseCase()).executor(useCase =>
+                useCase.execute(settingJSON)
+            );
             if (this.props.gitHubSetting.editingSetting) {
                 await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase => {
                     return useCase.execute(settingJSON, this.props.gitHubSetting.editingSettingId);
