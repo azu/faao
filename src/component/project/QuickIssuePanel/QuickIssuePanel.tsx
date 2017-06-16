@@ -11,6 +11,9 @@ import {
     IDropdownOption
 } from "office-ui-fabric-react";
 
+const CodeMirror = require("react-codemirror");
+require("codemirror/mode/markdown/markdown");
+
 export interface QuickIssuePanelProps {
     newIssueURLs: string[];
     isOpen: boolean;
@@ -77,16 +80,22 @@ export class QuickIssuePanel extends React.Component<QuickIssuePanelProps, {}> {
                 />
                 <TextField
                     label="Issue Title:"
+                    autoFocus={true}
                     onChanged={text => {
                         this.setState({ title: text });
                     }}
                 />
-                <TextField
-                    label="Issue Body:"
-                    rows={4}
-                    multiline={true}
-                    onChanged={text => this.setState({ body: text })}
-                />
+                <Label>Issue Body:</Label>
+                {/* TODO: QuickIssuePanel-editor" can't be assigned */}
+                <div className="QuickIssuePanel-editorWrapper">
+                    <CodeMirror
+                        classname="QuickIssuePanel-editor"
+                        options={{ mode: "markdown" }}
+                        onChange={(value: string) => {
+                            this.setState({ body: value });
+                        }}
+                    />
+                </div>
                 <Label>Submit to Issue</Label>
                 <PrimaryButton
                     onClick={this.onSubmit}
