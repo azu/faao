@@ -8,13 +8,21 @@ Faao is a GitHub issue client like jasper.
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install
+    yarn install
 
 ## Usage
 
 - [ ] Write usage instructions
 
 ## Development
+
+### Browser
+
+    yarn start
+    
+### Electron
+
+    yarn run start:electron
 
 ### How to pronounce "Faao"?
 
