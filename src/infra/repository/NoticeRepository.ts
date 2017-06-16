@@ -10,8 +10,6 @@ export class NoticeRepository extends NullableBaseRepository<Notice> {
         predicate: (((notice: T) => boolean) | ((notice: T) => notice is S))
     ): S[] {
         return this.map.values().filter(entity => {
-            console.log(entity);
-            console.log(predicate(entity as T));
             return predicate(entity as T);
         }) as S[];
     }

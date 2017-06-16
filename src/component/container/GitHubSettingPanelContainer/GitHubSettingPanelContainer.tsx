@@ -7,6 +7,11 @@ import { GitHubSettingPanel } from "../../project/GitHubSettingPanel/GitHubSetti
 import { createSaveGitHubSettingUseCase } from "../../../use-case/GitHubSetting/SaveGitHubSettingUseCase";
 import { CloseSettingPanelUseCase } from "../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { CheckGrantGitHubAPIUseCase } from "../../../use-case/GitHubSetting/CheckGrantGitHubAPIUseCase";
+import {
+    createShowErrorNoticeUseCase,
+    ShowErrorNoticeUseCase
+} from "../../../use-case/Notice/ShowErrorNoticeUseCase";
+import { createShowGenericErrorUseCase } from "../../../use-case/Notice/ShowGenericErrorUseCase";
 
 export interface GitHubSettingPanelContainerProps {
     gitHubSetting: GitHubSettingState;
@@ -26,6 +31,7 @@ export class GitHubSettingPanelContainer extends BaseContainer<
             await this.useCase(new CheckGrantGitHubAPIUseCase()).executor(useCase =>
                 useCase.execute(settingJSON)
             );
+            // update setting
             if (this.props.gitHubSetting.editingSetting) {
                 await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase => {
                     return useCase.execute(settingJSON, this.props.gitHubSetting.editingSettingId);
@@ -35,6 +41,10 @@ export class GitHubSettingPanelContainer extends BaseContainer<
                     useCase.execute(settingJSON)
                 );
             }
+        } catch (error) {
+            await this.useCase(createShowGenericErrorUseCase()).executor(useCase =>
+                useCase.execute(error as Error)
+            );
         } finally {
             await this.useCase(new CloseSettingPanelUseCase()).executor(useCase =>
                 useCase.execute()

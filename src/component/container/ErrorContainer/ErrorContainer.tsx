@@ -17,6 +17,7 @@ import {
 } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { SearchQueryErrorNotice } from "../../../domain/Notice/SearchQueryErrorNotice";
 import { createDismissErrorNoticeUseCase } from "../../../use-case/Notice/DismissErrorNoticeUseCase";
+import { Notice } from "../../../domain/Notice/Notice";
 
 export interface ErrorContainerProps {
     notice: NoticeState;
@@ -24,14 +25,16 @@ export interface ErrorContainerProps {
 
 export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     onDismiss = () => {
-        if (this.notice !== undefined) {
+        const errorNotice = this.props.notice.errorNotice;
+        if (errorNotice) {
             return this.useCase(createDismissErrorNoticeUseCase()).executor(useCase =>
-                useCase.execute(this.notice!)
+                useCase.execute(errorNotice)
             );
         }
     };
 
     render() {
+        const messsage = this._makeMessage(this.props.notice.errorNotice);
         return (
             <Dialog
                 className="ErrorContainer"
@@ -42,28 +45,53 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
                 isBlocking={false}
                 containerClassName="ms-dialogMainOverride"
             >
-                {this._makeErrorNotice(this.notice)}
+                {messsage}
             </Dialog>
         );
     }
 
-    private get notice() {
-        return this.props.notice.searchQueryErrorNotice;
+    private _makeMessage(notice?: Notice) {
+        if (!notice) {
+            return null;
+        }
+        if (notice instanceof SearchQueryErrorNotice) {
+            return this._makeSearchQueryErrorNotice(notice);
+        } else if (notice instanceof GenericErrorNotice) {
+            return this._makeGenericErrorNotice(notice);
+        }
+        return null;
     }
 
-    private _makeErrorNotice(genericErrorNotice?: SearchQueryErrorNotice) {
+    private _makeGenericErrorNotice(genericErrorNotice?: GenericErrorNotice) {
         if (!genericErrorNotice) {
             return null;
         }
         const onClick = () => {
             this.onDismiss();
-            this.useCase(new EditQueryPanelUseCase()).executor(useCase =>
-                useCase.execute(genericErrorNotice.query)
-            );
         };
         return (
             <div className="ErrorContainer-genericErrorNotice">
                 {genericErrorNotice.error.message}
+                <DialogFooter>
+                    <PrimaryButton onClick={onClick} text="OK" />
+                </DialogFooter>
+            </div>
+        );
+    }
+
+    private _makeSearchQueryErrorNotice(searchQueryErrorNotice?: SearchQueryErrorNotice) {
+        if (!searchQueryErrorNotice) {
+            return null;
+        }
+        const onClick = () => {
+            this.onDismiss();
+            this.useCase(new EditQueryPanelUseCase()).executor(useCase =>
+                useCase.execute(searchQueryErrorNotice.query)
+            );
+        };
+        return (
+            <div className="ErrorContainer-genericErrorNotice">
+                {searchQueryErrorNotice.error.message}
                 <DialogFooter>
                     <PrimaryButton onClick={onClick} text="OK" />
                 </DialogFooter>

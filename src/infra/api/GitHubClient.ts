@@ -4,7 +4,6 @@ import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { Item } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { EventEmitter } from "events";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -36,17 +35,12 @@ const OctokatPlugins = [
 
 export class GitHubClient {
     gh: any;
-    emitter: EventEmitter;
 
     constructor(gitHubSetting: GitHubSetting) {
-        const emitter = (...args: any[]) => {
-            console.log(args);
-        };
         this.gh = new Octokat({
             token: gitHubSetting.token,
             rootURL: gitHubSetting.apiHost,
-            plugins: OctokatPlugins,
-            emitter: emitter
+            plugins: OctokatPlugins
         });
     }
 
@@ -100,9 +94,9 @@ export class GitHubClient {
         });
     }
 
-    rateLimits() {
-        return this.gh.fromUrl("/rate_limit").fetch().then((...response: any[]) => {
-            console.log(response);
+    rateLimits(): Promise<boolean> {
+        return this.gh.fromUrl("/rate_limit").fetch().then((response: any) => {
+            return response.rate.limit > 0;
         });
     }
 }

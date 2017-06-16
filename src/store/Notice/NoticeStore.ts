@@ -5,33 +5,42 @@ import {
     isSearchQueryErrorNotice,
     SearchQueryErrorNotice
 } from "../../domain/Notice/SearchQueryErrorNotice";
+import { GenericErrorNotice, isGenericErrorNotice } from "../../domain/Notice/GenericErrorNotice";
 
 export interface NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
+    genericErrorNotices: GenericErrorNotice[];
 }
 
 export class NoticeState implements NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
+    genericErrorNotices: GenericErrorNotice[];
 
     constructor(args: NoticeStateArgs) {
         this.searchQueryErrorNotices = args.searchQueryErrorNotices;
+        this.genericErrorNotices = args.genericErrorNotices;
     }
 
-    get searchQueryErrorNotice() {
-        if (this.searchQueryErrorNotices.length === 0) {
-            return undefined;
+    /**
+     * return important error notice
+     */
+    get errorNotice() {
+        if (this.searchQueryErrorNotices.length !== 0) {
+            return this.searchQueryErrorNotices[0];
+        } else if (this.genericErrorNotices.length !== 0) {
+            return this.genericErrorNotices[0];
         }
-        return this.searchQueryErrorNotices[0];
+        return;
     }
 
     get hasNotice(): boolean {
-        return this.searchQueryErrorNotices.length > 0;
+        return this.errorNotice !== undefined;
     }
 
     update(args: NoticeStateArgs) {
         return new NoticeState({
             ...this as NoticeState,
-            searchQueryErrorNotices: args.searchQueryErrorNotices
+            ...args
         });
     }
 }
@@ -42,16 +51,19 @@ export class NoticeStore extends Store<NoticeState> {
     constructor(public noticeRepository: NoticeRepository) {
         super();
         this.state = new NoticeState({
-            searchQueryErrorNotices: []
+            searchQueryErrorNotices: [],
+            genericErrorNotices: []
         });
     }
 
     receivePayload() {
+        const genericErrorNotices = this.noticeRepository.findAllByType(isGenericErrorNotice);
         const searchQueryErrorNotices = this.noticeRepository.findAllByType(
             isSearchQueryErrorNotice
         );
         const newState = this.state.update({
-            searchQueryErrorNotices: searchQueryErrorNotices
+            searchQueryErrorNotices,
+            genericErrorNotices
         });
         this.setState(newState);
     }
