@@ -15,6 +15,7 @@
 <script src="build/bundle.js"></script>
 <script>
     const ElectronNavigation = require('electron-navigation');
+    const { shell } = require("electron");
     window.electronNavigation = new ElectronNavigation();
     window.electronNavigation.newTab('https://github.com');
     window.addEventListener('load', () => {
@@ -29,14 +30,23 @@
         require('electron-context-menu')({
             window: webview,
             prepend: (params, browserWindow) => {
-                const hasURL = params.linkURL !== undefined && params.linkURL.length > 0;
+                const hasURL = /^https?:\/\//.test(params.linkURL);
                 return [
                     {
                         label: 'Open in new tab',
                         visible: hasURL,
-                        click () {
+                        click() {
                             if (hasURL) {
                                 window.electronNavigation.newTab(params.linkURL);
+                            }
+                        }
+                    },
+                    {
+                        label: 'Open in browser',
+                        visible: hasURL,
+                        click() {
+                            if (hasURL) {
+                                shell.openExternal(params.linkURL);
                             }
                         }
                     }
