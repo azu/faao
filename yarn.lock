@@ -4085,7 +4085,7 @@ octokat@^0.9.0:
     lodash "^4.16.4"
     node-fetch "^1.6.3"
 
-office-ui-fabric-react@^4.7.1:
+office-ui-fabric-react@^4.6.0:
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.7.1.tgz#47f382f2ad6fdcce6d691e70fc677428a4618f3b"
   dependencies:

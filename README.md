@@ -97,6 +97,8 @@ Install devDependencies and Run `npm test`:
 
     npm i -d && npm test
 
+Run test files in `__tests__` directory by Jest.
+
 ## Contributing
 
 Pull requests and stars are always welcome.
