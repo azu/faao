@@ -70,9 +70,9 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
     state: GitHubSearchListState;
     gitHubSearchRepository: GitHubSearchListRepository;
 
-    constructor(gitHubSearchRepository: GitHubSearchListRepository) {
+    constructor(gitHubSearchListRepository: GitHubSearchListRepository) {
         super();
-        this.gitHubSearchRepository = gitHubSearchRepository;
+        this.gitHubSearchRepository = gitHubSearchListRepository;
         this.state = new GitHubSearchListState({
             isOpenAddingPanel: false,
             editingSearchList: undefined,
@@ -82,7 +82,10 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
     }
 
     receivePayload(payload: Payload) {
-        const gitHubSearchLists = this.gitHubSearchRepository.findAll();
+        // sort by name
+        const gitHubSearchLists = this.gitHubSearchRepository.findAllSortBy(
+            searchList => searchList.name
+        );
         this.setState(this.state.update(gitHubSearchLists).reduce(payload));
     }
 
