@@ -8,8 +8,8 @@ import {
     gitHubSettingRepository,
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
-import { ProfileService } from "../../domain/profile/ProfileService";
-import { ProfileJSON } from "../../domain/profile/Profile";
+import { ProfileService } from "../../domain/Profile/ProfileService";
+import { ProfileJSON } from "../../domain/Profile/Profile";
 
 export const createImportProfileJSONUseCase = () => {
     return new ImportProfileJSONUseCase({
