@@ -3,6 +3,7 @@
 
 :root {
     --electron-nav--width: 800px;
+    /* GitHub UI fit to 1024px */
     --electron-nav-is-focus--width: 1024px;
 }
 
