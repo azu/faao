@@ -34,8 +34,8 @@
 #nav-body-views {
     flex: 1;
 }
-
-#js-app {
+/* Only affect to Electron */
+.electron-view #js-app {
     padding-right: var(--electron-nav--width);
 }
 
