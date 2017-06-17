@@ -3,7 +3,6 @@
 import { StoreMap } from "almin/lib/UILayer/StoreGroupTypes";
 import { ProfileStore } from "./ProfileStore/ProfileStore";
 import { StoreGroup } from "almin";
-// FIXME: TypeScript compiler if the state interface was not imported
 import { appRepository } from "../infra/repository/AppRepository";
 import { gitHubSearchListRepository } from "../infra/repository/GitHubSearchListRepository";
 import { gitHubSearchStreamRepository } from "../infra/repository/GitHubSearchStreamRepository";
