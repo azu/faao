@@ -12,8 +12,8 @@
     <div id="nav-body-tabs"></div>
     <div id="nav-body-views"></div>
 </div>
-<script src="build/dll.js"></script>
-<script src="build/bundle.js"></script>
+<script src="./build/dll.js"></script>
+<script src="./build/bundle.js"></script>
 <script>
     const ElectronNavigation = require('electron-navigation');
     const { shell } = require("electron");
@@ -22,8 +22,11 @@
     window.addEventListener('load', () => {
         const nav = document.querySelector(".electron-nav");
         const webview = document.querySelector('webview.nav-views-view');
-        webview.addEventListener("focus", (event) => {
+        webview.addEventListener("mouseenter", (event) => {
             nav.classList.add("is-focus");
+        });
+        webview.addEventListener("mouseleave", (event) => {
+            nav.classList.remove("is-focus");
         });
         webview.addEventListener("blur", (event) => {
             nav.classList.remove("is-focus");

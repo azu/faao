@@ -3,11 +3,12 @@
 
 :root {
     --electron-nav--width: 800px;
-    /* GitHub UI fit to 1024px */
-    --electron-nav-is-focus--width: 1024px;
+    /* GitHub UI fit to 1048px */
+    --electron-nav-is-focus--width: 1048px;
 }
 
 .electron-nav {
+    background-color: #fff;
     position: fixed;
     height: 100%;
     will-change: width;
