@@ -56,10 +56,13 @@ A. GitHub create difference token for a single user.
 User is not unique.
 
 
-#### Search List
+#### SearchList
 
 Save/read the search list to gist.
 
+SearchList is a folder of queries.
+
+- SearchList has queries
 - GitHubQuery
     - Name
     - Query(`q`)
@@ -86,6 +89,15 @@ Stream can combine the other stream.
 - Action to GitHubSearchResultItem
     - Open URL
 
+#### Notice
+
+Notice is a notification.
+
+Create custom notice for each errors/notification.
+
+#### Profile
+
+Profile is a collection of personal setting.
 
 ## Changelog
 
