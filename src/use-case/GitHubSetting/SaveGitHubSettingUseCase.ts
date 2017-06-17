@@ -5,7 +5,6 @@ import {
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { EntityId } from "../../domain/Entity";
 import { GitHubClient } from "../../infra/api/GitHubClient";
 

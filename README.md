@@ -1,4 +1,4 @@
-# Faao
+# Faao [![Build Status](https://travis-ci.org/azu/faao.svg?branch=master)](https://travis-ci.org/azu/faao)
 
 Faao is a GitHub issue client like jasper.
 

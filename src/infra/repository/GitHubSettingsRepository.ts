@@ -1,12 +1,11 @@
-import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
-import { GitHubSettingFactory } from "../../domain/GitHubSetting/GitHubSettingsFactory";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { EntityId } from "../../domain/Entity";
 import { createStorageInstance } from "./Storage";
+import { NullableBaseRepository } from "./NullableBaseRepository";
 
 const debug = require("debug")("faao:GitHubSettingRepository");
 
-export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSetting> {
+export class GitHubSettingRepository extends NullableBaseRepository<GitHubSetting> {
     storage: LocalForage;
 
     /**
@@ -66,4 +65,4 @@ export class GitHubSettingRepository extends NonNullableBaseRepository<GitHubSet
     }
 }
 
-export const gitHubSettingRepository = new GitHubSettingRepository(GitHubSettingFactory.create());
+export const gitHubSettingRepository = new GitHubSettingRepository();

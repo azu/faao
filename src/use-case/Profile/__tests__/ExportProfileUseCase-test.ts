@@ -3,13 +3,12 @@ import { createStubContext } from "../../../test/AlminUseCaseStub";
 import { ExportProfileUseCase, ExportProfileUseCasePayload } from "../ExportProfileUseCase";
 import { GitHubSettingRepository } from "../../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchListRepository } from "../../../infra/repository/GitHubSearchListRepository";
-import { GitHubSettingFactory } from "../../../domain/GitHubSetting/GitHubSettingsFactory";
 import { GitHubSearchListFactory } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
 
 describe("ExportProfileUseCase", () => {
     it("should dispatch ExportProfileUseCasePayload", () => {
         const { context, dispatchedPayloads } = createStubContext(ExportProfileUseCase);
-        const gitHubSettingRepository = new GitHubSettingRepository(GitHubSettingFactory.create());
+        const gitHubSettingRepository = new GitHubSettingRepository();
         const gitHubSearchListRepository = new GitHubSearchListRepository(
             GitHubSearchListFactory.createDefaultSearchList()
         );

@@ -6,7 +6,7 @@ import {
     OpenSettingPanelUseCase,
     OpenSettingPanelUseCasePayload
 } from "../ToggleSettingPanelUseCase";
-import { GitHubSettingFactory } from "../../../domain/GitHubSetting/GitHubSettingsFactory";
+import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 
 describe("ToggleSettingPanelUseCase", () => {
     describe("OpenSettingPanelUseCase", () => {
@@ -21,7 +21,12 @@ describe("ToggleSettingPanelUseCase", () => {
         });
         it("can execute with exist setting", () => {
             const { dispatchedPayloads, context } = createStubContext(OpenSettingPanelUseCase);
-            const setting = GitHubSettingFactory.create();
+            const setting = GitHubSetting.fromJSON({
+                id: "azu@github.com",
+                token: "xxx",
+                apiHost: "https://api.github.com",
+                webHost: "https://github.com"
+            });
             return context
                 .useCase(new OpenSettingPanelUseCase())
                 .executor(useCase => useCase.execute(setting))

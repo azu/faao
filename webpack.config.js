@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const DotenvPlugin = require('webpack-dotenv-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const WebpackBuildDllPlugin = require('webpack-build-dll-plugin');
 const distDir = path.join(__dirname, "public", "build");
@@ -50,10 +49,6 @@ module.exports = {
                 // "browser", "electron"
                 RUNTIME_TARGET: JSON.stringify(process.env.RUNTIME_TARGET)
             }
-        }),
-        new DotenvPlugin({
-            sample: './.env.sample',
-            path: './.env'
         })
     ]
 };
