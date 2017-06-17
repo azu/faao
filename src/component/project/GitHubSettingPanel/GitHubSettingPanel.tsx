@@ -1,20 +1,12 @@
 // MIT © 2017 azu
 import React from "react";
 import {
-    Button,
-    Dropdown,
-    Panel,
-    TextField,
-    PrimaryButton,
-    Label,
-    PanelType,
-    IDropdownOption,
-    Callout,
-    DefaultButton,
-    IconButton,
-    Link,
     MessageBar,
-    MessageBarType
+    MessageBarType,
+    Panel,
+    PanelType,
+    PrimaryButton,
+    TextField
 } from "office-ui-fabric-react";
 import { GitHubSetting, GitHubSettingJSON } from "../../../domain/GitHubSetting/GitHubSetting";
 
@@ -114,13 +106,16 @@ export class GitHubSettingPanel extends React.Component<
                   {String(this.state.error)}
               </MessageBar>
             : null;
+        const headerText = this.props.setting === undefined
+            ? "Add new GitHub Setting"
+            : "Edit GitHub Setting";
         return (
             <Panel
                 className="GitHubSettingPanel"
                 isOpen={this.props.isOpen}
                 type={PanelType.medium}
                 isLightDismiss={true}
-                headerText="GitHub Setting"
+                headerText={headerText}
                 onDismiss={() => this.props.onDismiss()}
             >
                 <TextField

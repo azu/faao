@@ -1,14 +1,13 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { SyntheticEvent } from "react";
+import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { BaseContainer } from "../../BaseContainer";
 import classNames from "classnames";
 import { GitHubSettingList } from "../../../project/GitHubSettingList/GitHubSettingList";
 import { GitHubSetting } from "../../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { OpenSettingPanelUseCase } from "../../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
-import { IconButton } from "office-ui-fabric-react";
 import { createDeleteSettingUseCase } from "../../../../use-case/GitHubSetting/DeleteSettingUseCase";
 
 export interface GitHubSettingContainerProps {
@@ -37,23 +36,10 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
     render() {
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
-                <header className="GitHubSettingContainer-header">
-                    <h1 className="ms-font-xxl GitHubSettingContainer-headerTitle">
-                        <span className="GitHubSettingContainer-headerLink">
-                            Accounts
-                        </span>
-                        <IconButton
-                            className="GitHubSettingContainer-addButton"
-                            iconProps={{ iconName: "Add" }}
-                            title="Add GitHub account"
-                            ariaLabel="Add GitHub account"
-                            onClick={this.onClickAddSetting}
-                        />
-                    </h1>
-                </header>
                 <GitHubSettingList
                     settings={this.props.gitHubSetting.settings}
                     onClickSetting={this.onClickSetting}
+                    onClickAddSetting={this.onClickAddSetting}
                     onEditSetting={this.onEditSetting}
                     onDeleteSetting={this.onDeleteSetting}
                 />

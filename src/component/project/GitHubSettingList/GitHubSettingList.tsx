@@ -1,51 +1,95 @@
 // MIT © 2017 azu
 import * as React from "react";
+import { SyntheticEvent } from "react";
 import {
     ContextualMenu,
-    DefaultButton,
+    ContextualMenuItemType,
     DirectionalHint,
-    IconButton,
-    Link,
-    List
+    Facepile,
+    FocusZoneDirection,
+    IFacepilePersona,
+    IFacepileProps,
+    PersonaSize
 } from "office-ui-fabric-react";
-import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { SyntheticEvent } from "react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 
-export interface GitHubSettingListItemProps {
-    setting: GitHubSetting;
+export const createFacepilePersonas = (
+    settings: GitHubSetting[],
+    onClickHandler: (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => void
+): IFacepilePersona[] => {
+    return settings.map((setting): IFacepilePersona => {
+        return {
+            personaName: setting.id.toValue(),
+            imageUrl: "https://avatars2.githubusercontent.com/u/19714?v=3",
+            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                onClickHandler(event, setting);
+            }
+        };
+    });
+};
+
+export interface GitHubSettingListProps {
+    settings: GitHubSetting[];
+    onClickAddSetting: (event: SyntheticEvent<any>) => void;
     onClickSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
 }
 
-export interface GitHubSettingListItemState {
-    contextTarget?: EventTarget;
+export interface GitHubSettingListState {
+    contextTarget?: EventTarget & HTMLElement;
+    contextTargetSetting?: GitHubSetting;
     isContextMenuVisible: boolean;
 }
 
-export class GitHubSettingListItem extends React.Component<
-    GitHubSettingListItemProps,
-    GitHubSettingListItemState
+export class GitHubSettingList extends React.Component<
+    GitHubSettingListProps,
+    GitHubSettingListState
 > {
-    state = {
-        contextTarget: undefined,
-        isContextMenuVisible: false
+    constructor() {
+        super();
+        this.state = {
+            contextTarget: undefined,
+            contextTargetSetting: undefined,
+            isContextMenuVisible: false
+        };
+    }
+
+    showContextMenu = (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => {
+        this.setState({
+            contextTarget: event.currentTarget,
+            contextTargetSetting: setting,
+            isContextMenuVisible: true
+        });
     };
 
-    onClickOpenContextMenu = (event: React.MouseEvent<any>) => {
-        this.setState({ contextTarget: event.target, isContextMenuVisible: true });
+    onClick = (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => {
+        this.props.onClickSetting(event, setting);
+        this.showContextMenu(event, setting);
+    };
+    onEditSetting = (event: React.MouseEvent<HTMLElement>) => {
+        const setting = this.state.contextTargetSetting;
+        if (setting) {
+            this.props.onEditSetting(event, setting);
+        }
+    };
+    onDeleteSetting = (event: React.MouseEvent<HTMLElement>) => {
+        const setting = this.state.contextTargetSetting;
+        if (setting) {
+            if (confirm(`Does delete "${setting.id.toValue()}"?`)) {
+                this.props.onDeleteSetting(event, setting);
+            }
+        }
     };
 
     render() {
-        const onClick = (event: SyntheticEvent<any>) => {
-            this.props.onClickSetting(event, this.props.setting);
-        };
-        const contextMenu = this.state.contextTarget && this.state.isContextMenuVisible
+        const contextTarget = this.state.contextTarget;
+        const contextMenu = contextTarget && this.state.isContextMenuVisible
             ? <ContextualMenu
                   shouldFocusOnMount={true}
-                  target={this.state.contextTarget}
-                  directionalHint={DirectionalHint.rightBottomEdge}
+                  target={contextTarget}
+                  directionalHint={DirectionalHint.bottomRightEdge}
+                  arrowDirection={FocusZoneDirection.vertical}
                   onDismiss={() => {
                       this.setState({
                           contextTarget: undefined,
@@ -54,12 +98,17 @@ export class GitHubSettingListItem extends React.Component<
                   }}
                   items={[
                       {
+                          key: "label",
+                          itemType: ContextualMenuItemType.Header,
+                          name: this.state.contextTargetSetting!.id.toValue()
+                      },
+                      {
                           key: "edit-setting",
                           iconProps: {
                               iconName: "Edit"
                           },
-                          onClick: (event: React.MouseEvent<any>) => {
-                              this.props.onEditSetting(event, this.props.setting);
+                          onClick: (event: React.MouseEvent<HTMLElement>) => {
+                              this.onEditSetting(event);
                           },
                           name: "Edit Setting"
                       },
@@ -68,64 +117,32 @@ export class GitHubSettingListItem extends React.Component<
                           iconProps: {
                               iconName: "Delete"
                           },
-                          onClick: (event: React.MouseEvent<any>) => {
-                              if (confirm(`Does delete "${this.props.setting.id.toValue()}"?`)) {
-                                  this.props.onDeleteSetting(event, this.props.setting);
-                              }
+                          onClick: (event: React.MouseEvent<HTMLElement>) => {
+                              this.onDeleteSetting(event);
                           },
                           name: "Delete Setting"
                       }
                   ]}
               />
             : null;
+        const facepileProps: IFacepileProps = {
+            personaSize: PersonaSize.small,
+            personas: createFacepilePersonas(this.props.settings, this.onClick),
+            ariaDescription: "Your GitHub account setting list",
+            showAddButton: true,
+            addButtonProps: {
+                ariaLabel: "Add a setting",
+                onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+                    this.props.onClickAddSetting(event);
+                }
+            }
+        };
         return (
-            <div className="GitHubSettingListItem">
+            <div className="GitHubSettingList">
                 {contextMenu}
-                <Link className="GitHubSettingListItem-button" onClick={onClick}>
-                    <span className="GitHubSettingListItem-primaryText">
-                        {this.props.setting.id.toValue()}
-                    </span>
-                </Link>
-
-                <IconButton
-                    className="GitHubSettingListItem-settingButton"
-                    iconProps={{ iconName: "Settings" }}
-                    title="Open Context Menu"
-                    ariaLabel="Open Context Menu"
-                    text={"More"}
-                    onClick={this.onClickOpenContextMenu}
-                />
-
+                <h1 className="GitHubSettingList-title ms-font-xxl">Accounts</h1>
+                <Facepile {...facepileProps} />
             </div>
-        );
-    }
-}
-
-export interface GitHubSettingListProps {
-    settings: GitHubSetting[];
-    onClickSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
-    onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
-    onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
-}
-
-export class GitHubSettingList extends React.Component<GitHubSettingListProps, {}> {
-    render() {
-        return (
-            <List
-                className="GitHubSettingList"
-                items={this.props.settings}
-                getKey={(setting: GitHubSetting) => {
-                    return setting.id.toValue();
-                }}
-                onRenderCell={(setting: GitHubSetting) =>
-                    <GitHubSettingListItem
-                        key={setting.id.toValue()}
-                        setting={setting}
-                        onClickSetting={this.props.onClickSetting}
-                        onEditSetting={this.props.onEditSetting}
-                        onDeleteSetting={this.props.onDeleteSetting}
-                    />}
-            />
         );
     }
 }
