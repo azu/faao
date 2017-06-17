@@ -4,7 +4,6 @@ import { AppRepository, appRepository } from "../../infra/repository/AppReposito
 import { createSearchGitHubAbstractUseCase } from "../GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 
 export const createReloadActiveStreamUseCase = () => {
     return new ReloadActiveStreamUseCase(appRepository);
@@ -18,13 +17,14 @@ export class ReloadActiveStreamUseCase extends UseCase {
     async execute() {
         const app = this.appRepository.get();
         const activeQuery = app.user.activity.activeQuery;
+        const activeSearchList = app.user.activity.activeSearchList;
         const activeStream = app.user.activity.activeStream;
-        if (!activeQuery || !activeStream) {
+        if (!activeStream) {
             return;
         }
-        if (activeQuery instanceof GitHubSearchList) {
-            console.warn("TODO: activeQuery");
-        } else {
+        if (activeSearchList) {
+            console.warn("not implemented search list reloading");
+        } else if (activeQuery) {
             return this.context
                 .useCase(createSearchGitHubAbstractUseCase())
                 .executor(useCase => {

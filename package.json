@@ -113,6 +113,7 @@
     "react-color": "^2.12.1",
     "react-dom": "^15.6.1",
     "react-octicons": "^0.1.0",
+    "react-topbar-progress-indicator": "^1.0.0",
     "shallow-equal-object": "^1.0.1",
     "suitcss-classnames": "^1.1.0",
     "ulid": "^0.1.0",

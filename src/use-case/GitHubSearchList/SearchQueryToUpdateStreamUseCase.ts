@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { UseCase, ChangedPayload } from "almin";
+import { ChangedPayload, Payload, UseCase } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
 import {
     GitHubSettingRepository,
@@ -15,6 +15,17 @@ import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
+export class LoadingStartedPayload extends Payload {
+    constructor() {
+        super({ type: "LoadingStatedPayload" });
+    }
+}
+
+export class LoadingFinishedPayload extends Payload {
+    constructor() {
+        super({ type: "LoadingFinishedPayload" });
+    }
+}
 export const createSearchGitHubAbstractUseCase = () => {
     return new SearchGitHubAbstractUseCase(gitHubSettingRepository, gitHubSearchStreamRepository);
 };
@@ -46,6 +57,7 @@ export class SearchGitHubAbstractUseCase extends UseCase {
         }
         const gitHubClient = new GitHubClient(gitHubSetting);
         return new Promise((resolve, reject) => {
+            this.dispatch(new LoadingStartedPayload());
             gitHubClient.search(
                 query,
                 async (result: GitHubSearchResult) => {
@@ -70,6 +82,14 @@ export class SearchGitHubAbstractUseCase extends UseCase {
                     resolve();
                 }
             );
-        });
+        }).then(
+            () => {
+                this.dispatch(new LoadingFinishedPayload());
+            },
+            error => {
+                this.dispatch(new LoadingFinishedPayload());
+                return Promise.reject(error);
+            }
+        );
     }
 }
