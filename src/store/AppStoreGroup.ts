@@ -44,6 +44,8 @@ export type AppStoreGroupState = typeof appStoreGroup.state;
  * inject debuggable information to global
  */
 export const debuggable = () => {
+    // FIXME: disable webpack:///./~/glamor/lib/sheet.js log
+    console.clear();
     // debug
     if (typeof global === "object") {
         (<any>global).faao = {

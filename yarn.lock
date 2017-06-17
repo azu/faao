@@ -111,7 +111,7 @@
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-0.8.2.tgz#1181ecbe1d97b7034e0ea1e35e62e86cc26b422d"
 
-"@uifabric/styling@>=0.10.2 <1.0.0":
+"@uifabric/styling@>=0.8.0 <1.0.0":
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.10.2.tgz#89c14ecc773ce9da68c945ccf856fafcd2db5ee1"
   dependencies:
@@ -4085,12 +4085,12 @@ octokat@^0.9.0:
     lodash "^4.16.4"
     node-fetch "^1.6.3"
 
-office-ui-fabric-react@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.8.1.tgz#9e9fec6c47ae549917506ee8cf4b5be5624cea64"
+office-ui-fabric-react@~4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.6.0.tgz#66b3b3f35b27fead8387bc0bbdeeac5644ee1287"
   dependencies:
     "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/styling" ">=0.10.2 <1.0.0"
+    "@uifabric/styling" ">=0.8.0 <1.0.0"
     "@uifabric/utilities" ">=4.3.0 <5.0.0"
     prop-types "^15.5.10"
     tslib "^1.6.0"
