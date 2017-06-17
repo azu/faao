@@ -1,12 +1,9 @@
 // LICENSE : MIT
 import { ProfileContainer } from "./ProfileContainer/ProfileContainer";
-
-("use strict");
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStoreGroup";
 import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchStreamContainer";
 import { BaseContainer } from "./BaseContainer";
-import IframeBrowser from "../project/IframeBrowser/IframeBrowser";
 import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
 import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
 import { QuerySettingContainer } from "./QuerySettingContainer/QuerySettionContainer";
@@ -14,6 +11,8 @@ import { GitHubSettingPanelContainer } from "./GitHubSettingPanelContainer/GitHu
 import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
 import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
+
+("use strict");
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {

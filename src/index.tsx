@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";
 import AlminReactContainer from "almin-react-container";
-import { AppStoreGroup } from "./store/AppStoreGroup";
+import { appStoreGroup, AppStoreGroupState, debuggable } from "./store/AppStoreGroup";
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
@@ -16,7 +16,7 @@ const dispatcher = new Dispatcher();
 // context connect dispatch with stores
 const context = new Context({
     dispatcher,
-    store: AppStoreGroup.create()
+    store: appStoreGroup
 });
 // setup localForage
 localForage.config({
@@ -26,11 +26,13 @@ if (process.env.NODE_ENV !== "production") {
     (window as any)["alminContext"] = context;
     const logger = new AlminLogger();
     logger.startLogging(context);
+    // enable debug mode
+    debuggable();
 }
 // set context to a single object.
 appLocator.context = context;
 // start render
-const AppWrapContainer = AlminReactContainer.create<AppStoreGroup>(AppContainer, context);
+const AppWrapContainer = AlminReactContainer.create<AppStoreGroupState>(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), () => {
     // render and restore repositories
     context.useCase(createReadyToAppUseCase()).executor(useCase => useCase.execute());
