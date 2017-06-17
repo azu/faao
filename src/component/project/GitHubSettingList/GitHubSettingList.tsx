@@ -20,7 +20,6 @@ export const createFacepilePersonas = (
     return settings.map((setting): IFacepilePersona => {
         return {
             personaName: setting.id.toValue(),
-            imageUrl: "https://avatars2.githubusercontent.com/u/19714?v=3",
             onClick: (event: React.MouseEvent<HTMLElement>) => {
                 onClickHandler(event, setting);
             }

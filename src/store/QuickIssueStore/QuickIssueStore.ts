@@ -120,15 +120,14 @@ export class QuickIssueStore extends Store<QuickIssueState> {
         });
     }
 
-    async receivePayload(payload: Payload) {
+    receivePayload(payload: Payload) {
         const app = this.repositories.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeSearch = app.user.activity.activeQuery;
         const activeQuery = activeSearch instanceof GitHubSearchQuery ? activeSearch : undefined;
         // TODO: activeSearch?? may be searchList
         const gitHubSearchLists = this.repositories.gitHubSearchListRepository.findAll();
-        const resolvedRepository = await this.repositories.gitHubSettingRepository.ready();
-        const settings = resolvedRepository.findAll();
+        const settings = this.repositories.gitHubSettingRepository.findAll();
         this.setState(
             this.state.reduce(payload).update({
                 gitHubSearchLists,
