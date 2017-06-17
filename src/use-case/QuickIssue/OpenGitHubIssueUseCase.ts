@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-("use strict");
+
 import { UseCase } from "almin";
 import { OpenItemInNewTabUseCase } from "../App/OpenItemInNewTabUseCase";
 

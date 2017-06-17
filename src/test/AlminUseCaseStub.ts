@@ -1,4 +1,3 @@
-("use strict");
 import { Context, Dispatcher, DispatcherPayloadMeta, Payload, Store, UseCase } from "almin";
 
 export class MockState {}

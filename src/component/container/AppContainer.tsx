@@ -12,8 +12,6 @@ import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
 import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
 
-("use strict");
-
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
         const preview = process.env.RUNTIME_TARGET === "electron"

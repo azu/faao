@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-("use strict");
+
 import { App } from "../../domain/App/App";
 import { AppFactory } from "../../domain/App/AppFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";

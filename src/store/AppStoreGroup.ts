@@ -1,5 +1,4 @@
 // MIT © 2017 azu
-("use strict");
 
 import { StoreMap } from "almin/lib/UILayer/StoreGroupTypes";
 import { ProfileStore } from "./ProfileStore/ProfileStore";
