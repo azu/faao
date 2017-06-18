@@ -6,6 +6,7 @@ import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { createSearchQueriesAndUpdateStreamUseCase } from "../GitHubSearchList/SearchQueriesAndUpdateStreamUseCase";
 
 export const createReloadActiveStreamUseCase = () => {
     return new ReloadActiveStreamUseCase(appRepository);
@@ -24,7 +25,9 @@ export class ReloadActiveStreamUseCase extends UseCase {
             return;
         }
         if (activeSearch instanceof GitHubSearchList) {
-            console.warn("not implemented search list reloading");
+            return this.context
+                .useCase(createSearchQueriesAndUpdateStreamUseCase())
+                .executor(useCase => useCase.execute(activeSearch));
         } else if (activeSearch instanceof GitHubSearchQuery) {
             return this.context
                 .useCase(createSearchGitHubAbstractUseCase())
