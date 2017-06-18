@@ -23,7 +23,13 @@ export class SaveGitHubSettingUseCase extends UseCase {
     async execute(settingJSON: GitHubSettingJSON, id?: EntityId<GitHubSetting>) {
         const setting = GitHubSetting.fromJSON(settingJSON);
         const gitHub = new GitHubClient(setting);
-        await gitHub.user();
+        try {
+            await gitHub.rateLimits();
+        } catch (error) {
+            throw new Error(
+                "Can't access GitHub API by the setting:" + JSON.stringify(settingJSON)
+            );
+        }
         if (!id) {
             // add
             this.gitHubSettingRepository.save(setting);
