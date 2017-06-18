@@ -23,13 +23,13 @@
         const nav = document.querySelector(".electron-nav");
         const webview = document.querySelector('webview.nav-views-view');
         webview.addEventListener("mouseenter", (event) => {
-            nav.classList.add("is-focus");
+            document.body.classList.add("is-focus");
         });
         webview.addEventListener("mouseleave", (event) => {
-            nav.classList.remove("is-focus");
+            document.body.classList.remove("is-focus");
         });
         webview.addEventListener("blur", (event) => {
-            nav.classList.remove("is-focus");
+            document.body.classList.remove("is-focus");
         });
         require('electron-context-menu')({
             window: webview,

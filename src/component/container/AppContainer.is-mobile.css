@@ -1,0 +1,23 @@
+@media screen and (max-width: 800px) {
+    .AppContainer-mobileNav {
+        display: block;
+    }
+
+    .AppContainerColumn-mobile {
+        display: none !important;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .AppContainerColumn-mobile.is-opened {
+        display: flex !important;
+        position: fixed;
+        z-index: 150;
+        top: 44px;
+        left: 0;
+        transition: width 0.5s ease-in-out;
+        background-color: #fff;
+        height: calc(100% - 44px);
+        width: 240px;
+        max-width: 240px;
+    }
+}

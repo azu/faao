@@ -81,7 +81,7 @@ export class ExpandableSearch extends React.Component<
                 {contextMenu}
                 <IconButton
                     className="ExpandableSearchBox-menuButton"
-                    iconProps={{ iconName: "CollapseMenu" }}
+                    iconProps={{ iconName: "Filter" }}
                     title="Open Menu"
                     ariaLabel="Open Menu"
                     onClick={this.onClickOpenContextMenu}

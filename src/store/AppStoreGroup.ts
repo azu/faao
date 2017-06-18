@@ -15,6 +15,7 @@ import { GitHubSettingStore } from "./GitHubSettingStore/GitHubSettingStore";
 import { NoticeStore } from "./Notice/NoticeStore";
 import { noticeRepository } from "../infra/repository/NoticeRepository";
 import { storageManger } from "../infra/repository/Storage";
+import { MobileStore } from "./Mobile/MobileStore";
 
 export const createStoreMap = () => {
     return {
@@ -28,7 +29,8 @@ export const createStoreMap = () => {
         }),
         gitHubSetting: new GitHubSettingStore(gitHubSettingRepository),
         notice: new NoticeStore(noticeRepository),
-        profile: new ProfileStore()
+        profile: new ProfileStore(),
+        mobile: new MobileStore()
     };
 };
 

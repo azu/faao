@@ -20,7 +20,8 @@
     height: var(--AppMenuColumn-header--height);
 }
 
-.AppMenuColumn-search, .AppMenuColumn-setting {
+.AppMenuHeaderContainer-main {
+    overflow-y: scroll;
     flex: 1;
 }
 
@@ -36,6 +37,6 @@
     );
 }
 
-.AppMenuColumn-footer {
+.AppMenuColumn-header .AppMenuColumn-footer {
     height: var(--AppMenuColumn-footer--height);
 }

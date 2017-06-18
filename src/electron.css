@@ -9,16 +9,29 @@
 
 .electron-nav {
     background-color: #fff;
-    position: fixed;
     height: 100%;
     will-change: width;
     transition: width 0.1s ease-in-out;
     width: var(--electron-nav--width);
-    top: 0;
-    right: 0;
     /* flex */
     display: flex;
     flex-direction: column;
+}
+
+/* This app need 1024px with */
+@media screen and (max-width: 1024px) {
+    .electron-nav {
+        max-width: 400px !important;
+    }
+
+    .electron-view #js-app {
+        max-width: calc(100% - 400px) !important;
+    }
+
+    /* focus webview and flexible width*/
+    .electron-nav.is-focus {
+        max-width: 400px !important;
+    }
 }
 
 #nav-body-ctrls {
@@ -34,12 +47,27 @@
 #nav-body-views {
     flex: 1;
 }
+
+body {
+    display: flex;
+}
+
 /* Only affect to Electron */
 .electron-view #js-app {
-    padding-right: var(--electron-nav--width);
+    flex: 1;
+    max-width: calc(100% - var(--electron-nav--width));
 }
 
 /* focus webview and flexible width*/
-.electron-nav.is-focus {
+.electron-view.is-focus #js-app {
+}
+
+.electron-view.is-focus .electron-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-width: var(--electron-nav-is-focus--width);
     width: var(--electron-nav-is-focus--width);
+    /* draw shadow to left edge*/
+    box-shadow: -1px 0 5px 1px #ddd;
 }

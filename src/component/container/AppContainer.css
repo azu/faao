@@ -1,26 +1,39 @@
-* {
-    box-sizing: border-box;
+:root {
+    --App-nav--width: 180px;
 }
 
-html, body, #js-app, .AppContainer {
+.AppContainer {
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
-:root {
-    --App-nav--width: 180px;
+.AppContainer-mobileNav {
+    display: none;
+}
+
+.AppContainer-body {
+    display: flex;
 }
 
 .AppContainer-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--App-nav--width);
+    flex: 1;
+    max-width: var(--App-nav--width);
 }
 
 .AppContainer-main {
-    padding: 0 0 0 var(--App-nav--width);
+    flex: 1;
     /* scrollable main . body is not scroll*/
     height: 100%;
+    width: calc(100% - var(--App-nav--width));
+}
+
+/* Layout Header */
+.AppContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.AppContainer-body {
+    flex: 1;
 }

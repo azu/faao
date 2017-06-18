@@ -11,39 +11,49 @@ import { GitHubSettingPanelContainer } from "./GitHubSettingPanelContainer/GitHu
 import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
 import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
+import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
+import classNames from "classNames";
+
+const suitcssClassnames = require("suitcss-classnames");
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
-        const preview = process.env.RUNTIME_TARGET === "electron"
-            ? <main className="AppContainer-preview">
-                  {/*<IframeBrowser html={"test"}/>*/}
-              </main>
-            : null;
+        const AppContainerNavClassName = suitcssClassnames({
+            component: "AppContainerColumn-mobile",
+            states: {
+                "is-opened": this.props.mobile.isMenuOpened
+            }
+        });
         return (
             <div className="AppContainer">
                 <ProfileContainer profile={this.props.profile} />
                 <ObserverContainer />
                 <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />
-                <AppMenuColumn
-                    className="AppContainer-nav"
-                    app={this.props.app}
-                    gitHubSetting={this.props.gitHubSetting}
-                    gitHubSearchList={this.props.gitHubSearchList}
-                />
-                <main className="AppContainer-main">
-                    <GitHubSearchStreamContainer
+                {/* Actual DOM*/}
+                <nav className="AppContainer-mobileNav">
+                    <AppMobileNav mobile={this.props.mobile} />
+                </nav>
+                <div className="AppContainer-body">
+                    <AppMenuColumn
+                        className={classNames("AppContainer-nav", AppContainerNavClassName)}
                         app={this.props.app}
-                        gitHubSearchStream={this.props.gitHubSearchStream}
+                        gitHubSetting={this.props.gitHubSetting}
+                        gitHubSearchList={this.props.gitHubSearchList}
                     />
-                </main>
+                    <main className="AppContainer-main">
+                        <GitHubSearchStreamContainer
+                            app={this.props.app}
+                            gitHubSearchStream={this.props.gitHubSearchStream}
+                        />
+                    </main>
+                </div>
                 <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
                 <QuerySettingContainer
                     gitHubSearchList={this.props.gitHubSearchList}
                     gitHubSetting={this.props.gitHubSetting}
                 />
                 <QuickIssueContainer quickIssue={this.props.quickIssue} />
-                {preview}
             </div>
         );
     }

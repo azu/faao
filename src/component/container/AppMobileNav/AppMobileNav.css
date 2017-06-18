@@ -1,0 +1,27 @@
+.AppMobileNav {
+    padding: 0 16px 0 16px;
+    background: #212121;
+    color: #fff;
+    display: flex;
+    height: 48px;
+}
+
+.AppMobileNav-menuButton {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    height: 48px;
+    line-height: 48px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.AppMobileNav-title {
+    font-size: 24px;
+    font-weight: 100;
+    line-height: 48px;
+    margin: 0;
+    padding-left: 12px;
+}

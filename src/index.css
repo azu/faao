@@ -1,3 +1,13 @@
 @import "../node_modules/office-ui-fabric-react/dist/css/fabric.css";
 @import "./electron.css";
 @import "./component/**/*.css";
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}

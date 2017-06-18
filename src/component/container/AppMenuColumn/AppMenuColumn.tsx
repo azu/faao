@@ -20,31 +20,33 @@ export interface AppMenuColumnProps {
 export class AppMenuColumn extends BaseContainer<AppMenuColumnProps, {}> {
     render() {
         return (
-            <nav className={classNames("AppMenuColumn", this.props.className)}>
+            <div className={classNames("AppMenuColumn", this.props.className)}>
                 <AppMenuHeaderContainer
                     className="AppMenuColumn-header"
                     app={this.props.app}
                     gitHubSetting={this.props.gitHubSetting}
                     gitHubSearchList={this.props.gitHubSearchList}
                 />
-                <GitHubSettingContainer
-                    className="AppMenuColumn-setting"
-                    gitHubSetting={this.props.gitHubSetting}
-                    gitHubSearchList={this.props.gitHubSearchList}
-                />
-                <GitHubSearchContainer
-                    className="AppMenuColumn-search"
-                    app={this.props.app}
-                    gitHubSetting={this.props.gitHubSetting}
-                    gitHubSearchList={this.props.gitHubSearchList}
-                />
+                <div className="AppMenuHeaderContainer-main">
+                    <GitHubSettingContainer
+                        className="AppMenuColumn-setting"
+                        gitHubSetting={this.props.gitHubSetting}
+                        gitHubSearchList={this.props.gitHubSearchList}
+                    />
+                    <GitHubSearchContainer
+                        className="AppMenuColumn-search"
+                        app={this.props.app}
+                        gitHubSetting={this.props.gitHubSetting}
+                        gitHubSearchList={this.props.gitHubSearchList}
+                    />
+                </div>
                 <AppMenuFooterContainer
                     className="AppMenuColumn-footer"
                     app={this.props.app}
                     gitHubSetting={this.props.gitHubSetting}
                     gitHubSearchList={this.props.gitHubSearchList}
                 />
-            </nav>
+            </div>
         );
     }
 }
