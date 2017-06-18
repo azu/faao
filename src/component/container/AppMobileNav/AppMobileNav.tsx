@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import * as React from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 import { BaseContainer } from "../BaseContainer";
 import {
     CloseMobileMenuUseCase,

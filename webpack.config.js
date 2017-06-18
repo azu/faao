@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const WebpackBuildDllPlugin = require('webpack-build-dll-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const distDir = path.join(__dirname, "public", "build");
 module.exports = {
     entry: [
@@ -31,6 +32,7 @@ module.exports = {
     },
     plugins: [
         new CheckerPlugin(),
+        new CaseSensitivePathsPlugin(),
         // Add plugin BuildPlugin before your DllReference plugin.
         new WebpackBuildDllPlugin({
             // dllConfigPath: required, your Dll Config Path, support absolute path.

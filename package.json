@@ -51,6 +51,7 @@
     "babel-preset-power-assert": "^1.0.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.0.1",
     "electron": "1.7.2",

@@ -12,7 +12,7 @@ import { AppMenuColumn } from "./AppMenuColumn/AppMenuColumn";
 import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
 import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
-import classNames from "classNames";
+import classNames from "classnames";
 
 const suitcssClassnames = require("suitcss-classnames");
 
