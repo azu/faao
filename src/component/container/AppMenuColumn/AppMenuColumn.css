@@ -21,8 +21,8 @@
 }
 
 .AppMenuHeaderContainer-main {
-    overflow-y: scroll;
     flex: 1;
+    overflow-y: auto;
 }
 
 .AppMenuColumn-setting {
