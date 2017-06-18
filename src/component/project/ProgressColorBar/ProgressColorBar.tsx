@@ -34,7 +34,6 @@ export class ProgressColorBar extends React.Component<ColorBarProps, ColorBarSta
 
     stepProgress = () => {
         const addProgress = 0.05 * Math.pow(1 - Math.sqrt(this.state.progress), 2);
-        console.log(addProgress);
         const nextProgress = this.state.progress + addProgress;
         if (nextProgress >= 1.0) {
             this.setState({
