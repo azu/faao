@@ -8,23 +8,31 @@ import {
     EditQueryPanelUseCasePayload,
     OpenQueryPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import {
+    CloseSearchListPanelUseCasePayload,
+    EditSearchListPanelUseCasePayload,
+    OpenSearchListPanelUseCasePayload
+} from "../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 
 export interface GitHubSearchListStateObject {
     searchLists: GitHubSearchList[];
     editingSearchList: GitHubSearchList | undefined;
     editingQuery: GitHubSearchQuery | undefined;
-    isOpenAddingPanel: boolean;
+    isQueryPanelOpened: boolean;
+    isSearchListPanelOpened: boolean;
 }
 
 export class GitHubSearchListState implements GitHubSearchListStateObject {
-    isOpenAddingPanel: boolean;
+    isSearchListPanelOpened: boolean;
+    isQueryPanelOpened: boolean;
     editingSearchList: GitHubSearchList | undefined;
     editingQuery: GitHubSearchQuery | undefined;
     searchLists: GitHubSearchList[];
 
     constructor(state: GitHubSearchListStateObject) {
         this.searchLists = state.searchLists;
-        this.isOpenAddingPanel = state.isOpenAddingPanel;
+        this.isQueryPanelOpened = state.isQueryPanelOpened;
+        this.isSearchListPanelOpened = state.isSearchListPanelOpened;
         this.editingSearchList = state.editingSearchList;
         this.editingQuery = state.editingQuery;
     }
@@ -41,27 +49,53 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
             | OpenQueryPanelUseCasePayload
             | CloseQueryPanelUseCasePayload
             | EditQueryPanelUseCasePayload
+            | OpenSearchListPanelUseCasePayload
+            | CloseSearchListPanelUseCasePayload
+            | EditSearchListPanelUseCasePayload
     ) {
+        if (payload instanceof OpenSearchListPanelUseCasePayload) {
+            return new GitHubSearchListState({
+                ...this as GitHubSearchListState,
+                isSearchListPanelOpened: true
+            });
+        }
+        if (payload instanceof CloseSearchListPanelUseCasePayload) {
+            return new GitHubSearchListState({
+                ...this as GitHubSearchListState,
+                isSearchListPanelOpened: false,
+                editingSearchList: undefined
+            });
+        }
+        if (payload instanceof EditSearchListPanelUseCasePayload) {
+            return new GitHubSearchListState({
+                ...this as GitHubSearchListState,
+                isSearchListPanelOpened: true,
+                editingSearchList: payload.type
+            });
+        }
         if (payload instanceof OpenQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
-                isOpenAddingPanel: true,
+                isQueryPanelOpened: true,
                 editingSearchList: payload.searchList
             });
-        } else if (payload instanceof EditQueryPanelUseCasePayload) {
+        }
+        if (payload instanceof EditQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
-                isOpenAddingPanel: true,
+                isQueryPanelOpened: true,
                 editingQuery: payload.query
             });
-        } else if (payload instanceof CloseQueryPanelUseCasePayload) {
+        }
+        if (payload instanceof CloseQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...this as GitHubSearchListState,
-                isOpenAddingPanel: false,
+                isQueryPanelOpened: false,
                 editingSearchList: undefined,
                 editingQuery: undefined
             });
         }
+
         return this;
     }
 }
@@ -74,7 +108,8 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         super();
         this.gitHubSearchRepository = gitHubSearchListRepository;
         this.state = new GitHubSearchListState({
-            isOpenAddingPanel: false,
+            isSearchListPanelOpened: false,
+            isQueryPanelOpened: false,
             editingSearchList: undefined,
             editingQuery: undefined,
             searchLists: []

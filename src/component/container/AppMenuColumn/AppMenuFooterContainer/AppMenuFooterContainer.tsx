@@ -2,13 +2,12 @@
 import * as React from "react";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { BaseContainer } from "../../BaseContainer";
-import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
-import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
+import { CommandBar } from "office-ui-fabric-react";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { AppState } from "../../../../store/AppStore/AppStore";
-import { createAddSearchListUseCase } from "../../../../use-case/GitHubSearchList/AddSearchListUseCase";
 import { OpenProfileWindowUseCase } from "../../../../use-case/Profile/ToggleProfileWindowUseCase";
 import { createExportProfileUseCase } from "../../../../use-case/Profile/ExportProfileUseCase";
+import { OpenSearchListPanelUseCase } from "../../../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 
 export interface AppMenuFooterContainerProps {
     className?: string;
@@ -25,8 +24,8 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
             icon: "EditMirrored",
             ariaLabel: "Add new SearchList",
             onClick: () => {
-                return this.useCase(createAddSearchListUseCase()).executor(useCase =>
-                    useCase.execute("ME")
+                return this.useCase(new OpenSearchListPanelUseCase()).executor(useCase =>
+                    useCase.execute()
                 );
             }
         },

@@ -13,6 +13,7 @@ import { ErrorContainer } from "./ErrorContainer/ErrorContainer";
 import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
 import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
 import classNames from "classnames";
+import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListPanelContainer";
 
 const suitcssClassnames = require("suitcss-classnames");
 
@@ -30,6 +31,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 <ObserverContainer />
                 <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />
+                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
                 {/* Actual DOM*/}
                 <nav className="AppContainer-mobileNav">
                     <AppMobileNav mobile={this.props.mobile} />

@@ -39,12 +39,12 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
     };
 
     render() {
-        if (!this.props.gitHubSearchList.isOpenAddingPanel) {
+        if (!this.props.gitHubSearchList.isQueryPanelOpened) {
             return null;
         }
         return (
             <QuerySettingPanel
-                isOpen={this.props.gitHubSearchList.isOpenAddingPanel}
+                isOpen={this.props.gitHubSearchList.isQueryPanelOpened}
                 query={this.props.gitHubSearchList.editingQuery}
                 onDismiss={this.onDismiss}
                 onSubmit={this.onSubmit}
