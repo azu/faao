@@ -33,7 +33,8 @@
     "watch:css": "chokidar --initial 'src/**/*.css' -c 'npm run build:css'",
     "watch:browser": "npm-run-all clean --parallel watch:browser:* watch:css",
     "watch:electron": "npm-run-all clean --parallel watch:electron:* watch:css",
-    "clean": "rimraf public/build && mkdirp public/build"
+    "clean": "rimraf public/build && mkdirp public/build",
+    "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack"
   },
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
