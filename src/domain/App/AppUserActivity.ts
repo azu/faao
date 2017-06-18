@@ -10,6 +10,18 @@ export class AppUserActivity {
     openedQuery?: GitHubSearchQuery;
     openedSearchList?: GitHubSearchList;
 
+    /**
+     * active search is SearchList mode or SearchQuery mode.
+     */
+    get activeSearch(): GitHubSearchList | GitHubSearchQuery | undefined {
+        if (this.activeSearchList && !this.activeQuery) {
+            return this.activeSearchList;
+        } else if (this.activeQuery) {
+            return this.activeQuery;
+        }
+        return;
+    }
+
     get activeQuery(): GitHubSearchQuery | undefined {
         return this.openedQuery;
     }
