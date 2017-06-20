@@ -1,6 +1,7 @@
 "use strict";
 const path = require("path");
-const { app, BrowserWindow } = require('electron');
+const { Menu, app, shell, BrowserWindow } = require('electron');
+const defaultMenu = require('electron-default-menu');
 const URL = process.env.FAAO_URL || "https://azu.github.io/faao/";
 // context-menu for window
 require('electron-context-menu')();
@@ -9,13 +10,17 @@ app.on("gpu-process-crashed", (event) => {
     console.log("gpu-process-crashed", event);
 });
 app.on('ready', () => {
+    const menu = defaultMenu(app, shell);
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+    // browser-window
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
             javascript: true,
             plugins: true,
-            nodeIntegration: true,
+            nodeIntegration: true,  // We will disable this?
+            nativeWindowOpen: true,
             webviewTag: true
         }
     });
