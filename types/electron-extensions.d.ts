@@ -1,8 +1,15 @@
 // MIT © 2017 azu
-interface ElectronNavigation {
-    newTab(url: string, options: object);
+export interface ElectronNavigation {
+    newTab(url: string, options?: object): void;
+
+    changeTab(url: string, options?: object): void;
+
+    stop(): void;
 }
 
-interface Window {
-    electronNavigation?: ElectronNavigation
+// extends
+declare global {
+    interface Window {
+        electronNavigation?: ElectronNavigation;
+    }
 }

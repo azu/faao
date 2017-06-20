@@ -33,6 +33,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
+    "types/**/*",
     "src/**/*"
   ],
   "exclude": [

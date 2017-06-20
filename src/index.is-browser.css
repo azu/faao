@@ -1,0 +1,4 @@
+/* electron-nav is hidden in browser env */
+.browser-view .electron-nav {
+    display: none;
+}

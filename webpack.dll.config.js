@@ -5,11 +5,17 @@ module.exports = {
 
     entry: {
         'dll': Object.keys(require('./package.json').dependencies).filter((path) => {
-            const ignoredModules = [
+            const whitelistModules = [
+                /electron-navigation/
+            ];
+            const blacklistModules = [
                 /^@types/,
                 /electron/
             ];
-            return !ignoredModules.some(pattern => pattern.test(path));
+            if (whitelistModules.some(pattern => pattern.test(path))) {
+                return true;
+            }
+            return !blacklistModules.some(pattern => pattern.test(path));
         })
     },
 

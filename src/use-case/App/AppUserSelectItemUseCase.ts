@@ -4,6 +4,7 @@ import throttle from "lodash.throttle";
 import { openURLInTab } from "./OpenItemInNewTabUseCase";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import isElectron from "is-electron";
 
 const debug = require("debug")("faao:AppUserSelectItemUseCase");
 // prevent GPU crash on webview
@@ -22,7 +23,7 @@ export class AppUserSelectItemUseCase extends UseCase {
         const app = this.appRepository.get();
         app.user.openItem(item);
         this.appRepository.save(app);
-        if (window.electronNavigation) {
+        if (isElectron()) {
             throttledOpenURLInTab(item.htmlUrl);
         } else {
             debug("Not support open url in tab.");

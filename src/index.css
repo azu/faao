@@ -1,5 +1,5 @@
 @import "../node_modules/office-ui-fabric-react/dist/css/fabric.css";
-@import "./electron.css";
+@import "index.is-electron.css";
 @import "./component/**/*.css";
 
 * {

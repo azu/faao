@@ -7,7 +7,7 @@
     --electron-nav-is-focus--width: 1048px;
 }
 
-.electron-nav {
+.electron-view .electron-nav {
     background-color: #fff;
     height: 100%;
     will-change: width;
@@ -20,35 +20,35 @@
 
 /* This app need 1024px with */
 @media screen and (max-width: 1024px) {
-    .electron-nav {
+    .electron-view .electron-nav {
         max-width: 400px !important;
     }
 
-    .electron-view #js-app {
+    .electron-view .electron-view #js-app {
         max-width: calc(100% - 400px) !important;
     }
 
     /* focus webview and flexible width*/
-    .electron-nav.is-focus {
+    .electron-view .electron-nav.is-focus {
         max-width: 400px !important;
     }
 }
 
-#nav-body-ctrls {
+.electron-view #nav-body-ctrls {
     height: 72px;
 }
 
-#nav-body-tabs {
+.electron-view #nav-body-tabs {
     height: 36px;
     overflow-y: hidden !important;
 }
 
 /* flexible view*/
-#nav-body-views {
+.electron-view #nav-body-views {
     flex: 1;
 }
 
-body {
+body.electron-view {
     display: flex;
 }
 
