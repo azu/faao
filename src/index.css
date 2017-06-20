@@ -1,5 +1,7 @@
 @import "../node_modules/office-ui-fabric-react/dist/css/fabric.css";
-@import "index.is-electron.css";
+@import "./index.is-browser.css";
+@import "./index.is-electron.css";
+@import "./index.is-mobile.css";
 @import "./component/**/*.css";
 
 * {
@@ -10,8 +12,4 @@ html, body, #js-app {
     width: 100%;
     height: 100%;
     margin: 0;
-}
-
-input[type="text"] {
-    font-size: 16px;
 }
