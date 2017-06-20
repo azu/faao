@@ -1,4 +1,4 @@
-@import "../node_modules/office-ui-fabric-react/dist/css/fabric.css";
+@import "../node_modules/office-ui-fabric-react/dist/css/fabric.min.css";
 @import "./index.is-browser.css";
 @import "./index.is-electron.css";
 @import "./index.is-mobile.css";
