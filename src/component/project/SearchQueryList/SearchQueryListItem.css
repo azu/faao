@@ -9,11 +9,14 @@
 .SearchQueryListItem-button {
     height: 32px;
     padding: 1px 0;
+    /* 32px is SearchQueryListItem-settingButton width */
+    padding-right: 32px !important;
     vertical-align: middle;
 }
 
 .SearchQueryListItem-settingButton {
     position: absolute !important;
     right: 0;
+    width: 32px;
     margin: auto;
 }
