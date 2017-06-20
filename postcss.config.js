@@ -11,6 +11,7 @@ module.exports = {
         "autoprefixer": {
             "browsers": browserList
         },
-        "postcss-reporter": {}
+        "postcss-reporter": {},
+        "cssnano": process.env.NODE_ENV === 'production'
     }
 };
