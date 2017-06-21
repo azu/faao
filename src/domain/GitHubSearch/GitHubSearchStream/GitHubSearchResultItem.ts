@@ -233,9 +233,9 @@ export class GitHubSearchResultItem implements Item {
 
     // owner/repo
     get shortPath() {
-        // TODO: support GHE
         // https://github.com/zeke/github-url-to-object#github-enterprise
-        const object = ghUrlToObject(this.htmlUrl);
+        const isEnterprise = !this.htmlUrl.startsWith("https://github.com/");
+        const object = ghUrlToObject(this.htmlUrl, { enterprise: isEnterprise });
         return `${object.user}/${object.repo}`;
     }
 

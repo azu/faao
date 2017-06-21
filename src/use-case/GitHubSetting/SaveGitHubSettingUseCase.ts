@@ -24,7 +24,7 @@ export class SaveGitHubSettingUseCase extends UseCase {
         const setting = GitHubSetting.fromJSON(settingJSON);
         const gitHub = new GitHubClient(setting);
         try {
-            await gitHub.rateLimits();
+            await gitHub.user();
         } catch (error) {
             throw new Error(
                 "Can't access GitHub API by the setting:" + JSON.stringify(settingJSON)
