@@ -9,6 +9,8 @@ export class CheckGrantGitHubAPIUseCase extends UseCase {
         const gitHub = new GitHubClient(setting);
         // TODO: check `scopes`
         // https://github.com/philschatz/octokat.js/issues/183
-        return gitHub.rateLimits();
+        // Use user api insteadof ratelimit api
+        // RateLimit API disable by some GHE. It return 404.
+        return gitHub.user();
     }
 }
