@@ -1,11 +1,17 @@
 // MIT © 2017 azu
-import { AppUser } from "./AppUser";
+import { AppUser, AppUserJSON } from "./AppUser";
 import { AppNetwork, AppNetworkStatus } from "./AppNetwork";
 
 const ulid = require("ulid");
+
 export interface AppArgs {
     user: AppUser;
     network: AppNetwork;
+}
+
+export interface AppJSON {
+    id: string;
+    user: AppUserJSON;
 }
 
 export class App {
@@ -24,5 +30,13 @@ export class App {
             return;
         }
         this.network = status === "online" ? this.network.online() : this.network.offline();
+    }
+
+    static fromJSON(json: AppJSON) {
+        const proto = Object.create(this.prototype);
+        return Object.assign(proto, {
+            id: json.id,
+            user: AppUser.fromJSON(json.user)
+        });
     }
 }

@@ -8,12 +8,13 @@ import {
     LoadingFinishedPayload,
     LoadingStartedPayload
 } from "../../use-case/GitHubSearchList/SearchQueryToUpdateStreamUseCase";
+import { ActivityHistory } from "../../domain/App/ActivityHistory";
 
 export interface GitHubSearchStreamStateObject {
     isLoading: boolean;
     items: GitHubSearchResultItem[];
     filterWord?: string;
-    displayItems: GitHubSearchResultItem[];
+    displayItems: GitHubSearchStreamStateItem[];
 }
 
 export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
@@ -25,7 +26,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
     constructor(state: GitHubSearchStreamStateObject) {
         this.isLoading = state.isLoading;
         this.items = state.items;
-        this.displayItems = state.displayItems.map(item => new GitHubSearchStreamStateItem(item));
+        this.displayItems = state.displayItems;
         this.filterWord = state.filterWord;
     }
 
@@ -33,14 +34,16 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
         return this.displayItems.length > 0;
     }
 
-    update(stream?: GitHubSearchStream) {
+    update({ stream, itemHistory }: { stream?: GitHubSearchStream; itemHistory: ActivityHistory }) {
         if (!stream) {
             return this;
         }
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
-            displayItems: stream.sortedItems,
+            displayItems: stream.sortedItems.map(item => {
+                return new GitHubSearchStreamStateItem(item, itemHistory.isRead(item));
+            }),
             filterWord: stream.filterWord
         });
     }
@@ -77,7 +80,14 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     receivePayload(payload: Payload) {
         const app = this.appRepository.get();
         const activeStream = app.user.activity.activeStream;
-        this.setState(this.state.update(activeStream).reduce(payload));
+        this.setState(
+            this.state
+                .update({
+                    stream: activeStream,
+                    itemHistory: app.user.activity.itemHistory
+                })
+                .reduce(payload)
+        );
     }
 
     getState() {

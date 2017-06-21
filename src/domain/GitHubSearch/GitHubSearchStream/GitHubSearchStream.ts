@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
-import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
+import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
@@ -8,7 +8,7 @@ import { SearchFilter } from "./SearchFilter/SearchFilter";
 const ulid = require("ulid");
 
 export interface GitHubSearchStreamJSON {
-    items: Item[];
+    items: GitHubSearchResultItemJSON[];
 }
 
 export interface GitHubSearchStreamArgs {

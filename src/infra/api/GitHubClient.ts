@@ -3,7 +3,7 @@ import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/Gi
 import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { Item } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -57,7 +57,7 @@ export class GitHubClient {
         onComplete: () => void
     ): void {
         type FetchResponse = {
-            items: Item[];
+            items: GitHubSearchResultItemJSON[];
             incompleteResults: boolean;
             fetch: () => Promise<FetchResponse>;
         };

@@ -10,8 +10,11 @@ export type IconType =
 // TODO: it will be performance de-merit
 // should measure performant
 export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
-    constructor(item: GitHubSearchResultItem) {
+    isRead: boolean;
+
+    constructor(item: GitHubSearchResultItem, isRead: boolean) {
         super(item);
+        this.isRead = isRead;
     }
 
     get iconType(): IconType {

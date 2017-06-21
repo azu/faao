@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchStream, GitHubSearchStreamJSON } from "./GitHubSearchStream";
-import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 
 export class GitHubSearchStreamFactory {
     static create() {
