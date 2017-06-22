@@ -1,8 +1,5 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchStream,
-    GitHubSearchStreamJSON
-} from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import {
     GitHubSearchResultItem,
     GitHubSearchResultItemJSON
@@ -11,30 +8,37 @@ import {
     GitHubSearchQuery,
     GitHubSearchQueryJSON
 } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import {
-    GitHubSearchList,
-    GitHubSearchListJSON
-} from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
+import { Identifier } from "../Entity";
 
 export interface AppUserActivityArgs {
     itemHistory: ActivityHistory;
 }
 
+/**
+ * Note: Entity should not reference to other entity.
+ * Insteadof it, should reference by id.(soft link)
+ * http://domain-driven-design.3010926.n2.nabble.com/Can-an-Entity-be-Shared-across-many-Aggregates-td7579277.html
+ * https://softwareengineering.stackexchange.com/questions/328571/ddd-is-it-correct-for-a-root-aggregate-to-hold-a-reference-to-another-root-aggr
+ */
 export interface AppUserActivityJSON {
     itemHistory: ActivityHistoryJSON;
-    openedStream?: GitHubSearchStreamJSON;
+    // entity
+    openedStream?: string;
+    openedSearchList?: string;
+    // value obejct
     openedItem?: GitHubSearchResultItemJSON;
     openedQuery?: GitHubSearchQueryJSON;
-    openedSearchList?: GitHubSearchListJSON;
 }
 
 export class AppUserActivity {
     itemHistory: ActivityHistory;
-    openedStream?: GitHubSearchStream;
+    openedStreamId?: Identifier<GitHubSearchStream>;
+    openedSearchListId?: Identifier<GitHubSearchList>;
+    // value object
     openedItem?: GitHubSearchResultItem;
     openedQuery?: GitHubSearchQuery;
-    openedSearchList?: GitHubSearchList;
 
     constructor(args: AppUserActivityArgs) {
         this.itemHistory = args.itemHistory;
@@ -43,25 +47,25 @@ export class AppUserActivity {
     /**
      * active search is SearchList mode or SearchQuery mode.
      */
-    get activeSearch(): GitHubSearchList | GitHubSearchQuery | undefined {
-        if (this.activeSearchList && !this.activeQuery) {
-            return this.activeSearchList;
+    get activeSearch(): Identifier<GitHubSearchList> | GitHubSearchQuery | undefined {
+        if (this.activeSearchListId && !this.activeQuery) {
+            return this.activeSearchListId;
         } else if (this.activeQuery) {
             return this.activeQuery;
         }
         return;
     }
 
+    get activeSearchListId(): Identifier<GitHubSearchList> | undefined {
+        return this.openedSearchListId;
+    }
+
+    get activeStreamId(): Identifier<GitHubSearchStream> | undefined {
+        return this.openedStreamId;
+    }
+
     get activeQuery(): GitHubSearchQuery | undefined {
         return this.openedQuery;
-    }
-
-    get activeSearchList(): GitHubSearchList | undefined {
-        return this.openedSearchList;
-    }
-
-    get activeStream(): GitHubSearchStream | undefined {
-        return this.openedStream;
     }
 
     get activeItem(): GitHubSearchResultItem | undefined {
@@ -69,26 +73,26 @@ export class AppUserActivity {
     }
 
     activateStream(stream: GitHubSearchStream) {
-        this.openedStream = stream;
+        this.openedStreamId = stream.id;
     }
 
     activateItem(item: GitHubSearchResultItem) {
         this.openedItem = item;
         this.itemHistory.addItem(
             new ActivityHistoryItem({
-                id: item.itemId,
+                id: item.id,
                 timeStamp: Date.now()
             })
         );
     }
 
     activateSearchList(searchList: GitHubSearchList) {
-        this.openedSearchList = searchList;
+        this.openedSearchListId = searchList.id;
         this.openedQuery = undefined;
     }
 
     activateQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
-        this.openedSearchList = searchList;
+        this.openedSearchListId = searchList.id;
         this.openedQuery = query;
     }
 
@@ -97,27 +101,27 @@ export class AppUserActivity {
         return Object.assign(proto, {
             itemHistory: ActivityHistory.fromJSON(json.itemHistory),
             openedStream: json.openedStream
-                ? GitHubSearchStream.fromJSON(json.openedStream)
+                ? new Identifier<GitHubSearchStream>(json.openedStream)
+                : undefined,
+            openedSearchList: json.openedSearchList
+                ? new Identifier<GitHubSearchList>(json.openedSearchList)
                 : undefined,
             openedItem: json.openedItem
                 ? GitHubSearchResultItem.fromJSON(json.openedItem)
                 : undefined,
-            openedQuery: json.openedQuery
-                ? GitHubSearchQuery.fromJSON(json.openedQuery)
-                : undefined,
-            openedSearchList: json.openedSearchList
-                ? GitHubSearchList.fromJSON(json.openedSearchList)
-                : undefined
+            openedQuery: json.openedQuery ? GitHubSearchQuery.fromJSON(json.openedQuery) : undefined
         });
     }
 
     toJSON(): AppUserActivityJSON {
         return {
             itemHistory: this.itemHistory.toJSON(),
-            openedStream: this.openedStream ? this.openedStream.toJSON() : undefined,
+            openedStream: this.openedStreamId ? this.openedStreamId.toValue() : undefined,
             openedItem: this.openedItem ? this.openedItem.toJSON() : undefined,
             openedQuery: this.openedQuery ? this.openedQuery.toJSON() : undefined,
-            openedSearchList: this.openedSearchList ? this.openedSearchList.toJSON() : undefined
+            openedSearchList: this.openedSearchListId
+                ? this.openedSearchListId.toValue()
+                : undefined
         };
     }
 }

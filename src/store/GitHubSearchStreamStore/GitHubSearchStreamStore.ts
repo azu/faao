@@ -9,6 +9,7 @@ import {
     LoadingStartedPayload
 } from "../../use-case/GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 import { ActivityHistory } from "../../domain/App/ActivityHistory";
+import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface GitHubSearchStreamStateObject {
     isLoading: boolean;
@@ -64,10 +65,15 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
     }
 }
 
+export interface GitHubSearchStreamStoreArgs {
+    appRepository: AppRepository;
+    gitHubSearchStreamRepository: GitHubSearchStreamRepository;
+}
+
 export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     state: GitHubSearchStreamState;
 
-    constructor(public appRepository: AppRepository) {
+    constructor(private args: GitHubSearchStreamStoreArgs) {
         super();
         this.state = new GitHubSearchStreamState({
             isLoading: false,
@@ -78,8 +84,13 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
     }
 
     receivePayload(payload: Payload) {
-        const app = this.appRepository.get();
-        const activeStream = app.user.activity.activeStream;
+        const app = this.args.appRepository.get();
+        const activeStreamId = app.user.activity.activeStreamId;
+        if (!activeStreamId) {
+            return this.setState(this.state.reduce(payload));
+        }
+        const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
+        console.log(activeStreamId, activeStream);
         this.setState(
             this.state
                 .update({

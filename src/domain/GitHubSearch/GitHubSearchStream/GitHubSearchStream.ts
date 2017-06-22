@@ -4,8 +4,9 @@ import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSear
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
+import { Identifier } from "../../Entity";
 
-const ulid = require("ulid");
+import ulid from "ulid";
 
 export interface GitHubSearchStreamJSON {
     items: GitHubSearchResultItemJSON[];
@@ -21,14 +22,14 @@ export interface GitHubSearchStreamArgs {
  * It is saved with query.
  */
 export class GitHubSearchStream {
-    id: string;
+    id: Identifier<GitHubSearchStream>;
     filter?: SearchFilter;
     // no filter | no sort item
     items: GitHubSearchResultItem[];
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
-        this.id = ulid();
+        this.id = new Identifier<GitHubSearchStream>(ulid());
         this.items = args.items;
         this.filter = args.filter;
         this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(
@@ -83,6 +84,10 @@ export class GitHubSearchStream {
 
     static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
         return GitHubSearchStreamFactory.createFromStreamJSON(json);
+    }
+
+    equals(entity: GitHubSearchStream): boolean {
+        return this.id.equals(entity.id);
     }
 
     toJSON(): GitHubSearchStreamJSON {

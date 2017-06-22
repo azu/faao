@@ -1,9 +1,11 @@
 // MIT © 2017 azu
 
-import { App } from "../../domain/App/App";
+import { App, AppJSON } from "../../domain/App/App";
 import { AppFactory } from "../../domain/App/AppFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { createStorageInstance } from "./Storage";
+
+const debug = require("debug")("faao:AppRepository");
 
 export class AppRepository extends NonNullableBaseRepository<App> {
     storage: LocalForage;
@@ -20,7 +22,7 @@ export class AppRepository extends NonNullableBaseRepository<App> {
             name: "AppRepository"
         });
         await this.storage.ready();
-        const values: GitHubSettingJSON[] = [];
+        const values: AppJSON[] = [];
         await this.storage.iterate(value => {
             values.push(value);
         });
@@ -28,10 +30,23 @@ export class AppRepository extends NonNullableBaseRepository<App> {
             .map(json => {
                 return App.fromJSON(json);
             })
-            .forEach(gitHubSetting => {
-                this.map.set(gitHubSetting.id.toValue(), gitHubSetting);
+            .forEach(app => {
+                this.map.set(app.id, app);
+                this.lastUsed = app;
             });
         return this;
+    }
+
+    save(entity: App): Promise<void> {
+        super.save(entity);
+        return this.storage.setItem(entity.id, entity.toJSON()).then(() => {
+            debug("Save entity");
+        });
+    }
+
+    clear() {
+        super.clear();
+        return this.storage.clear();
     }
 }
 

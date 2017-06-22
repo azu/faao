@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { Entity, EntityId } from "../../domain/Entity";
+import { Entity, Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
 
 export class NullableBaseRepository<T extends Entity> {
@@ -15,7 +15,7 @@ export class NullableBaseRepository<T extends Entity> {
         return this.lastUsed || this.initialEntity;
     }
 
-    findById(entityId: string | EntityId<T>): T | undefined {
+    findById(entityId: string | Identifier<T>): T | undefined {
         return this.map.get(entityId);
     }
 

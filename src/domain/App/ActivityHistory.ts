@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { EntityId } from "../Entity";
+import { Identifier } from "../Entity";
 
 export interface ActivityHistoryItemJSON {
     id: string;
@@ -8,12 +8,12 @@ export interface ActivityHistoryItemJSON {
 }
 
 export interface ActivityHistoryItemArgs {
-    id: EntityId<GitHubSearchResultItem>;
+    id: Identifier<GitHubSearchResultItem>;
     timeStamp: number;
 }
 
 export class ActivityHistoryItem {
-    id: EntityId<GitHubSearchResultItem>;
+    id: Identifier<GitHubSearchResultItem>;
     timeStamp: number;
 
     constructor(item: ActivityHistoryItemArgs) {
@@ -30,7 +30,7 @@ export class ActivityHistoryItem {
 
     static fromJSON(json: ActivityHistoryItemJSON): ActivityHistoryItem {
         return new ActivityHistoryItem({
-            id: new EntityId<GitHubSearchResultItem>(json.id),
+            id: new Identifier<GitHubSearchResultItem>(json.id),
             timeStamp: json.timeStamp
         });
     }
@@ -61,7 +61,7 @@ export class ActivityHistory {
     }
 
     isRead(aItem: GitHubSearchResultItem): boolean {
-        const matchItem = this.items.find(item => item.id.equals(aItem.itemId));
+        const matchItem = this.items.find(item => item.id.equals(aItem.id));
         if (!matchItem) {
             return false;
         }

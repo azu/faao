@@ -13,10 +13,10 @@ export class AppUserOpenItemUseCase extends UseCase {
         super();
     }
 
-    execute(item: GitHubSearchResultItem) {
+    async execute(item: GitHubSearchResultItem) {
         const app = this.appRepository.get();
         app.user.openItem(item);
-        this.appRepository.save(app);
+        await this.appRepository.save(app);
         return this.context.useCase(new OpenItemInNewTabUseCase()).executor(useCase => {
             return useCase.execute(item.htmlUrl);
         });

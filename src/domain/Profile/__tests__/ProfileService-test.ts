@@ -21,6 +21,7 @@ describe("ProfileService", () => {
             ],
             GitHubSearchLists: [
                 {
+                    id: "id1",
                     name: "SearchList_1",
                     queries: [
                         {
@@ -38,6 +39,7 @@ describe("ProfileService", () => {
                     ]
                 },
                 {
+                    id: "id2",
                     name: "SearchList_2",
                     queries: [
                         {

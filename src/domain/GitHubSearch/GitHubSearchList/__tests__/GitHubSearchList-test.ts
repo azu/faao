@@ -4,6 +4,7 @@ import { GitHubSearchList, GitHubSearchListJSON } from "../GitHubSearchList";
 describe("GitHubSearchList", () => {
     it("json <-> model", () => {
         const json: GitHubSearchListJSON = {
+            id: "id1",
             name: "Queries",
             queries: [
                 {

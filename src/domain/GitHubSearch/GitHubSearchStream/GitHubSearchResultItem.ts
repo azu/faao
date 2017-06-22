@@ -1,4 +1,4 @@
-import { EntityId } from "../../Entity";
+import { Identifier } from "../../Entity";
 
 export interface Owner {
     login: string;
@@ -188,15 +188,14 @@ export interface GitHubSearchResultItemJSON {
 
 const ghUrlToObject = require("github-url-to-object");
 
-export class GitHubSearchResultItem implements GitHubSearchResultItemJSON {
+export class GitHubSearchResultItem {
+    id: Identifier<GitHubSearchResultItem>;
     url: string;
     repositoryUrl: string;
     labelsUrl: string;
     commentsUrl: string;
     eventsUrl: string;
     htmlUrl: string;
-    id: number;
-    itemId: EntityId<GitHubSearchResultItem>;
     number: number;
     title: string;
     user: User;
@@ -215,7 +214,7 @@ export class GitHubSearchResultItem implements GitHubSearchResultItemJSON {
 
     constructor(item: GitHubSearchResultItemJSON) {
         Object.assign(this, item, {
-            itemId: new EntityId<GitHubSearchResultItem>(String(item.id))
+            id: new Identifier<GitHubSearchResultItem>(String(item.id))
         });
     }
 
@@ -270,11 +269,13 @@ export class GitHubSearchResultItem implements GitHubSearchResultItemJSON {
     static fromJSON(json: GitHubSearchResultItemJSON): GitHubSearchResultItem {
         const proto = Object.create(GitHubSearchResultItem.prototype);
         return Object.assign(proto, json, {
-            itemId: new EntityId<GitHubSearchResultItem>(String(json.id))
+            id: new Identifier<GitHubSearchResultItem>(String(json.id))
         });
     }
 
     toJSON(): GitHubSearchResultItemJSON {
-        return Object.assign({}, this);
+        return Object.assign({}, this, {
+            id: Number(this.id.toValue())
+        });
     }
 }

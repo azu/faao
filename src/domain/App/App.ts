@@ -2,7 +2,7 @@
 import { AppUser, AppUserJSON } from "./AppUser";
 import { AppNetwork, AppNetworkStatus } from "./AppNetwork";
 
-const ulid = require("ulid");
+import ulid from "ulid";
 
 export interface AppArgs {
     user: AppUser;
@@ -32,11 +32,19 @@ export class App {
         this.network = status === "online" ? this.network.online() : this.network.offline();
     }
 
-    static fromJSON(json: AppJSON) {
+    static fromJSON(json: AppJSON): App {
         const proto = Object.create(this.prototype);
         return Object.assign(proto, {
             id: json.id,
-            user: AppUser.fromJSON(json.user)
+            user: AppUser.fromJSON(json.user),
+            network: new AppNetwork("offline")
         });
+    }
+
+    toJSON(): AppJSON {
+        return {
+            id: this.id,
+            user: this.user.toJSON()
+        };
     }
 }

@@ -19,12 +19,20 @@ import { MobileStore } from "./Mobile/MobileStore";
 
 export const createStoreMap = () => {
     return {
-        app: new AppStore(appRepository),
+        app: new AppStore({
+            appRepository,
+            gitHubSearchListRepository,
+            gitHubSearchStreamRepository
+        }),
         gitHubSearchList: new GitHubSearchListStore(gitHubSearchListRepository),
-        gitHubSearchStream: new GitHubSearchStreamStore(appRepository),
+        gitHubSearchStream: new GitHubSearchStreamStore({
+            appRepository,
+            gitHubSearchStreamRepository
+        }),
         quickIssue: new QuickIssueStore({
             appRepository,
             gitHubSearchListRepository,
+            gitHubSearchStreamRepository,
             gitHubSettingRepository
         }),
         gitHubSetting: new GitHubSettingStore(gitHubSettingRepository),

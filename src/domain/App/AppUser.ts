@@ -43,4 +43,10 @@ export class AppUser {
             activity: AppUserActivity.fromJSON(json.activity)
         });
     }
+
+    toJSON(): AppUserJSON {
+        return {
+            activity: this.activity.toJSON()
+        };
+    }
 }

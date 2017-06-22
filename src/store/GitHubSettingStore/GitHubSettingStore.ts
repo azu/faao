@@ -6,7 +6,7 @@ import {
     CloseSettingPanelUseCasePayload,
     OpenSettingPanelUseCasePayload
 } from "../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
-import { EntityId } from "../../domain/Entity";
+import { Identifier } from "../../domain/Entity";
 
 export interface GitHubSettingStateObject {
     settings: GitHubSetting[];
@@ -25,7 +25,7 @@ export class GitHubSettingState implements GitHubSettingStateObject {
         this.isOpenSettingPanel = args.isOpenSettingPanel;
     }
 
-    get editingSettingId(): EntityId<GitHubSetting> | undefined {
+    get editingSettingId(): Identifier<GitHubSetting> | undefined {
         if (!this.editingSetting) {
             return undefined;
         }

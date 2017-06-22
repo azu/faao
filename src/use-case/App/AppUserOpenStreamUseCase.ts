@@ -34,6 +34,6 @@ export class AppUserOpenStreamUseCase extends UseCase {
             app.user.openSearchListSelf(query);
         }
         app.user.openStream(stream);
-        this.appRepository.save(app);
+        return this.appRepository.save(app);
     }
 }

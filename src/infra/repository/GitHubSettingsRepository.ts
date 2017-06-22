@@ -1,5 +1,5 @@
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
-import { EntityId } from "../../domain/Entity";
+import { Identifier } from "../../domain/Entity";
 import { createStorageInstance } from "./Storage";
 import { NullableBaseRepository } from "./NullableBaseRepository";
 
@@ -38,7 +38,7 @@ export class GitHubSettingRepository extends NullableBaseRepository<GitHubSettin
         return this.map.values();
     }
 
-    findGitHubSettingById(id: EntityId<GitHubSetting>): GitHubSetting | undefined {
+    findGitHubSettingById(id: Identifier<GitHubSetting>): GitHubSetting | undefined {
         return this.findById(id);
     }
 

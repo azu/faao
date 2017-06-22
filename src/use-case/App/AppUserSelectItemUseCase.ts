@@ -19,10 +19,10 @@ export class AppUserSelectItemUseCase extends UseCase {
         super();
     }
 
-    execute(item: GitHubSearchResultItem) {
+    async execute(item: GitHubSearchResultItem) {
         const app = this.appRepository.get();
         app.user.openItem(item);
-        this.appRepository.save(app);
+        await this.appRepository.save(app);
         if (isElectron()) {
             throttledOpenURLInTab(item.htmlUrl);
         } else {

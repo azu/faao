@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { EntityMap } from "./EntityMap";
-import { Entity, EntityId } from "../../domain/Entity";
+import { Entity, Identifier } from "../../domain/Entity";
 
 /**
  * It disallow that `Repository#get()` return null
@@ -24,7 +24,10 @@ export class NonNullableBaseRepository<T extends Entity> {
         return this.lastUsed || this.initialEntity;
     }
 
-    findById(entityId: string | EntityId<T>): T | undefined {
+    findById(entityId?: string | Identifier<T>): T | undefined {
+        if (!entityId) {
+            return;
+        }
         return this.map.get(entityId);
     }
 

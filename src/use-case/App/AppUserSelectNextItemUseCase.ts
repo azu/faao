@@ -2,21 +2,34 @@
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import { createAppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
+import {
+    gitHubSearchStreamRepository,
+    GitHubSearchStreamRepository
+} from "../../infra/repository/GitHubSearchStreamRepository";
 
 const debug = require("debug")("faao:AppUserOpenNextItemUseCase");
 export const createAppUserSelectNextItemUseCase = () => {
-    return new AppUserSelectNextItemUseCase(appRepository);
+    return new AppUserSelectNextItemUseCase({
+        appRepository,
+        gitHubSearchStreamRepository
+    });
 };
 
 export class AppUserSelectNextItemUseCase extends UseCase {
-    constructor(private appRepository: AppRepository) {
+    constructor(
+        private args: {
+            appRepository: AppRepository;
+            gitHubSearchStreamRepository: GitHubSearchStreamRepository;
+        }
+    ) {
         super();
     }
 
     execute() {
-        const app = this.appRepository.get();
+        const app = this.args.appRepository.get();
         const currentItem = app.user.activity.activeItem;
-        const currentStream = app.user.activity.activeStream;
+        const currentStreamId = app.user.activity.activeStreamId;
+        const currentStream = this.args.gitHubSearchStreamRepository.findById(currentStreamId);
         if (!currentItem || !currentStream) {
             debug("Not found current item or stream");
             return;

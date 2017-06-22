@@ -13,7 +13,8 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
     isRead: boolean;
 
     constructor(item: GitHubSearchResultItem, isRead: boolean) {
-        super(item);
+        // TODO: perf slow
+        super(item.toJSON());
         this.isRead = isRead;
     }
 
