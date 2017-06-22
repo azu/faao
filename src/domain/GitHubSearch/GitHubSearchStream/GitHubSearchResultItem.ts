@@ -263,7 +263,7 @@ export class GitHubSearchResultItem {
         if (!item) {
             return false;
         }
-        return this.id === item.id;
+        return this.id.equals(item.id);
     }
 
     static fromJSON(json: GitHubSearchResultItemJSON): GitHubSearchResultItem {

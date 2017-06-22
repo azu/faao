@@ -18,7 +18,7 @@ export interface GitHubSettingContainerProps {
 
 export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainerProps, {}> {
     onClickSetting = (event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        console.log(event, setting);
+        console.info(event, setting);
     };
 
     onEditSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {

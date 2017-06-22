@@ -90,7 +90,6 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
             return this.setState(this.state.reduce(payload));
         }
         const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
-        console.log(activeStreamId, activeStream);
         this.setState(
             this.state
                 .update({

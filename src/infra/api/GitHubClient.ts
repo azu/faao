@@ -90,7 +90,7 @@ export class GitHubClient {
 
     user() {
         return this.gh.fromUrl("/user").fetch().then((response: any) => {
-            console.log(response);
+            console.info(response);
         });
     }
 

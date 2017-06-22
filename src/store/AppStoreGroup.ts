@@ -71,7 +71,7 @@ export const debuggable = () => {
             },
             async debugOn() {
                 await storageManger.useMemoryDriver();
-                console.log("use memory driver for storage");
+                console.info("use memory driver for storage");
             },
             async debugOff() {
                 return storageManger.resetDriver();
