@@ -50,8 +50,4 @@ export class AppRepository extends NonNullableBaseRepository<App> {
     }
 }
 
-export const appRepository = new AppRepository(
-    AppFactory.create({
-        itemHistoryItems: []
-    })
-);
+export const appRepository = new AppRepository(AppFactory.create());
