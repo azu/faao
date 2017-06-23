@@ -25,9 +25,9 @@ export interface AppUserActivityArgs {
 export interface AppUserActivityJSON {
     itemHistory: ActivityHistoryJSON;
     // entity
-    openedStream?: string;
-    openedSearchList?: string;
-    // value obejct
+    openedStreamId?: string;
+    openedSearchListId?: string;
+    // value object
     openedItem?: GitHubSearchResultItemJSON;
     openedQuery?: GitHubSearchQueryJSON;
 }
@@ -100,11 +100,11 @@ export class AppUserActivity {
         const proto = Object.create(AppUserActivity.prototype);
         return Object.assign(proto, {
             itemHistory: ActivityHistory.fromJSON(json.itemHistory),
-            openedStream: json.openedStream
-                ? new Identifier<GitHubSearchStream>(json.openedStream)
+            openedStreamId: json.openedStreamId
+                ? new Identifier<GitHubSearchStream>(json.openedStreamId)
                 : undefined,
-            openedSearchList: json.openedSearchList
-                ? new Identifier<GitHubSearchList>(json.openedSearchList)
+            openedSearchListId: json.openedSearchListId
+                ? new Identifier<GitHubSearchList>(json.openedSearchListId)
                 : undefined,
             openedItem: json.openedItem
                 ? GitHubSearchResultItem.fromJSON(json.openedItem)
@@ -116,12 +116,12 @@ export class AppUserActivity {
     toJSON(): AppUserActivityJSON {
         return {
             itemHistory: this.itemHistory.toJSON(),
-            openedStream: this.openedStreamId ? this.openedStreamId.toValue() : undefined,
-            openedItem: this.openedItem ? this.openedItem.toJSON() : undefined,
-            openedQuery: this.openedQuery ? this.openedQuery.toJSON() : undefined,
-            openedSearchList: this.openedSearchListId
+            openedStreamId: this.openedStreamId ? this.openedStreamId.toValue() : undefined,
+            openedSearchListId: this.openedSearchListId
                 ? this.openedSearchListId.toValue()
-                : undefined
+                : undefined,
+            openedItem: this.openedItem ? this.openedItem.toJSON() : undefined,
+            openedQuery: this.openedQuery ? this.openedQuery.toJSON() : undefined
         };
     }
 }

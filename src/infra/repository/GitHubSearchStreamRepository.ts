@@ -9,11 +9,13 @@ import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
+import { EntityMap } from "./EntityMap";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
 export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitHubSearchStream> {
     storage: LocalForage;
+    map = new EntityMap<GitHubSearchStream>();
 
     async ready() {
         if (this.map.size > 0) {
@@ -40,7 +42,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         if (!gitHubSearchStreamId) {
             return;
         }
-        return this.map.values().find(entity => entity.id.equals(gitHubSearchStreamId));
+        return this.map.values().find(entity => gitHubSearchStreamId.equals(entity.id));
     }
 
     findByQuery(query: GitHubSearchQuery): GitHubSearchStream | undefined {

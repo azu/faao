@@ -17,20 +17,20 @@ describe("App", () => {
                             {
                                 id: "237433612",
                                 timeStamp: 1498139553875
-                            },
-                            { id: "237433612", timeStamp: 1498139555219 }
+                            }
                         ]
                     },
+                    openedStreamId: "01BK9992CN8HBNXM6PVKFWNGGR",
                     openedItem: {
-                        url: "https://api.github.com/repos/azu/faao/issues/42",
+                        url: "https://api.github.com/repos/azu/faao/issues/43",
                         repositoryUrl: "https://api.github.com/repos/azu/faao",
-                        labelsUrl: "https://api.github.com/repos/azu/faao/issues/42/labels{/name}",
-                        commentsUrl: "https://api.github.com/repos/azu/faao/issues/42/comments",
-                        eventsUrl: "https://api.github.com/repos/azu/faao/issues/42/events",
-                        htmlUrl: "https://github.com/azu/faao/issues/42",
-                        id: 237433612,
-                        number: 42,
-                        title: "Prevent link",
+                        labelsUrl: "https://api.github.com/repos/azu/faao/issues/43/labels{/name}",
+                        commentsUrl: "https://api.github.com/repos/azu/faao/issues/43/comments",
+                        eventsUrl: "https://api.github.com/repos/azu/faao/issues/43/events",
+                        htmlUrl: "https://github.com/azu/faao/issues/43",
+                        id: 238015343,
+                        number: 43,
+                        title: 'almin-logger: loud "Currently executing UseCases" log',
                         user: {
                             login: "azu",
                             id: 19714,
@@ -50,20 +50,29 @@ describe("App", () => {
                             type: "User",
                             siteAdmin: false
                         },
-                        labels: [],
+                        labels: [
+                            {
+                                id: 617235143,
+                                url: "https://api.github.com/repos/azu/faao/labels/Type:%20Bug",
+                                name: "Type: Bug",
+                                color: "ee0701",
+                                default: false
+                            }
+                        ],
                         state: "open",
                         locked: false,
                         assignee: null,
                         assignees: [],
                         milestone: null,
                         comments: 0,
-                        createdAt: "2017-06-21T07:01:04Z",
-                        updatedAt: "2017-06-21T07:01:04Z",
+                        createdAt: "2017-06-23T01:18:21Z",
+                        updatedAt: "2017-06-23T01:18:21Z",
                         closedAt: null,
                         body:
-                            "Prevent link transion in the window.\r\nAlways open in default browser.",
+                            'It seems that "Currently executing UseCases" is loudness.\r\n\r\nhttps://github.com/almin/almin/blob/2675d7c127479995ff36f1ee1ed232f785dbf34b/packages/almin-logger/src/AsyncLogger.js#L133\r\n\r\nIt will be logged at once during stores.',
                         score: 1
                     },
+                    openedSearchListId: "GitHubSearchList0",
                     openedQuery: {
                         name: "Faao",
                         query: "repo:azu/faao",

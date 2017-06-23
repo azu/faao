@@ -2,17 +2,16 @@
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
-import { GitHubSearchStreamFactory } from "./GitHubSearchStreamFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 import { Identifier } from "../../Entity";
 
-import ulid from "ulid";
-
 export interface GitHubSearchStreamJSON {
+    id: string;
     items: GitHubSearchResultItemJSON[];
 }
 
 export interface GitHubSearchStreamArgs {
+    id: Identifier<GitHubSearchStream>;
     items: GitHubSearchResultItem[];
     filter?: SearchFilter;
 }
@@ -29,7 +28,7 @@ export class GitHubSearchStream {
     itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
-        this.id = new Identifier<GitHubSearchStream>(ulid());
+        this.id = args.id;
         this.items = args.items;
         this.filter = args.filter;
         this.itemSortedCollection = new GitHubSearchResultItemSortedCollection(
@@ -82,16 +81,22 @@ export class GitHubSearchStream {
         this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
     }
 
-    static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
-        return GitHubSearchStreamFactory.createFromStreamJSON(json);
-    }
-
     equals(entity: GitHubSearchStream): boolean {
         return this.id.equals(entity.id);
     }
 
+    static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
+        return new GitHubSearchStream({
+            id: new Identifier<GitHubSearchStream>(json.id),
+            items: json.items.map(rawItem => {
+                return GitHubSearchResultItem.fromJSON(rawItem);
+            })
+        });
+    }
+
     toJSON(): GitHubSearchStreamJSON {
         return {
+            id: this.id.toValue(),
             items: this.itemSortedCollection.items.map(item => {
                 return item.toJSON();
             })

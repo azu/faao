@@ -32,6 +32,7 @@ describe("GitHubSearchStreamRepository", () => {
         test("when exist stream json for query, it should return stream json", async () => {
             const searchResultJSON = require("./search_result.json");
             const streamJSON = {
+                id: "stream1",
                 items: searchResultJSON.items
             };
             const stream = GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);

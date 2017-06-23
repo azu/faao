@@ -7,6 +7,7 @@ import {
     OpenSettingPanelUseCasePayload
 } from "../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { Identifier } from "../../domain/Entity";
+import { shallowEqual } from "shallow-equal-object";
 
 export interface GitHubSettingStateObject {
     settings: GitHubSetting[];
@@ -33,6 +34,9 @@ export class GitHubSettingState implements GitHubSettingStateObject {
     }
 
     update(settings: GitHubSetting[]) {
+        if (shallowEqual(this.settings, settings)) {
+            return this;
+        }
         return new GitHubSettingState({
             ...this as GitHubSettingStateObject,
             settings: settings
