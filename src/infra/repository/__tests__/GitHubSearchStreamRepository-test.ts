@@ -4,7 +4,7 @@ import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearch/GitHubSe
 import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchQueryColor } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryColor";
 import localForage from "localforage";
-import { EntityId } from "../../../domain/Entity";
+import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { storageManger } from "../Storage";
 
@@ -24,7 +24,7 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
+                gitHubSettingId: new Identifier<GitHubSetting>("test@github.com")
             });
             const result = repository.findByQuery(testQuery);
             expect(result).toBeUndefined();
@@ -32,6 +32,7 @@ describe("GitHubSearchStreamRepository", () => {
         test("when exist stream json for query, it should return stream json", async () => {
             const searchResultJSON = require("./search_result.json");
             const streamJSON = {
+                id: "stream1",
                 items: searchResultJSON.items
             };
             const stream = GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
@@ -41,7 +42,7 @@ describe("GitHubSearchStreamRepository", () => {
                 name: "test",
                 query: "test",
                 color: new GitHubSearchQueryColor("#000000"),
-                gitHubSettingId: new EntityId<GitHubSetting>("test@github.com")
+                gitHubSettingId: new Identifier<GitHubSetting>("test@github.com")
             });
             await repository.saveWithQuery(stream, testQuery);
             const resultStream = repository.findByQuery(testQuery);

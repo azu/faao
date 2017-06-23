@@ -6,6 +6,7 @@ import {
     SearchQueryErrorNotice
 } from "../../domain/Notice/SearchQueryErrorNotice";
 import { GenericErrorNotice, isGenericErrorNotice } from "../../domain/Notice/GenericErrorNotice";
+import { shallowEqual } from "shallow-equal-object";
 
 export interface NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
@@ -38,6 +39,13 @@ export class NoticeState implements NoticeStateArgs {
     }
 
     update(args: NoticeStateArgs) {
+        if (
+            shallowEqual(this.genericErrorNotices, args.genericErrorNotices) &&
+            shallowEqual(this.searchQueryErrorNotices, args.searchQueryErrorNotices)
+        ) {
+            return this;
+        }
+
         return new NoticeState({
             ...this as NoticeState,
             ...args

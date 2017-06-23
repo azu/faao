@@ -3,9 +3,10 @@ import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
-import { AppUserActivity } from "../../domain/App/AppUserActivity";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
+import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface AppStateArgs {
     activeStream?: GitHubSearchStream;
@@ -27,28 +28,47 @@ export class AppState implements AppStateArgs {
         this.activeSearchList = args.activeSearchList;
     }
 
-    update(activity: AppUserActivity) {
+    update({ activeStream, activeItem, activeQuery, activeSearchList }: AppStateArgs) {
         return new AppState({
             ...this as AppState,
-            activeStream: activity.activeStream,
-            activeItem: activity.activeItem,
-            activeQuery: activity.activeQuery,
-            activeSearchList: activity.activeSearchList
+            activeStream: activeStream,
+            activeItem: activeItem,
+            activeQuery: activeQuery,
+            activeSearchList: activeSearchList
         });
     }
+}
+
+export interface AppStoreArgs {
+    appRepository: AppRepository;
+    gitHubSearchListRepository: GitHubSearchListRepository;
+    gitHubSearchStreamRepository: GitHubSearchStreamRepository;
 }
 
 export class AppStore extends Store<AppState> {
     state: AppState;
 
-    constructor(public appRepository: AppRepository) {
+    constructor(private args: AppStoreArgs) {
         super();
         this.state = new AppState({});
     }
 
     receivePayload() {
-        const appRepository = this.appRepository.get();
-        const newState = this.state.update(appRepository.user.activity);
+        const appRepository = this.args.appRepository.get();
+        const {
+            activeQuery,
+            activeItem,
+            activeSearchListId,
+            activeStreamId
+        } = appRepository.user.activity;
+        const activeSearchList = this.args.gitHubSearchListRepository.findById(activeSearchListId);
+        const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
+        const newState = this.state.update({
+            activeItem,
+            activeQuery,
+            activeSearchList,
+            activeStream
+        });
         this.setState(newState);
     }
 

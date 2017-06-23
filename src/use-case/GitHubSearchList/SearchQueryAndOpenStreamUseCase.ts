@@ -45,7 +45,6 @@ export class SearchQueryAndOpenStreamUseCase extends SearchGitHubAbstractUseCase
         await this.context
             .useCase(createAppUserSelectFirstItemUseCase())
             .executor(useCase => useCase.execute());
-        console.log(stream);
         return this.context
             .useCase(createSearchGitHubAbstractUseCase())
             .executor(useCase => {

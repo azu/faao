@@ -1,7 +1,8 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
-import { EntityId } from "../../Entity";
+import { Identifier } from "../../Entity";
+import ulid from "ulid";
 
 const execall = require("execall");
 
@@ -16,20 +17,22 @@ export interface GitHubSearchQueryArgs {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
-    gitHubSettingId: EntityId<GitHubSetting>;
+    gitHubSettingId: Identifier<GitHubSetting>;
 }
 
 export class GitHubSearchQuery {
+    id: Identifier<GitHubSearchQuery>;
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
-    gitHubSettingId: EntityId<GitHubSetting>;
+    gitHubSettingId: Identifier<GitHubSetting>;
 
     static isQuery(v: any): v is GitHubSearchQuery {
         return v instanceof this;
     }
 
     constructor(object: GitHubSearchQueryArgs) {
+        this.id = new Identifier<GitHubSearchQuery>(ulid());
         this.name = object.name;
         this.query = object.query;
         this.color = object.color;
@@ -68,7 +71,7 @@ export class GitHubSearchQuery {
         const setting = Object.create(GitHubSearchQuery.prototype);
         return Object.assign(setting, json, {
             color: GitHubSearchQueryColor.createFromHexCode(json.color),
-            gitHubSettingId: new EntityId<GitHubSetting>(json.gitHubSettingId)
+            gitHubSettingId: new Identifier<GitHubSetting>(json.gitHubSettingId)
         });
     }
 

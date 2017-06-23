@@ -4,39 +4,59 @@ import { AppRepository, appRepository } from "../../infra/repository/AppReposito
 import { createSearchGitHubAbstractUseCase } from "../GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { createSearchQueriesAndUpdateStreamUseCase } from "../GitHubSearchList/SearchQueriesAndUpdateStreamUseCase";
+import {
+    gitHubSearchStreamRepository,
+    GitHubSearchStreamRepository
+} from "../../infra/repository/GitHubSearchStreamRepository";
+import {
+    gitHubSearchListRepository,
+    GitHubSearchListRepository
+} from "../../infra/repository/GitHubSearchListRepository";
 
 export const createReloadActiveStreamUseCase = () => {
-    return new ReloadActiveStreamUseCase(appRepository);
+    return new ReloadActiveStreamUseCase(
+        appRepository,
+        gitHubSearchStreamRepository,
+        gitHubSearchListRepository
+    );
 };
 
 export class ReloadActiveStreamUseCase extends UseCase {
-    constructor(public appRepository: AppRepository) {
+    constructor(
+        private appRepository: AppRepository,
+        private gitHubSearchStreamRepository: GitHubSearchStreamRepository,
+        private gitHubSearchListRepository: GitHubSearchListRepository
+    ) {
         super();
     }
 
     async execute() {
         const app = this.appRepository.get();
-        const activeSearch = app.user.activity.activeSearch;
-        const activeStream = app.user.activity.activeStream;
+        const activeSearchListId = app.user.activity.activeSearchListId;
+        const activeQuery = app.user.activity.activeQuery;
+        const activeStreamId = app.user.activity.activeStreamId;
+        const activeStream = this.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!activeStream) {
             return;
         }
-        if (activeSearch instanceof GitHubSearchList) {
+        if (activeSearchListId) {
+            const searchList = this.gitHubSearchListRepository.findById(activeSearchListId);
+            if (!searchList) {
+                return;
+            }
             return this.context
                 .useCase(createSearchQueriesAndUpdateStreamUseCase())
-                .executor(useCase => useCase.execute(activeSearch));
-        } else if (activeSearch instanceof GitHubSearchQuery) {
+                .executor(useCase => useCase.execute(searchList));
+        } else if (activeQuery) {
             return this.context
                 .useCase(createSearchGitHubAbstractUseCase())
                 .executor(useCase => {
-                    return useCase.execute(activeSearch, activeStream);
+                    return useCase.execute(activeQuery, activeStream);
                 })
                 .catch((error: Error) => {
                     const notice = new SearchQueryErrorNotice({
-                        query: activeSearch,
+                        query: activeQuery,
                         error
                     });
                     return this.context

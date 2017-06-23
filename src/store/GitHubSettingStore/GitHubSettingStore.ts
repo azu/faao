@@ -6,7 +6,8 @@ import {
     CloseSettingPanelUseCasePayload,
     OpenSettingPanelUseCasePayload
 } from "../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
-import { EntityId } from "../../domain/Entity";
+import { Identifier } from "../../domain/Entity";
+import { shallowEqual } from "shallow-equal-object";
 
 export interface GitHubSettingStateObject {
     settings: GitHubSetting[];
@@ -25,7 +26,7 @@ export class GitHubSettingState implements GitHubSettingStateObject {
         this.isOpenSettingPanel = args.isOpenSettingPanel;
     }
 
-    get editingSettingId(): EntityId<GitHubSetting> | undefined {
+    get editingSettingId(): Identifier<GitHubSetting> | undefined {
         if (!this.editingSetting) {
             return undefined;
         }
@@ -33,6 +34,9 @@ export class GitHubSettingState implements GitHubSettingStateObject {
     }
 
     update(settings: GitHubSetting[]) {
+        if (shallowEqual(this.settings, settings)) {
+            return this;
+        }
         return new GitHubSettingState({
             ...this as GitHubSettingStateObject,
             settings: settings

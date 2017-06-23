@@ -1,10 +1,14 @@
 // MIT © 2017 azu
 
-import { AppUserActivity } from "./AppUserActivity";
+import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+
+export interface AppUserJSON {
+    activity: AppUserActivityJSON;
+}
 
 export interface AppUserArgs {
     activity: AppUserActivity;
@@ -31,5 +35,18 @@ export class AppUser {
 
     openQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
         this.activity.activateQuery(searchList, query);
+    }
+
+    static fromJSON(json: AppUserJSON): AppUser {
+        const proto = Object.create(this.prototype);
+        return Object.assign(proto, {
+            activity: AppUserActivity.fromJSON(json.activity)
+        });
+    }
+
+    toJSON(): AppUserJSON {
+        return {
+            activity: this.activity.toJSON()
+        };
     }
 }

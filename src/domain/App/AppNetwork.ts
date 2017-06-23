@@ -1,4 +1,6 @@
 // MIT © 2017 azu
+export interface AppNetworkJSON {}
+
 export type AppNetworkStatus = "online" | "offline";
 
 export class AppNetwork {

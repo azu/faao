@@ -11,7 +11,7 @@
     background-color: #fff;
     height: 100%;
     will-change: width;
-    transition: width 0.1s ease-in-out;
+    transition: width 0.2s cubic-bezier(0, 0, 0, 1.01);
     width: var(--electron-nav--width);
     /* flex */
     display: flex;

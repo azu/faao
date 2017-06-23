@@ -1,9 +1,9 @@
 // MIT © 2017 azu
 import * as React from "react";
+import { SyntheticEvent } from "react";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { SearchQueryList } from "../../../project/SearchQueryList/SearchQueryList";
 import { GitHubSearchQuery } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { SyntheticEvent } from "react";
 import { BaseContainer } from "../../BaseContainer";
 import { createSearchQueryAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueryAndOpenStreamUseCase";
 import classNames from "classnames";
@@ -70,7 +70,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
         const searchQueryList = this.props.gitHubSearchList.searchLists.map(searchList => {
             return (
                 <SearchQueryList
-                    key={searchList.id}
+                    key={searchList.id.toValue()}
                     searchList={searchList}
                     activeSearchList={this.props.app.activeSearchList}
                     activeQuery={this.props.app.activeQuery}

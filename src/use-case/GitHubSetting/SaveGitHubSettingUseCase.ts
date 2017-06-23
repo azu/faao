@@ -5,7 +5,7 @@ import {
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
-import { EntityId } from "../../domain/Entity";
+import { Identifier } from "../../domain/Entity";
 import { GitHubClient } from "../../infra/api/GitHubClient";
 
 export const createSaveGitHubSettingUseCase = () => {
@@ -20,7 +20,7 @@ export class SaveGitHubSettingUseCase extends UseCase {
         super();
     }
 
-    async execute(settingJSON: GitHubSettingJSON, id?: EntityId<GitHubSetting>) {
+    async execute(settingJSON: GitHubSettingJSON, id?: Identifier<GitHubSetting>) {
         const setting = GitHubSetting.fromJSON(settingJSON);
         const gitHub = new GitHubClient(setting);
         try {

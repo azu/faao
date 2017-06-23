@@ -2,22 +2,35 @@
 import { UseCase } from "almin";
 import { createAppUserSelectItemUseCase } from "./AppUserSelectItemUseCase";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import {
+    gitHubSearchStreamRepository,
+    GitHubSearchStreamRepository
+} from "../../infra/repository/GitHubSearchStreamRepository";
 
 export const createAppUserSelectFirstItemUseCase = () => {
-    return new AppUserSelectFirstItemUseCase(appRepository);
+    return new AppUserSelectFirstItemUseCase({
+        appRepository,
+        gitHubSearchStreamRepository
+    });
 };
 
 /**
  * AppUser select first item in the current stream.
  */
 export class AppUserSelectFirstItemUseCase extends UseCase {
-    constructor(public appRepository: AppRepository) {
+    constructor(
+        private args: {
+            appRepository: AppRepository;
+            gitHubSearchStreamRepository: GitHubSearchStreamRepository;
+        }
+    ) {
         super();
     }
 
     execute() {
-        const app = this.appRepository.get();
-        const currentStream = app.user.activity.activeStream;
+        const app = this.args.appRepository.get();
+        const activeStreamId = app.user.activity.activeStreamId;
+        const currentStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!currentStream) {
             return;
         }

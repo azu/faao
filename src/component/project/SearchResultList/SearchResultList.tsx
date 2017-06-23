@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { List } from "office-ui-fabric-react";
 import { SyntheticEvent } from "react";
+import { List } from "office-ui-fabric-react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
@@ -66,7 +66,8 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
         const className = suitcssClassnames({
             component: "SearchResultListItem",
             states: {
-                "is-active": this.props.isActive
+                "is-active": this.props.isActive,
+                "is-unread": !this.props.item.isRead
             }
         });
 

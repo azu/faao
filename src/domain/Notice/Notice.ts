@@ -1,8 +1,9 @@
 // MIT © 2017 azu
-import { GenericErrorNotice, isGenericErrorNotice } from "./GenericErrorNotice";
-import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "./SearchQueryErrorNotice";
+import { GenericErrorNotice } from "./GenericErrorNotice";
+import { SearchQueryErrorNotice } from "./SearchQueryErrorNotice";
 
-const ulid = require("ulid");
+import ulid from "ulid";
+
 export type Notice = AbstractNotice | GenericErrorNotice | SearchQueryErrorNotice;
 
 export abstract class AbstractNotice {

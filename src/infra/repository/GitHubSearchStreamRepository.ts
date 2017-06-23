@@ -8,11 +8,14 @@ import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/Gi
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { createStorageInstance } from "./Storage";
+import { Identifier } from "../../domain/Entity";
+import { EntityMap } from "./EntityMap";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
 export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitHubSearchStream> {
     storage: LocalForage;
+    map = new EntityMap<GitHubSearchStream>();
 
     async ready() {
         if (this.map.size > 0) {
@@ -33,13 +36,22 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         return this;
     }
 
+    findById(
+        gitHubSearchStreamId?: Identifier<GitHubSearchStream>
+    ): GitHubSearchStream | undefined {
+        if (!gitHubSearchStreamId) {
+            return;
+        }
+        return this.map.values().find(entity => gitHubSearchStreamId.equals(entity.id));
+    }
+
     findByQuery(query: GitHubSearchQuery): GitHubSearchStream | undefined {
         const hash = query.hash;
         return this.map.get(hash);
     }
 
     findBySearchList(searchList: GitHubSearchList): GitHubSearchStream | undefined {
-        return this.map.get(searchList.id);
+        return this.map.get(searchList.id.toValue());
     }
 
     save(_stream: GitHubSearchStream) {
@@ -55,8 +67,8 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     }
 
     saveWithSearchList(stream: GitHubSearchStream, searchList: GitHubSearchList): Promise<void> {
-        this.map.set(searchList.id, stream);
-        return this.storage.setItem(searchList.id, stream.toJSON()).then(() => {
+        this.map.set(searchList.id.toValue(), stream);
+        return this.storage.setItem(searchList.id.toValue(), stream.toJSON()).then(() => {
             debug("Save stream");
         });
     }

@@ -1,27 +1,26 @@
 // MIT © 2017 azu
-const ulid = require("ulid");
 
 export interface Entity {
-    id: string | EntityId<any>;
+    id: string | Identifier<any>;
 }
 
 /**
  * ## example
  *
- * type id = EntityId<GitHubSetting>
+ * type id = Identifier<GitHubSetting>
  */
-export class EntityId<Entity> {
-    entity?: Entity;
+export class Identifier<T> {
+    entity?: T;
 
-    constructor(private value?: string) {
-        this.value = value || ulid();
+    constructor(private value: string) {
+        this.value = value;
     }
 
-    equals(id: EntityId<Entity>): boolean {
+    equals(id: Identifier<T>): boolean {
         if (id === null) {
             return false;
         }
-        if (!(id instanceof EntityId)) {
+        if (!(id instanceof Identifier)) {
             return false;
         }
         return id.toValue() === this.value;

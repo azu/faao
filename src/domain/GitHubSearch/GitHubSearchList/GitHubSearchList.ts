@@ -1,9 +1,11 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 
-const ulid = require("ulid");
+import ulid from "ulid";
+import { Identifier } from "../../Entity";
 
 export interface GitHubSearchListJSON {
+    id: string;
     name: string;
     queries: GitHubSearchQueryJSON[];
 }
@@ -14,12 +16,12 @@ export interface GitHubSearchListArgs {
 }
 
 export class GitHubSearchList {
-    id: string;
+    id: Identifier<GitHubSearchList>;
     name: string;
     queries: GitHubSearchQuery[];
 
     constructor(args: GitHubSearchListArgs) {
-        this.id = ulid();
+        this.id = new Identifier<GitHubSearchList>(ulid());
         this.name = args.name;
         this.queries = args.queries;
     }
@@ -27,12 +29,14 @@ export class GitHubSearchList {
     static fromJSON(json: GitHubSearchListJSON) {
         const list = Object.create(GitHubSearchList.prototype);
         return Object.assign(list, json, {
+            id: new Identifier<GitHubSearchList>(json.id),
             queries: json.queries.map(query => GitHubSearchQuery.fromJSON(query))
         });
     }
 
     toJSON(): GitHubSearchListJSON {
         return Object.assign({}, this, {
+            id: this.id.toValue(),
             queries: this.queries.map(query => query.toJSON())
         });
     }

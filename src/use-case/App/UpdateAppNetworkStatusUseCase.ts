@@ -15,6 +15,6 @@ export class UpdateAppNetworkStatusUseCase extends UseCase {
     execute(networkStatus: AppNetworkStatus) {
         const app = this.appRepository.get();
         app.updateNetworkStatus(networkStatus);
-        this.appRepository.save(app);
+        return this.appRepository.save(app);
     }
 }

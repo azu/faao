@@ -24,7 +24,11 @@ export class ApplyFilterToStreamUseCase extends UseCase {
     execute(filterWord: string) {
         const app = this.appRepository.get();
         const activeSearch = app.user.activity.activeSearch;
-        const activeStream = app.user.activity.activeStream;
+        const activeStreamId = app.user.activity.activeStreamId;
+        if (!activeStreamId) {
+            return;
+        }
+        const activeStream = this.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!activeStream) {
             return;
         }

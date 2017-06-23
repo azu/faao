@@ -45,14 +45,15 @@ export class ReadyToAppUseCase extends UseCase {
     }
 
     async execute() {
-        const networkStatus: AppNetworkStatus = typeof navigator !== "undefined"
-            ? navigator.onLine ? "online" : "offline"
-            : "online";
-        await this.context
-            .useCase(createUpdateAppNetworkStatusUseCase())
-            .executor(useCase => useCase.execute(networkStatus));
+        await this.args.appRepository.ready();
         await this.args.gitHubSettingRepository.ready();
         await this.args.gitHubSearchListRepository.ready();
         await this.args.gitHubSearchStreamRepository.ready();
+        const networkStatus: AppNetworkStatus = typeof navigator !== "undefined"
+            ? navigator.onLine ? "online" : "offline"
+            : "online";
+        return this.context
+            .useCase(createUpdateAppNetworkStatusUseCase())
+            .executor(useCase => useCase.execute(networkStatus));
     }
 }

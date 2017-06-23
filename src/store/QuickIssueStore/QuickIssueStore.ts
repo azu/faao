@@ -7,11 +7,12 @@ import urlJoin from "url-join";
 import { OpenQuickIssueUseCasePayload } from "../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQuickIssueUseCase";
 import uniqBy from "lodash.uniqby";
-import { EntityId } from "../../domain/Entity";
+import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;
@@ -37,7 +38,7 @@ export class QuickIssueState implements QuickIssueStateObject {
     }
 
     get newIssueURLs(): string[] {
-        const getSetting = (id: EntityId<GitHubSetting>): GitHubSetting | undefined => {
+        const getSetting = (id: Identifier<GitHubSetting>): GitHubSetting | undefined => {
             return this.settings.find(setting => setting.id.equals(id));
         };
         // create issue list
@@ -106,12 +107,13 @@ export interface QuickIssueStoreArgs {
     appRepository: AppRepository;
     gitHubSearchListRepository: GitHubSearchListRepository;
     gitHubSettingRepository: GitHubSettingRepository;
+    gitHubSearchStreamRepository: GitHubSearchStreamRepository;
 }
 
 export class QuickIssueStore extends Store<QuickIssueState> {
     state: QuickIssueState;
 
-    constructor(public repositories: QuickIssueStoreArgs) {
+    constructor(private args: QuickIssueStoreArgs) {
         super();
         this.state = new QuickIssueState({
             gitHubSearchLists: [],
@@ -121,17 +123,17 @@ export class QuickIssueStore extends Store<QuickIssueState> {
     }
 
     receivePayload(payload: Payload) {
-        const app = this.repositories.appRepository.get();
+        const app = this.args.appRepository.get();
         const activeItem = app.user.activity.activeItem;
         const activeQuery = app.user.activity.activeQuery;
-        const gitHubSearchLists = this.repositories.gitHubSearchListRepository.findAll();
-        const settings = this.repositories.gitHubSettingRepository.findAll();
+        const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
+        const settings = this.args.gitHubSettingRepository.findAll();
         this.setState(
             this.state.reduce(payload).update({
                 gitHubSearchLists,
                 settings,
-                activeItem,
-                activeQuery
+                activeItem: activeItem,
+                activeQuery: activeQuery
             })
         );
     }

@@ -1,3 +1,5 @@
+import { Identifier } from "../../Entity";
+
 export interface Owner {
     login: string;
     id: number;
@@ -159,7 +161,7 @@ export interface Repository {
 
 // parse string
 // camelCase
-export interface Item {
+export interface GitHubSearchResultItemJSON {
     url: string;
     repositoryUrl: string;
     labelsUrl: string;
@@ -186,14 +188,14 @@ export interface Item {
 
 const ghUrlToObject = require("github-url-to-object");
 
-export class GitHubSearchResultItem implements Item {
+export class GitHubSearchResultItem {
+    id: Identifier<GitHubSearchResultItem>;
     url: string;
     repositoryUrl: string;
     labelsUrl: string;
     commentsUrl: string;
     eventsUrl: string;
     htmlUrl: string;
-    id: number;
     number: number;
     title: string;
     user: User;
@@ -210,8 +212,10 @@ export class GitHubSearchResultItem implements Item {
     body: string;
     score: number;
 
-    constructor(item: Item) {
-        Object.assign(this, item);
+    constructor(item: GitHubSearchResultItemJSON) {
+        Object.assign(this, item, {
+            id: new Identifier<GitHubSearchResultItem>(String(item.id))
+        });
     }
 
     get createdAtDate() {
@@ -259,10 +263,19 @@ export class GitHubSearchResultItem implements Item {
         if (!item) {
             return false;
         }
-        return this.id === item.id;
+        return this.id.equals(item.id);
     }
 
-    toJSON(): Item {
-        return Object.assign({}, this);
+    static fromJSON(json: GitHubSearchResultItemJSON): GitHubSearchResultItem {
+        const proto = Object.create(GitHubSearchResultItem.prototype);
+        return Object.assign(proto, json, {
+            id: new Identifier<GitHubSearchResultItem>(String(json.id))
+        });
+    }
+
+    toJSON(): GitHubSearchResultItemJSON {
+        return Object.assign({}, this, {
+            id: Number(this.id.toValue())
+        });
     }
 }

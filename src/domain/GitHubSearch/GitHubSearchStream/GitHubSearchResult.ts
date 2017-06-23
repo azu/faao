@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem, Item } from "./GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 
 export interface GitHubSearchResultJSON {
     items: GitHubSearchResultItem[];

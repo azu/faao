@@ -1,14 +1,13 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import uniqBy from "lodash.uniqby";
-import { SearchFilterItem } from "./SearchFilter/SearchFilterItem";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
     readonly items: T[];
 
     constructor(items: T[]) {
-        this.items = uniqBy(items, "id");
+        this.items = uniqBy(items, item => item.id.toValue());
     }
 
     filterBySearchFilter(filter: SearchFilter) {
