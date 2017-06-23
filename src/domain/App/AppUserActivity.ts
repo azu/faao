@@ -78,7 +78,7 @@ export class AppUserActivity {
 
     activateItem(item: GitHubSearchResultItem) {
         this.openedItem = item;
-        this.itemHistory.addItem(
+        this.itemHistory.readItem(
             new ActivityHistoryItem({
                 id: item.id,
                 timeStamp: Date.now()
