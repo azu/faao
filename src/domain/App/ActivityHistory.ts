@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
 import { Identifier } from "../Entity";
+import { splice } from "@immutable-array/prototype";
 
 export interface ActivityHistoryItemJSON {
     id: string;
@@ -40,10 +41,6 @@ export interface ActivityHistoryJSON {
     items: ActivityHistoryItemJSON[];
 }
 
-function immutableSplice(arr: any[], start: number, deleteCount: number, ...items: any[]) {
-    return [...arr.slice(0, start), ...items, ...arr.slice(start + deleteCount)];
-}
-
 /**
  * Adding only history
  */
@@ -58,19 +55,24 @@ export class ActivityHistory {
 
     readItem(aItem: ActivityHistoryItem) {
         const items = this.items;
-        const existItemIndex = this.items.findIndex(item => item.id.equals(aItem.id));
-        if (existItemIndex) {
-            this.items = immutableSplice(this.items, existItemIndex, 1, aItem);
+        const existItemIndex = items.findIndex(item => item.id.equals(aItem.id));
+        if (existItemIndex !== -1) {
+            this.items = splice(items, existItemIndex, 1, aItem);
             return;
         }
         if (items.length > this.limit) {
-            items.shift();
+            this.items = items.slice(1, this.limit).concat(aItem);
+            return;
         }
         this.items = items.concat(aItem);
     }
 
+    findById(itemId: Identifier<GitHubSearchResultItem>): ActivityHistoryItem | undefined {
+        return this.items.find(item => item.id.equals(itemId));
+    }
+
     isRead(aItem: GitHubSearchResultItem): boolean {
-        const matchItem = this.items.find(item => item.id.equals(aItem.id));
+        const matchItem = this.findById(aItem.id);
         if (!matchItem) {
             return false;
         }
@@ -86,6 +88,7 @@ export class ActivityHistory {
     static fromJSON(json: ActivityHistoryJSON) {
         const history = Object.create(ActivityHistory.prototype);
         return Object.assign(history, {
+            limit: 1000,
             items: json.items.map(item => ActivityHistoryItem.fromJSON(item))
         });
     }

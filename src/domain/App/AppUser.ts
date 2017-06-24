@@ -38,7 +38,7 @@ export class AppUser {
     }
 
     static fromJSON(json: AppUserJSON): AppUser {
-        const proto = Object.create(this.prototype);
+        const proto = Object.create(AppUser.prototype);
         return Object.assign(proto, {
             activity: AppUserActivity.fromJSON(json.activity)
         });

@@ -82,6 +82,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "@immutable-array/prototype": "^1.0.2",
     "@types/combokeys": "^2.4.5",
     "@types/lodash.sortby": "^4.7.2",
     "@types/lodash.throttle": "^4.1.2",
