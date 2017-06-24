@@ -112,6 +112,7 @@
     "lodash.sortby": "^4.7.0",
     "lodash.throttle": "^4.1.1",
     "lodash.uniqby": "^4.7.0",
+    "lru-map-like": "^2.0.0",
     "map-like": "1.1.3",
     "moment": "^2.18.1",
     "octokat": "^0.8",

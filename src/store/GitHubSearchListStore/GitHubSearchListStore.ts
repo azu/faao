@@ -13,6 +13,7 @@ import {
     EditSearchListPanelUseCasePayload,
     OpenSearchListPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
+import { shallowEqual } from "shallow-equal-object";
 
 export interface GitHubSearchListStateObject {
     searchLists: GitHubSearchList[];
@@ -38,6 +39,9 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
     }
 
     update(gitHubSearchLists: GitHubSearchList[]) {
+        if (shallowEqual(this.searchLists, gitHubSearchLists)) {
+            return this;
+        }
         return new GitHubSearchListState({
             ...this as GitHubSearchListState,
             searchLists: gitHubSearchLists

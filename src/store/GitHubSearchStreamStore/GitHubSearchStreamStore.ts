@@ -10,6 +10,9 @@ import {
 } from "../../use-case/GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 import { ActivityHistory } from "../../domain/App/ActivityHistory";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
+import { LRUMapLike } from "lru-map-like";
+
+const stateItemCacheMap = new LRUMapLike<GitHubSearchResultItem, GitHubSearchStreamStateItem>(1000);
 
 export interface GitHubSearchStreamStateObject {
     isLoading: boolean;
@@ -43,7 +46,17 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
             ...this as GitHubSearchStreamState,
             items: stream.items,
             displayItems: stream.sortedItems.map(item => {
-                return new GitHubSearchStreamStateItem(item, itemHistory.isRead(item));
+                if (stateItemCacheMap.has(item)) {
+                    const cachedItem = stateItemCacheMap.get(item)!;
+                    cachedItem.setRead(itemHistory.isRead(item));
+                    return cachedItem;
+                }
+                const gitHubSearchStreamStateItem = new GitHubSearchStreamStateItem(
+                    item,
+                    itemHistory.isRead(item)
+                );
+                stateItemCacheMap.set(item, gitHubSearchStreamStateItem);
+                return gitHubSearchStreamStateItem;
             }),
             filterWord: stream.filterWord
         });

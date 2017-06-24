@@ -18,6 +18,10 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
         this.isRead = isRead;
     }
 
+    setRead(isRead: boolean): void {
+        this.isRead = isRead;
+    }
+
     get iconType(): IconType {
         if (this.pullRequest) {
             if (this.state === "merged") {
