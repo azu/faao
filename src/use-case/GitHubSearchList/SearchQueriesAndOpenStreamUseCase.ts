@@ -7,7 +7,7 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
-import { createSearchGitHubAbstractUseCase } from "./SearchQueryToUpdateStreamUseCase";
+import { createSearchQueryToUpdateStreamUseCase } from "./SearchQueryToUpdateStreamUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
@@ -48,7 +48,7 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
                 this.gitHubSearchStreamRepository.findByQuery(query) ||
                 GitHubSearchStreamFactory.create();
             return this.context
-                .useCase(createSearchGitHubAbstractUseCase())
+                .useCase(createSearchQueryToUpdateStreamUseCase())
                 .executor(useCase => {
                     return useCase.execute(query, queryStream);
                 })

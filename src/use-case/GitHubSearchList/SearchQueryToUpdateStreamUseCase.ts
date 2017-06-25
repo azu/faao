@@ -26,8 +26,11 @@ export class LoadingFinishedPayload extends Payload {
         super({ type: "LoadingFinishedPayload" });
     }
 }
-export const createSearchGitHubAbstractUseCase = () => {
-    return new SearchGitHubAbstractUseCase(gitHubSettingRepository, gitHubSearchStreamRepository);
+export const createSearchQueryToUpdateStreamUseCase = () => {
+    return new SearchQueryToUpdateStreamUseCase(
+        gitHubSettingRepository,
+        gitHubSearchStreamRepository
+    );
 };
 
 /**
@@ -35,7 +38,7 @@ export const createSearchGitHubAbstractUseCase = () => {
  * you can extend this useCase
  * e.g.): before search, open stream
  */
-export class SearchGitHubAbstractUseCase extends UseCase {
+export class SearchQueryToUpdateStreamUseCase extends UseCase {
     constructor(
         protected gitHubSettingRepository: GitHubSettingRepository,
         protected gitHubSearchStreamRepository: GitHubSearchStreamRepository
