@@ -1,5 +1,5 @@
 "use strict";
-const path = require("path");
+const url = require("url");
 const { Menu, app, shell, BrowserWindow } = require('electron');
 const defaultMenu = require('electron-default-menu');
 const URL = process.env.FAAO_URL || "https://azu.github.io/faao/";
@@ -26,6 +26,18 @@ app.on('ready', () => {
     });
     mainWindow.maximize();
     mainWindow.loadURL(URL);
+
+    // prevent navigation in main webview
+    mainWindow.webContents.on('dom-ready', function(e) {
+        mainWindow.webContents.on('will-navigate', (event, URL) => {
+            const { protocol } = url.parse(URL);
+            if (protocol === "http:" || protocol === "https:") {
+                event.preventDefault();
+                shell.openExternal(URL);
+                console.log("Stop navigation:" + URL);
+            }
+        });
+    });
 });
 // https://github.com/electron/electron/blob/master/docs/tutorial/security.md#checklist
 app.on('web-contents-created', (event, contents) => {
