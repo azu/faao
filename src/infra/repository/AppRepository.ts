@@ -39,7 +39,7 @@ export class AppRepository extends NonNullableBaseRepository<App> {
 
     save(entity: App): Promise<void> {
         super.save(entity);
-        return this.storage.setItem(entity.id, entity.toJSON()).then(() => {
+        return this.storage.setItem(entity.id.toValue(), entity.toJSON()).then(() => {
             debug("Save entity");
         });
     }

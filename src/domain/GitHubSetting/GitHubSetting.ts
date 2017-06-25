@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { Identifier } from "../Entity";
+import { Entity, Identifier } from "../Entity";
 
 export interface GitHubSettingJSON {
     id: string;
@@ -8,14 +8,14 @@ export interface GitHubSettingJSON {
     webHost: string;
 }
 
-export class GitHubSetting {
+export class GitHubSetting extends Entity<Identifier<GitHubSetting>> {
     id: Identifier<GitHubSetting>;
     token: string;
     apiHost: string;
     webHost: string;
 
     constructor(id: Identifier<GitHubSetting>, token: string, apiHost: string, webHost: string) {
-        this.id = id; // unique
+        super(id);
         this.token = token;
         this.apiHost = apiHost;
         this.webHost = webHost;

@@ -1,7 +1,21 @@
 // MIT © 2017 azu
 
-export interface Entity {
-    id: string | Identifier<any>;
+export abstract class Entity<Id extends Identifier<any>> {
+    public readonly id: Id;
+
+    constructor(id: Id) {
+        this.id = id;
+    }
+
+    equals(object: Entity<Id>): boolean {
+        if (object == null) {
+            return false;
+        }
+        if (this === object) {
+            return true;
+        }
+        return this.id.equals(object.id);
+    }
 }
 
 /**
