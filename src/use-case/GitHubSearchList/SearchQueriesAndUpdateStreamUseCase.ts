@@ -6,7 +6,7 @@ import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
-import { createSearchGitHubAbstractUseCase } from "./SearchQueryToUpdateStreamUseCase";
+import { createSearchQueryToUpdateStreamUseCase } from "./SearchQueryToUpdateStreamUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
 import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
 import { UseCase } from "almin";
@@ -40,7 +40,7 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
                 this.gitHubSearchStreamRepository.findByQuery(query) ||
                 GitHubSearchStreamFactory.create();
             return this.context
-                .useCase(createSearchGitHubAbstractUseCase())
+                .useCase(createSearchQueryToUpdateStreamUseCase())
                 .executor(useCase => {
                     return useCase.execute(query, queryStream);
                 })

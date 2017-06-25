@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
-import { createSearchGitHubAbstractUseCase } from "../GitHubSearchList/SearchQueryToUpdateStreamUseCase";
+import { createSearchQueryToUpdateStreamUseCase } from "../GitHubSearchList/SearchQueryToUpdateStreamUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 import { createSearchQueriesAndUpdateStreamUseCase } from "../GitHubSearchList/SearchQueriesAndUpdateStreamUseCase";
@@ -50,7 +50,7 @@ export class ReloadActiveStreamUseCase extends UseCase {
                 .executor(useCase => useCase.execute(searchList));
         } else if (activeQuery) {
             return this.context
-                .useCase(createSearchGitHubAbstractUseCase())
+                .useCase(createSearchQueryToUpdateStreamUseCase())
                 .executor(useCase => {
                     return useCase.execute(activeQuery, activeStream);
                 })
