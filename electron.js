@@ -28,10 +28,13 @@ app.on('ready', () => {
     mainWindow.loadURL(URL);
 
     // prevent navigation in main webview
-    mainWindow.webContents.on('dom-ready', function(e) {
+    mainWindow.webContents.once('dom-ready', function(e) {
         mainWindow.webContents.on('will-navigate', (event, URL) => {
-            const { protocol } = url.parse(URL);
+            const { protocol, hostname } = url.parse(URL);
             if (protocol === "http:" || protocol === "https:") {
+                if (hostname === "localhost") {
+                    return;
+                }
                 event.preventDefault();
                 shell.openExternal(URL);
                 console.log("Stop navigation:" + URL);
