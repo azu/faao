@@ -11,7 +11,7 @@ import { Entity, Identifier } from "../../domain/Entity";
  * - Should setup with `initialEntity`
  * - Repository#get() always return value
  */
-export class NonNullableBaseRepository<T extends Entity> {
+export class NonNullableBaseRepository<T extends Entity<Identifier<T>>> {
     map: EntityMap<T>;
     protected lastUsed: T | null;
 

@@ -14,7 +14,7 @@ export const toKey = (entityId: string | Identifier<any>): string => {
  * MapLike wrapper class
  * It has convention EntityId<Entity> <-> string
  */
-export class EntityMap<T extends Entity> extends MapLike<string | Identifier<T>, T> {
+export class EntityMap<T extends Entity<Identifier<T>>> extends MapLike<string | Identifier<T>, T> {
     get(entityId: string | Identifier<T>): T | undefined {
         return super.get(toKey(entityId));
     }

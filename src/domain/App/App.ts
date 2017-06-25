@@ -1,26 +1,25 @@
 // MIT © 2017 azu
 import { AppUser, AppUserJSON } from "./AppUser";
 import { AppNetwork, AppNetworkStatus } from "./AppNetwork";
-
-import ulid from "ulid";
-
-export interface AppArgs {
-    user: AppUser;
-    network: AppNetwork;
-}
+import { Entity, Identifier } from "../Entity";
 
 export interface AppJSON {
     id: string;
     user: AppUserJSON;
 }
 
-export class App {
-    id: string;
+export interface AppArgs {
+    id: Identifier<App>;
+    user: AppUser;
+    network: AppNetwork;
+}
+
+export class App extends Entity<Identifier<App>> {
     user: AppUser;
     network: AppNetwork;
 
     constructor(args: AppArgs) {
-        this.id = ulid();
+        super(args.id);
         this.user = args.user;
         this.network = args.network;
     }
@@ -33,9 +32,8 @@ export class App {
     }
 
     static fromJSON(json: AppJSON): App {
-        const proto = Object.create(this.prototype);
-        return Object.assign(proto, {
-            id: json.id,
+        return new this({
+            id: new Identifier<App>(json.id),
             user: AppUser.fromJSON(json.user),
             network: new AppNetwork("offline")
         });
@@ -43,7 +41,7 @@ export class App {
 
     toJSON(): AppJSON {
         return {
-            id: this.id,
+            id: this.id.toValue(),
             user: this.user.toJSON()
         };
     }

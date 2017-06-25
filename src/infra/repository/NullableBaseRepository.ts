@@ -2,7 +2,7 @@
 import { Entity, Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
 
-export class NullableBaseRepository<T extends Entity> {
+export class NullableBaseRepository<T extends Entity<Identifier<T>>> {
     map: EntityMap<T>;
     private lastUsed: T | null;
 

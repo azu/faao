@@ -97,7 +97,7 @@ export class GitHubSearchStream {
     toJSON(): GitHubSearchStreamJSON {
         return {
             id: this.id.toValue(),
-            items: this.itemSortedCollection.items.map(item => {
+            items: this.items.map(item => {
                 return item.toJSON();
             })
         };
