@@ -26,6 +26,7 @@ export class LoadingFinishedPayload extends Payload {
         super({ type: "LoadingFinishedPayload" });
     }
 }
+
 export const createSearchQueryToUpdateStreamUseCase = () => {
     return new SearchQueryToUpdateStreamUseCase(
         gitHubSettingRepository,
@@ -81,7 +82,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                     reject(error);
                 },
                 () => {
-                    debug("Searching Complete!");
+                    debug(`Searching Complete! Query:${query.name}`);
                     resolve();
                 }
             );

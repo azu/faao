@@ -1,5 +1,7 @@
 // MIT © 2017 azu
-
+// polyfill
+require("request-idle-polyfill");
+// index
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";

@@ -10,9 +10,12 @@ import {
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 
+const debug = require("debug")("faao:ReloadAllStreamUseCase");
 export const createReloadAllStreamUseCase = () => {
     return new ReloadAllStreamUseCase({
+        appRepository,
         gitHubSearchStreamRepository,
         gitHubSearchListRepository
     });
@@ -24,6 +27,7 @@ export const createReloadAllStreamUseCase = () => {
 export class ReloadAllStreamUseCase extends UseCase {
     constructor(
         private args: {
+            appRepository: AppRepository;
             gitHubSearchStreamRepository: GitHubSearchStreamRepository;
             gitHubSearchListRepository: GitHubSearchListRepository;
         }
@@ -32,12 +36,20 @@ export class ReloadAllStreamUseCase extends UseCase {
     }
 
     async execute() {
+        const app = this.args.appRepository.get();
+        if (app.network.status === "offline") {
+            debug("Currently, network is offline. No Auto-update.");
+            return;
+        }
         const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
-        const allQueries: GitHubSearchQuery[] = gitHubSearchLists.reduce(
+        const allQueries = gitHubSearchLists.reduce(
             (queries: GitHubSearchQuery[], gitHubSearchList) => {
                 return queries.concat(gitHubSearchList.queries);
             },
             []
+        );
+        debug(
+            allQueries.length > 0 ? `Update Queries: ${allQueries.length}` : "No updatable query"
         );
         const promises: Promise<void>[] = allQueries.map(query => {
             const stream = this.args.gitHubSearchStreamRepository.findByQuery(query);
