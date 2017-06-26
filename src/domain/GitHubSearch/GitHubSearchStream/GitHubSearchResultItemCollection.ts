@@ -3,15 +3,31 @@ import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import uniqBy from "lodash.uniqby";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
-export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
-    readonly items: T[];
+export interface GitHubSearchResultItemCollectionArgs<T> {
+    items: T[];
+    filter?: SearchFilter;
+}
 
-    constructor(items: T[]) {
-        this.items = uniqBy(items, item => item.id.toValue());
+export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
+    protected readonly rawItems: T[];
+    items: T[];
+    filter: SearchFilter;
+
+    constructor(private args: GitHubSearchResultItemCollectionArgs<T>) {
+        this.rawItems = uniqBy(args.items, item => item.id.toValue());
+        this.items = this.rawItems;
+        if (args.filter) {
+            this.applyFilter(args.filter);
+        }
+    }
+
+    applyFilter(filter: SearchFilter): void {
+        this.filter = filter;
+        this.items = this.filterBySearchFilter(filter);
     }
 
     filterBySearchFilter(filter: SearchFilter) {
-        return this.items.filter(item => {
+        return this.rawItems.filter(item => {
             return filter.items.every((filterItem): boolean => {
                 const itemValue: any = (item as any)[filterItem.field];
                 if (filterItem.type === "in") {
@@ -35,18 +51,27 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     }
 
     includes(aItem: T): boolean {
-        return this.items.some(item => {
+        return this.rawItems.some(item => {
             return aItem.equals(item);
         });
     }
 
-    mergeItems(
-        this: GitHubSearchResultItemCollection<T>,
-        items: T[]
-    ): GitHubSearchResultItemCollection<T> {
-        return new GitHubSearchResultItemCollection(this.items.concat(items));
+    mergeItems(items: T[]): GitHubSearchResultItemCollection<T> {
+        const concatItems = this.rawItems.concat(items);
+        return new GitHubSearchResultItemCollection(
+            Object.assign({}, this.args, {
+                items: concatItems
+            })
+        );
     }
 
+    clear() {
+        this.items = [];
+    }
+
+    /**
+     * get method respect filter
+     */
     getFirstItem(): T | undefined {
         return this.getItemAtIndex(0);
     }
