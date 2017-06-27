@@ -45,7 +45,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
-            displayItems: stream.sortedItems.map(item => {
+            displayItems: stream.items.map(item => {
                 if (stateItemCacheMap.has(item)) {
                     const cachedItem = stateItemCacheMap.get(item)!;
                     cachedItem.setRead(itemHistory.isRead(item));

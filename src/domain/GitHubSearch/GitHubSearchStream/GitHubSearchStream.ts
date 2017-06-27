@@ -23,16 +23,13 @@ export interface GitHubSearchStreamArgs {
 export class GitHubSearchStream {
     id: Identifier<GitHubSearchStream>;
     filter?: SearchFilter;
-    // no filter | no sort item
-    items: GitHubSearchResultItem[];
     itemSortedCollection: GitHubSearchResultItemSortedCollection<GitHubSearchResultItem>;
 
     constructor(args: GitHubSearchStreamArgs) {
         this.id = args.id;
-        this.items = args.items;
         this.filter = args.filter;
         this.itemSortedCollection = new GitHubSearchResultItemSortedCollection({
-            items: this.items,
+            items: args.items,
             filter: this.filter,
             sortType: "updated"
         });
@@ -41,7 +38,7 @@ export class GitHubSearchStream {
     /**
      * sort/filtered items
      */
-    get sortedItems() {
+    get items(): GitHubSearchResultItem[] {
         return this.itemSortedCollection.items;
     }
 
@@ -73,7 +70,7 @@ export class GitHubSearchStream {
     }
 
     mergeStream(stream: GitHubSearchStream) {
-        this.itemSortedCollection = this.itemSortedCollection.mergeItems(stream.sortedItems);
+        this.itemSortedCollection = this.itemSortedCollection.mergeItems(stream.items);
     }
 
     mergeResult(result: GitHubSearchResult) {
@@ -103,7 +100,6 @@ export class GitHubSearchStream {
     }
 
     clear() {
-        this.items = [];
         this.itemSortedCollection.clear();
     }
 }

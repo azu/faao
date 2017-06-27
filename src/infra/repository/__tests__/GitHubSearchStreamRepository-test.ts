@@ -7,6 +7,7 @@ import localForage from "localforage";
 import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { storageManger } from "../Storage";
+import sortBy from "lodash.sortby";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
@@ -17,7 +18,7 @@ describe("GitHubSearchStreamRepository", () => {
         return localForage.clear();
     });
     describe("#findByQuery", () => {
-        test("should return undefined at first", async () => {
+        it("should return undefined at first", async () => {
             const repository = new GitHubSearchStreamRepository(GitHubSearchStreamFactory.create());
             await repository.ready();
             const testQuery = new GitHubSearchQuery({
@@ -29,7 +30,7 @@ describe("GitHubSearchStreamRepository", () => {
             const result = repository.findByQuery(testQuery);
             expect(result).toBeUndefined();
         });
-        test("when exist stream json for query, it should return stream json", async () => {
+        it("when exist stream json for query, it should return stream json", async () => {
             const searchResultJSON = require("./search_result.json");
             const streamJSON = {
                 id: "stream1",
@@ -48,7 +49,7 @@ describe("GitHubSearchStreamRepository", () => {
             const resultStream = repository.findByQuery(testQuery);
             expect(resultStream).not.toBeUndefined();
             const actualItems = stream.items.map(item => item.toJSON());
-            expect(actualItems).toEqual(streamJSON.items);
+            expect(sortBy(actualItems, "id")).toEqual(sortBy(streamJSON.items, "id"));
         });
     });
 });

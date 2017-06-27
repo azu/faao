@@ -48,7 +48,7 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);
                     searchListStream.mergeStream(queryStream);
-                    this.gitHubSearchStreamRepository.saveWithSearchList(
+                    return this.gitHubSearchStreamRepository.saveWithSearchList(
                         searchListStream,
                         searchList
                     );

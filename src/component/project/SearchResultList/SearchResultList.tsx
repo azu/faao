@@ -75,7 +75,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
         return (
             <div className={className} onClick={onClick}>
                 <span className="SearchResultListItem-primaryText">
-                    <a className="SearchResultListItem-link" href={item.htmlUrl}>
+                    <a className="SearchResultListItem-link" href={item.html_url}>
                         {icon} {item.title}
                     </a>
                 </span>
@@ -92,9 +92,9 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                     <span> by </span>
                     <span className="SearchResultListItem-author">
                         <img
-                            src={item.user.avatarUrl}
+                            src={item.user.avatar_url}
                             className="SearchResultListItem-authorIcon"
-                            title={item.user.htmlUrl}
+                            title={item.user.html_url}
                         />
                         {item.user.login}
                     </span>

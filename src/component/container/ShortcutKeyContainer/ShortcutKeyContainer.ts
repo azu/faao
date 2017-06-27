@@ -3,6 +3,7 @@ import { BaseContainer } from "../BaseContainer";
 import Combokeys from "combokeys";
 import { createAppUserSelectNextItemUseCase } from "../../../use-case/App/AppUserSelectNextItemUseCase";
 import { createAppUserSelectPrevItemUseCase } from "../../../use-case/App/AppUserSelectPrevItemUseCase";
+import { createClearCacheDataUseCase } from "../../../use-case/System/ClearCacheDataUseCase";
 
 const IGNORE_NODE_NAME_PATTERN = /webview/i;
 const isIgnoreNode = (event: Event): boolean => {
@@ -19,29 +20,37 @@ export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
     componentDidMount() {
         this.combokeys = new Combokeys(document.documentElement);
         const actionMap = {
-            "move-next-item": (event: Event) => {
-                if (isIgnoreNode(event)) {
-                    return;
-                }
+            "move-next-item": (_event: Event) => {
                 this.useCase(createAppUserSelectNextItemUseCase()).executor(useCase =>
                     useCase.execute()
                 );
             },
-            "move-prev-item": (event: Event) => {
-                if (isIgnoreNode(event)) {
-                    return;
-                }
+            "move-prev-item": (_event: Event) => {
                 this.useCase(createAppUserSelectPrevItemUseCase()).executor(useCase =>
                     useCase.execute()
                 );
+            },
+            "clear-cache-and-reload": (_event: Event) => {
+                if (window.confirm("Can clear cache data?")) {
+                    this.useCase(createClearCacheDataUseCase())
+                        .executor(useCase => useCase.execute())
+                        .then(() => {
+                            window.location.reload(true);
+                        });
+                }
             }
         };
         const keyMap: { [index: string]: keyof typeof actionMap } = {
             j: "move-next-item",
-            k: "move-prev-item"
+            k: "move-prev-item",
+            "command+shift+r": "clear-cache-and-reload",
+            "ctrl+shift+r": "clear-cache-and-reload"
         };
         Object.keys(keyMap).forEach(key => {
             this.combokeys.bind(key, (event: Event) => {
+                if (isIgnoreNode(event)) {
+                    return;
+                }
                 actionMap[keyMap[key]](event);
             });
         });
