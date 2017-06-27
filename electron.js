@@ -37,7 +37,7 @@ app.on('ready', () => {
                 }
                 event.preventDefault();
                 shell.openExternal(URL);
-                console.log("Stop navigation:" + URL);
+                console.info("Stop navigation:" + URL);
             }
         });
     });

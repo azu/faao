@@ -35,7 +35,7 @@ export class GitHubSearchResultItemSortedCollection<
 > extends GitHubSearchResultItemCollection<T> {
     sortType: SortTypeArgs;
 
-    constructor(private args: GitHubSearchResultItemSortedCollectionArgs<T>) {
+    constructor(protected args: GitHubSearchResultItemSortedCollectionArgs<T>) {
         super({
             items: args.items,
             filter: args.filter
@@ -51,7 +51,25 @@ export class GitHubSearchResultItemSortedCollection<
     }
 
     mergeItems(items: T[]): GitHubSearchResultItemSortedCollection<T> {
-        const concatItems = this.rawItems.concat(items);
+        const savedItems = this.rawItems.slice();
+        const addingItems = items.slice();
+        const actualAdding: T[] = [];
+        addingItems.forEach(addingItem => {
+            const index = savedItems.findIndex(savedItem => {
+                return savedItem.id.equals(addingItem.id);
+            });
+            if (index === -1) {
+                actualAdding.push(addingItem);
+                return;
+            }
+            const item = savedItems[index];
+            if (addingItem.updatedAtDate.getTime() > item.updatedAtDate.getTime()) {
+                console.log("old remove");
+                savedItems.splice(index, 1);
+                actualAdding.push(addingItem);
+            }
+        });
+        const concatItems = savedItems.concat(actualAdding);
         return new GitHubSearchResultItemSortedCollection(
             Object.assign({}, this.args, {
                 items: concatItems

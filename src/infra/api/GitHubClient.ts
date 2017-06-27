@@ -16,6 +16,7 @@ Octokat.Fetch = (...args: any[]) => {
  *
  * Most notably, this doesn't include:
  *   - hypermedia // Not parse date
+ *   - camelcase
  * Both take a _lot_ of time in post-processing and are unnecessary.
  */
 const OctokatPlugins = [
@@ -29,8 +30,7 @@ const OctokatPlugins = [
     require("octokat/dist/node/plugins/fetch-all"),
 
     require("octokat/dist/node/plugins/read-binary"),
-    require("octokat/dist/node/plugins/pagination"),
-    require("octokat/dist/node/plugins/camel-case")
+    require("octokat/dist/node/plugins/pagination")
 ];
 
 export class GitHubClient {

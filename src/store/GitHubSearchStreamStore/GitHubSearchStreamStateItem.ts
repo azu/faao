@@ -23,7 +23,7 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
     }
 
     get iconType(): IconType {
-        if (this.pullRequest) {
+        if (this.pull_request) {
             if (this.state === "merged") {
                 return "GitMergeIcon";
             } else {

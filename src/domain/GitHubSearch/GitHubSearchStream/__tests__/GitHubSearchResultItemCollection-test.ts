@@ -15,7 +15,30 @@ const createCollection = (
     const stream = GitHubSearchStreamFactory.createFromStreamJSON(json);
     return stream.itemSortedCollection;
 };
+const createItems = (json: GitHubSearchStreamJSON): GitHubSearchResultItem[] => {
+    return json.items.map(rawItem => {
+        return new GitHubSearchResultItem(rawItem);
+    });
+};
 describe("GitHubSearchResultItemCollection", () => {
+    describe("#mergeItems", () => {
+        it("should return GitHubSearchResultItemCollection that merged items", () => {
+            const collection = createCollection(require("./fixtures/2017-06-25-result.json"));
+            expect(collection.items).toHaveLength(1);
+            const newItems = createItems(require("./fixtures/2017-06-26-new-result.json"));
+            const newCollection = collection.mergeItems(newItems);
+            expect(newCollection.items).toHaveLength(2);
+        });
+        it("should prefer to use updated newer item", () => {
+            // old -> new
+            const collection = createCollection(require("./fixtures/2017-06-25-result.json"));
+            const newItems = createItems(require("./fixtures/2017-06-26-updated-result.json"));
+            const newCollection = collection.mergeItems(newItems);
+            expect(newCollection.items).toHaveLength(1);
+            const item = newCollection.getFirstItem();
+            expect(item).toEqual(newItems[0]);
+        });
+    });
     describe("#filterBySearchFilter", () => {
         describe("in", () => {
             it("should filter by text", () => {

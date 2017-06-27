@@ -24,7 +24,7 @@ export class AppUserSelectItemUseCase extends UseCase {
         app.user.openItem(item);
         await this.appRepository.save(app);
         if (isElectron()) {
-            throttledOpenURLInTab(item.htmlUrl);
+            throttledOpenURLInTab(item.html_url);
         } else {
             debug("Not support open url in tab.");
         }

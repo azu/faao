@@ -18,7 +18,7 @@ export class AppUserOpenItemUseCase extends UseCase {
         app.user.openItem(item);
         await this.appRepository.save(app);
         return this.context.useCase(new OpenItemInNewTabUseCase()).executor(useCase => {
-            return useCase.execute(item.htmlUrl);
+            return useCase.execute(item.html_url);
         });
     }
 }

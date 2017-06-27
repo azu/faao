@@ -13,7 +13,7 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     items: T[];
     filter: SearchFilter;
 
-    constructor(private args: GitHubSearchResultItemCollectionArgs<T>) {
+    constructor(protected args: GitHubSearchResultItemCollectionArgs<T>) {
         this.rawItems = uniqBy(args.items, item => item.id.toValue());
         this.items = this.rawItems;
         if (args.filter) {
@@ -57,7 +57,21 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     }
 
     mergeItems(items: T[]): GitHubSearchResultItemCollection<T> {
-        const concatItems = this.rawItems.concat(items);
+        const savedItems = this.rawItems.slice();
+        const addingItems = items.slice();
+        addingItems.forEach((addingItem, addingIndex) => {
+            const index = savedItems.findIndex(savedItem => savedItem.id === addingItem.id);
+            if (index === -1) {
+                return;
+            }
+            const item = savedItems[index];
+            if (addingItem.updatedAtDate > item.updatedAtDate) {
+                savedItems.splice(index, 1);
+            } else {
+                addingItems.splice(addingIndex, 1);
+            }
+        });
+        const concatItems = savedItems.concat(addingItems);
         return new GitHubSearchResultItemCollection(
             Object.assign({}, this.args, {
                 items: concatItems

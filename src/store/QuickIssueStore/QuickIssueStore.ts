@@ -65,7 +65,7 @@ export class QuickIssueState implements QuickIssueStateObject {
             const gitHubSetting = getSetting(this.activeQuery.gitHubSettingId);
             if (gitHubSetting) {
                 // api-host/repos/ -> web-host/
-                const webHost = this.activeItem.repositoryUrl.replace(
+                const webHost = this.activeItem.repository_url.replace(
                     urlJoin(gitHubSetting.apiHost, "repos"),
                     gitHubSetting.webHost
                 );
