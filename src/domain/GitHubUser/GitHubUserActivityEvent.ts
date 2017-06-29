@@ -1,5 +1,6 @@
 // MIT © 2017 azu
 import { Identifier } from "../Entity";
+import { ValueObject } from "../ValueObject";
 
 export interface Payload {}
 
@@ -64,7 +65,7 @@ export type EventType =
     | "TeamAddEvent"
     | "WatchEvent";
 
-export interface EventJSON {
+export interface GitHubUserActivityEventJSON {
     id: string;
     type: EventType;
     public: boolean;
@@ -75,8 +76,8 @@ export interface EventJSON {
     created_at: string;
 }
 
-export class GitHubStreamEvent {
-    id: Identifier<GitHubStreamEvent>;
+export class GitHubUserActivityEvent extends ValueObject {
+    id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
     public: boolean;
     payload: any;
@@ -85,20 +86,21 @@ export class GitHubStreamEvent {
     org: Org;
     created_at: string;
 
-    constructor(event: Partial<GitHubStreamEvent>) {
+    constructor(event: Partial<GitHubUserActivityEvent>) {
+        super();
         Object.assign(this, event);
     }
 
-    static fromJSON(json: EventJSON): GitHubStreamEvent {
-        return new GitHubStreamEvent({
+    static fromJSON(json: GitHubUserActivityEventJSON): GitHubUserActivityEvent {
+        return new GitHubUserActivityEvent({
             ...json,
-            id: new Identifier<GitHubStreamEvent>(json.id)
+            id: new Identifier<GitHubUserActivityEvent>(json.id)
         });
     }
 
-    toJSON(): EventJSON {
+    toJSON(): GitHubUserActivityEventJSON {
         return {
-            ...this as GitHubStreamEvent,
+            ...this as GitHubUserActivityEvent,
             id: this.id.toValue()
         };
     }

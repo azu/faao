@@ -4,7 +4,7 @@ import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearch
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubStreamEvent } from "../../domain/GitHubSearchStream/GitHubStreamCollectionItem";
+import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -95,7 +95,7 @@ export class GitHubClient {
         onComplete: () => void
     ) {
         type FetchResponse = {
-            items: GitHubStreamEvent[];
+            items: GitHubUserActivityEvent[];
             fetch: () => Promise<FetchResponse>;
             next_page_url?: string;
         };
