@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 export class OpenQueryPanelUseCasePayload extends Payload {
     constructor(public searchList: GitHubSearchList) {

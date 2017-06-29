@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchList } from "./GitHubSearchList";
-import { Identifier } from "../../Entity";
+import { Identifier } from "../Entity";
 import ulid from "ulid";
 
 export class GitHubSearchListFactory {

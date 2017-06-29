@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
-import { Entity, Identifier } from "../../Entity";
+import { Entity, Identifier } from "../Entity";
 
 export interface GitHubSearchListJSON {
     id: string;

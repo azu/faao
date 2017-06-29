@@ -11,7 +11,7 @@ import {
 import {
     GitHubSearchList,
     GitHubSearchListJSON
-} from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+} from "../../../domain/GitHubSearchList/GitHubSearchList";
 
 export interface SearchListSettingPanelProps {
     gitHubSearchList?: GitHubSearchList;

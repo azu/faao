@@ -1,4 +1,4 @@
-import { Identifier } from "../../Entity";
+import { Identifier } from "../Entity";
 
 export interface Owner {
     login: string;

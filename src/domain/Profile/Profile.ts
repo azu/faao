@@ -1,8 +1,5 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchList,
-    GitHubSearchListJSON
-} from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, GitHubSearchListJSON } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSetting, GitHubSettingJSON } from "../GitHubSetting/GitHubSetting";
 
 export interface ProfileJSON {

@@ -4,7 +4,7 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 
 export const createDeleteQueryUseCase = () => {
     return new DeleteQueryUseCase(gitHubSearchListRepository);

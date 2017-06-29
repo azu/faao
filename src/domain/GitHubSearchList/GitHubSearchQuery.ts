@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
-import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
-import { Identifier } from "../../Entity";
+import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
+import { Identifier } from "../Entity";
 import ulid from "ulid";
 
 const execall = require("execall");

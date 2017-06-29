@@ -1,10 +1,10 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
-import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
+import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubStreamEvent } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubStreamCollectionItem";
+import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubStreamEvent } from "../../domain/GitHubSearchStream/GitHubStreamCollectionItem";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -101,7 +101,7 @@ export class GitHubClient {
         };
         this.gh.fromUrl("/user").fetch().then((response: any) => {
             const login = response.login;
-            const onFetch = (fetchResponse: FetchResponse) => {
+            const onFetch = (fetchResponse: any) => {
                 debug("response %o", fetchResponse);
                 const gitHubSearchResult = GitHubSearchResultFactory.create({
                     items: response.items || []

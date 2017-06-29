@@ -2,7 +2,7 @@
 import { UseCase } from "almin";
 import throttle from "lodash.throttle";
 import { openURLInTab } from "./OpenItemInNewTabUseCase";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import isElectron from "is-electron";
 

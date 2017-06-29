@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchStream, GitHubSearchStreamJSON } from "./GitHubSearchStream";
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
-import { Identifier } from "../../Entity";
+import { Identifier } from "../Entity";
 import ulid from "ulid";
 
 export class GitHubSearchStreamFactory {

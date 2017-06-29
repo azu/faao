@@ -9,7 +9,7 @@ import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 
 const debug = require("debug")("faao:ReloadAllStreamUseCase");

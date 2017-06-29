@@ -5,9 +5,9 @@ import {
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
-import { SearchFilterFactory } from "../../domain/GitHubSearch/GitHubSearchStream/SearchFilter/SearchFilterFactory";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { SearchFilterFactory } from "../../domain/GitHubSearchStream/SearchFilter/SearchFilterFactory";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 
 export const createApplyFilterToStreamUseCase = () => {
     return new ApplyFilterToStreamUseCase(appRepository, gitHubSearchStreamRepository);

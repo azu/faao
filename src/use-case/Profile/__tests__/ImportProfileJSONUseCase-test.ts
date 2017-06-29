@@ -2,7 +2,7 @@
 import { ImportProfileJSONUseCase } from "../ImportProfileJSONUseCase";
 import { GitHubSettingRepository } from "../../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchListRepository } from "../../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchListFactory } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
+import { GitHubSearchListFactory } from "../../../domain/GitHubSearchList/GitHubSearchListFactory";
 import { createStubContext } from "../../../test/AlminUseCaseStub";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 import { storageManger } from "../../../infra/repository/Storage";

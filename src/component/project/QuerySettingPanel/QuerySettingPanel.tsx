@@ -1,25 +1,20 @@
 // MIT © 2017 azu
 import React from "react";
 import {
-    Button,
     Dropdown,
-    Panel,
-    TextField,
-    PrimaryButton,
-    Label,
-    PanelType,
     IDropdownOption,
-    Callout,
-    DefaultButton,
-    IconButton,
     Link,
     MessageBar,
-    MessageBarType
+    MessageBarType,
+    Panel,
+    PanelType,
+    PrimaryButton,
+    TextField
 } from "office-ui-fabric-react";
 import {
-    GitHubSearchQueryJSON,
-    GitHubSearchQuery
-} from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+    GitHubSearchQuery,
+    GitHubSearchQueryJSON
+} from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorResult, GithubPicker } from "react-color";
 

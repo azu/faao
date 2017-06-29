@@ -1,10 +1,10 @@
 // MIT © 2017 azu
 
 import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
-import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;

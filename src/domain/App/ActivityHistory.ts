@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
 

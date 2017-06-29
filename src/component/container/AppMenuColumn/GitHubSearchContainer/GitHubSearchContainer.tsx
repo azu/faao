@@ -3,7 +3,7 @@ import * as React from "react";
 import { SyntheticEvent } from "react";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { SearchQueryList } from "../../../project/SearchQueryList/SearchQueryList";
-import { GitHubSearchQuery } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { BaseContainer } from "../../BaseContainer";
 import { createSearchQueryAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueryAndOpenStreamUseCase";
 import classNames from "classnames";
@@ -14,7 +14,7 @@ import {
 } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
-import { GitHubSearchList } from "../../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../../../domain/GitHubSearchList/GitHubSearchList";
 import { createSearchQueriesAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueriesAndOpenStreamUseCase";
 import { AppState } from "../../../../store/AppStore/AppStore";
 

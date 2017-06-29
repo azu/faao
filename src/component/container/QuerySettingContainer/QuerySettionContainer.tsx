@@ -3,7 +3,7 @@ import * as React from "react";
 import { BaseContainer } from "../BaseContainer";
 import { GitHubSettingState } from "../../../store/GitHubSettingStore/GitHubSettingStore";
 import { QuerySettingPanel } from "../../project/QuerySettingPanel/QuerySettingPanel";
-import { GitHubSearchQueryJSON } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQueryJSON } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { createSaveQueryToSearchListUseCase } from "../../../use-case/App/SaveQueryToSearchListUseCase";

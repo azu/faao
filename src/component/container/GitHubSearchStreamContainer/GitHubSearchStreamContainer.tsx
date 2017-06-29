@@ -3,7 +3,7 @@ import * as React from "react";
 import { SyntheticEvent } from "react";
 import { SearchResultList } from "../../project/SearchResultList/SearchResultList";
 import { GitHubSearchStreamState } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStore";
-import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { BaseContainer } from "../BaseContainer";
 import classNames from "classnames";
 import { AppState } from "../../../store/AppStore/AppStore";

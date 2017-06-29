@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { Payload, Store } from "almin";
-import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchStreamStateItem } from "./GitHubSearchStreamStateItem";
 import {

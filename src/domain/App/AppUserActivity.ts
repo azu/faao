@@ -1,14 +1,11 @@
 // MIT © 2017 azu
-import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import {
     GitHubSearchResultItem,
     GitHubSearchResultItemJSON
-} from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON
-} from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+} from "../GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";
 

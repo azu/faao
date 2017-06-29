@@ -1,9 +1,9 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository

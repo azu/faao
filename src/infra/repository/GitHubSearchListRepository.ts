@@ -2,10 +2,10 @@
 import {
     GitHubSearchList,
     GitHubSearchListJSON
-} from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
-import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
+} from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchListFactory } from "../../domain/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { createStorageInstance } from "./Storage";
 import sortBy from "lodash.sortby";
 

@@ -1,8 +1,8 @@
 // MIT © 2017 azu
 import { Payload, Store } from "almin";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     CloseQueryPanelUseCasePayload,
     EditQueryPanelUseCasePayload,

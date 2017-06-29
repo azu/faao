@@ -3,7 +3,7 @@ import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
-import { Identifier } from "../../Entity";
+import { Identifier } from "../Entity";
 
 export interface GitHubSearchStreamJSON {
     id: string;

@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 export class OpenSearchListPanelUseCasePayload extends Payload {
     constructor() {

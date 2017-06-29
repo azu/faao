@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { Identifier } from "../../Entity";
+import { Identifier } from "../Entity";
 
 export interface Payload {}
 

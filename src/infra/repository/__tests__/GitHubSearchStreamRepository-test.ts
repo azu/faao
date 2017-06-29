@@ -1,8 +1,8 @@
 // MIT © 2017 azu
 import { GitHubSearchStreamRepository } from "../GitHubSearchStreamRepository";
-import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
-import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchQueryColor } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryColor";
+import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
+import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQueryColor } from "../../../domain/GitHubSearchList/GitHubSearchQueryColor";
 import localForage from "localforage";
 import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";

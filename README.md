@@ -89,6 +89,18 @@ Stream can combine the other stream.
 - Action to GitHubSearchResultItem
     - Open URL
 
+#### GitHubUser
+
+GitHubUser is difference with AppUser.
+
+- GitHubUser has activity that has events.
+
+##### GitHubUserActivity
+
+- has events
+- https://developer.github.com/v3/activity/events/
+- Activity is LRU
+
 #### Notice
 
 Notice is a notification.

@@ -8,9 +8,9 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
 import { createSearchQueryToUpdateStreamUseCase } from "./SearchQueryToUpdateStreamUseCase";
-import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
+import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { UseCase } from "almin";
 
 const debug = require("debug")("faao:SearchQueriesAndOpenStreamUseCase");

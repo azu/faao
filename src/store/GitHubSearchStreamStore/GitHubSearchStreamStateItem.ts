@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import moment from "moment";
 
 export type IconType =

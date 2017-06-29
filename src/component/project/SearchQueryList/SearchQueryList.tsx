@@ -1,9 +1,9 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { ContextualMenu, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
-import { GitHubSearchQuery } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
 import { SyntheticEvent } from "react";
-import { GitHubSearchList } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { ContextualMenu, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
+import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../../domain/GitHubSearchList/GitHubSearchList";
 import { shallowEqual } from "shallow-equal-object";
 
 const suitcssClassnames = require("suitcss-classnames");

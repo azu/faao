@@ -5,13 +5,13 @@ import {
     GitHubSettingRepository,
     gitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
-import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
-import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
+import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
