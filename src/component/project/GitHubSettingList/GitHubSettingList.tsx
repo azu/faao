@@ -114,7 +114,7 @@ export class GitHubSettingList extends React.Component<
                       {
                           key: "refresh-setting",
                           iconProps: {
-                              iconName: "Edit"
+                              iconName: "Refresh"
                           },
                           onClick: (event: React.MouseEvent<HTMLElement>) => {
                               this.onRefreshSetting(event);
