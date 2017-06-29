@@ -11,6 +11,6 @@ export class CheckGrantGitHubAPIUseCase extends UseCase {
         // https://github.com/philschatz/octokat.js/issues/183
         // Use user api insteadof ratelimit api
         // RateLimit API disable by some GHE. It return 404.
-        return gitHub.user();
+        return gitHub.userProfile();
     }
 }

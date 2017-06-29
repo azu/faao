@@ -24,7 +24,7 @@ export class ObserverContainer extends BaseContainer<{}, {}> {
     };
 
     componentDidMount() {
-        const AUTO_UPDATE_INTERVAL = 1000 * 60;
+        const AUTO_UPDATE_INTERVAL = 1000 * 120;
         this.timeScheduler = new TimeScheduler(this.onIntervalWork, AUTO_UPDATE_INTERVAL);
         this.timeScheduler.start();
         window.addEventListener("online", this.onOnlineStatus);

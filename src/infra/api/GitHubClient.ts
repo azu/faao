@@ -5,6 +5,7 @@ import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHu
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
+import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -129,8 +130,13 @@ export class GitHubClient {
         });
     }
 
-    user() {
-        return this.gh.fromUrl("/user").fetch();
+    userProfile(): Promise<GitHubUserProfile> {
+        return this.gh.fromUrl("/user").fetch().then((response: any) => {
+            return new GitHubUserProfile({
+                loginName: response.login,
+                avatarURL: response.avatar_url
+            });
+        });
     }
 
     rateLimits(): Promise<boolean> {

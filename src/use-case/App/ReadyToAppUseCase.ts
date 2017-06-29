@@ -15,12 +15,17 @@ import {
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import { AppNetworkStatus } from "../../domain/App/AppNetwork";
 import { createUpdateAppNetworkStatusUseCase } from "./UpdateAppNetworkStatusUseCase";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
 
 export const createReadyToAppUseCase = () => {
     return new ReadyToAppUseCase({
         gitHubSearchListRepository,
         gitHubSearchStreamRepository,
         gitHubSettingRepository,
+        gitHubUserRepository,
         appRepository
     });
 };
@@ -38,6 +43,7 @@ export class ReadyToAppUseCase extends UseCase {
             gitHubSearchListRepository: GitHubSearchListRepository;
             gitHubSearchStreamRepository: GitHubSearchStreamRepository;
             gitHubSettingRepository: GitHubSettingRepository;
+            gitHubUserRepository: GitHubUserRepository;
             appRepository: AppRepository;
         }
     ) {
@@ -49,6 +55,7 @@ export class ReadyToAppUseCase extends UseCase {
         await this.args.gitHubSettingRepository.ready();
         await this.args.gitHubSearchListRepository.ready();
         await this.args.gitHubSearchStreamRepository.ready();
+        await this.args.gitHubUserRepository.ready();
         const networkStatus: AppNetworkStatus = typeof navigator !== "undefined"
             ? navigator.onLine ? "online" : "offline"
             : "online";

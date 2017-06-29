@@ -1,5 +1,6 @@
 // MIT © 2017 azu
 import { GitHubUserActivityEvent, GitHubUserActivityEventJSON } from "./GitHubUserActivityEvent";
+import { ValueObject } from "../ValueObject";
 
 const debug = require("debug")("faao:GitHubUserActivity");
 
@@ -13,11 +14,13 @@ export interface GitHubUserActivityArgs {
     eventMaxLimit: number;
 }
 
-export class GitHubUserActivity {
+export const DefaultEventMaxLimit = 500;
+export class GitHubUserActivity extends ValueObject {
     events: GitHubUserActivityEvent[];
     eventMaxLimit: number;
 
     constructor(args: GitHubUserActivityArgs) {
+        super();
         this.events = args.events;
         this.eventMaxLimit = args.eventMaxLimit;
     }
