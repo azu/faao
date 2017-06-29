@@ -4,6 +4,7 @@ import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubStreamEvent } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubStreamCollectionItem";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -88,10 +89,48 @@ export class GitHubClient {
             .then(onFetch, onError);
     }
 
-    user() {
-        return this.gh.fromUrl("/user").fetch().then((response: any) => {
-            console.info(response);
+    events(
+        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ) {
+        type FetchResponse = {
+            items: GitHubStreamEvent[];
+            fetch: () => Promise<FetchResponse>;
+            next_page_url?: string;
+        };
+        this.gh.fromUrl("/user").fetch().then((response: any) => {
+            const login = response.login;
+            const onFetch = (fetchResponse: FetchResponse) => {
+                debug("response %o", fetchResponse);
+                const gitHubSearchResult = GitHubSearchResultFactory.create({
+                    items: response.items || []
+                });
+                // Support incompleteResults
+                onProgress(fetchResponse)
+                    .then(isContinue => {
+                        if (isContinue) {
+                            // fetch next page if needed
+                            if (fetchResponse.next_page_url) {
+                                this.gh
+                                    .fromUrl(fetchResponse.next_page_url)
+                                    .fetch()
+                                    .then(onFetch, onError);
+                            } else {
+                                onComplete();
+                            }
+                        } else {
+                            onComplete();
+                        }
+                    })
+                    .catch(onError);
+            };
+            return this.gh.fromUrl(`/users/${login}/events`).fetch().then(onFetch, onError);
         });
+    }
+
+    user() {
+        return this.gh.fromUrl("/user").fetch();
     }
 
     rateLimits(): Promise<boolean> {
