@@ -1,11 +1,11 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
-import { BaseContainer } from "../../BaseContainer";
-import { createReloadActiveStreamUseCase } from "../../../../use-case/GitHubSearchStream/ReloadActiveStreamUseCase";
+import { IconButton } from "office-ui-fabric-react";
+import { BaseContainer } from "../../../BaseContainer";
+import { createReloadActiveStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ReloadActiveStreamUseCase";
 import classNames from "classnames";
-import { ExpandableSearch } from "../../../project/ExpandableSearch/ExpandableSearch";
-import { createApplyFilterToStreamUseCase } from "../../../../use-case/GitHubSearchStream/ApplyFilterToStreamUseCase";
+import { ExpandableSearch } from "../../../../project/ExpandableSearch/ExpandableSearch";
+import { createApplyFilterToStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ApplyFilterToStreamUseCase";
 
 export interface GitHubSearchStreamCommandBarContainerProps {
     className?: string;

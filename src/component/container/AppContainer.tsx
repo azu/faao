@@ -2,7 +2,6 @@
 import { ProfileContainer } from "./ProfileContainer/ProfileContainer";
 import * as React from "react";
 import { AppStoreGroupState } from "../../store/AppStoreGroup";
-import { GitHubSearchStreamContainer } from "./GitHubSearchStreamContainer/GitHubSearchStreamContainer";
 import { BaseContainer } from "./BaseContainer";
 import { ShortcutKeyContainer } from "./ShortcutKeyContainer/ShortcutKeyContainer";
 import { QuickIssueContainer } from "./QuickIssueContainer/QuickIssueContainer";
@@ -14,6 +13,7 @@ import { ObserverContainer } from "./ObserverContainer/ObserverContainer";
 import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
 import classNames from "classnames";
 import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListPanelContainer";
+import { AppMainColumn } from "./AppMainColumn/AppMainColumn";
 
 const suitcssClassnames = require("suitcss-classnames");
 
@@ -43,12 +43,11 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                         gitHubSetting={this.props.gitHubSetting}
                         gitHubSearchList={this.props.gitHubSearchList}
                     />
-                    <main className="AppContainer-main">
-                        <GitHubSearchStreamContainer
-                            app={this.props.app}
-                            gitHubSearchStream={this.props.gitHubSearchStream}
-                        />
-                    </main>
+                    <AppMainColumn
+                        className={classNames("AppContainer-main", AppContainerNavClassName)}
+                        app={this.props.app}
+                        gitHubSearchStream={this.props.gitHubSearchStream}
+                    />
                 </div>
                 <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
                 <QuerySettingContainer
