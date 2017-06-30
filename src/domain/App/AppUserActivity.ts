@@ -8,6 +8,7 @@ import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../GitHubSearchList/Gi
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";
+import { GitHubUser } from "../GitHubUser/GitHubUser";
 
 export interface AppUserActivityArgs {
     itemHistory: ActivityHistory;
@@ -24,6 +25,7 @@ export interface AppUserActivityJSON {
     // entity
     openedStreamId?: string;
     openedSearchListId?: string;
+    openedUserId?: string;
     // value object
     openedItem?: GitHubSearchResultItemJSON;
     openedQuery?: GitHubSearchQueryJSON;
@@ -33,6 +35,7 @@ export class AppUserActivity {
     itemHistory: ActivityHistory;
     openedStreamId?: Identifier<GitHubSearchStream>;
     openedSearchListId?: Identifier<GitHubSearchList>;
+    openedUserId?: Identifier<GitHubUser>;
     // value object
     openedItem?: GitHubSearchResultItem;
     openedQuery?: GitHubSearchQuery;
@@ -44,29 +47,19 @@ export class AppUserActivity {
     /**
      * active search is SearchList mode or SearchQuery mode.
      */
-    get activeSearch(): Identifier<GitHubSearchList> | GitHubSearchQuery | undefined {
-        if (this.activeSearchListId && !this.activeQuery) {
-            return this.activeSearchListId;
-        } else if (this.activeQuery) {
-            return this.activeQuery;
+    get activeSearch():
+        | Identifier<GitHubUser>
+        | Identifier<GitHubSearchList>
+        | GitHubSearchQuery
+        | undefined {
+        if (this.openedSearchListId && !this.openedQuery) {
+            return this.openedSearchListId;
+        } else if (this.openedQuery) {
+            return this.openedQuery;
+        } else if (this.openedUserId) {
+            return this.openedUserId;
         }
         return;
-    }
-
-    get activeSearchListId(): Identifier<GitHubSearchList> | undefined {
-        return this.openedSearchListId;
-    }
-
-    get activeStreamId(): Identifier<GitHubSearchStream> | undefined {
-        return this.openedStreamId;
-    }
-
-    get activeQuery(): GitHubSearchQuery | undefined {
-        return this.openedQuery;
-    }
-
-    get activeItem(): GitHubSearchResultItem | undefined {
-        return this.openedItem;
     }
 
     activateStream(stream: GitHubSearchStream) {
@@ -83,14 +76,29 @@ export class AppUserActivity {
         );
     }
 
-    activateSearchList(searchList: GitHubSearchList) {
-        this.openedSearchListId = searchList.id;
+    private clearCurrentOpened() {
+        this.openedUserId = undefined;
+        this.openedSearchListId = undefined;
+        this.openedStreamId = undefined;
+        this.openedItem = undefined;
         this.openedQuery = undefined;
     }
 
+    activateGitHubUser(gitHubUser: GitHubUser) {
+        this.clearCurrentOpened();
+        this.openedUserId = gitHubUser.id;
+    }
+
+    activateSearchList(searchList: GitHubSearchList) {
+        this.clearCurrentOpened();
+        this.openedSearchListId = searchList.id;
+    }
+
     activateQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
+        this.clearCurrentOpened();
         this.openedSearchListId = searchList.id;
         this.openedQuery = query;
+        this.openedUserId = undefined;
     }
 
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {

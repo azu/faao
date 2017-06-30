@@ -33,9 +33,9 @@ export class ReloadActiveStreamUseCase extends UseCase {
 
     async execute() {
         const app = this.appRepository.get();
-        const activeSearchListId = app.user.activity.activeSearchListId;
-        const activeQuery = app.user.activity.activeQuery;
-        const activeStreamId = app.user.activity.activeStreamId;
+        const activeSearchListId = app.user.activity.openedSearchListId;
+        const activeQuery = app.user.activity.openedQuery;
+        const activeStreamId = app.user.activity.openedStreamId;
         const activeStream = this.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!activeStream) {
             return;

@@ -124,8 +124,8 @@ export class QuickIssueStore extends Store<QuickIssueState> {
 
     receivePayload(payload: Payload) {
         const app = this.args.appRepository.get();
-        const activeItem = app.user.activity.activeItem;
-        const activeQuery = app.user.activity.activeQuery;
+        const activeItem = app.user.activity.openedItem;
+        const activeQuery = app.user.activity.openedQuery;
         const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
         const settings = this.args.gitHubSettingRepository.findAll();
         this.setState(

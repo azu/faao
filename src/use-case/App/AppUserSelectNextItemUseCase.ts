@@ -27,8 +27,8 @@ export class AppUserSelectNextItemUseCase extends UseCase {
 
     execute() {
         const app = this.args.appRepository.get();
-        const currentItem = app.user.activity.activeItem;
-        const currentStreamId = app.user.activity.activeStreamId;
+        const currentItem = app.user.activity.openedItem;
+        const currentStreamId = app.user.activity.openedStreamId;
         const currentStream = this.args.gitHubSearchStreamRepository.findById(currentStreamId);
         if (!currentItem || !currentStream) {
             debug("Not found current item or stream");

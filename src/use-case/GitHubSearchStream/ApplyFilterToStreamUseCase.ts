@@ -24,7 +24,7 @@ export class ApplyFilterToStreamUseCase extends UseCase {
     execute(filterWord: string) {
         const app = this.appRepository.get();
         const activeSearch = app.user.activity.activeSearch;
-        const activeStreamId = app.user.activity.activeStreamId;
+        const activeStreamId = app.user.activity.openedStreamId;
         if (!activeStreamId) {
             return;
         }

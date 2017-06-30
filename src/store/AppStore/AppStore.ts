@@ -56,16 +56,16 @@ export class AppStore extends Store<AppState> {
     receivePayload() {
         const appRepository = this.args.appRepository.get();
         const {
-            activeQuery,
-            activeItem,
-            activeSearchListId,
-            activeStreamId
+            openedQuery,
+            openedItem,
+            openedSearchListId,
+            openedStreamId
         } = appRepository.user.activity;
-        const activeSearchList = this.args.gitHubSearchListRepository.findById(activeSearchListId);
-        const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
+        const activeSearchList = this.args.gitHubSearchListRepository.findById(openedSearchListId);
+        const activeStream = this.args.gitHubSearchStreamRepository.findById(openedStreamId);
         const newState = this.state.update({
-            activeItem,
-            activeQuery,
+            activeItem: openedItem,
+            activeQuery: openedQuery,
             activeSearchList,
             activeStream
         });

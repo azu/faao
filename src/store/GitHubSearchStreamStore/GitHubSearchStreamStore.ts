@@ -98,7 +98,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
 
     receivePayload(payload: Payload) {
         const app = this.args.appRepository.get();
-        const activeStreamId = app.user.activity.activeStreamId;
+        const activeStreamId = app.user.activity.openedStreamId;
         if (!activeStreamId) {
             return this.setState(this.state.reduce(payload));
         }

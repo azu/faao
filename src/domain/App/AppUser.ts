@@ -5,6 +5,7 @@ import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubUser } from "../GitHubUser/GitHubUser";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;
@@ -27,6 +28,10 @@ export class AppUser {
 
     openItem(item: GitHubSearchResultItem): void {
         this.activity.activateItem(item);
+    }
+
+    openGitHubUserEvents(gitHubUser: GitHubUser) {
+        this.activity.activateGitHubUser(gitHubUser);
     }
 
     openSearchListSelf(searchList: GitHubSearchList) {

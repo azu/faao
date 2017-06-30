@@ -2,8 +2,6 @@
 import { createStorageInstance } from "./Storage";
 import { GitHubUser, GitHubUserJSON } from "../../domain/GitHubUser/GitHubUser";
 import { NullableBaseRepository } from "./NullableBaseRepository";
-import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { Identifier } from "../../domain/Entity";
 
 const debug = require("debug")("faao:GitHubUserRepository");
 
@@ -46,13 +44,6 @@ export class GitHubUserRepository extends NullableBaseRepository<GitHubUser> {
     clear() {
         super.clear();
         return this.storage.clear();
-    }
-
-    findBySettingId(id?: Identifier<GitHubSetting>): GitHubUser | undefined {
-        if (!id) {
-            return undefined;
-        }
-        return this.map.get(id.toValue());
     }
 }
 

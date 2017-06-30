@@ -12,6 +12,7 @@ import {
 import { GitHubUserFactory } from "../../domain/GitHubUser/GitHubUserFactory";
 import { GitHubClient } from "../../infra/api/GitHubClient";
 import { Identifier } from "../../domain/Entity";
+import { findGitHubUserByGitHubSettingId } from "../DomainConnection/GItHubSettingToGitHubUser";
 
 export const createFetchGitHubUserDataUserCase = () => {
     return new FetchGitHubUserDataUserCase({
@@ -37,8 +38,13 @@ export class FetchGitHubUserDataUserCase extends UseCase {
         }
         const gitHubClient = new GitHubClient(gitHubSetting);
         const gitHubUser =
-            this.args.gitHubUserRepository.findBySettingId(gitHubSetting.id) ||
-            GitHubUserFactory.create();
+            findGitHubUserByGitHubSettingId(
+                {
+                    gitHubSettingID: gitHubSetting.id,
+                    gitHubUserRepository: this.args.gitHubUserRepository,
+                    gitHubSettingRepository: this.args.gitHubSettingRepository
+                }
+            ) || GitHubUserFactory.create();
         const profile = await gitHubClient.userProfile();
         gitHubUser.updateProfile(profile);
         // save githubuser

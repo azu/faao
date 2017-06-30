@@ -27,8 +27,8 @@ export class AppUserSelectPrevItemUseCase extends UseCase {
 
     async execute() {
         const app = this.args.appRepository.get();
-        const currentItem = app.user.activity.activeItem;
-        const activeStreamId = app.user.activity.activeStreamId;
+        const currentItem = app.user.activity.openedItem;
+        const activeStreamId = app.user.activity.openedStreamId;
         const currentStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!currentItem || !currentStream) {
             debug("Not found current item or stream");
