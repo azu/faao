@@ -2,6 +2,7 @@
 import { Entity, Identifier } from "../Entity";
 import { GitHubUserActivity, GitHubUserActivityJSON } from "./GitHubUserActivity";
 import { GitHubUserProfile, GitHubUserProfileJSON } from "./GitHubUserProfile";
+import { GitHubUserActivityEvent } from "./GitHubUserActivityEvent";
 
 export interface GitHubUserJSON {
     id: string;
@@ -27,6 +28,13 @@ export class GitHubUser extends Entity<Identifier<GitHubUser>> implements GitHub
 
     updateProfile(profile: GitHubUserProfile): void {
         this.profile = profile;
+    }
+
+    /**
+     * return true If need more previous events
+     */
+    needMorePreviousEvents(events: GitHubUserActivityEvent[]): boolean {
+        return events.some(event => !this.activity.hasRecordedEvent(event));
     }
 
     static fromJSON(json: GitHubUserJSON): GitHubUser {

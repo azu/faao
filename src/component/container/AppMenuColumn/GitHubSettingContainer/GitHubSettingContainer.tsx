@@ -10,6 +10,7 @@ import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubS
 import { OpenSettingPanelUseCase } from "../../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { createDeleteSettingUseCase } from "../../../../use-case/GitHubSetting/DeleteSettingUseCase";
 import { createFetchGitHubUserDataUserCase } from "../../../../use-case/GitHubUser/FetchGitHubUserDataUserCase";
+import { createFetchGitHubUserActivityUseCase } from "../../../../use-case/GitHubUser/FetchGitHubUserActivityUseCase";
 
 export interface GitHubSettingContainerProps {
     className?: string;
@@ -40,6 +41,12 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
         );
     };
 
+    onShowUserEvents = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        this.useCase(createFetchGitHubUserActivityUseCase()).executor(useCase =>
+            useCase.execute(setting.id)
+        );
+    };
+
     render() {
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
@@ -50,6 +57,7 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
                     onRefreshSetting={this.onRefreshSetting}
                     onEditSetting={this.onEditSetting}
                     onDeleteSetting={this.onDeleteSetting}
+                    onShowUserEvents={this.onShowUserEvents}
                 />
             </div>
         );

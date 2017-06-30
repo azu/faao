@@ -36,6 +36,7 @@ export interface GitHubSettingListProps {
     onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onRefreshSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
+    onShowUserEvents: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
 }
 
 export interface GitHubSettingListState {
@@ -82,12 +83,20 @@ export class GitHubSettingList extends React.Component<
             this.props.onRefreshSetting(event, setting);
         }
     };
+
     onDeleteSetting = (event: React.MouseEvent<HTMLElement>) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             if (confirm(`Does delete "${setting.id.toValue()}"?`)) {
                 this.props.onDeleteSetting(event, setting);
             }
+        }
+    };
+
+    onShowUserEvents = (event: React.MouseEvent<HTMLElement>) => {
+        const setting = this.state.contextTargetSetting;
+        if (setting) {
+            this.props.onShowUserEvents(event, setting);
         }
     };
 
@@ -110,6 +119,16 @@ export class GitHubSettingList extends React.Component<
                           key: "label",
                           itemType: ContextualMenuItemType.Header,
                           name: this.state.contextTargetSetting!.id.toValue()
+                      },
+                      {
+                          key: "show-events",
+                          iconProps: {
+                              iconName: "Show"
+                          },
+                          onClick: (event: React.MouseEvent<HTMLElement>) => {
+                              this.onShowUserEvents(event);
+                          },
+                          name: "Show events"
                       },
                       {
                           key: "refresh-setting",

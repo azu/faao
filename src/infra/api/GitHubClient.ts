@@ -4,8 +4,12 @@ import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearch
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
+import {
+    GitHubUserActivityEvent,
+    GitHubUserActivityEventJSON
+} from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
+import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -91,24 +95,23 @@ export class GitHubClient {
     }
 
     events(
-        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onProgress: (events: GitHubUserActivityEvent[]) => Promise<boolean>,
         onError: (error: Error) => void,
         onComplete: () => void
     ) {
         type FetchResponse = {
-            items: GitHubUserActivityEvent[];
+            items: GitHubUserActivityEventJSON[];
             fetch: () => Promise<FetchResponse>;
             next_page_url?: string;
         };
         this.gh.fromUrl("/user").fetch().then((response: any) => {
             const login = response.login;
-            const onFetch = (fetchResponse: any) => {
+            const onFetch = (fetchResponse: FetchResponse) => {
                 debug("response %o", fetchResponse);
-                const gitHubSearchResult = GitHubSearchResultFactory.create({
-                    items: response.items || []
+                const items = fetchResponse.items.map(item => {
+                    return GitHubUserActivityEventFactory.create(item);
                 });
-                // Support incompleteResults
-                onProgress(fetchResponse)
+                onProgress(items)
                     .then(isContinue => {
                         if (isContinue) {
                             // fetch next page if needed

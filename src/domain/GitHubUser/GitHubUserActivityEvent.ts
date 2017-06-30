@@ -91,6 +91,10 @@ export class GitHubUserActivityEvent extends ValueObject {
         Object.assign(this, event);
     }
 
+    equals(event: GitHubUserActivityEvent): boolean {
+        return this.id.equals(event.id);
+    }
+
     static fromJSON(json: GitHubUserActivityEventJSON): GitHubUserActivityEvent {
         return new GitHubUserActivityEvent({
             ...json,

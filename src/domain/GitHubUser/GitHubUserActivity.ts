@@ -15,6 +15,7 @@ export interface GitHubUserActivityArgs {
 }
 
 export const DefaultEventMaxLimit = 500;
+
 export class GitHubUserActivity extends ValueObject {
     events: GitHubUserActivityEvent[];
     eventMaxLimit: number;
@@ -28,7 +29,11 @@ export class GitHubUserActivity extends ValueObject {
     addEvent(aEvent: GitHubUserActivityEvent) {
         const hasSameEvent = this.events.some(event => aEvent.equals(event));
         if (hasSameEvent) {
-            return debug("Already has same event: %o", aEvent);
+            return;
+        }
+        if (this.events.length > this.eventMaxLimit) {
+            this.events = this.events.slice(1, this.eventMaxLimit).concat(aEvent);
+            return;
         }
         this.events = this.events.concat(aEvent);
     }
@@ -52,5 +57,9 @@ export class GitHubUserActivity extends ValueObject {
             events: json.events.map(event => GitHubUserActivityEvent.fromJSON(event)),
             eventMaxLimit: json.eventMaxLimit
         });
+    }
+
+    hasRecordedEvent(event: GitHubUserActivityEvent) {
+        return this.events.some(thisEvent => thisEvent.equals(event));
     }
 }
