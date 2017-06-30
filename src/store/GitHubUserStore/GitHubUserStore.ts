@@ -5,11 +5,28 @@ import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 
-const parseGitHubEvent = require("parse-github-event");
+import { compile, parse, ParsedEvent } from "parse-github-event";
 
 export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
+    parsedEvent?: ParsedEvent;
+
+    constructor(event: GitHubUserActivityEvent) {
+        super(event);
+        this.parsedEvent = parse(this.toJSON());
+    }
+
+    get htmlURL() {
+        if (!this.parsedEvent) {
+            return "";
+        }
+        return this.parsedEvent.html_url;
+    }
+
     get description() {
-        return parseGitHubEvent.compile(this.toJSON());
+        if (!this.parsedEvent) {
+            return "NO DATA";
+        }
+        return compile(this.parsedEvent);
     }
 }
 

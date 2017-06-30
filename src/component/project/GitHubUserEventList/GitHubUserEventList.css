@@ -28,16 +28,7 @@
     clear: both;
 }
 
-.GitHubUserEventListItem-primaryText,
-.GitHubUserEventListItem-secondaryText,
-.GitHubUserEventListItem-tertiaryText {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-}
-
-.GitHubUserEventListItem-primaryText {
+.GitHubUserEventListItem-body {
     color: #212121;
     font-family: 'Segoe UI Semilight WestEuropean',
         'Segoe UI Semilight',
@@ -48,6 +39,8 @@
         Arial,
         sans-serif;
     font-size: 17px;
+    margin: 0;
+    padding: 0;
 }
 
 .GitHubUserEventListItem-tertiaryText {

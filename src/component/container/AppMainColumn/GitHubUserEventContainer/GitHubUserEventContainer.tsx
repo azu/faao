@@ -1,18 +1,24 @@
 // MIT © 2017 azu
 import * as React from "react";
 import { SyntheticEvent } from "react";
-import { GitHubUserState } from "../../../../store/GitHubUserStore/GitHubUserStore";
+import {
+    GitHubUserActivityEventVideoModel,
+    GitHubUserState
+} from "../../../../store/GitHubUserStore/GitHubUserStore";
 import { GitHubUserEventList } from "../../../project/GitHubUserEventList/GitHubUserEventList";
-import { GitHubUserActivityEvent } from "../../../../domain/GitHubUser/GitHubUserActivityEvent";
+import { BaseContainer } from "../../BaseContainer";
+import { OpenItemInNewTabUseCase } from "../../../../use-case/App/OpenItemInNewTabUseCase";
 
 export interface GitHubUserEventContainerProps {
     gitHubUser: GitHubUserState;
 }
 
-export class GitHubUserEventContainer extends React.Component<GitHubUserEventContainerProps, {}> {
-    onClickItem(event: SyntheticEvent<any>, item: GitHubUserActivityEvent) {
-        console.log(event, item);
-    }
+export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventContainerProps, {}> {
+    onClickItem = (_event: SyntheticEvent<any>, item: GitHubUserActivityEventVideoModel) => {
+        this.useCase(new OpenItemInNewTabUseCase()).executor(useCase =>
+            useCase.execute(item.htmlURL)
+        );
+    };
 
     render() {
         return (

@@ -30,9 +30,9 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
 
         return (
             <div className={className} onClick={onClick}>
-                <span className="GitHubUserEventListItem-primaryText">
+                <p className="GitHubUserEventListItem-body">
                     {item.description}
-                </span>
+                </p>
                 <footer className="GitHubUserEventListItem-footer">
                     <span> created </span>
                     <span className="GitHubUserEventListItem-updateDate">
