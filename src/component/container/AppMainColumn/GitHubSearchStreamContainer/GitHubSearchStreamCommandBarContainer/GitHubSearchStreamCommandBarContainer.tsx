@@ -5,7 +5,7 @@ import { BaseContainer } from "../../../BaseContainer";
 import { createReloadActiveStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ReloadActiveStreamUseCase";
 import classNames from "classnames";
 import { ExpandableSearch } from "../../../../project/ExpandableSearch/ExpandableSearch";
-import { createApplyFilterToCurrentUserActivityUseCase } from "../../../../../use-case/GitHubUser/ApplyFilterToCurrentUserActivityUseCase";
+import { createApplyFilterToCurrentStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ApplyFilterToCurrentStreamUseCase";
 
 export interface GitHubSearchStreamCommandBarContainerProps {
     className?: string;
@@ -22,7 +22,7 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
 
     onChangeSearchValue = (value: any) => {
         if (typeof value === "string") {
-            this.useCase(createApplyFilterToCurrentUserActivityUseCase()).executor(useCase =>
+            this.useCase(createApplyFilterToCurrentStreamUseCase()).executor(useCase =>
                 useCase.execute(value)
             );
         }

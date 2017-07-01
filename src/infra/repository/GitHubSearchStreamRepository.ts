@@ -62,7 +62,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         const hash = query.hash;
         this.map.set(hash, stream);
         return this.storage.setItem(hash, stream.toJSON()).then(() => {
-            debug("Save stream");
+            debug("Save stream with query");
         });
     }
 
@@ -72,7 +72,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     ): Promise<void> {
         this.map.set(searchListId.toValue(), stream);
         return this.storage.setItem(searchListId.toValue(), stream.toJSON()).then(() => {
-            debug("Save stream");
+            debug("Save stream with search list");
         });
     }
 

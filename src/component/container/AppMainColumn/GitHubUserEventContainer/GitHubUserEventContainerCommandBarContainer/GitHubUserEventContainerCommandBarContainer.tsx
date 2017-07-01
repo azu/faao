@@ -4,8 +4,8 @@ import { IconButton } from "office-ui-fabric-react";
 import { BaseContainer } from "../../../BaseContainer";
 import classNames from "classnames";
 import { ExpandableSearch } from "../../../../project/ExpandableSearch/ExpandableSearch";
-import { createApplyFilterToCurrentStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ApplyFilterToCurrentStreamUseCase";
 import { createReloadCurrentUserActivityUseCase } from "../../../../../use-case/GitHubUser/ReloadCurrentUserActivityUseCase";
+import { createApplyFilterToCurrentUserActivityUseCase } from "../../../../../use-case/GitHubUser/ApplyFilterToCurrentUserActivityUseCase";
 
 export interface GitHubUserEventContainerCommandBarContainerProps {
     className?: string;
@@ -24,7 +24,7 @@ export class GitHubUserEventContainerCommandBarContainer extends BaseContainer<
 
     onChangeSearchValue = (value: any) => {
         if (typeof value === "string") {
-            this.useCase(createApplyFilterToCurrentStreamUseCase()).executor(useCase =>
+            this.useCase(createApplyFilterToCurrentUserActivityUseCase()).executor(useCase =>
                 useCase.execute(value)
             );
         }
