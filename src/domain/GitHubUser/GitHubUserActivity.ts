@@ -2,6 +2,7 @@
 import { GitHubUserActivityEvent, GitHubUserActivityEventJSON } from "./GitHubUserActivityEvent";
 import { ValueObject } from "../ValueObject";
 import { SearchFilter } from "../GitHubSearchStream/SearchFilter/SearchFilter";
+import sortBy from "lodash.sortby";
 
 const debug = require("debug")("faao:GitHubUserActivity");
 
@@ -65,9 +66,12 @@ export class GitHubUserActivity extends ValueObject {
     applyFilter(filter?: SearchFilter): void {
         this.filter = filter;
         if (filter) {
-            this.events = this.filterBySearchFilter(filter);
+            this.events = sortBy(
+                this.filterBySearchFilter(filter),
+                item => item.createAtDate
+            ).reverse();
         } else {
-            this.events = this.rawEvents.slice();
+            this.events = sortBy(this.rawEvents, item => item.createAtDate).reverse();
         }
     }
 
