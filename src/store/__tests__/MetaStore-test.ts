@@ -18,7 +18,7 @@ const excludeStoreNames = [
  * Store meta test
  */
 describe("MetaStore", () => {
-    // 実際にAppStoreGroupに登録されているStore一覧
+    // actual stores in AppStoreGroup
     const actualRegisteredStores = Object.values(createStoreMap());
     const actualRegisteredStoreTuple = actualRegisteredStores.map(store => {
         return {
