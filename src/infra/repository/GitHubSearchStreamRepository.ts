@@ -66,9 +66,12 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         });
     }
 
-    saveWithSearchList(stream: GitHubSearchStream, searchList: GitHubSearchList): Promise<void> {
-        this.map.set(searchList.id.toValue(), stream);
-        return this.storage.setItem(searchList.id.toValue(), stream.toJSON()).then(() => {
+    saveWithSearchList(
+        stream: GitHubSearchStream,
+        searchListId: Identifier<GitHubSearchList>
+    ): Promise<void> {
+        this.map.set(searchListId.toValue(), stream);
+        return this.storage.setItem(searchListId.toValue(), stream.toJSON()).then(() => {
             debug("Save stream");
         });
     }

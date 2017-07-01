@@ -20,7 +20,7 @@ export const DefaultEventMaxLimit = 500;
 
 export class GitHubUserActivity extends ValueObject {
     filter?: SearchFilter;
-    readonly rawEvents: GitHubUserActivityEvent[];
+    rawEvents: GitHubUserActivityEvent[];
     events: GitHubUserActivityEvent[];
     eventMaxLimit: number;
 
@@ -30,9 +30,11 @@ export class GitHubUserActivity extends ValueObject {
         this.rawEvents = args.events;
         this.events = args.events;
         this.eventMaxLimit = args.eventMaxLimit;
-        if (this.filter) {
-            this.applyFilter(this.filter);
-        }
+        this.applyFilter(this.filter);
+    }
+
+    get rawEventCount(): number {
+        return this.rawEvents.length;
     }
 
     /**
@@ -60,27 +62,31 @@ export class GitHubUserActivity extends ValueObject {
         return this.getEventAtIndex(index - 1);
     }
 
-    applyFilter(filter: SearchFilter): void {
+    applyFilter(filter?: SearchFilter): void {
         this.filter = filter;
-        this.events = this.filterBySearchFilter(filter);
+        if (filter) {
+            this.events = this.filterBySearchFilter(filter);
+        } else {
+            this.events = this.rawEvents.slice();
+        }
     }
 
     filterBySearchFilter(filter: SearchFilter) {
-        return this.events.filter(event => {
+        return this.rawEvents.filter(event => {
             return filter.isMatch(event);
         });
     }
 
-    addEvent(aEvent: GitHubUserActivityEvent) {
-        const hasSameEvent = this.events.some(event => aEvent.equals(event));
+    private addEvent(aEvent: GitHubUserActivityEvent) {
+        const hasSameEvent = this.rawEvents.some(event => aEvent.equals(event));
         if (hasSameEvent) {
             return;
         }
-        if (this.events.length > this.eventMaxLimit) {
-            this.events = this.events.slice(1, this.eventMaxLimit).concat(aEvent);
-            return;
+        if (this.rawEvents.length > this.eventMaxLimit) {
+            this.rawEvents = this.rawEvents.slice(1, this.eventMaxLimit).concat(aEvent);
+        } else {
+            this.rawEvents = this.rawEvents.concat(aEvent);
         }
-        this.events = this.events.concat(aEvent);
     }
 
     /**
@@ -88,11 +94,12 @@ export class GitHubUserActivity extends ValueObject {
      */
     mergeEvents(events: GitHubUserActivityEvent[]) {
         events.forEach(event => this.addEvent(event));
+        this.applyFilter(this.filter);
     }
 
     toJSON(): GitHubUserActivityJSON {
         return {
-            events: this.events.map(event => event.toJSON()),
+            events: this.rawEvents.map(event => event.toJSON()),
             eventMaxLimit: this.eventMaxLimit
         };
     }
@@ -105,6 +112,6 @@ export class GitHubUserActivity extends ValueObject {
     }
 
     hasRecordedEvent(event: GitHubUserActivityEvent) {
-        return this.events.some(thisEvent => thisEvent.equals(event));
+        return this.rawEvents.some(thisEvent => thisEvent.equals(event));
     }
 }

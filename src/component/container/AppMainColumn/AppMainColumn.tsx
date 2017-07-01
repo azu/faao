@@ -20,6 +20,7 @@ export class AppMainColumn extends React.Component<AppMainColumnProps, {}> {
         const userEventContainer = this.props.gitHubUser.shouldShow
             ? <GitHubUserEventContainer gitHubUser={this.props.gitHubUser} />
             : null;
+
         const searchStreamContainer = this.props.gitHubSearchStream.hasResult
             ? <GitHubSearchStreamContainer
                   app={this.props.app}

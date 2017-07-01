@@ -52,12 +52,12 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
         itemHistory: ActivityHistory<GitHubSearchResultItem>;
     }) {
         if (!stream) {
-            return new GitHubSearchStreamState(
-                Object.assign({}, this, {
-                    items: [],
-                    displayItems: []
-                })
-            );
+            return new GitHubSearchStreamState({
+                ...this as GitHubSearchStreamStateArgs,
+                items: [],
+                displayItems: [],
+                rawItemCount: 0
+            });
         }
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,

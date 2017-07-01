@@ -16,10 +16,11 @@ export interface OpenedGitHubSearchListArgs {
 }
 
 export const isOpenedGitHubSearchList = (v: any): v is OpenedGitHubSearchList => {
-    return v instanceof OpenedGitHubSearchList;
+    return v instanceof OpenedGitHubSearchList && v.type === "OpenedGitHubStream";
 };
 
 export class OpenedGitHubSearchList extends ValueObject implements OpenedGitHubSearchListArgs {
+    type = "OpenedGitHubStream";
     gitHubSearchListId: Identifier<GitHubSearchList>;
     query?: GitHubSearchQuery;
 

@@ -3,6 +3,12 @@
     height: 100%;
 }
 
+.GitHubUserEventContainer-header {
+    /* fix header in flex */
+    flex-shrink: 0;
+    border: 1px solid #ddd;
+}
+
 .GitHubUserEventContainer-main {
     width: 100%;
     height: 100%;

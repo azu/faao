@@ -18,10 +18,11 @@ export interface OpenedGitHubStreamArgs {
 }
 
 export const isOpenedGitHubStream = (v: any): v is OpenedGitHubStream => {
-    return v instanceof OpenedGitHubStream;
+    return v instanceof OpenedGitHubStream && v.type === "OpenedGitHubStream";
 };
 
 export class OpenedGitHubStream implements OpenedGitHubStreamArgs {
+    readonly type = "OpenedGitHubStream";
     gitHubSearchStreamId: Identifier<GitHubSearchStream>;
     item?: GitHubSearchResultItem;
 

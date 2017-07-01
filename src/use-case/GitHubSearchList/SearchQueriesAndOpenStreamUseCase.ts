@@ -34,7 +34,7 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
             this.gitHubSearchStreamRepository.findBySearchList(searchList) ||
             GitHubSearchStreamFactory.create();
         // save current streamForSearchList
-        await this.gitHubSearchStreamRepository.saveWithSearchList(searchListStream, searchList);
+        await this.gitHubSearchStreamRepository.saveWithSearchList(searchListStream, searchList.id);
         // AppUser open streamForSearchList and select first item
         await this.context
             .useCase(createAppUserOpenStreamUseCase())
@@ -58,7 +58,7 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
                     searchListStream.mergeStream(queryStream);
                     return this.gitHubSearchStreamRepository.saveWithSearchList(
                         searchListStream,
-                        searchList
+                        searchList.id
                     );
                 });
         });

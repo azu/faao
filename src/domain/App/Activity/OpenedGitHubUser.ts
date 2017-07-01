@@ -18,10 +18,11 @@ export interface OpenedGitHubUserArgs {
 }
 
 export const isOpenedGitHubUser = (v: any): v is OpenedGitHubUser => {
-    return v instanceof OpenedGitHubUser;
+    return v instanceof OpenedGitHubUser && v.type === "OpenedGitHubUser";
 };
 
 export class OpenedGitHubUser implements OpenedGitHubUserArgs {
+    readonly type = "OpenedGitHubUser";
     gitHubUserId: Identifier<GitHubUser>;
     event?: GitHubUserActivityEvent;
 

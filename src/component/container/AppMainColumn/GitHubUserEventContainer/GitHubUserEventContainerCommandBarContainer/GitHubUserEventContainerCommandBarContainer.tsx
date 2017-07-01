@@ -7,13 +7,13 @@ import classNames from "classnames";
 import { ExpandableSearch } from "../../../../project/ExpandableSearch/ExpandableSearch";
 import { createApplyFilterToCurrentContentUseCase } from "../../../../../use-case/content/ApplyFilterToCurrentContentUseCase";
 
-export interface GitHubSearchStreamCommandBarContainerProps {
+export interface GitHubUserEventContainerCommandBarContainerProps {
     className?: string;
     filterWord?: string;
 }
 
-export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
-    GitHubSearchStreamCommandBarContainerProps,
+export class GitHubUserEventContainerCommandBarContainer extends BaseContainer<
+    GitHubUserEventContainerCommandBarContainerProps,
     {}
 > {
     onClickRefreshButton = () => {
@@ -32,7 +32,7 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
         return (
             <div
                 className={classNames(
-                    "GitHubSearchStreamCommandBarContainer",
+                    "GitHubUserEventContainerCommandBarContainer",
                     this.props.className
                 )}
             >

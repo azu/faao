@@ -17,26 +17,33 @@ export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
 
 export const createInitialGitHubUserState = () => {
     return new GitHubUserState({
-        events: []
+        events: [],
+        rawEventCount: 0
     });
 };
 
 export interface GitHubUserStateArgs {
+    filterWord?: string;
     events: GitHubUserActivityEvent[];
+    rawEventCount: number;
     activeEvent?: GitHubUserActivityEvent;
 }
 
 export class GitHubUserState implements GitHubUserStateArgs {
+    filterWord?: string;
     events: GitHubUserActivityEvent[];
+    rawEventCount: number;
     activeEvent?: GitHubUserActivityEvent;
 
     constructor(args: GitHubUserStateArgs) {
+        this.filterWord = args.filterWord;
         this.events = args.events;
+        this.rawEventCount = args.rawEventCount;
         this.activeEvent = args.activeEvent;
     }
 
     get shouldShow() {
-        return this.events.length > 0;
+        return this.rawEventCount > 0;
     }
 
     update({
@@ -52,6 +59,8 @@ export class GitHubUserState implements GitHubUserStateArgs {
             return createInitialGitHubUserState();
         }
         return new GitHubUserState({
+            filterWord: user.activity.filter ? user.activity.filter.filterText : undefined,
+            rawEventCount: user.activity.rawEventCount,
             activeEvent: openedUserEvent,
             events: user.activity.events.map(
                 event =>

@@ -24,11 +24,11 @@ import {
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
 // menu
-type OpenedMenu = OpenedGitHubSearchList;
-type OpenedMenuJSON = OpenedGitHubSearchListJSON;
+export type OpenedMenu = OpenedGitHubSearchList;
+export type OpenedMenuJSON = OpenedGitHubSearchListJSON;
 // open either one of these as content
-type OpenedContent = OpenedGitHubStream | OpenedGitHubUser;
-type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
+export type OpenedContent = OpenedGitHubStream | OpenedGitHubUser;
+export type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
 
 /**
  * Note: Entity should not reference to other entity instance.
@@ -104,22 +104,25 @@ export class AppUserActivity {
     get openedUserEvent(): GitHubUserActivityEvent | undefined {
         return isOpenedGitHubUser(this.openedContent) ? this.openedContent.event : undefined;
     }
+
     activateStream(stream: GitHubSearchStream) {
-        this.openedContent = new OpenedGitHubStream({
-            gitHubSearchStreamId: stream.id
-        });
+        if (isOpenedGitHubSearchList(this.openedMenu)) {
+            this.openedContent = new OpenedGitHubStream({
+                gitHubSearchStreamId: stream.id
+            });
+        }
     }
 
     activateItem(item: GitHubSearchResultItem) {
         if (isOpenedGitHubStream(this.openedContent)) {
             this.openedContent = this.openedContent.openItem(item);
+            this.streamItemHistory.readItem(
+                new ActivityHistoryItem({
+                    id: item.id,
+                    timeStamp: Date.now()
+                })
+            );
         }
-        this.streamItemHistory.readItem(
-            new ActivityHistoryItem({
-                id: item.id,
-                timeStamp: Date.now()
-            })
-        );
     }
 
     activateSearchList(searchList: GitHubSearchList) {
@@ -144,13 +147,13 @@ export class AppUserActivity {
     activateGitHubUserActivityEvent(event: GitHubUserActivityEvent) {
         if (isOpenedGitHubUser(this.openedContent)) {
             this.openedContent = this.openedContent.openEvent(event);
+            this.userEventHistory.readItem(
+                new ActivityHistoryItem({
+                    id: event.id,
+                    timeStamp: Date.now()
+                })
+            );
         }
-        this.userEventHistory.readItem(
-            new ActivityHistoryItem({
-                id: event.id,
-                timeStamp: Date.now()
-            })
-        );
     }
 
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {
