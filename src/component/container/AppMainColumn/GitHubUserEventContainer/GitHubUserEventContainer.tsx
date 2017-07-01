@@ -8,7 +8,7 @@ import {
 import { GitHubUserEventList } from "../../../project/GitHubUserEventList/GitHubUserEventList";
 import { BaseContainer } from "../../BaseContainer";
 import { createAppUserOpenGitHubUserEventUseCase } from "../../../../use-case/App/AppUserOpenGitHubUserEventUseCase";
-import { GitHubSearchStreamCommandBarContainer } from "../GitHubSearchStreamContainer/GitHubSearchStreamCommandBarContainer/GitHubSearchStreamCommandBarContainer";
+import { GitHubUserEventContainerCommandBarContainer } from "./GitHubUserEventContainerCommandBarContainer/GitHubUserEventContainerCommandBarContainer";
 
 export interface GitHubUserEventContainerProps {
     gitHubUser: GitHubUserState;
@@ -24,7 +24,7 @@ export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventConta
     render() {
         return (
             <div className="GitHubUserEventContainer">
-                <GitHubSearchStreamCommandBarContainer
+                <GitHubUserEventContainerCommandBarContainer
                     className="GitHubUserEventContainer-header"
                     filterWord={this.props.gitHubUser.filterWord}
                 />

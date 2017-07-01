@@ -2,10 +2,10 @@
 import * as React from "react";
 import { IconButton } from "office-ui-fabric-react";
 import { BaseContainer } from "../../../BaseContainer";
-import { createReloadActiveStreamUseCase } from "../../../../../use-case/GitHubSearchStream/ReloadActiveStreamUseCase";
 import classNames from "classnames";
 import { ExpandableSearch } from "../../../../project/ExpandableSearch/ExpandableSearch";
 import { createApplyFilterToCurrentContentUseCase } from "../../../../../use-case/content/ApplyFilterToCurrentContentUseCase";
+import { createReloadCurrentUserActivityUseCase } from "../../../../../use-case/GitHubUser/ReloadCurrentUserActivityUseCase";
 
 export interface GitHubUserEventContainerCommandBarContainerProps {
     className?: string;
@@ -17,7 +17,9 @@ export class GitHubUserEventContainerCommandBarContainer extends BaseContainer<
     {}
 > {
     onClickRefreshButton = () => {
-        this.useCase(createReloadActiveStreamUseCase()).executor(useCase => useCase.execute());
+        this.useCase(createReloadCurrentUserActivityUseCase()).executor(useCase =>
+            useCase.execute()
+        );
     };
 
     onChangeSearchValue = (value: any) => {

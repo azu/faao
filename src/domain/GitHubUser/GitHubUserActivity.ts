@@ -82,11 +82,15 @@ export class GitHubUserActivity extends ValueObject {
         if (hasSameEvent) {
             return;
         }
-        if (this.rawEvents.length > this.eventMaxLimit) {
+        if (this.isReachedLimitMax) {
             this.rawEvents = this.rawEvents.slice(1, this.eventMaxLimit).concat(aEvent);
         } else {
             this.rawEvents = this.rawEvents.concat(aEvent);
         }
+    }
+
+    private get isReachedLimitMax() {
+        return this.rawEvents.length > this.eventMaxLimit;
     }
 
     /**

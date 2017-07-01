@@ -30,8 +30,8 @@ export class Identifier<T> {
         this.value = value;
     }
 
-    equals(id: Identifier<T>): boolean {
-        if (id === null) {
+    equals(id?: Identifier<T>): boolean {
+        if (id === null || id === undefined) {
             return false;
         }
         if (!(id instanceof Identifier)) {
