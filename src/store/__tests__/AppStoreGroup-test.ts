@@ -24,7 +24,7 @@ describe("AppStoreGroup", () => {
             const state = appStoreGroup.getState();
             expect(state.app.activeQuery).toBeUndefined();
             expect(state.app.activeStream).toBeUndefined();
-            expect(state.app.activeItem).toBeUndefined();
+            expect(state.app.activeEvent).toBeUndefined();
             expect(state.app.activeSearchList).toBeUndefined();
         });
         it("should not exist default GitHubSetting", () => {

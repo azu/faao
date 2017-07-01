@@ -7,6 +7,14 @@ describe("App", () => {
             id: "01BK80E7K46WRSP4Y5634DGCJB",
             user: {
                 activity: {
+                    userEventHistory: {
+                        items: [
+                            {
+                                id: "1234456543",
+                                timeStamp: 1498139445848
+                            }
+                        ]
+                    },
                     streamItemHistory: {
                         items: [
                             {

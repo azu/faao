@@ -26,6 +26,31 @@ export class GitHubUserActivity extends ValueObject {
         this.eventMaxLimit = args.eventMaxLimit;
     }
 
+    /**
+     * get method respect filter
+     */
+    getFirstEvent(): GitHubUserActivityEvent | undefined {
+        return this.getEventAtIndex(0);
+    }
+
+    getEventAtIndex(index: number): GitHubUserActivityEvent | undefined {
+        return this.events[index];
+    }
+
+    getNextEvent(currentEvent: GitHubUserActivityEvent): GitHubUserActivityEvent | undefined {
+        const index = this.events.findIndex(event => {
+            return event.equals(currentEvent);
+        });
+        return this.getEventAtIndex(index + 1);
+    }
+
+    getPrevEvent(currentEvent: GitHubUserActivityEvent): GitHubUserActivityEvent | undefined {
+        const index = this.events.findIndex(event => {
+            return event.equals(currentEvent);
+        });
+        return this.getEventAtIndex(index - 1);
+    }
+
     addEvent(aEvent: GitHubUserActivityEvent) {
         const hasSameEvent = this.events.some(event => aEvent.equals(event));
         if (hasSameEvent) {

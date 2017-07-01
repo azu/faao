@@ -28,7 +28,13 @@ export class AppRepository extends NonNullableBaseRepository<App> {
         });
         values
             .map(json => {
-                return App.fromJSON(json);
+                try {
+                    return App.fromJSON(json);
+                } catch (error) {
+                    // TODO: ???
+                    this.storage.removeItem(json.id);
+                    return this.initialEntity;
+                }
             })
             .forEach(app => {
                 this.map.set(app.id, app);

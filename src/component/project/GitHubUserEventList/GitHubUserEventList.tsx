@@ -24,7 +24,8 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
         const className = suitcssClassnames({
             component: "GitHubUserEventListItem",
             states: {
-                "is-active": this.props.isActive
+                "is-active": this.props.isActive,
+                "is-unread": !this.props.item.isRead
             }
         });
 
@@ -63,7 +64,7 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
 export interface GitHubUserEventListProps {
     className?: string;
     items: GitHubUserActivityEvent[];
-    activeItem?: GitHubUserActivityEvent;
+    activeEvent?: GitHubUserActivityEvent;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubUserActivityEvent) => void;
 }
 
@@ -82,7 +83,7 @@ export class GitHubUserEventList extends React.Component<GitHubUserEventListProp
 
     componentWillReceiveProps(nextProps: GitHubUserEventListProps) {
         const itemIndex = nextProps.items.findIndex(item => {
-            return item.equals(nextProps.activeItem);
+            return item.equals(nextProps.activeEvent);
         });
         if (itemIndex !== -1) {
             this._scroll(itemIndex, nextProps.items);
@@ -107,7 +108,7 @@ export class GitHubUserEventList extends React.Component<GitHubUserEventListProp
                     return (
                         <GitHubUserEventListItem
                             item={item}
-                            isActive={item.equals(this.props.activeItem)}
+                            isActive={item.equals(this.props.activeEvent)}
                             onClickItem={onClickItem}
                         />
                     );

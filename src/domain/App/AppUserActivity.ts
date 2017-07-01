@@ -38,23 +38,27 @@ type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
  */
 export interface AppUserActivityJSON {
     streamItemHistory: ActivityHistoryJSON;
+    userEventHistory: ActivityHistoryJSON;
     openedMenu?: OpenedMenuJSON;
     openedContent?: OpenedContentJSON;
 }
 
 export interface AppUserActivityArgs {
     streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
     openedMenu?: OpenedMenu;
     openedContent?: OpenedContent;
 }
 
 export class AppUserActivity {
     streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
     openedMenu?: OpenedGitHubSearchList;
     openedContent?: OpenedContent;
 
     constructor(args: AppUserActivityArgs) {
         this.streamItemHistory = args.streamItemHistory;
+        this.userEventHistory = args.userEventHistory;
         this.openedMenu = args.openedMenu;
         this.openedContent = args.openedContent;
     }
@@ -97,6 +101,9 @@ export class AppUserActivity {
         return isOpenedGitHubStream(this.openedContent) ? this.openedContent.item : undefined;
     }
 
+    get openedUserEvent(): GitHubUserActivityEvent | undefined {
+        return isOpenedGitHubUser(this.openedContent) ? this.openedContent.event : undefined;
+    }
     activateStream(stream: GitHubSearchStream) {
         this.openedContent = new OpenedGitHubStream({
             gitHubSearchStreamId: stream.id
@@ -138,6 +145,12 @@ export class AppUserActivity {
         if (isOpenedGitHubUser(this.openedContent)) {
             this.openedContent = this.openedContent.openEvent(event);
         }
+        this.userEventHistory.readItem(
+            new ActivityHistoryItem({
+                id: event.id,
+                timeStamp: Date.now()
+            })
+        );
     }
 
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {
@@ -164,6 +177,7 @@ export class AppUserActivity {
         })(json.openedMenu);
         return new AppUserActivity({
             streamItemHistory: ActivityHistory.fromJSON(json.streamItemHistory),
+            userEventHistory: ActivityHistory.fromJSON(json.userEventHistory),
             openedMenu,
             openedContent
         });
@@ -172,6 +186,7 @@ export class AppUserActivity {
     toJSON(): AppUserActivityJSON {
         return {
             streamItemHistory: this.streamItemHistory.toJSON(),
+            userEventHistory: this.userEventHistory.toJSON(),
             openedMenu: this.openedMenu ? this.openedMenu.toJSON() : undefined,
             openedContent: this.openedContent ? this.openedContent.toJSON() : undefined
         };

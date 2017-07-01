@@ -119,6 +119,10 @@ export class GitHubUserActivityEvent extends ValueObject {
         return compile(this.parsedEvent);
     }
 
+    get createAtDate(): Date {
+        return new Date(this.created_at);
+    }
+
     equals(event?: GitHubUserActivityEvent): boolean {
         if (!event) {
             return false;

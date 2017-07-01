@@ -4,40 +4,14 @@ import { GitHubUserRepository } from "../../infra/repository/GitHubUserRepositor
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
-
-import { compile, parse, ParsedEvent } from "parse-github-event";
-import { isOpenedGitHubUser } from "../../domain/App/Activity/OpenedGitHubUser";
-
-const ghUrlToObject = require("github-url-to-object");
+import { ActivityHistory } from "../../domain/App/ActivityHistory";
 
 export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
-    parsedEvent?: ParsedEvent;
+    isRead: boolean;
 
-    constructor(event: GitHubUserActivityEvent) {
+    constructor(event: GitHubUserActivityEvent, isRead: boolean) {
         super(event);
-        this.parsedEvent = parse(this.toJSON());
-    }
-
-    // owner/repo
-    get shortPath() {
-        // https://github.com/zeke/github-url-to-object#github-enterprise
-        const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
-        const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
-        return `${object.user}/${object.repo}`;
-    }
-
-    get htmlURL() {
-        if (!this.parsedEvent) {
-            return "";
-        }
-        return this.parsedEvent.html_url;
-    }
-
-    get description() {
-        if (!this.parsedEvent) {
-            return "NO DATA";
-        }
-        return compile(this.parsedEvent);
+        this.isRead = isRead;
     }
 }
 
@@ -49,25 +23,43 @@ export const createInitialGitHubUserState = () => {
 
 export interface GitHubUserStateArgs {
     events: GitHubUserActivityEvent[];
+    activeEvent?: GitHubUserActivityEvent;
 }
 
 export class GitHubUserState implements GitHubUserStateArgs {
     events: GitHubUserActivityEvent[];
+    activeEvent?: GitHubUserActivityEvent;
 
     constructor(args: GitHubUserStateArgs) {
         this.events = args.events;
+        this.activeEvent = args.activeEvent;
     }
 
     get shouldShow() {
         return this.events.length > 0;
     }
 
-    update(user?: GitHubUser): GitHubUserState {
-        if (!user) {
+    update({
+        user,
+        openedUserEvent,
+        userEventHistory
+    }: {
+        user?: GitHubUser;
+        openedUserEvent?: GitHubUserActivityEvent;
+        userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
+    }): GitHubUserState {
+        if (!user || !userEventHistory) {
             return createInitialGitHubUserState();
         }
         return new GitHubUserState({
-            events: user.activity.events.map(event => new GitHubUserActivityEventVideoModel(event))
+            activeEvent: openedUserEvent,
+            events: user.activity.events.map(
+                event =>
+                    new GitHubUserActivityEventVideoModel(
+                        event,
+                        userEventHistory.isRead(event.id, event.createAtDate)
+                    )
+            )
         });
     }
 }
@@ -87,11 +79,16 @@ export class GitHubUserStore extends Store<GitHubUserState> {
 
     receivePayload() {
         const app = this.args.appRepository.get();
-        const openedUserId = isOpenedGitHubUser(app.user.activity.openedContent)
-            ? app.user.activity.openedContent.gitHubUserId
-            : undefined;
+        const openedUserId = app.user.activity.openedUserId;
+        const openedUserEvent = app.user.activity.openedUserEvent;
         const user = this.args.gitHubUserRepository.findById(openedUserId);
-        this.setState(this.state.update(user));
+        this.setState(
+            this.state.update({
+                user,
+                openedUserEvent,
+                userEventHistory: app.user.activity.userEventHistory
+            })
+        );
     }
 
     getState() {

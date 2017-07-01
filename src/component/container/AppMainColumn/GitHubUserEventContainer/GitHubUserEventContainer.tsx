@@ -26,6 +26,7 @@ export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventConta
                 <GitHubUserEventList
                     className="GitHubUserEventContainer-main"
                     items={this.props.gitHubUser.events}
+                    activeEvent={this.props.gitHubUser.activeEvent}
                     onClickItem={this.onClickItem}
                 />
             </div>
