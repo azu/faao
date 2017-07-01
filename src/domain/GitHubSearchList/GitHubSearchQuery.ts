@@ -2,7 +2,6 @@
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { Identifier } from "../Entity";
-import ulid from "ulid";
 
 const execall = require("execall");
 
@@ -21,7 +20,6 @@ export interface GitHubSearchQueryArgs {
 }
 
 export class GitHubSearchQuery {
-    id: Identifier<GitHubSearchQuery>;
     name: string;
     query: string;
     color: GitHubSearchQueryColor;
@@ -32,7 +30,6 @@ export class GitHubSearchQuery {
     }
 
     constructor(object: GitHubSearchQueryArgs) {
-        this.id = new Identifier<GitHubSearchQuery>(ulid());
         this.name = object.name;
         this.query = object.query;
         this.color = object.color;

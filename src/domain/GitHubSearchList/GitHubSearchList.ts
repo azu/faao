@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
+import { splice } from "@immutable-array/prototype";
 
 export interface GitHubSearchListJSON {
     id: string;
@@ -55,8 +56,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         if (!this.queries[index]) {
             return;
         }
-        this.queries[index] = newQuery;
-        this.queries = this.queries.slice();
+        this.queries = splice(this.queries, index, 1, newQuery);
     }
 
     deleteQuery(aQuery: GitHubSearchQuery) {

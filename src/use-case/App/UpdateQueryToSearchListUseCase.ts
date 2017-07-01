@@ -21,7 +21,7 @@ export class UpdateQueryToSearchListUseCase extends UseCase {
 
     execute(queryJSON: GitHubSearchQueryJSON, editQuery: GitHubSearchQuery) {
         const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
-        const searchList = this.gitHubSearchListRepository.findByQuery(query);
+        const searchList = this.gitHubSearchListRepository.findByQuery(editQuery);
         if (!searchList) {
             return;
         }
