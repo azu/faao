@@ -1,7 +1,10 @@
 .GitHubUserEventContainer {
     width: 100%;
     height: 100%;
-    overflow-y: hidden;
+    /* flex */
+    /* See http://jsdo.it/ksk1015/st1G */
+    display: flex;
+    flex-direction: column;
 }
 
 .GitHubUserEventContainer-header {
@@ -11,8 +14,6 @@
 }
 
 .GitHubUserEventContainer-main {
-    width: 100%;
-    height: 100%;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     /* Scrollable area in flex */
