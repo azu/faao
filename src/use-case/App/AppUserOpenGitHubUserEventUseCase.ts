@@ -1,56 +1,24 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
+import { OpenItemInNewTabUseCase } from "./OpenItemInNewTabUseCase";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import {
-    gitHubSettingRepository,
-    GitHubSettingRepository
-} from "../../infra/repository/GitHubSettingsRepository";
-import { findGitHubUserByGitHubSettingId } from "../DomainConnection/GItHubSettingToGitHubUser";
-import {
-    gitHubUserRepository,
-    GitHubUserRepository
-} from "../../infra/repository/GitHubUserRepository";
-import { Identifier } from "../../domain/Entity";
-import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { createFetchGitHubUserActivityUseCase } from "../GitHubUser/FetchGitHubUserActivityUseCase";
+import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 
 export const createAppUserOpenGitHubUserEventUseCase = () => {
-    return new AppUserOpenGitHubUserEventUseCase({
-        appRepository,
-        gitHubSettingRepository,
-        gitHubUserRepository
-    });
+    return new AppUserOpenGitHubUserEventUseCase(appRepository);
 };
 
 export class AppUserOpenGitHubUserEventUseCase extends UseCase {
-    constructor(
-        private args: {
-            appRepository: AppRepository;
-            gitHubSettingRepository: GitHubSettingRepository;
-            gitHubUserRepository: GitHubUserRepository;
-        }
-    ) {
+    constructor(public appRepository: AppRepository) {
         super();
     }
 
-    async execute(gitHubSettingId: string | Identifier<GitHubSetting>) {
-        const app = this.args.appRepository.get();
-        const gitHubSetting = this.args.gitHubSettingRepository.findById(gitHubSettingId);
-        if (!gitHubSetting) {
-            return;
-        }
-        const gitHubUser = findGitHubUserByGitHubSettingId({
-            gitHubSettingID: gitHubSetting.id,
-            gitHubSettingRepository: this.args.gitHubSettingRepository,
-            gitHubUserRepository: this.args.gitHubUserRepository
+    async execute(activityEvent: GitHubUserActivityEvent) {
+        const app = this.appRepository.get();
+        app.user.openGitHubUserEvent(activityEvent);
+        await this.appRepository.save(app);
+        return this.context.useCase(new OpenItemInNewTabUseCase()).executor(useCase => {
+            return useCase.execute(activityEvent.htmlURL);
         });
-        if (!gitHubUser) {
-            return;
-        }
-        app.user.openGitHubUserEvents(gitHubUser);
-        await this.args.appRepository.save(app);
-        return this.context
-            .useCase(createFetchGitHubUserActivityUseCase())
-            .executor(useCase => useCase.execute(gitHubSetting.id));
     }
 }

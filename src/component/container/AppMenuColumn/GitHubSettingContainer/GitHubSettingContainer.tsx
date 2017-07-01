@@ -10,7 +10,7 @@ import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubS
 import { OpenSettingPanelUseCase } from "../../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { createDeleteSettingUseCase } from "../../../../use-case/GitHubSetting/DeleteSettingUseCase";
 import { createFetchGitHubUserDataUserCase } from "../../../../use-case/GitHubUser/FetchGitHubUserDataUserCase";
-import { createAppUserOpenGitHubUserEventUseCase } from "../../../../use-case/App/AppUserOpenGitHubUserEventUseCase";
+import { createAppUserOpenGitHubUserCase } from "../../../../use-case/App/AppUserOpenGitHubUserCase";
 
 export interface GitHubSettingContainerProps {
     className?: string;
@@ -42,7 +42,7 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
     };
 
     onShowUserEvents = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        this.useCase(createAppUserOpenGitHubUserEventUseCase()).executor(useCase =>
+        this.useCase(createAppUserOpenGitHubUserCase()).executor(useCase =>
             useCase.execute(setting.id)
         );
     };

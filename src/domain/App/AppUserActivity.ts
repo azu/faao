@@ -37,24 +37,24 @@ type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
  * https://softwareengineering.stackexchange.com/questions/328571/ddd-is-it-correct-for-a-root-aggregate-to-hold-a-reference-to-another-root-aggr
  */
 export interface AppUserActivityJSON {
-    itemHistory: ActivityHistoryJSON;
+    streamItemHistory: ActivityHistoryJSON;
     openedMenu?: OpenedMenuJSON;
     openedContent?: OpenedContentJSON;
 }
 
 export interface AppUserActivityArgs {
-    itemHistory: ActivityHistory;
+    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
     openedMenu?: OpenedMenu;
     openedContent?: OpenedContent;
 }
 
 export class AppUserActivity {
-    itemHistory: ActivityHistory;
+    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
     openedMenu?: OpenedGitHubSearchList;
     openedContent?: OpenedContent;
 
     constructor(args: AppUserActivityArgs) {
-        this.itemHistory = args.itemHistory;
+        this.streamItemHistory = args.streamItemHistory;
         this.openedMenu = args.openedMenu;
         this.openedContent = args.openedContent;
     }
@@ -107,7 +107,7 @@ export class AppUserActivity {
         if (isOpenedGitHubStream(this.openedContent)) {
             this.openedContent = this.openedContent.openItem(item);
         }
-        this.itemHistory.readItem(
+        this.streamItemHistory.readItem(
             new ActivityHistoryItem({
                 id: item.id,
                 timeStamp: Date.now()
@@ -163,7 +163,7 @@ export class AppUserActivity {
             }
         })(json.openedMenu);
         return new AppUserActivity({
-            itemHistory: ActivityHistory.fromJSON(json.itemHistory),
+            streamItemHistory: ActivityHistory.fromJSON(json.streamItemHistory),
             openedMenu,
             openedContent
         });
@@ -171,7 +171,7 @@ export class AppUserActivity {
 
     toJSON(): AppUserActivityJSON {
         return {
-            itemHistory: this.itemHistory.toJSON(),
+            streamItemHistory: this.streamItemHistory.toJSON(),
             openedMenu: this.openedMenu ? this.openedMenu.toJSON() : undefined,
             openedContent: this.openedContent ? this.openedContent.toJSON() : undefined
         };

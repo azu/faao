@@ -1,5 +1,4 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
 
@@ -8,16 +7,16 @@ export interface ActivityHistoryItemJSON {
     timeStamp: number;
 }
 
-export interface ActivityHistoryItemArgs {
-    id: Identifier<GitHubSearchResultItem>;
+export interface ActivityHistoryItemArgs<T> {
+    id: Identifier<T>;
     timeStamp: number;
 }
 
-export class ActivityHistoryItem {
-    id: Identifier<GitHubSearchResultItem>;
+export class ActivityHistoryItem<T> {
+    id: Identifier<T>;
     timeStamp: number;
 
-    constructor(item: ActivityHistoryItemArgs) {
+    constructor(item: ActivityHistoryItemArgs<T>) {
         this.id = item.id;
         this.timeStamp = item.timeStamp;
     }
@@ -29,9 +28,10 @@ export class ActivityHistoryItem {
         };
     }
 
-    static fromJSON(json: ActivityHistoryItemJSON): ActivityHistoryItem {
+    // FIXME: any should be T
+    static fromJSON(json: ActivityHistoryItemJSON): ActivityHistoryItem<any> {
         return new ActivityHistoryItem({
-            id: new Identifier<GitHubSearchResultItem>(json.id),
+            id: new Identifier<any>(json.id),
             timeStamp: json.timeStamp
         });
     }
@@ -44,16 +44,16 @@ export interface ActivityHistoryJSON {
 /**
  * Adding only history
  */
-export class ActivityHistory {
-    items: ActivityHistoryItem[];
+export class ActivityHistory<T> {
+    items: ActivityHistoryItem<T>[];
     limit: number;
 
-    constructor(items: ActivityHistoryItem[], limit = 1000) {
+    constructor(items: ActivityHistoryItem<T>[], limit = 1000) {
         this.items = items;
         this.limit = limit;
     }
 
-    readItem(aItem: ActivityHistoryItem) {
+    readItem(aItem: ActivityHistoryItem<T>) {
         const items = this.items;
         const existItemIndex = items.findIndex(item => item.id.equals(aItem.id));
         if (existItemIndex !== -1) {
@@ -67,16 +67,16 @@ export class ActivityHistory {
         this.items = items.concat(aItem);
     }
 
-    findById(itemId: Identifier<GitHubSearchResultItem>): ActivityHistoryItem | undefined {
+    findById(itemId: Identifier<T>): ActivityHistoryItem<T> | undefined {
         return this.items.find(item => item.id.equals(itemId));
     }
 
-    isRead(aItem: GitHubSearchResultItem): boolean {
-        const matchItem = this.findById(aItem.id);
+    isRead(itemId: Identifier<T>, readTimeStamp: Date): boolean {
+        const matchItem = this.findById(itemId);
         if (!matchItem) {
             return false;
         }
-        return matchItem.timeStamp >= aItem.updatedAtDate.getTime();
+        return matchItem.timeStamp >= readTimeStamp.getTime();
     }
 
     toJSON() {
@@ -86,10 +86,9 @@ export class ActivityHistory {
     }
 
     static fromJSON(json: ActivityHistoryJSON) {
-        const history = Object.create(ActivityHistory.prototype);
-        return Object.assign(history, {
-            limit: 1000,
-            items: json.items.map(item => ActivityHistoryItem.fromJSON(item))
-        });
+        return new ActivityHistory(
+            json.items.map(item => ActivityHistoryItem.fromJSON(item)),
+            1000
+        );
     }
 }

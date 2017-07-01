@@ -7,7 +7,7 @@ describe("App", () => {
             id: "01BK80E7K46WRSP4Y5634DGCJB",
             user: {
                 activity: {
-                    itemHistory: {
+                    streamItemHistory: {
                         items: [
                             {
                                 id: "237433612",

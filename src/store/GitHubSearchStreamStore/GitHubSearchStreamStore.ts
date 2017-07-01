@@ -39,7 +39,13 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
         return this.displayItems.length > 0;
     }
 
-    update({ stream, itemHistory }: { stream?: GitHubSearchStream; itemHistory: ActivityHistory }) {
+    update({
+        stream,
+        itemHistory
+    }: {
+        stream?: GitHubSearchStream;
+        itemHistory: ActivityHistory<GitHubSearchResultItem>;
+    }) {
         if (!stream) {
             return new GitHubSearchStreamState(
                 Object.assign({}, this, {
@@ -54,12 +60,12 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
             displayItems: stream.items.map(item => {
                 if (stateItemCacheMap.has(item)) {
                     const cachedItem = stateItemCacheMap.get(item)!;
-                    cachedItem.setRead(itemHistory.isRead(item));
+                    cachedItem.setRead(itemHistory.isRead(item.id, item.updatedAtDate));
                     return cachedItem;
                 }
                 const gitHubSearchStreamStateItem = new GitHubSearchStreamStateItem(
                     item,
-                    itemHistory.isRead(item)
+                    itemHistory.isRead(item.id, item.updatedAtDate)
                 );
                 stateItemCacheMap.set(item, gitHubSearchStreamStateItem);
                 return gitHubSearchStreamStateItem;
@@ -113,7 +119,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
             this.state
                 .update({
                     stream: activeStream,
-                    itemHistory: app.user.activity.itemHistory
+                    itemHistory: app.user.activity.streamItemHistory
                 })
                 .reduce(payload)
         );
