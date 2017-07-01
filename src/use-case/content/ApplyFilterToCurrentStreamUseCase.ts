@@ -14,15 +14,15 @@ import {
 } from "../../infra/repository/GitHubUserRepository";
 import { SearchFilter } from "../../domain/GitHubSearchStream/SearchFilter/SearchFilter";
 
-export const createApplyFilterToCurrentContentUseCase = () => {
-    return new ApplyFilterToCurrentContentUseCase({
+export const createApplyFilterToCurrentStreamUseCase = () => {
+    return new ApplyFilterToCurrentStreamUseCase({
         appRepository,
         gitHubSearchStreamRepository,
         gitHubUserRepository
     });
 };
 
-export class ApplyFilterToCurrentContentUseCase extends UseCase {
+export class ApplyFilterToCurrentStreamUseCase extends UseCase {
     constructor(
         private args: {
             appRepository: AppRepository;
