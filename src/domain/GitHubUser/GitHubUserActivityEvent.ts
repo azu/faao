@@ -2,6 +2,8 @@
 import { Identifier } from "../Entity";
 import { ValueObject } from "../ValueObject";
 import { compile, parse, ParsedEvent } from "parse-github-event";
+import * as url from "url";
+import urljoin from "url-join";
 
 export interface Payload {}
 
@@ -79,6 +81,20 @@ export interface GitHubUserActivityEventJSON {
 
 const ghUrlToObject = require("github-url-to-object");
 
+/**
+ * get origin from url
+ */
+export function getOriginFromURL(URL: string) {
+    if (!URL) {
+        return null;
+    }
+    const obj = url.parse(URL);
+    if (!obj.protocol && !obj.hostname) {
+        return null;
+    }
+    return `${obj.protocol}//${obj.hostname}${obj.port ? `:${obj.port}` : ""}`;
+}
+
 export class GitHubUserActivityEvent extends ValueObject {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
@@ -95,6 +111,20 @@ export class GitHubUserActivityEvent extends ValueObject {
         super();
         Object.assign(this, event);
         this.parsedEvent = parse(this.toJSON());
+    }
+
+    get repoAvatarUrl() {
+        if (this.org) {
+            return this.org.avatar_url;
+        } else if (this.repo) {
+            const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
+            const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
+            const origin = getOriginFromURL(object.https_url);
+            if (origin) {
+                return urljoin(origin, `${object.user}.png?size=20`);
+            }
+        }
+        return this.actor.avatar_url;
     }
 
     // owner/repo

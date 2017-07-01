@@ -28,11 +28,12 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
                 "is-unread": !this.props.item.isRead
             }
         });
-
+        const orgAvatar = <img src={item.repoAvatarUrl} width="18" height="18" />;
         return (
             <div className={className} onClick={onClick}>
                 <header className="GitHubUserEventListItem-header">
                     <h1 className="GitHubUserEventListItem-title">
+                        {orgAvatar}
                         <a href={item.htmlURL}>{item.shortPath}</a>
                     </h1>
                 </header>
