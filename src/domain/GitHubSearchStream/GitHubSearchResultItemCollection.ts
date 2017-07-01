@@ -21,6 +21,14 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         }
     }
 
+    get rawItemCount(): number {
+        return this.rawItems.length;
+    }
+
+    get itemCount(): number {
+        return this.items.length;
+    }
+
     applyFilter(filter: SearchFilter): void {
         this.filter = filter;
         this.items = this.filterBySearchFilter(filter);
@@ -28,25 +36,7 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
 
     filterBySearchFilter(filter: SearchFilter) {
         return this.rawItems.filter(item => {
-            return filter.items.every((filterItem): boolean => {
-                const itemValue: any = (item as any)[filterItem.field];
-                if (filterItem.type === "in") {
-                    return item.includes(filterItem.value);
-                } else if (filterItem.type === "nin") {
-                    return item.includes(filterItem.value) === false;
-                } else if (filterItem.type === "=") {
-                    return itemValue === filterItem.value;
-                } else if (filterItem.type === ">") {
-                    return itemValue > filterItem.value;
-                } else if (filterItem.type === ">=") {
-                    return itemValue >= filterItem.value;
-                } else if (filterItem.type === "<") {
-                    return itemValue < filterItem.value;
-                } else if (filterItem.type === "<=") {
-                    return itemValue <= filterItem.value;
-                }
-                return false;
-            });
+            return filter.isMatch(item);
         });
     }
 

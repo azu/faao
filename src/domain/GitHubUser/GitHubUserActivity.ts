@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { GitHubUserActivityEvent, GitHubUserActivityEventJSON } from "./GitHubUserActivityEvent";
 import { ValueObject } from "../ValueObject";
+import { SearchFilter } from "../GitHubSearchStream/SearchFilter/SearchFilter";
 
 const debug = require("debug")("faao:GitHubUserActivity");
 
@@ -10,6 +11,7 @@ export interface GitHubUserActivityJSON {
 }
 
 export interface GitHubUserActivityArgs {
+    filter?: SearchFilter;
     events: GitHubUserActivityEvent[];
     eventMaxLimit: number;
 }
@@ -17,13 +19,20 @@ export interface GitHubUserActivityArgs {
 export const DefaultEventMaxLimit = 500;
 
 export class GitHubUserActivity extends ValueObject {
+    filter?: SearchFilter;
+    readonly rawEvents: GitHubUserActivityEvent[];
     events: GitHubUserActivityEvent[];
     eventMaxLimit: number;
 
     constructor(args: GitHubUserActivityArgs) {
         super();
+        this.filter = args.filter;
+        this.rawEvents = args.events;
         this.events = args.events;
         this.eventMaxLimit = args.eventMaxLimit;
+        if (this.filter) {
+            this.applyFilter(this.filter);
+        }
     }
 
     /**
@@ -49,6 +58,17 @@ export class GitHubUserActivity extends ValueObject {
             return event.equals(currentEvent);
         });
         return this.getEventAtIndex(index - 1);
+    }
+
+    applyFilter(filter: SearchFilter): void {
+        this.filter = filter;
+        this.events = this.filterBySearchFilter(filter);
+    }
+
+    filterBySearchFilter(filter: SearchFilter) {
+        return this.events.filter(event => {
+            return filter.isMatch(event);
+        });
     }
 
     addEvent(aEvent: GitHubUserActivityEvent) {

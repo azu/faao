@@ -12,17 +12,10 @@ export interface GitHubSearchStreamCommandBarContainerProps {
     filterWord?: string;
 }
 
-export interface GitHubSearchStreamCommandBarContainerState {
-    value?: string;
-}
-
 export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
     GitHubSearchStreamCommandBarContainerProps,
-    GitHubSearchStreamCommandBarContainerState
+    {}
 > {
-    state = {
-        value: ""
-    };
     onClickRefreshButton = () => {
         this.useCase(createReloadActiveStreamUseCase()).executor(useCase => useCase.execute());
     };
@@ -35,24 +28,6 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
         }
     };
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.filterWord
-        });
-    }
-
-    componentWillReceiveProps(nextProps: GitHubSearchStreamCommandBarContainerProps) {
-        if (nextProps.filterWord) {
-            this.setState({
-                value: nextProps.filterWord
-            });
-        } else {
-            this.setState({
-                value: ""
-            });
-        }
-    }
-
     render() {
         return (
             <div
@@ -63,7 +38,7 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
             >
                 <ExpandableSearch
                     className="ExpandableSearchBox-searchBox"
-                    value={this.state.value}
+                    value={this.props.filterWord}
                     onChangeValue={this.onChangeSearchValue}
                 />
                 <IconButton

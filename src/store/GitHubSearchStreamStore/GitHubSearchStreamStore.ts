@@ -15,28 +15,33 @@ import { isOpenedGitHubStream } from "../../domain/App/Activity/OpenedGitHubStre
 
 const stateItemCacheMap = new LRUMapLike<GitHubSearchResultItem, GitHubSearchStreamStateItem>(1000);
 
-export interface GitHubSearchStreamStateObject {
+export interface GitHubSearchStreamStateArgs {
     isLoading: boolean;
     items: GitHubSearchResultItem[];
+    rawItemCount: number;
     filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 }
 
-export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
+export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
+    itemCount: number;
+    rawItemCount: number;
     isLoading: boolean;
     items: GitHubSearchResultItem[];
     filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 
-    constructor(state: GitHubSearchStreamStateObject) {
-        this.isLoading = state.isLoading;
-        this.items = state.items;
-        this.displayItems = state.displayItems;
-        this.filterWord = state.filterWord;
+    constructor(args: GitHubSearchStreamStateArgs) {
+        this.isLoading = args.isLoading;
+        this.items = args.items;
+        this.itemCount = this.items.length;
+        this.rawItemCount = args.rawItemCount;
+        this.displayItems = args.displayItems;
+        this.filterWord = args.filterWord;
     }
 
     get hasResult(): boolean {
-        return this.displayItems.length > 0;
+        return this.rawItemCount > 0;
     }
 
     update({
@@ -57,6 +62,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
             items: stream.items,
+            rawItemCount: stream.itemSortedCollection.rawItemCount,
             displayItems: stream.items.map(item => {
                 if (stateItemCacheMap.has(item)) {
                     const cachedItem = stateItemCacheMap.get(item)!;
@@ -103,6 +109,7 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
         this.state = new GitHubSearchStreamState({
             isLoading: false,
             items: [],
+            rawItemCount: 0,
             filterWord: undefined,
             displayItems: []
         });

@@ -123,6 +123,22 @@ export class GitHubUserActivityEvent extends ValueObject {
         return new Date(this.created_at);
     }
 
+    includes(text: string): boolean {
+        if (this.htmlURL.includes(text)) {
+            return true;
+        }
+        if (this.description.includes(text)) {
+            return true;
+        }
+        if (this.shortPath.includes(text)) {
+            return true;
+        }
+        if (this.actor.login.includes(text)) {
+            return true;
+        }
+        return false;
+    }
+
     equals(event?: GitHubUserActivityEvent): boolean {
         if (!event) {
             return false;
