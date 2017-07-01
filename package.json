@@ -117,6 +117,7 @@
     "moment": "^2.18.1",
     "octokat": "^0.8",
     "office-ui-fabric-react": "~4.6.0",
+    "parse-github-event": "^1.0.2",
     "react": "^15.6.1",
     "react-codemirror": "git://github.com/skidding/react-codemirror.git#106-fix-update",
     "react-color": "^2.13.0",

@@ -1,10 +1,10 @@
 // MIT © 2017 azu
 import { Store } from "almin";
-import { GitHubSearchStream } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
@@ -55,14 +55,15 @@ export class AppStore extends Store<AppState> {
 
     receivePayload() {
         const appRepository = this.args.appRepository.get();
-        const {
-            activeQuery,
-            activeItem,
-            activeSearchListId,
-            activeStreamId
-        } = appRepository.user.activity;
-        const activeSearchList = this.args.gitHubSearchListRepository.findById(activeSearchListId);
-        const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
+        const activity = appRepository.user.activity;
+        const activeSearchList = activity.openedSearchListId
+            ? this.args.gitHubSearchListRepository.findById(activity.openedSearchListId)
+            : undefined;
+        const activeStream = activity.openedStreamId
+            ? this.args.gitHubSearchStreamRepository.findById(activity.openedStreamId)
+            : undefined;
+        const activeQuery = activity.openedQuery ? activity.openedQuery : undefined;
+        const activeItem = activity.openedItem ? activity.openedItem : undefined;
         const newState = this.state.update({
             activeItem,
             activeQuery,

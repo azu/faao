@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { GitHubSearchListFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
+import { GitHubSearchListFactory } from "../../domain/GitHubSearchList/GitHubSearchListFactory";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository

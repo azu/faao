@@ -29,7 +29,7 @@ export class AppUserSelectFirstItemUseCase extends UseCase {
 
     execute() {
         const app = this.args.appRepository.get();
-        const activeStreamId = app.user.activity.activeStreamId;
+        const activeStreamId = app.user.activity.openedStreamId;
         const currentStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
         if (!currentStream) {
             return;

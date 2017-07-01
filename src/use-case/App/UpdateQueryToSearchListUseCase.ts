@@ -7,8 +7,8 @@ import {
 import {
     GitHubSearchQuery,
     GitHubSearchQueryJSON
-} from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchQueryFactory } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQueryFactory";
+} from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQueryFactory } from "../../domain/GitHubSearchList/GitHubSearchQueryFactory";
 
 export const createUpdateQueryToSearchListUseCase = () => {
     return new UpdateQueryToSearchListUseCase(gitHubSearchListRepository);

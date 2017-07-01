@@ -3,7 +3,7 @@ import { createStubContext } from "../../../test/AlminUseCaseStub";
 import { ExportProfileUseCase, ExportProfileUseCasePayload } from "../ExportProfileUseCase";
 import { GitHubSettingRepository } from "../../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchListRepository } from "../../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchListFactory } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchListFactory";
+import { GitHubSearchListFactory } from "../../../domain/GitHubSearchList/GitHubSearchListFactory";
 
 describe("ExportProfileUseCase", () => {
     it("should dispatch ExportProfileUseCasePayload", () => {

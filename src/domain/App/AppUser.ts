@@ -1,10 +1,12 @@
 // MIT © 2017 azu
 
 import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
-import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubUser } from "../GitHubUser/GitHubUser";
+import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;
@@ -25,8 +27,8 @@ export class AppUser {
         this.activity.activateStream(stream);
     }
 
-    openItem(item: GitHubSearchResultItem): void {
-        this.activity.activateItem(item);
+    openGitHubUser(gitHubUser: GitHubUser) {
+        this.activity.activateGitHubUser(gitHubUser);
     }
 
     openSearchListSelf(searchList: GitHubSearchList) {
@@ -35,6 +37,15 @@ export class AppUser {
 
     openQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
         this.activity.activateQuery(searchList, query);
+    }
+
+    // child
+    openGitHubUserEvent(event: GitHubUserActivityEvent) {
+        this.activity.activateGitHubUserActivityEvent(event);
+    }
+
+    openItem(item: GitHubSearchResultItem): void {
+        this.activity.activateItem(item);
     }
 
     static fromJSON(json: AppUserJSON): AppUser {

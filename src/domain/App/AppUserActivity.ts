@@ -1,127 +1,197 @@
 // MIT © 2017 azu
-import { GitHubSearchStream } from "../GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import {
-    GitHubSearchResultItem,
-    GitHubSearchResultItemJSON
-} from "../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON
-} from "../GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";
+import { GitHubUser } from "../GitHubUser/GitHubUser";
+import {
+    isOpenedGitHubUser,
+    OpenedGitHubUser,
+    OpenedGitHubUserJSON
+} from "./Activity/OpenedGitHubUser";
+import {
+    isOpenedGitHubSearchList,
+    OpenedGitHubSearchList,
+    OpenedGitHubSearchListJSON
+} from "./Activity/OpenedGitHubSearchList";
+import {
+    isOpenedGitHubStream,
+    OpenedGitHubStream,
+    OpenedGitHubStreamJSON
+} from "./Activity/OpenedGitHubStream";
+import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
-export interface AppUserActivityArgs {
-    itemHistory: ActivityHistory;
-}
+// menu
+export type OpenedMenu = OpenedGitHubSearchList;
+export type OpenedMenuJSON = OpenedGitHubSearchListJSON;
+// open either one of these as content
+export type OpenedContent = OpenedGitHubStream | OpenedGitHubUser;
+export type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
 
 /**
- * Note: Entity should not reference to other entity.
+ * Note: Entity should not reference to other entity instance.
  * Insteadof it, should reference by id.(soft link)
  * http://domain-driven-design.3010926.n2.nabble.com/Can-an-Entity-be-Shared-across-many-Aggregates-td7579277.html
  * https://softwareengineering.stackexchange.com/questions/328571/ddd-is-it-correct-for-a-root-aggregate-to-hold-a-reference-to-another-root-aggr
  */
 export interface AppUserActivityJSON {
-    itemHistory: ActivityHistoryJSON;
-    // entity
-    openedStreamId?: string;
-    openedSearchListId?: string;
-    // value object
-    openedItem?: GitHubSearchResultItemJSON;
-    openedQuery?: GitHubSearchQueryJSON;
+    streamItemHistory: ActivityHistoryJSON;
+    userEventHistory: ActivityHistoryJSON;
+    openedMenu?: OpenedMenuJSON;
+    openedContent?: OpenedContentJSON;
+}
+
+export interface AppUserActivityArgs {
+    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
+    openedMenu?: OpenedMenu;
+    openedContent?: OpenedContent;
 }
 
 export class AppUserActivity {
-    itemHistory: ActivityHistory;
-    openedStreamId?: Identifier<GitHubSearchStream>;
-    openedSearchListId?: Identifier<GitHubSearchList>;
-    // value object
-    openedItem?: GitHubSearchResultItem;
-    openedQuery?: GitHubSearchQuery;
+    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
+    openedMenu?: OpenedGitHubSearchList;
+    openedContent?: OpenedContent;
 
     constructor(args: AppUserActivityArgs) {
-        this.itemHistory = args.itemHistory;
+        this.streamItemHistory = args.streamItemHistory;
+        this.userEventHistory = args.userEventHistory;
+        this.openedMenu = args.openedMenu;
+        this.openedContent = args.openedContent;
     }
 
     /**
      * active search is SearchList mode or SearchQuery mode.
      */
-    get activeSearch(): Identifier<GitHubSearchList> | GitHubSearchQuery | undefined {
-        if (this.activeSearchListId && !this.activeQuery) {
-            return this.activeSearchListId;
-        } else if (this.activeQuery) {
-            return this.activeQuery;
-        }
+    get activeSearch():
+        | Identifier<GitHubUser>
+        | Identifier<GitHubSearchList>
+        | GitHubSearchQuery
+        | undefined {
         return;
     }
 
-    get activeSearchListId(): Identifier<GitHubSearchList> | undefined {
-        return this.openedSearchListId;
+    // getter
+    // menu
+    get openedSearchListId(): Identifier<GitHubSearchList> | undefined {
+        return isOpenedGitHubSearchList(this.openedMenu)
+            ? this.openedMenu.gitHubSearchListId
+            : undefined;
     }
 
-    get activeStreamId(): Identifier<GitHubSearchStream> | undefined {
-        return this.openedStreamId;
+    get openedQuery(): GitHubSearchQuery | undefined {
+        return isOpenedGitHubSearchList(this.openedMenu) ? this.openedMenu.query : undefined;
     }
 
-    get activeQuery(): GitHubSearchQuery | undefined {
-        return this.openedQuery;
+    // content
+    get openedStreamId(): Identifier<GitHubSearchStream> | undefined {
+        return isOpenedGitHubStream(this.openedContent)
+            ? this.openedContent.gitHubSearchStreamId
+            : undefined;
     }
 
-    get activeItem(): GitHubSearchResultItem | undefined {
-        return this.openedItem;
+    get openedUserId(): Identifier<GitHubUser> | undefined {
+        return isOpenedGitHubUser(this.openedContent) ? this.openedContent.gitHubUserId : undefined;
+    }
+
+    get openedItem(): GitHubSearchResultItem | undefined {
+        return isOpenedGitHubStream(this.openedContent) ? this.openedContent.item : undefined;
+    }
+
+    get openedUserEvent(): GitHubUserActivityEvent | undefined {
+        return isOpenedGitHubUser(this.openedContent) ? this.openedContent.event : undefined;
     }
 
     activateStream(stream: GitHubSearchStream) {
-        this.openedStreamId = stream.id;
+        if (isOpenedGitHubSearchList(this.openedMenu)) {
+            this.openedContent = new OpenedGitHubStream({
+                gitHubSearchStreamId: stream.id
+            });
+        }
     }
 
     activateItem(item: GitHubSearchResultItem) {
-        this.openedItem = item;
-        this.itemHistory.readItem(
-            new ActivityHistoryItem({
-                id: item.id,
-                timeStamp: Date.now()
-            })
-        );
+        if (isOpenedGitHubStream(this.openedContent)) {
+            this.openedContent = this.openedContent.openItem(item);
+            this.streamItemHistory.readItem(
+                new ActivityHistoryItem({
+                    id: item.id,
+                    timeStamp: Date.now()
+                })
+            );
+        }
     }
 
     activateSearchList(searchList: GitHubSearchList) {
-        this.openedSearchListId = searchList.id;
-        this.openedQuery = undefined;
+        this.openedMenu = new OpenedGitHubSearchList({
+            gitHubSearchListId: searchList.id
+        });
     }
 
     activateQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
-        this.openedSearchListId = searchList.id;
-        this.openedQuery = query;
+        this.openedMenu = new OpenedGitHubSearchList({
+            gitHubSearchListId: searchList.id,
+            query
+        });
+    }
+
+    activateGitHubUser(gitHubUser: GitHubUser) {
+        this.openedContent = new OpenedGitHubUser({
+            gitHubUserId: gitHubUser.id
+        });
+    }
+
+    activateGitHubUserActivityEvent(event: GitHubUserActivityEvent) {
+        if (isOpenedGitHubUser(this.openedContent)) {
+            this.openedContent = this.openedContent.openEvent(event);
+            this.userEventHistory.readItem(
+                new ActivityHistoryItem({
+                    id: event.id,
+                    timeStamp: Date.now()
+                })
+            );
+        }
     }
 
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {
-        const proto = Object.create(AppUserActivity.prototype);
-        return Object.assign(proto, {
-            itemHistory: ActivityHistory.fromJSON(json.itemHistory),
-            openedStreamId: json.openedStreamId
-                ? new Identifier<GitHubSearchStream>(json.openedStreamId)
-                : undefined,
-            openedSearchListId: json.openedSearchListId
-                ? new Identifier<GitHubSearchList>(json.openedSearchListId)
-                : undefined,
-            openedItem: json.openedItem
-                ? GitHubSearchResultItem.fromJSON(json.openedItem)
-                : undefined,
-            openedQuery: json.openedQuery ? GitHubSearchQuery.fromJSON(json.openedQuery) : undefined
+        const openedContent = ((openedActivity?: OpenedContentJSON) => {
+            if (!openedActivity) {
+                return;
+            }
+            switch (openedActivity.type) {
+                case "OpenedGitHubUser":
+                    return OpenedGitHubUser.fromJSON(openedActivity);
+                case "OpenedGitHubStream":
+                    return OpenedGitHubStream.fromJSON(openedActivity);
+            }
+        })(json.openedContent);
+
+        const openedMenu = (openedMenu => {
+            if (!openedMenu) {
+                return;
+            }
+            switch (openedMenu.type) {
+                case "OpenedGitHubSearchList":
+                    return OpenedGitHubSearchList.fromJSON(openedMenu);
+            }
+        })(json.openedMenu);
+        return new AppUserActivity({
+            streamItemHistory: ActivityHistory.fromJSON(json.streamItemHistory),
+            userEventHistory: ActivityHistory.fromJSON(json.userEventHistory),
+            openedMenu,
+            openedContent
         });
     }
 
     toJSON(): AppUserActivityJSON {
         return {
-            itemHistory: this.itemHistory.toJSON(),
-            openedStreamId: this.openedStreamId ? this.openedStreamId.toValue() : undefined,
-            openedSearchListId: this.openedSearchListId
-                ? this.openedSearchListId.toValue()
-                : undefined,
-            openedItem: this.openedItem ? this.openedItem.toJSON() : undefined,
-            openedQuery: this.openedQuery ? this.openedQuery.toJSON() : undefined
+            streamItemHistory: this.streamItemHistory.toJSON(),
+            userEventHistory: this.userEventHistory.toJSON(),
+            openedMenu: this.openedMenu ? this.openedMenu.toJSON() : undefined,
+            openedContent: this.openedContent ? this.openedContent.toJSON() : undefined
         };
     }
 }

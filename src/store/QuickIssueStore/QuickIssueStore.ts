@@ -9,9 +9,9 @@ import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQu
 import uniqBy from "lodash.uniqby";
 import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface QuickIssueStateObject {
@@ -124,16 +124,15 @@ export class QuickIssueStore extends Store<QuickIssueState> {
 
     receivePayload(payload: Payload) {
         const app = this.args.appRepository.get();
-        const activeItem = app.user.activity.activeItem;
-        const activeQuery = app.user.activity.activeQuery;
+        const activity = app.user.activity;
         const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
         const settings = this.args.gitHubSettingRepository.findAll();
         this.setState(
             this.state.reduce(payload).update({
                 gitHubSearchLists,
                 settings,
-                activeItem: activeItem,
-                activeQuery: activeQuery
+                activeItem: activity.openedItem,
+                activeQuery: activity.openedQuery
             })
         );
     }

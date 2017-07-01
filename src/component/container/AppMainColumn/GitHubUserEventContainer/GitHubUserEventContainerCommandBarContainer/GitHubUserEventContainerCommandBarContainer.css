@@ -1,0 +1,19 @@
+.GitHubUserEventContainerCommandBarContainer {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    background-color: #f4f4f4;
+    display: flex;
+}
+
+.GitHubUserEventContainerCommandBarContainer {
+    flex: 1;
+}
+
+.ExpandableSearchBox-searchBox {
+    background-color: white;
+}
+
+.ExpandableSearchBox-reloadButton {
+    margin: auto 0;
+}

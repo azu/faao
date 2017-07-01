@@ -7,16 +7,24 @@ import {
 import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/GitHubSetting";
 import { Identifier } from "../../domain/Entity";
 import { GitHubClient } from "../../infra/api/GitHubClient";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
+import { GitHubUserFactory } from "../../domain/GitHubUser/GitHubUserFactory";
 
 export const createSaveGitHubSettingUseCase = () => {
-    return new SaveGitHubSettingUseCase(gitHubSettingRepository);
+    return new SaveGitHubSettingUseCase(gitHubSettingRepository, gitHubUserRepository);
 };
 
 /**
  * Add GitHub setting or Update setting
  */
 export class SaveGitHubSettingUseCase extends UseCase {
-    constructor(public gitHubSettingRepository: GitHubSettingRepository) {
+    constructor(
+        private gitHubSettingRepository: GitHubSettingRepository,
+        private gitHubUserRepository: GitHubUserRepository
+    ) {
         super();
     }
 
@@ -24,7 +32,13 @@ export class SaveGitHubSettingUseCase extends UseCase {
         const setting = GitHubSetting.fromJSON(settingJSON);
         const gitHub = new GitHubClient(setting);
         try {
-            await gitHub.user();
+            const user =
+                this.gitHubUserRepository.findById(setting.gitHubUserId) ||
+                GitHubUserFactory.create();
+            const profile = await gitHub.userProfile();
+            user.updateProfile(profile);
+            await this.gitHubUserRepository.save(user);
+            setting.gitHubUserId = user.id;
         } catch (error) {
             throw new Error(
                 "Can't access GitHub API by the setting:" + JSON.stringify(settingJSON)

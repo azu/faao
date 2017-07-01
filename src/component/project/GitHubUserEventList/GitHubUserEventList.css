@@ -1,0 +1,131 @@
+/* Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information. */
+/**
+ * Fabric 1.0.0
+ * The front-end framework for building experiences for Office 365.
+ **/
+.GitHubUserEventList {
+    width: 100%;
+}
+
+.GitHubUserEventListItem {
+    color: #333333;
+    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-weight: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.4rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.GitHubUserEventListItem:before, .GitHubUserEventListItem:after {
+    display: table;
+    content: '';
+    line-height: 0;
+}
+
+.GitHubUserEventListItem:after {
+    clear: both;
+}
+
+.GitHubUserEventListItem-body {
+    color: #212121;
+    font-family: 'Segoe UI Semilight WestEuropean',
+        'Segoe UI Semilight',
+        'Segoe WP Semilight',
+        'Segoe UI',
+        'Segoe WP',
+        Tahoma,
+        Arial,
+        sans-serif;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+}
+
+.GitHubUserEventListItem-tertiaryText {
+    color: #767676;
+    font-family: 'Segoe UI Semilight WestEuropean',
+        'Segoe UI Semilight',
+        'Segoe WP Semilight',
+        'Segoe UI',
+        'Segoe WP',
+        Tahoma,
+        Arial,
+        sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.GitHubUserEventListItem-title {
+    margin: 0;
+    padding: 0.2rem 0;
+    font-size: 17px;
+    font-family: 'Segoe UI Semilight WestEuropean',
+        'Segoe UI Semilight',
+        'Segoe WP Semilight',
+        'Segoe UI',
+        'Segoe WP',
+        Tahoma,
+        Arial,
+        sans-serif;
+}
+
+.GitHubUserEventListItem-footer {
+    font-size: 12px;
+    padding: 0.2rem 0;
+    /* for .GitHubUserEventListItem-meta is absolute */
+    position: relative;
+}
+
+.GitHubUserEventListItem-authorIcon {
+    width: 1em;
+    height: 1em;
+}
+
+.GitHubUserEventListItem-updateDate {
+    color: #333333;
+    font-family: 'Segoe UI Semilight WestEuropean',
+        'Segoe UI Semilight',
+        'Segoe WP Semilight',
+        'Segoe UI',
+        'Segoe WP',
+        Tahoma,
+        Arial,
+        sans-serif;
+    text-align: right;
+}
+
+.GitHubUserEventListItem-labels {
+    line-height: 1.5;
+    padding: 0.2rem 0;
+}
+
+.GitHubUserEventListItem-label {
+    font-size: 12px;
+    padding: 3px 4px;
+    margin-right: 0.2rem;
+}
+
+.GitHubUserEventListItem-meta {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+
+.GitHubUserEventListItem-commentsIcon {
+    width: 12px;
+    height: 12px;
+}
+
+.GitHubUserEventListItem-commentsCount {
+    /* same with svg icon size */
+    font-size: 12px;
+}
+
+.GitHubUserEventListItem {
+    border-left: 3px solid #ddd;
+}

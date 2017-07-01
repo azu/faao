@@ -2,6 +2,7 @@ import { GitHubSetting, GitHubSettingJSON } from "../../domain/GitHubSetting/Git
 import { Identifier } from "../../domain/Entity";
 import { createStorageInstance } from "./Storage";
 import { NullableBaseRepository } from "./NullableBaseRepository";
+import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 
 const debug = require("debug")("faao:GitHubSettingRepository");
 
@@ -62,6 +63,12 @@ export class GitHubSettingRepository extends NullableBaseRepository<GitHubSettin
     clear() {
         super.clear();
         return this.storage.clear();
+    }
+
+    findByGitHubUserId(openedUserId: Identifier<GitHubUser>) {
+        return this.map.values().find(setting => {
+            return openedUserId.equals(setting.gitHubUserId);
+        });
     }
 }
 

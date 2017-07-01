@@ -1,13 +1,21 @@
 // MIT © 2017 azu
-import { App } from "../App";
+import { App, AppJSON } from "../App";
 
 describe("App", () => {
     it("toJSON <-> fromJSON", () => {
-        const json = {
+        const json: AppJSON = {
             id: "01BK80E7K46WRSP4Y5634DGCJB",
             user: {
                 activity: {
-                    itemHistory: {
+                    userEventHistory: {
+                        items: [
+                            {
+                                id: "1234456543",
+                                timeStamp: 1498139445848
+                            }
+                        ]
+                    },
+                    streamItemHistory: {
                         items: [
                             {
                                 id: "237433612",
@@ -20,14 +28,19 @@ describe("App", () => {
                             }
                         ]
                     },
-                    openedStreamId: "01BK9992CN8HBNXM6PVKFWNGGR",
-                    openedItem: undefined,
-                    openedSearchListId: "GitHubSearchList0",
-                    openedQuery: {
-                        name: "Faao",
-                        query: "repo:azu/faao",
-                        color: "#eb9694",
-                        gitHubSettingId: "azu@github.com"
+                    openedContent: {
+                        type: "OpenedGitHubStream",
+                        gitHubSearchStreamId: "01BK9992CN8HBNXM6PVKFWNGGR"
+                    },
+                    openedMenu: {
+                        type: "OpenedGitHubSearchList",
+                        gitHubSearchListId: "GitHubSearchList0",
+                        query: {
+                            name: "Faao",
+                            query: "repo:azu/faao",
+                            color: "#eb9694",
+                            gitHubSettingId: "azu@github.com"
+                        }
                     }
                 }
             }

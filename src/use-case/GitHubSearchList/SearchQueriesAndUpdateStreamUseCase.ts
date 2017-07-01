@@ -7,8 +7,8 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { createSearchQueryToUpdateStreamUseCase } from "./SearchQueryToUpdateStreamUseCase";
-import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { UseCase } from "almin";
 
 const debug = require("debug")("faao:SearchQueriesAndUpdateStreamUseCase");
@@ -32,7 +32,7 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
             this.gitHubSearchStreamRepository.findBySearchList(searchList) ||
             GitHubSearchStreamFactory.create();
         // save current streamForSearchList
-        await this.gitHubSearchStreamRepository.saveWithSearchList(searchListStream, searchList);
+        await this.gitHubSearchStreamRepository.saveWithSearchList(searchListStream, searchList.id);
         // AppUser open streamForSearchList and select first item
         const promises = searchList.queries.map(query => {
             // Update each stream
@@ -50,7 +50,7 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
                     searchListStream.mergeStream(queryStream);
                     return this.gitHubSearchStreamRepository.saveWithSearchList(
                         searchListStream,
-                        searchList
+                        searchList.id
                     );
                 });
         });

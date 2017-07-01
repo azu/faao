@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { Payload, Store } from "almin";
-import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
+import { GitHubSetting, GitHubSettingArgs } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
 import {
     CloseSettingPanelUseCasePayload,
@@ -8,9 +8,35 @@ import {
 } from "../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { Identifier } from "../../domain/Entity";
 import { shallowEqual } from "shallow-equal-object";
+import { GitHubUserRepository } from "../../infra/repository/GitHubUserRepository";
+
+export interface GitHubSettingViewModelArgs extends GitHubSettingArgs {
+    loginName?: string;
+    avatarURL?: string;
+}
+
+/**
+ * ViewModel of GitHubSetting
+ */
+export class GitHubSettingViewModel extends GitHubSetting implements GitHubSettingViewModelArgs {
+    loginName?: string;
+    avatarURL?: string;
+
+    constructor(args: GitHubSettingViewModelArgs) {
+        super({
+            id: args.id,
+            gitHubUserId: args.gitHubUserId,
+            token: args.token,
+            apiHost: args.apiHost,
+            webHost: args.webHost
+        });
+        this.loginName = args.loginName;
+        this.avatarURL = args.avatarURL;
+    }
+}
 
 export interface GitHubSettingStateObject {
-    settings: GitHubSetting[];
+    settings: GitHubSettingViewModel[];
     editingSetting?: GitHubSetting;
     isOpenSettingPanel: boolean;
 }
@@ -33,7 +59,7 @@ export class GitHubSettingState implements GitHubSettingStateObject {
         return this.editingSetting.id;
     }
 
-    update(settings: GitHubSetting[]) {
+    update(settings: GitHubSettingViewModel[]) {
         if (shallowEqual(this.settings, settings)) {
             return this;
         }
@@ -63,10 +89,15 @@ export class GitHubSettingState implements GitHubSettingStateObject {
     }
 }
 
+export interface GitHubSettingStoreArgs {
+    gitHubSettingRepository: GitHubSettingRepository;
+    gitHubUserRepository: GitHubUserRepository;
+}
+
 export class GitHubSettingStore extends Store<GitHubSettingState> {
     state: GitHubSettingState;
 
-    constructor(public gitHubSettingRepository: GitHubSettingRepository) {
+    constructor(private args: GitHubSettingStoreArgs) {
         super();
         this.state = new GitHubSettingState({
             settings: [],
@@ -75,8 +106,20 @@ export class GitHubSettingStore extends Store<GitHubSettingState> {
     }
 
     receivePayload(payload: Payload) {
-        const settings = this.gitHubSettingRepository.findAll();
-        this.setState(this.state.update(settings).reduce(payload));
+        const settings = this.args.gitHubSettingRepository.findAll();
+        const settingViewModels = settings.map(setting => {
+            const user = this.args.gitHubUserRepository.findById(setting.gitHubUserId);
+            if (user && user.profile) {
+                return new GitHubSettingViewModel({
+                    ...setting,
+                    loginName: user.profile.loginName,
+                    avatarURL: user.profile.avatarURL
+                });
+            } else {
+                return new GitHubSettingViewModel(setting);
+            }
+        });
+        this.setState(this.state.update(settingViewModels).reduce(payload));
     }
 
     getState(): GitHubSettingState {

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import { List } from "office-ui-fabric-react";
-import { GitHubSearchResultItem } from "../../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
 import {

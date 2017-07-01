@@ -1,9 +1,15 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchResult } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResult";
-import { GitHubSearchResultFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultFactory";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
+import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import {
+    GitHubUserActivityEvent,
+    GitHubUserActivityEventJSON
+} from "../../domain/GitHubUser/GitHubUserActivityEvent";
+import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
+import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -88,9 +94,51 @@ export class GitHubClient {
             .then(onFetch, onError);
     }
 
-    user() {
+    events(
+        onProgress: (events: GitHubUserActivityEvent[]) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ) {
+        type FetchResponse = {
+            items: GitHubUserActivityEventJSON[];
+            fetch: () => Promise<FetchResponse>;
+            next_page_url?: string;
+        };
+        this.gh.fromUrl("/user").fetch().then((response: any) => {
+            const login = response.login;
+            const onFetch = (fetchResponse: FetchResponse) => {
+                debug("response %o", fetchResponse);
+                const items = fetchResponse.items.map(item => {
+                    return GitHubUserActivityEventFactory.create(item);
+                });
+                onProgress(items)
+                    .then(isContinue => {
+                        if (isContinue) {
+                            // fetch next page if needed
+                            if (fetchResponse.next_page_url) {
+                                this.gh
+                                    .fromUrl(fetchResponse.next_page_url)
+                                    .fetch()
+                                    .then(onFetch, onError);
+                            } else {
+                                onComplete();
+                            }
+                        } else {
+                            onComplete();
+                        }
+                    })
+                    .catch(onError);
+            };
+            return this.gh.fromUrl(`/users/${login}/events`).fetch().then(onFetch, onError);
+        });
+    }
+
+    userProfile(): Promise<GitHubUserProfile> {
         return this.gh.fromUrl("/user").fetch().then((response: any) => {
-            console.info(response);
+            return new GitHubUserProfile({
+                loginName: response.login,
+                avatarURL: response.avatar_url
+            });
         });
     }
 

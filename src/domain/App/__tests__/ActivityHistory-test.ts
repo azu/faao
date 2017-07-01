@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { ActivityHistory, ActivityHistoryItem } from "../ActivityHistory";
 import { Identifier } from "../../Entity";
-import { GitHubSearchResultItem } from "../../GitHubSearch/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "../../GitHubSearchStream/GitHubSearchResultItem";
 
 describe("ActivityHistory", () => {
     it("#readItem", () => {

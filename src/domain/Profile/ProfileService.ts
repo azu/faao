@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
-import { GitHubSearchList } from "../GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { Profile, ProfileJSON } from "./Profile";
 
 export class ProfileService {

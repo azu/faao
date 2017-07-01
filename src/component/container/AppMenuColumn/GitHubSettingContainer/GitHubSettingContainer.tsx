@@ -9,6 +9,8 @@ import { GitHubSetting } from "../../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { OpenSettingPanelUseCase } from "../../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { createDeleteSettingUseCase } from "../../../../use-case/GitHubSetting/DeleteSettingUseCase";
+import { createFetchGitHubUserDataUserCase } from "../../../../use-case/GitHubUser/FetchGitHubUserDataUserCase";
+import { createAppUserOpenGitHubUserCase } from "../../../../use-case/App/AppUserOpenGitHubUserCase";
 
 export interface GitHubSettingContainerProps {
     className?: string;
@@ -33,6 +35,18 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
         this.useCase(createDeleteSettingUseCase()).executor(useCase => useCase.execute(setting));
     };
 
+    onRefreshSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        this.useCase(createFetchGitHubUserDataUserCase()).executor(useCase =>
+            useCase.execute(setting.id)
+        );
+    };
+
+    onShowUserEvents = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
+        this.useCase(createAppUserOpenGitHubUserCase()).executor(useCase =>
+            useCase.execute(setting.id)
+        );
+    };
+
     render() {
         return (
             <div className={classNames("GitHubSettingContainer", this.props.className)}>
@@ -40,8 +54,10 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
                     settings={this.props.gitHubSetting.settings}
                     onClickSetting={this.onClickSetting}
                     onClickAddSetting={this.onClickAddSetting}
+                    onRefreshSetting={this.onRefreshSetting}
                     onEditSetting={this.onEditSetting}
                     onDeleteSetting={this.onDeleteSetting}
+                    onShowUserEvents={this.onShowUserEvents}
                 />
             </div>
         );

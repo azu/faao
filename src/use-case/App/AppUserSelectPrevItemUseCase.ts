@@ -6,12 +6,20 @@ import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
+import { createAppUserOpenGitHubUserEventUseCase } from "./AppUserOpenGitHubUserEventUseCase";
+import { isOpenedGitHubUser } from "../../domain/App/Activity/OpenedGitHubUser";
+import { isOpenedGitHubStream } from "../../domain/App/Activity/OpenedGitHubStream";
 
 const debug = require("debug")("faao:AppUserOpenPrevItemUseCase");
 export const createAppUserSelectPrevItemUseCase = () => {
     return new AppUserSelectPrevItemUseCase({
         appRepository,
-        gitHubSearchStreamRepository
+        gitHubSearchStreamRepository,
+        gitHubUserRepository
     });
 };
 
@@ -20,29 +28,49 @@ export class AppUserSelectPrevItemUseCase extends UseCase {
         private args: {
             appRepository: AppRepository;
             gitHubSearchStreamRepository: GitHubSearchStreamRepository;
+            gitHubUserRepository: GitHubUserRepository;
         }
     ) {
         super();
     }
 
-    async execute() {
+    async execute(): Promise<void> {
         const app = this.args.appRepository.get();
-        const currentItem = app.user.activity.activeItem;
-        const activeStreamId = app.user.activity.activeStreamId;
-        const currentStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
-        if (!currentItem || !currentStream) {
-            debug("Not found current item or stream");
-            return;
+        const openedContent = app.user.activity.openedContent;
+        if (isOpenedGitHubStream(openedContent)) {
+            const currentStream = this.args.gitHubSearchStreamRepository.findById(
+                openedContent.gitHubSearchStreamId
+            );
+            const currentItem = openedContent.item;
+            if (!currentStream || !currentItem) {
+                debug("Not found current item or stream");
+                return;
+            }
+            const nextItem = currentStream.itemSortedCollection.getPrevItem(currentItem);
+            if (!nextItem) {
+                debug("Not found prev item");
+                return;
+            }
+            return this.context.useCase(createAppUserSelectItemUseCase()).executor(useCase => {
+                return useCase.execute(nextItem);
+            });
+        } else if (isOpenedGitHubUser(openedContent)) {
+            const currentUser = this.args.gitHubUserRepository.findById(openedContent.gitHubUserId);
+            const currentEvent = openedContent.event;
+            if (!currentUser || !currentEvent) {
+                debug("Not found user or user event");
+                return;
+            }
+            const nextEvent = currentUser.activity.getPrevEvent(currentEvent);
+            if (!nextEvent) {
+                debug("Not found prev event");
+                return;
+            }
+            return this.context
+                .useCase(createAppUserOpenGitHubUserEventUseCase())
+                .executor(useCase => {
+                    return useCase.execute(nextEvent);
+                });
         }
-        const prevItem = currentStream.itemSortedCollection.getPrevItem(currentItem);
-        if (!prevItem) {
-            debug("Not found prev item");
-            return;
-        }
-        app.user.openItem(prevItem);
-        await this.args.appRepository.save(app);
-        return this.context.useCase(createAppUserSelectItemUseCase()).executor(useCase => {
-            return useCase.execute(prevItem);
-        });
     }
 }

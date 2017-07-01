@@ -2,7 +2,7 @@ import {
     gitHubSettingRepository,
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
@@ -12,7 +12,7 @@ import {
     createSearchQueryToUpdateStreamUseCase,
     SearchQueryToUpdateStreamUseCase
 } from "./SearchQueryToUpdateStreamUseCase";
-import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
+import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";

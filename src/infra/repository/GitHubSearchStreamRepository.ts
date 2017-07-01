@@ -1,12 +1,12 @@
 // MIT © 2017 azu
-import { GitHubSearchStreamFactory } from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStreamFactory";
+import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import {
     GitHubSearchStream,
     GitHubSearchStreamJSON
-} from "../../domain/GitHubSearch/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchQuery } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchQuery";
+} from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
-import { GitHubSearchList } from "../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
@@ -66,9 +66,12 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         });
     }
 
-    saveWithSearchList(stream: GitHubSearchStream, searchList: GitHubSearchList): Promise<void> {
-        this.map.set(searchList.id.toValue(), stream);
-        return this.storage.setItem(searchList.id.toValue(), stream.toJSON()).then(() => {
+    saveWithSearchList(
+        stream: GitHubSearchStream,
+        searchListId: Identifier<GitHubSearchList>
+    ): Promise<void> {
+        this.map.set(searchListId.toValue(), stream);
+        return this.storage.setItem(searchListId.toValue(), stream.toJSON()).then(() => {
             debug("Save stream");
         });
     }

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { BaseContainer } from "../BaseContainer";
 import { SearchListSettingPanel } from "../../project/SearchListSettingPanel/SearchListSettingPanel";
-import { GitHubSearchListJSON } from "../../../domain/GitHubSearch/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchListJSON } from "../../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseSearchListPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 import { createAddSearchListUseCase } from "../../../use-case/GitHubSearchList/AddSearchListUseCase";

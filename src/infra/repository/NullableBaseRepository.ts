@@ -15,7 +15,10 @@ export class NullableBaseRepository<T extends Entity<Identifier<T>>> {
         return this.lastUsed || this.initialEntity;
     }
 
-    findById(entityId: string | Identifier<T>): T | undefined {
+    findById(entityId?: string | Identifier<T>): T | undefined {
+        if (!entityId) {
+            return;
+        }
         return this.map.get(entityId);
     }
 

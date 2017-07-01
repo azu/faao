@@ -12,14 +12,16 @@ import {
     PersonaSize
 } from "office-ui-fabric-react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
+import { GitHubSettingViewModel } from "../../../store/GitHubSettingStore/GitHubSettingStore";
 
 export const createFacepilePersonas = (
-    settings: GitHubSetting[],
+    settings: GitHubSettingViewModel[],
     onClickHandler: (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => void
 ): IFacepilePersona[] => {
     return settings.map((setting): IFacepilePersona => {
         return {
             personaName: setting.id.toValue(),
+            imageUrl: setting.avatarURL,
             onClick: (event: React.MouseEvent<HTMLElement>) => {
                 onClickHandler(event, setting);
             }
@@ -32,7 +34,9 @@ export interface GitHubSettingListProps {
     onClickAddSetting: (event: SyntheticEvent<any>) => void;
     onClickSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onEditSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
+    onRefreshSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
     onDeleteSetting: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
+    onShowUserEvents: (event: SyntheticEvent<any>, setting: GitHubSetting) => void;
 }
 
 export interface GitHubSettingListState {
@@ -72,12 +76,27 @@ export class GitHubSettingList extends React.Component<
             this.props.onEditSetting(event, setting);
         }
     };
+
+    onRefreshSetting = (event: React.MouseEvent<HTMLElement>) => {
+        const setting = this.state.contextTargetSetting;
+        if (setting) {
+            this.props.onRefreshSetting(event, setting);
+        }
+    };
+
     onDeleteSetting = (event: React.MouseEvent<HTMLElement>) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             if (confirm(`Does delete "${setting.id.toValue()}"?`)) {
                 this.props.onDeleteSetting(event, setting);
             }
+        }
+    };
+
+    onShowUserEvents = (event: React.MouseEvent<HTMLElement>) => {
+        const setting = this.state.contextTargetSetting;
+        if (setting) {
+            this.props.onShowUserEvents(event, setting);
         }
     };
 
@@ -100,6 +119,26 @@ export class GitHubSettingList extends React.Component<
                           key: "label",
                           itemType: ContextualMenuItemType.Header,
                           name: this.state.contextTargetSetting!.id.toValue()
+                      },
+                      {
+                          key: "show-events",
+                          iconProps: {
+                              iconName: "Show"
+                          },
+                          onClick: (event: React.MouseEvent<HTMLElement>) => {
+                              this.onShowUserEvents(event);
+                          },
+                          name: "Show events"
+                      },
+                      {
+                          key: "refresh-setting",
+                          iconProps: {
+                              iconName: "Refresh"
+                          },
+                          onClick: (event: React.MouseEvent<HTMLElement>) => {
+                              this.onRefreshSetting(event);
+                          },
+                          name: "Refresh Setting"
                       },
                       {
                           key: "edit-setting",
