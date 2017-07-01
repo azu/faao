@@ -8,12 +8,22 @@ import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 import { compile, parse, ParsedEvent } from "parse-github-event";
 import { isOpenedGitHubUser } from "../../domain/App/Activity/OpenedGitHubUser";
 
+const ghUrlToObject = require("github-url-to-object");
+
 export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
     parsedEvent?: ParsedEvent;
 
     constructor(event: GitHubUserActivityEvent) {
         super(event);
         this.parsedEvent = parse(this.toJSON());
+    }
+
+    // owner/repo
+    get shortPath() {
+        // https://github.com/zeke/github-url-to-object#github-enterprise
+        const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
+        const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
+        return `${object.user}/${object.repo}`;
     }
 
     get htmlURL() {

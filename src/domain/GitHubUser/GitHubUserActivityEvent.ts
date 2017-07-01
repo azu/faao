@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { Identifier } from "../Entity";
 import { ValueObject } from "../ValueObject";
+import { compile, parse, ParsedEvent } from "parse-github-event";
 
 export interface Payload {}
 
@@ -76,6 +77,8 @@ export interface GitHubUserActivityEventJSON {
     created_at: string;
 }
 
+const ghUrlToObject = require("github-url-to-object");
+
 export class GitHubUserActivityEvent extends ValueObject {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
@@ -86,9 +89,34 @@ export class GitHubUserActivityEvent extends ValueObject {
     org: Org;
     created_at: string;
 
+    parsedEvent?: ParsedEvent;
+
     constructor(event: Partial<GitHubUserActivityEvent>) {
         super();
         Object.assign(this, event);
+        this.parsedEvent = parse(this.toJSON());
+    }
+
+    // owner/repo
+    get shortPath() {
+        // https://github.com/zeke/github-url-to-object#github-enterprise
+        const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
+        const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
+        return `${object.user}/${object.repo}`;
+    }
+
+    get htmlURL() {
+        if (!this.parsedEvent) {
+            return "";
+        }
+        return this.parsedEvent.html_url;
+    }
+
+    get description() {
+        if (!this.parsedEvent) {
+            return "NO DATA";
+        }
+        return compile(this.parsedEvent);
     }
 
     equals(event?: GitHubUserActivityEvent): boolean {

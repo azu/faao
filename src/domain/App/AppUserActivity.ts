@@ -21,6 +21,7 @@ import {
     OpenedGitHubStream,
     OpenedGitHubStreamJSON
 } from "./Activity/OpenedGitHubStream";
+import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
 // menu
 type OpenedMenu = OpenedGitHubSearchList;
@@ -103,7 +104,7 @@ export class AppUserActivity {
     }
 
     activateItem(item: GitHubSearchResultItem) {
-        if (this.openedContent instanceof OpenedGitHubStream) {
+        if (isOpenedGitHubStream(this.openedContent)) {
             this.openedContent = this.openedContent.openItem(item);
         }
         this.itemHistory.readItem(
@@ -112,12 +113,6 @@ export class AppUserActivity {
                 timeStamp: Date.now()
             })
         );
-    }
-
-    activateGitHubUser(gitHubUser: GitHubUser) {
-        this.openedContent = new OpenedGitHubUser({
-            gitHubUserId: gitHubUser.id
-        });
     }
 
     activateSearchList(searchList: GitHubSearchList) {
@@ -131,6 +126,18 @@ export class AppUserActivity {
             gitHubSearchListId: searchList.id,
             query
         });
+    }
+
+    activateGitHubUser(gitHubUser: GitHubUser) {
+        this.openedContent = new OpenedGitHubUser({
+            gitHubUserId: gitHubUser.id
+        });
+    }
+
+    activateGitHubUserActivityEvent(event: GitHubUserActivityEvent) {
+        if (isOpenedGitHubUser(this.openedContent)) {
+            this.openedContent = this.openedContent.openEvent(event);
+        }
     }
 
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {

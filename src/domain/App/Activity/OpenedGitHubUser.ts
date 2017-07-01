@@ -1,46 +1,46 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchResultItem,
-    GitHubSearchResultItemJSON
-} from "../../GitHubSearchStream/GitHubSearchResultItem";
 import { Identifier } from "../../Entity";
 import { GitHubUser } from "../../GitHubUser/GitHubUser";
+import {
+    GitHubUserActivityEvent,
+    GitHubUserActivityEventJSON
+} from "../../GitHubUser/GitHubUserActivityEvent";
 
 export interface OpenedGitHubUserJSON {
     type: "OpenedGitHubUser";
     gitHubUserId: string;
-    item?: GitHubSearchResultItemJSON;
+    event?: GitHubUserActivityEventJSON;
 }
 
 export interface OpenedGitHubUserArgs {
     gitHubUserId: Identifier<GitHubUser>;
-    item?: GitHubSearchResultItem;
+    event?: GitHubUserActivityEvent;
 }
 
 export const isOpenedGitHubUser = (v: any): v is OpenedGitHubUser => {
     return v instanceof OpenedGitHubUser;
 };
+
 export class OpenedGitHubUser implements OpenedGitHubUserArgs {
     gitHubUserId: Identifier<GitHubUser>;
-    item?: GitHubSearchResultItem;
+    event?: GitHubUserActivityEvent;
 
     constructor(args: OpenedGitHubUserArgs) {
         this.gitHubUserId = args.gitHubUserId;
-        this.item = args.item;
+        this.event = args.event;
     }
 
-    openItem(item: GitHubSearchResultItem) {
-        return new OpenedGitHubUser(
-            Object.assign({}, this, {
-                item
-            })
-        );
+    openEvent(event: GitHubUserActivityEvent) {
+        return new OpenedGitHubUser({
+            ...this as OpenedGitHubUserArgs,
+            event
+        });
     }
 
     static fromJSON(json: OpenedGitHubUserJSON): OpenedGitHubUser {
         return new OpenedGitHubUser({
             gitHubUserId: new Identifier<GitHubUser>(json.gitHubUserId),
-            item: json.item ? GitHubSearchResultItem.fromJSON(json.item) : undefined
+            event: json.event ? GitHubUserActivityEvent.fromJSON(json.event) : undefined
         });
     }
 
@@ -48,7 +48,7 @@ export class OpenedGitHubUser implements OpenedGitHubUserArgs {
         return {
             type: "OpenedGitHubUser",
             gitHubUserId: this.gitHubUserId.toValue(),
-            item: this.item ? this.item.toJSON() : undefined
+            event: this.event ? this.event.toJSON() : undefined
         };
     }
 }

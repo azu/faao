@@ -6,6 +6,7 @@ import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResult
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
+import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;
@@ -26,11 +27,7 @@ export class AppUser {
         this.activity.activateStream(stream);
     }
 
-    openItem(item: GitHubSearchResultItem): void {
-        this.activity.activateItem(item);
-    }
-
-    openGitHubUserEvents(gitHubUser: GitHubUser) {
+    openGitHubUser(gitHubUser: GitHubUser) {
         this.activity.activateGitHubUser(gitHubUser);
     }
 
@@ -40,6 +37,15 @@ export class AppUser {
 
     openQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
         this.activity.activateQuery(searchList, query);
+    }
+
+    // child
+    openGitHubUserEvent(event: GitHubUserActivityEvent) {
+        this.activity.activateGitHubUserActivityEvent(event);
+    }
+
+    openItem(item: GitHubSearchResultItem): void {
+        this.activity.activateItem(item);
     }
 
     static fromJSON(json: AppUserJSON): AppUser {

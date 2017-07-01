@@ -12,3 +12,7 @@
     flex-grow: 1;
     overflow-y: scroll;
 }
+
+.GitHubUserEventContainer-main .GitHubUserEventListItem {
+    border-top: 1px solid #e1e4e8;
+}

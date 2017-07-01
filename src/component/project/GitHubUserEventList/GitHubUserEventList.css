@@ -60,6 +60,12 @@
     white-space: nowrap;
 }
 
+.GitHubUserEventListItem-title {
+    font-size: 14px;
+    margin: 0;
+    padding: 0.2rem 0;
+}
+
 .GitHubUserEventListItem-footer {
     font-size: 12px;
     padding: 0.2rem 0;

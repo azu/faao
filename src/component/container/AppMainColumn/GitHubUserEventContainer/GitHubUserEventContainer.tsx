@@ -7,7 +7,10 @@ import {
 } from "../../../../store/GitHubUserStore/GitHubUserStore";
 import { GitHubUserEventList } from "../../../project/GitHubUserEventList/GitHubUserEventList";
 import { BaseContainer } from "../../BaseContainer";
-import { OpenItemInNewTabUseCase } from "../../../../use-case/App/OpenItemInNewTabUseCase";
+import {
+    createAppUserOpenGitHubUserEventUseCase,
+    createAppUserOpenUserEventUseCase
+} from "../../../../use-case/App/AppUserOpenGitHubUserEventUseCase";
 
 export interface GitHubUserEventContainerProps {
     gitHubUser: GitHubUserState;
@@ -15,8 +18,8 @@ export interface GitHubUserEventContainerProps {
 
 export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventContainerProps, {}> {
     onClickItem = (_event: SyntheticEvent<any>, item: GitHubUserActivityEventVideoModel) => {
-        this.useCase(new OpenItemInNewTabUseCase()).executor(useCase =>
-            useCase.execute(item.htmlURL)
+        this.useCase(createAppUserOpenUserEventUseCase()).executor(useCase =>
+            useCase.execute(item)
         );
     };
 

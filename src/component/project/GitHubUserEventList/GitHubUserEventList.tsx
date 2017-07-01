@@ -30,6 +30,11 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
 
         return (
             <div className={className} onClick={onClick}>
+                <header className="GitHubUserEventListItem-header">
+                    <h1 className="GitHubUserEventListItem-title">
+                        <a href={item.htmlURL}>{item.shortPath}</a>
+                    </h1>
+                </header>
                 <p className="GitHubUserEventListItem-body">
                     {item.description}
                 </p>
