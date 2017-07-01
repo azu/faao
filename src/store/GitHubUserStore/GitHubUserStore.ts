@@ -6,6 +6,7 @@ import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActiv
 import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 
 import { compile, parse, ParsedEvent } from "parse-github-event";
+import { isOpenedGitHubUser } from "../../domain/App/Activity/OpenedGitHubUser";
 
 export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
     parsedEvent?: ParsedEvent;
@@ -76,7 +77,10 @@ export class GitHubUserStore extends Store<GitHubUserState> {
 
     receivePayload() {
         const app = this.args.appRepository.get();
-        const user = this.args.gitHubUserRepository.findById(app.user.activity.openedUserId);
+        const openedUserId = isOpenedGitHubUser(app.user.activity.openedContent)
+            ? app.user.activity.openedContent.gitHubUserId
+            : undefined;
+        const user = this.args.gitHubUserRepository.findById(openedUserId);
         this.setState(this.state.update(user));
     }
 

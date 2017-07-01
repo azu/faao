@@ -64,7 +64,6 @@ export class GitHubSearchResultItemSortedCollection<
             }
             const item = savedItems[index];
             if (addingItem.updatedAtDate.getTime() > item.updatedAtDate.getTime()) {
-                console.log("old remove");
                 savedItems.splice(index, 1);
                 actualAdding.push(addingItem);
             }

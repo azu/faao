@@ -11,6 +11,7 @@ import {
 import { ActivityHistory } from "../../domain/App/ActivityHistory";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { LRUMapLike } from "lru-map-like";
+import { isOpenedGitHubStream } from "../../domain/App/Activity/OpenedGitHubStream";
 
 const stateItemCacheMap = new LRUMapLike<GitHubSearchResultItem, GitHubSearchStreamStateItem>(1000);
 
@@ -40,7 +41,12 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateObject {
 
     update({ stream, itemHistory }: { stream?: GitHubSearchStream; itemHistory: ActivityHistory }) {
         if (!stream) {
-            return this;
+            return new GitHubSearchStreamState(
+                Object.assign({}, this, {
+                    items: [],
+                    displayItems: []
+                })
+            );
         }
         return new GitHubSearchStreamState({
             ...this as GitHubSearchStreamState,
@@ -98,10 +104,10 @@ export class GitHubSearchStreamStore extends Store<GitHubSearchStreamState> {
 
     receivePayload(payload: Payload) {
         const app = this.args.appRepository.get();
-        const activeStreamId = app.user.activity.openedStreamId;
-        if (!activeStreamId) {
-            return this.setState(this.state.reduce(payload));
-        }
+        const openedContent = app.user.activity.openedContent;
+        const activeStreamId = isOpenedGitHubStream(openedContent)
+            ? openedContent.gitHubSearchStreamId
+            : undefined;
         const activeStream = this.args.gitHubSearchStreamRepository.findById(activeStreamId);
         this.setState(
             this.state
