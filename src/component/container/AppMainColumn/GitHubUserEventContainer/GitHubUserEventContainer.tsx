@@ -15,7 +15,8 @@ export interface GitHubUserEventContainerProps {
 }
 
 export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventContainerProps, {}> {
-    onClickItem = (_event: SyntheticEvent<any>, item: GitHubUserActivityEventVideoModel) => {
+    onClickItem = (event: SyntheticEvent<any>, item: GitHubUserActivityEventVideoModel) => {
+        event.preventDefault();
         this.useCase(createAppUserOpenGitHubUserEventUseCase()).executor(useCase =>
             useCase.execute(item)
         );
