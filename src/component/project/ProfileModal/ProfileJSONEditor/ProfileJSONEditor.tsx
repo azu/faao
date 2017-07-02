@@ -40,7 +40,8 @@ export class ProfileJSONEditor extends React.Component<
     render() {
         const options = {
             mode: "javascript",
-            lineNumbers: true
+            lineNumbers: true,
+            contenteditable: true
         };
         return (
             <CodeMirror
