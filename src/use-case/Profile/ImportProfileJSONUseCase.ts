@@ -50,9 +50,11 @@ export class ImportProfileJSONUseCase extends UseCase {
         const searchListUpdatingPromises = profile.GitHubSearchLists.map(searchList => {
             return this.args.gitHubSearchListRepository.save(searchList);
         });
-        const gitHubUserUpdatingPromises = profile.GitHubUsers.map(gitHubUser => {
-            return this.args.gitHubUserRepository.save(gitHubUser);
-        });
+        const gitHubUserUpdatingPromises = profile.GitHubUsers
+            ? profile.GitHubUsers.map(gitHubUser => {
+                  return this.args.gitHubUserRepository.save(gitHubUser);
+              })
+            : [];
         return Promise.all([
             ...settingsUpdatingPromises,
             ...searchListUpdatingPromises,
