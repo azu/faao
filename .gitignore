@@ -87,3 +87,5 @@ public/build
 /.env
 !Profile/
 /.awcache/
+# tsc ignore
+/tool/*.js

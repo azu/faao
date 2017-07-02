@@ -28,13 +28,14 @@
     "build:browser:js": "cross-env NODE_ENV=production RUNTIME_TARGET=browser webpack --progress -p",
     "build:electron:js": "cross-env NODE_ENV=production RUNTIME_TARGET=electron webpack --progress -p",
     "build:css": "postcss --config postcss.config.js src/index.css -o public/build/build.css",
+    "build:docs": "cross-env NODE_ENV=production webpack --config ./webpack.docs.config.js -p",
     "watch:browser:js": "cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack --watch",
     "watch:electron:js": "cross-env NODE_ENV=development RUNTIME_TARGET=electron webpack --watch",
     "watch:css": "chokidar --initial 'src/**/*.css' -c 'cross-env NODE_ENV=development npm run build:css'",
     "watch:browser": "npm-run-all clean --parallel watch:browser:* watch:css",
     "watch:electron": "npm-run-all clean --parallel watch:electron:* watch:css",
     "clean": "rimraf public/build && mkdirp public/build",
-    "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack"
+    "ci": "npm-run-all test build:browser build:docs"
   },
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
@@ -56,7 +57,9 @@
     "json-loader": "^0.5.4",
     "lint-staged": "^3.6.1",
     "localforage-memoryStorageDriver": "^0.9.2",
+    "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
+    "nomnoml": "^0.1.1",
     "npm-run-all": "^4.0.2",
     "postcss-calc": "^6.0.0",
     "postcss-cli": "^4.1.0",
@@ -77,6 +80,7 @@
   "dependencies": {
     "@immutable-array/prototype": "^1.0.2",
     "@types/combokeys": "^2.4.5",
+    "@types/lodash.groupby": "^4.6.2",
     "@types/lodash.sortby": "^4.7.2",
     "@types/lodash.throttle": "^4.1.2",
     "@types/lodash.uniqby": "^4.7.2",
@@ -102,6 +106,7 @@
     "github-url-to-object": "^4.0.2",
     "is-electron": "^2.0.0",
     "localforage": "^1.5.0",
+    "lodash.groupby": "^4.6.0",
     "lodash.sortby": "^4.7.0",
     "lodash.throttle": "^4.1.1",
     "lodash.uniqby": "^4.7.0",

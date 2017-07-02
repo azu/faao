@@ -34,7 +34,8 @@
   },
   "include": [
     "types/**/*",
-    "src/**/*"
+    "src/**/*",
+    "tool/**/*"
   ],
   "exclude": [
     ".git",

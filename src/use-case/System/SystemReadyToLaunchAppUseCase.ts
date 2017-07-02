@@ -14,14 +14,14 @@ import {
 } from "../../infra/repository/GitHubSettingsRepository";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import { AppNetworkStatus } from "../../domain/App/AppNetwork";
-import { createUpdateAppNetworkStatusUseCase } from "./UpdateAppNetworkStatusUseCase";
+import { createUpdateAppNetworkStatusUseCase } from "../App/UpdateAppNetworkStatusUseCase";
 import {
     gitHubUserRepository,
     GitHubUserRepository
 } from "../../infra/repository/GitHubUserRepository";
 
-export const createReadyToAppUseCase = () => {
-    return new ReadyToAppUseCase({
+export const createSystemReadyToLaunchAppUseCase = () => {
+    return new SystemReadyToLaunchAppUseCase({
         gitHubSearchListRepository,
         gitHubSearchStreamRepository,
         gitHubSettingRepository,
@@ -37,7 +37,7 @@ export const createReadyToAppUseCase = () => {
  * - Setup repositories.
  *    - restore data from database to repository instance.
  */
-export class ReadyToAppUseCase extends UseCase {
+export class SystemReadyToLaunchAppUseCase extends UseCase {
     constructor(
         private args: {
             gitHubSearchListRepository: GitHubSearchListRepository;
