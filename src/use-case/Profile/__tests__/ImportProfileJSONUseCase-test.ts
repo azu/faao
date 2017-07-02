@@ -6,6 +6,7 @@ import { GitHubSearchListFactory } from "../../../domain/GitHubSearchList/GitHub
 import { createStubContext } from "../../../test/AlminUseCaseStub";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 import { storageManger } from "../../../infra/repository/Storage";
+import { GitHubUserRepository } from "../../../infra/repository/GitHubUserRepository";
 
 describe("ImportProfileJSONUseCase", () => {
     beforeEach(() => {
@@ -16,12 +17,15 @@ describe("ImportProfileJSONUseCase", () => {
         const gitHubSearchListRepository = new GitHubSearchListRepository(
             GitHubSearchListFactory.createDefaultSearchList()
         );
+        const gitHubUserRepository = new GitHubUserRepository();
         await gitHubSettingRepository.ready();
         await gitHubSearchListRepository.ready();
+        await gitHubUserRepository.ready();
         const { context } = createStubContext(ImportProfileJSONUseCase);
         const importProfileJSONUseCase = new ImportProfileJSONUseCase({
             gitHubSearchListRepository,
-            gitHubSettingRepository
+            gitHubSettingRepository,
+            gitHubUserRepository
         });
         const profileJSON: ProfileJSON = {
             GitHubSettings: [
@@ -74,6 +78,15 @@ describe("ImportProfileJSONUseCase", () => {
                             gitHubSettingId: "github.com"
                         }
                     ]
+                }
+            ],
+            GitHubUsers: [
+                {
+                    id: "user-id",
+                    profile: {
+                        loginName: "azu",
+                        avatarURL: "https://github.com/azu.png"
+                    }
                 }
             ]
         };

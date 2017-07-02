@@ -48,10 +48,6 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         return this;
     }
 
-    findAll(): GitHubSearchList[] {
-        return this.map.values();
-    }
-
     findAllSortBy(predicate: (searchList: GitHubSearchList) => any): GitHubSearchList[] {
         return sortBy(this.findAll(), predicate);
     }

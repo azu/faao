@@ -35,10 +35,6 @@ export class GitHubSettingRepository extends NullableBaseRepository<GitHubSettin
         return this;
     }
 
-    findAll(): GitHubSetting[] {
-        return this.map.values();
-    }
-
     findGitHubSettingById(id: Identifier<GitHubSetting>): GitHubSetting | undefined {
         return this.findById(id);
     }

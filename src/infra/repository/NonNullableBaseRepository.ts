@@ -31,6 +31,10 @@ export class NonNullableBaseRepository<T extends Entity<Identifier<T>>> {
         return this.map.get(entityId);
     }
 
+    findAll(): T[] {
+        return this.map.values();
+    }
+
     save(entity: T): void {
         this.lastUsed = entity;
         this.map.set(entity.id, entity);

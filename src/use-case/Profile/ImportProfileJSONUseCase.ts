@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { Payload, UseCase } from "almin";
+import { UseCase } from "almin";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
@@ -10,11 +10,16 @@ import {
 } from "../../infra/repository/GitHubSettingsRepository";
 import { ProfileService } from "../../domain/Profile/ProfileService";
 import { ProfileJSON } from "../../domain/Profile/Profile";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
 
 export const createImportProfileJSONUseCase = () => {
     return new ImportProfileJSONUseCase({
         gitHubSettingRepository,
-        gitHubSearchListRepository
+        gitHubSearchListRepository,
+        gitHubUserRepository
     });
 };
 
@@ -23,6 +28,7 @@ export class ImportProfileJSONUseCase extends UseCase {
         private args: {
             gitHubSettingRepository: GitHubSettingRepository;
             gitHubSearchListRepository: GitHubSearchListRepository;
+            gitHubUserRepository: GitHubUserRepository;
         }
     ) {
         super();
@@ -33,7 +39,8 @@ export class ImportProfileJSONUseCase extends UseCase {
         // clear
         const clear = [
             this.args.gitHubSearchListRepository.clear(),
-            this.args.gitHubSettingRepository.clear()
+            this.args.gitHubSettingRepository.clear(),
+            this.args.gitHubUserRepository.clear()
         ];
         await Promise.all(clear);
         // set new profile
@@ -43,6 +50,13 @@ export class ImportProfileJSONUseCase extends UseCase {
         const searchListUpdatingPromises = profile.GitHubSearchLists.map(searchList => {
             return this.args.gitHubSearchListRepository.save(searchList);
         });
-        return Promise.all([...settingsUpdatingPromises, ...searchListUpdatingPromises]);
+        const gitHubUserUpdatingPromises = profile.GitHubUsers.map(gitHubUser => {
+            return this.args.gitHubUserRepository.save(gitHubUser);
+        });
+        return Promise.all([
+            ...settingsUpdatingPromises,
+            ...searchListUpdatingPromises,
+            ...gitHubUserUpdatingPromises
+        ]);
     }
 }

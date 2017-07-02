@@ -4,6 +4,8 @@ import { ExportProfileUseCase, ExportProfileUseCasePayload } from "../ExportProf
 import { GitHubSettingRepository } from "../../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchListRepository } from "../../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchListFactory } from "../../../domain/GitHubSearchList/GitHubSearchListFactory";
+import { ProfileJSON } from "../../../domain/Profile/Profile";
+import { GitHubUserRepository } from "../../../infra/repository/GitHubUserRepository";
 
 describe("ExportProfileUseCase", () => {
     it("should dispatch ExportProfileUseCasePayload", () => {
@@ -12,11 +14,13 @@ describe("ExportProfileUseCase", () => {
         const gitHubSearchListRepository = new GitHubSearchListRepository(
             GitHubSearchListFactory.createDefaultSearchList()
         );
+        const gitHubUserRepository = new GitHubUserRepository();
         return context
             .useCase(
                 new ExportProfileUseCase({
                     gitHubSearchListRepository,
-                    gitHubSettingRepository
+                    gitHubSettingRepository,
+                    gitHubUserRepository
                 })
             )
             .executor(useCase => {
@@ -26,6 +30,10 @@ describe("ExportProfileUseCase", () => {
                 expect(dispatchedPayloads).toHaveLength(1);
                 const payload: any = dispatchedPayloads[0];
                 expect(payload).toBeInstanceOf(ExportProfileUseCasePayload);
+                const profile: ProfileJSON = payload.json;
+                expect(profile).toHaveProperty("GitHubSearchLists");
+                expect(profile).toHaveProperty("GitHubSettings");
+                expect(profile).toHaveProperty("GitHubUsers");
             });
     });
 });

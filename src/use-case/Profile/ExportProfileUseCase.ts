@@ -10,6 +10,10 @@ import {
 } from "../../infra/repository/GitHubSettingsRepository";
 import { ProfileService } from "../../domain/Profile/ProfileService";
 import { ProfileJSON } from "../../domain/Profile/Profile";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
 
 export class ExportProfileUseCasePayload extends Payload {
     constructor(public json: ProfileJSON) {
@@ -22,7 +26,8 @@ export class ExportProfileUseCasePayload extends Payload {
 export const createExportProfileUseCase = () => {
     return new ExportProfileUseCase({
         gitHubSettingRepository,
-        gitHubSearchListRepository
+        gitHubSearchListRepository,
+        gitHubUserRepository
     });
 };
 
@@ -31,6 +36,7 @@ export class ExportProfileUseCase extends UseCase {
         private args: {
             gitHubSettingRepository: GitHubSettingRepository;
             gitHubSearchListRepository: GitHubSearchListRepository;
+            gitHubUserRepository: GitHubUserRepository;
         }
     ) {
         super();
@@ -39,9 +45,11 @@ export class ExportProfileUseCase extends UseCase {
     execute() {
         const GitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
         const GitHubSettings = this.args.gitHubSettingRepository.findAll();
+        const GitHubUsers = this.args.gitHubUserRepository.findAll();
         const profileJSON = ProfileService.toJSON({
             GitHubSearchLists,
-            GitHubSettings
+            GitHubSettings,
+            GitHubUsers
         });
         this.dispatch(new ExportProfileUseCasePayload(profileJSON));
     }
