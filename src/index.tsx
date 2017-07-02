@@ -10,7 +10,7 @@ import { appStoreGroup, AppStoreGroupState, debuggable } from "./store/AppStoreG
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
-import { createReadyToAppUseCase } from "./use-case/App/ReadyToAppUseCase";
+import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { initializeElectron } from "./electron/index";
 import isElectron from "is-electron";
 import { initializeBrowser } from "./browser/index";
@@ -46,5 +46,5 @@ if (isElectron()) {
 const AppWrapContainer = AlminReactContainer.create<AppStoreGroupState>(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), () => {
     // render and restore repositories
-    context.useCase(createReadyToAppUseCase()).executor(useCase => useCase.execute());
+    context.useCase(createSystemReadyToLaunchAppUseCase()).executor(useCase => useCase.execute());
 });

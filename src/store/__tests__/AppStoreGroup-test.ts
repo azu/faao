@@ -2,7 +2,7 @@
 import { AppStoreGroupState, createAppStoreGroup, createStoreMap } from "../AppStoreGroup";
 import { storageManger } from "../../infra/repository/Storage";
 import { Context, Dispatcher, StoreGroup } from "almin";
-import { createReadyToAppUseCase } from "../../use-case/App/ReadyToAppUseCase";
+import { createSystemReadyToLaunchAppUseCase } from "../../use-case/System/SystemReadyToLaunchAppUseCase";
 
 describe("AppStoreGroup", () => {
     describe("when after initialized", () => {
@@ -17,7 +17,7 @@ describe("AppStoreGroup", () => {
             });
             // initialized application
             return context
-                .useCase(createReadyToAppUseCase())
+                .useCase(createSystemReadyToLaunchAppUseCase())
                 .executor(useCase => useCase.execute());
         });
         it("should not exist active items", () => {
