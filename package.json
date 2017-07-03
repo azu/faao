@@ -16,7 +16,9 @@
   "scripts": {
     "precommit": "lint-staged",
     "postcommit": "git reset",
-    "test": "jest",
+    "test": "npm-run-all test:* lint",
+    "test:unit": "jest",
+    "lint": "npm-run-all --parallel lint:*",
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "prepublishOnly": "npm run --if-present build",
     "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 100 --tab-width 4",
