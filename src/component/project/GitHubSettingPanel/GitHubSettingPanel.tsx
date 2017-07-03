@@ -127,6 +127,7 @@ export class GitHubSettingPanel extends React.Component<
                     }}
                 />
                 <TextField
+                    type="password"
                     label="Token:"
                     placeholder="GitHub Personal token"
                     defaultValue={this.state.token}
