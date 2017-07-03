@@ -6,7 +6,7 @@ import { QuerySettingPanel } from "../../project/QuerySettingPanel/QuerySettingP
 import { GitHubSearchQueryJSON } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
-import { createSaveQueryToSearchListUseCase } from "../../../use-case/App/SaveQueryToSearchListUseCase";
+import { createSaveQueryToSearchListUseCase } from "../../../use-case/GitHubSearchList/SaveQueryToSearchListUseCase";
 import { createUpdateQueryToSearchListUseCase } from "../../../use-case/App/UpdateQueryToSearchListUseCase";
 
 export interface QuickIssueContainerProps {
