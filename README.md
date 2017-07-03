@@ -12,7 +12,13 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Usage
 
-- [ ] Write usage instructions
+### Browser
+
+- Open <https://azu.github.io/faao/>
+
+### Electron
+
+- [ ] Download binary
 
 ## Development
 
