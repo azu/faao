@@ -24,92 +24,21 @@ Install with [npm](https://www.npmjs.com/):
 
     yarn run start:electron
 
-### How to pronounce "Faao"?
+## How to pronounce "Faao"?
 
 Same with [How to say "faao"! (High Quality Voices) - YouTube](https://www.youtube.com/watch?v=m4BPcZeOBpw "How to say &#34;faao&#34;! (High Quality Voices) - YouTube")
 
-### Structure
+## Structure
 
-Reation
+### Domain
 
-- settings
-- queries
+See [Domain](./docs/domain.md)
 
+### UseCase
 
-#### AppUser
+Visualization: [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
 
-- AppUser select settings
-- AppUser open stream
-- AppUser select item
-- AppUser open item with browser
-
-#### GitHub Settings
-
-- GitHubSetting
-    - `id`*1
-    - Token
-    - API Host - Primary key
-    - Web Host
-
-Q. Why not User?
-A. GitHub create difference token for a single user.
-User is not unique.
-
-
-#### SearchList
-
-Save/read the search list to gist.
-
-SearchList is a folder of queries.
-
-- SearchList has queries
-- GitHubQuery
-    - Name
-    - Query(`q`)
-    - Color
-    - gitHubSettingId *1
-        - API Host
-        - Token
-        - ...
-
-#### Search Result
-
-- GitHubSearchStream
-    - GitHubSearchResult
-        - GitHubSearchResultItem
-        - Wrap of <https://developer.github.com/v3/search/#search-issues>
-
-Stream can combine the other stream.
-
-#### Action to Search Result
-
-- Action to GitHubSearchStream
-    - Reload
-    - Force Reload(Reset and Load)
-- Action to GitHubSearchResultItem
-    - Open URL
-
-#### GitHubUser
-
-GitHubUser is difference with AppUser.
-
-- GitHubUser has activity that has events.
-
-##### GitHubUserActivity
-
-- has events
-- https://developer.github.com/v3/activity/events/
-- Activity is LRU
-
-#### Notice
-
-Notice is a notification.
-
-Create custom notice for each errors/notification.
-
-#### Profile
-
-Profile is a collection of personal setting.
+And See [UseCase](./docs/use-case.md)
 
 ## Changelog
 
