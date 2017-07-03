@@ -32,7 +32,7 @@
     "build:electron:js": "cross-env NODE_ENV=production RUNTIME_TARGET=electron webpack --progress -p",
     "build:css": "postcss --config postcss.config.js src/index.css -o public/build/build.css",
     "_build:docs_": "cross-env NODE_ENV=production webpack --config ./webpack.docs.config.js -p",
-    "build:docs": "tsc tool/generate-usecase-nomnoml.ts --lib 'es2017,dom' && node tool/generate-usecase-nomnoml.js",
+    "build:docs": "mkdir -p public/build-resoruce/ && tsc tool/generate-usecase-nomnoml.ts --lib 'es2017,dom' && node tool/generate-usecase-nomnoml.js",
     "watch:browser:js": "cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack --watch",
     "watch:electron:js": "cross-env NODE_ENV=development RUNTIME_TARGET=electron webpack --watch",
     "watch:css": "chokidar --initial 'src/**/*.css' -c 'cross-env NODE_ENV=development npm run build:css'",
