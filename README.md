@@ -4,11 +4,19 @@ Faao is a GitHub issue client like jasper.
 
 [![gif](https://media.giphy.com/media/xUOrweo4UAStll4QP6/giphy.gif)](https://giphy.com/gifs/xUOrweo4UAStll4QP6/fullscreen)
 
-## Install
+## Feature
 
-Install with [npm](https://www.npmjs.com/):
-
-    yarn install
+- Support Modern browser/mobile/Electron(recommenced)
+- Support GitHub.com and GitHub Enterprise(GHE)
+- Search Issue/Pull Request
+    - [Search Syntax](https://help.github.com/articles/search-syntax/ "Search Syntax") is same with GitHub Search
+- Mixed the result of search
+    - e.g.) You can see the results of [Created](https://github.com/issues), [assigned](https://github.com/issues/assigned), [mentioned](https://github.com/issues/mentioned) as a single result
+    - e.g.) You can see the results of `repo:azu/todo` on github.com and `repo:azu-ghe/todo` on GHE as a single result
+- Support GitHub User Activity
+- Quick to create issue
+- Import/Export profile data
+- [ ] Sync data between PCs/mobiles
 
 ## Usage
 
