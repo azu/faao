@@ -5,6 +5,8 @@ import * as glob from "glob";
 import * as path from "path";
 import * as fs from "fs";
 
+const outputNomnomlPath = path.join(__dirname, "..", "public/build-resoruce", "use-case.svg.nomnoml");
+const outputSVGPath = path.join(__dirname, "..", "public/build-resoruce", "use-case.svg");
 const groupBy = require("lodash.groupby");
 const useCaseDir = path.join(__dirname, "..", "src/use-case");
 const allUseCases = glob.sync(`${useCaseDir}/**/*UseCase.ts`);
@@ -117,8 +119,10 @@ const results = groups.map(group => {
 // #spacing: 50
 // #padding: 20
 // ${results.join("\n")}`);
-console.log(nomnoml.renderSvg(`
+const result = `
 #direction: right
 #spacing: 50
 #padding: 20
-${results.join("\n")}`));
+${results.join("\n")}`;
+fs.writeFileSync(outputNomnomlPath, result, "utf-8");
+fs.writeFileSync(outputSVGPath, nomnoml.renderSvg(result), "utf-8");

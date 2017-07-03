@@ -84,6 +84,7 @@ crashlytics-build.properties
 
 /lib
 public/build
+public/build-resoruce/
 /.env
 !Profile/
 /.awcache/
