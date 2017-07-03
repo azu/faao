@@ -1,14 +1,58 @@
 {
   "forbidden": [
     {
+      "name": "domain-not-to-depend-on-infra",
+      "comment": "Don't allow dependencies from domain to infra",
+      "severity": "error",
+      "from": {
+        "path": "^src/domain"
+      },
+      "to": {
+        "path": "^src/infra"
+      }
+    },
+    {
+      "name": "domain-not-to-depend-on-store",
+      "comment": "Don't allow dependencies from domain to store",
+      "severity": "error",
+      "from": {
+        "path": "^src/domain"
+      },
+      "to": {
+        "path": "^src/store"
+      }
+    },
+    {
+      "name": "domain-not-to-depend-on-component",
+      "comment": "Don't allow dependencies from domain to component",
+      "severity": "error",
+      "from": {
+        "path": "^src/domain"
+      },
+      "to": {
+        "path": "^src/component"
+      }
+    },
+    {
+      "name": "store-not-to-depend-on-component",
+      "comment": "Don't allow dependencies from store to component",
+      "severity": "error",
+      "from": {
+        "path": "^src/store"
+      },
+      "to": {
+        "path": "^src/component"
+      }
+    },
+    {
       "name": "not-to-test",
       "comment": "Don't allow dependencies from outside the test folder to test",
       "severity": "error",
       "from": {
-        "pathNot": "^__tests__"
+        "pathNot": "__tests__"
       },
       "to": {
-        "path": "^__tests__"
+        "path": "__tests__"
       }
     },
     {
