@@ -4,6 +4,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader');
 const WebpackBuildDllPlugin = require('webpack-build-dll-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const distDir = path.join(__dirname, "public", "build");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     entry: [
         "./src/index.tsx"
@@ -51,6 +52,14 @@ module.exports = {
                 // "browser", "electron"
                 RUNTIME_TARGET: JSON.stringify(process.env.RUNTIME_TARGET)
             }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: process.env.NODE_ENV !== "production"
         })
-    ]
+    ].concat(process.env.WEBPACK_ANALYZE === undefined ? [] : [
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: 'output/app.report.html',
+        })
+    ])
 };
