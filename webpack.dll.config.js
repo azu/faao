@@ -11,7 +11,8 @@ module.exports = {
             ];
             const blacklistModules = [
                 /^@types/,
-                /electron/
+                /electron/,
+                /react-octicons/
             ];
             if (whitelistModules.some(pattern => pattern.test(path))) {
                 return true;
