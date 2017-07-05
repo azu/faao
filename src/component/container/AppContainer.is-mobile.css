@@ -4,6 +4,7 @@
     }
 
     .AppContainerColumn-mobile {
+        background-color: #fff;
         display: none !important;
         transition: width 0.5s ease-in-out;
     }

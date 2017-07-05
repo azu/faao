@@ -19,7 +19,7 @@ const suitcssClassnames = require("suitcss-classnames");
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
     render() {
-        const AppContainerNavClassName = suitcssClassnames({
+        const AppContainerMobileMenuClassName = suitcssClassnames({
             component: "AppContainerColumn-mobile",
             states: {
                 "is-opened": this.props.mobile.isMenuOpened
@@ -38,13 +38,13 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 </nav>
                 <div className="AppContainer-body">
                     <AppMenuColumn
-                        className={classNames("AppContainer-nav", AppContainerNavClassName)}
+                        className={classNames("AppContainer-nav", AppContainerMobileMenuClassName)}
                         app={this.props.app}
                         gitHubSetting={this.props.gitHubSetting}
                         gitHubSearchList={this.props.gitHubSearchList}
                     />
                     <AppMainColumn
-                        className={classNames("AppContainer-main", AppContainerNavClassName)}
+                        className={classNames("AppContainer-main")}
                         app={this.props.app}
                         gitHubUser={this.props.gitHubUser}
                         gitHubSearchStream={this.props.gitHubSearchStream}
