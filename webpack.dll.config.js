@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const distDir = path.join(__dirname, "public", "build");
+const BabiliPlugin = require("babili-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
-
     entry: {
         'dll': Object.keys(require('./package.json').dependencies).filter((path) => {
             const whitelistModules = [
@@ -18,7 +19,9 @@ module.exports = {
             return !blacklistModules.some(pattern => pattern.test(path));
         })
     },
-
+    node: {
+        fs: "empty"
+    },
     output: {
         path: distDir,
         publicPath: "/build/",
@@ -42,6 +45,13 @@ module.exports = {
             path: path.join(distDir, `dll.manifest.${process.env.NODE_ENV !== "production" ? 'dev' : 'prod'}.json`),
             name: '[name]',
             context: __dirname
+        }),
+    ].concat(process.env.NODE_ENV !== "production" ? [] : [
+        new BabiliPlugin()
+    ]).concat(process.env.WEBPACK_ANALYZE === undefined ? [] : [
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: 'output/dll.report.html',
         })
-    ]
+    ])
 };
