@@ -10,13 +10,13 @@ import {
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 
-const {
-    CommentIcon,
-    IssueOpenedIcon,
-    IssueClosedIcon,
-    GitMergeIcon,
-    GitPullRequestIcon
-} = require("react-octicons");
+// save file-size
+const CommentIcon = require("react-octicons/lib/comment");
+const IssueOpenedIcon = require("react-octicons/lib/issue-opened");
+const IssueClosedIcon = require("react-octicons/lib/issue-closed");
+const GitMergeIcon = require("react-octicons/lib/git-merge");
+const GitPullRequestIcon = require("react-octicons/lib/git-pull-request");
+
 const suitcssClassnames = require("suitcss-classnames");
 
 export interface SearchResultListItemProps {
