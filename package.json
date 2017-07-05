@@ -26,7 +26,7 @@
     "start:electron": "npm-run-all start electron",
     "electron": "cross-env FAAO_URL=http://localhost:8080/ electron electron.js",
     "server": "cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack-dev-server --hot --content-base ./public",
-    "build:browser": "cross-env NODE_ENV=production npm-run-all clean --parallel build:browser:* build:css",
+    "build": "cross-env NODE_ENV=production npm-run-all clean --parallel build:browser:* build:css",
     "build:electron": "cross-env NODE_ENV=production npm-run-all clean --parallel build:electron:* build:css",
     "build:browser:js": "cross-env NODE_ENV=production RUNTIME_TARGET=browser webpack --progress",
     "build:electron:js": "cross-env NODE_ENV=production RUNTIME_TARGET=electron webpack --progress",

@@ -46,13 +46,13 @@ Same with [How to say "faao"! (High Quality Voices) - YouTube](https://www.youtu
 
 ### Domain
 
-See [Domain](./docs/domain.md)
+See [Domain documents](./docs/domain.md)
 
 ### UseCase
 
 Visualization: [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
 
-And See [UseCase](./docs/use-case.md)
+And See [UseCase documents](./docs/use-case.md)
 
 ## Changelog
 
