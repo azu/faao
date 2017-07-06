@@ -123,7 +123,7 @@ export class GitHubSettingList extends React.Component<
                       {
                           key: "show-events",
                           iconProps: {
-                              iconName: "Show"
+                              iconName: "Heart"
                           },
                           onClick: (event: React.MouseEvent<HTMLElement>) => {
                               this.onShowUserEvents(event);
