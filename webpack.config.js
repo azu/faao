@@ -52,11 +52,11 @@ module.exports = {
                 // "browser", "electron"
                 RUNTIME_TARGET: JSON.stringify(process.env.RUNTIME_TARGET)
             }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: process.env.NODE_ENV !== "production"
         })
-    ].concat(process.env.WEBPACK_ANALYZE === undefined ? [] : [
+    ].concat(process.env.NODE_ENV !== "production" ? [] : [
+            new webpack.optimize.UglifyJsPlugin()
+        ]
+    ).concat(process.env.WEBPACK_ANALYZE === undefined ? [] : [
         new BundleAnalyzerPlugin({
             analyzerMode: 'static',
             reportFilename: 'output/app.report.html',

@@ -11,11 +11,11 @@ import {
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 
 // save file-size
-const CommentIcon = require("react-octicons/lib/comment");
-const IssueOpenedIcon = require("react-octicons/lib/issue-opened");
-const IssueClosedIcon = require("react-octicons/lib/issue-closed");
-const GitMergeIcon = require("react-octicons/lib/git-merge");
-const GitPullRequestIcon = require("react-octicons/lib/git-pull-request");
+const CommentIcon = require("react-octicons/lib/comment").default;
+const IssueOpenedIcon = require("react-octicons/lib/issue-opened").default;
+const IssueClosedIcon = require("react-octicons/lib/issue-closed").default;
+const GitMergeIcon = require("react-octicons/lib/git-merge").default;
+const GitPullRequestIcon = require("react-octicons/lib/git-pull-request").default;
 
 const suitcssClassnames = require("suitcss-classnames");
 
