@@ -1,5 +1,5 @@
 # Build
 
-electron-builder directory
+electron-builder specified directory.
 
 - icons
