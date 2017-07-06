@@ -90,3 +90,4 @@ public/build-resoruce/
 /.awcache/
 # tsc ignore
 /tool/*.js
+/dist/

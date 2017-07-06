@@ -1,7 +1,5 @@
 {
-  "directories": {
-    "test": "test"
-  },
+  "private": true,
   "author": "azu",
   "license": "MIT",
   "files": [
@@ -12,7 +10,39 @@
   "name": "faao",
   "description": "Faao is a GitHub issue client like jasper.",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "electron.js",
+  "build": {
+    "productName": "Faao",
+    "appId": "info.efcl.faao",
+    "asar": true,
+    "npmRebuild": false,
+    "files": [
+      "electron.js",
+      "public/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ]
+  },
   "scripts": {
     "precommit": "lint-staged",
     "postcommit": "git reset",
@@ -38,8 +68,12 @@
     "watch:css": "chokidar --initial 'src/**/*.css' -c 'cross-env NODE_ENV=development npm run build:css'",
     "watch:browser": "npm-run-all clean --parallel watch:browser:* watch:css",
     "watch:electron": "npm-run-all clean --parallel watch:electron:* watch:css",
-    "clean": "rimraf public/build && mkdirp public/build",
-    "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack"
+    "clean": "rimraf public/build dist && mkdirp public/build",
+    "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "npm run build && build --dir",
+    "dist": "npm run build && build --x64 --ia32",
+    "release": "npm run build && build --x64 --ia32 --publish onTagOrDraft"
   },
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
@@ -58,6 +92,8 @@
     "cssnano": "^3.10.0",
     "dependency-cruiser": "^2.2.3",
     "electron": "1.7.2",
+    "electron-builder": "^19.12.0",
+    "electron-packager": "^8.7.2",
     "glob": "^7.1.2",
     "husky": "^0.13.4",
     "jest": "^20.0.4",
