@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 // polyfill
-import { runDOMBootstrap } from "./bootstrap/index";
+require("request-idle-polyfill");
 // index
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -11,8 +11,7 @@ import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
-
-require("request-idle-polyfill");
+import { runDOMBootstrap } from "./bootstrap/index";
 
 const AlminLogger = require("almin-logger");
 // instances
