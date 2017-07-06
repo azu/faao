@@ -91,3 +91,5 @@ public/build-resoruce/
 # tsc ignore
 /tool/*.js
 /dist/
+# icons
+!/build/
