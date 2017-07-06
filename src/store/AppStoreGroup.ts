@@ -18,6 +18,7 @@ import { storageManger } from "../infra/repository/Storage";
 import { MobileStore } from "./Mobile/MobileStore";
 import { gitHubUserRepository } from "../infra/repository/GitHubUserRepository";
 import { GitHubUserStore } from "./GitHubUserStore/GitHubUserStore";
+import { AppMainColumnStore } from "./AppMainColumnStore/AppMainColumnStore";
 
 export const createStoreMap = () => {
     return {
@@ -25,6 +26,9 @@ export const createStoreMap = () => {
             appRepository,
             gitHubSearchListRepository,
             gitHubSearchStreamRepository
+        }),
+        appMainColumn: new AppMainColumnStore({
+            appRepository
         }),
         gitHubSearchList: new GitHubSearchListStore(gitHubSearchListRepository),
         gitHubSearchStream: new GitHubSearchStreamStore({

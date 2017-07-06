@@ -46,6 +46,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                     <AppMainColumn
                         className={classNames("AppContainer-main")}
                         app={this.props.app}
+                        appMainColumn={this.props.appMainColumn}
                         gitHubUser={this.props.gitHubUser}
                         gitHubSearchStream={this.props.gitHubSearchStream}
                     />

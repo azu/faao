@@ -6,33 +6,41 @@ import { GitHubSearchStreamState } from "../../../store/GitHubSearchStreamStore/
 import classnames from "classnames";
 import { GitHubUserEventContainer } from "./GitHubUserEventContainer/GitHubUserEventContainer";
 import { GitHubUserState } from "../../../store/GitHubUserStore/GitHubUserStore";
-import * as assert from "assert";
+import {
+    AppMainColumnShowType,
+    AppMainColumnState
+} from "../../../store/AppMainColumnStore/AppMainColumnStore";
 
 export interface AppMainColumnProps {
     className?: string;
     app: AppState;
     gitHubUser: GitHubUserState;
     gitHubSearchStream: GitHubSearchStreamState;
+    appMainColumn: AppMainColumnState;
 }
 
 export class AppMainColumn extends React.Component<AppMainColumnProps, {}> {
     render() {
-        const userEventContainer = this.props.gitHubUser.shouldShow
-            ? <GitHubUserEventContainer gitHubUser={this.props.gitHubUser} />
-            : null;
-
-        const searchStreamContainer = this.props.gitHubSearchStream.hasResult
-            ? <GitHubSearchStreamContainer
-                  app={this.props.app}
-                  gitHubSearchStream={this.props.gitHubSearchStream}
-              />
-            : null;
-        assert.ok(!(userEventContainer && searchStreamContainer), "Both is shown. Wrong something");
+        const showContainer = this.getShowContainer(this.props.appMainColumn.showType);
         return (
             <div className={classnames("AppMainColumn", this.props.className)}>
-                {userEventContainer}
-                {searchStreamContainer}
+                {showContainer}
             </div>
         );
+    }
+
+    getShowContainer(showType: AppMainColumnShowType) {
+        if (showType === AppMainColumnShowType.GitHubStream) {
+            return (
+                <GitHubSearchStreamContainer
+                    app={this.props.app}
+                    gitHubSearchStream={this.props.gitHubSearchStream}
+                />
+            );
+        } else if (showType === AppMainColumnShowType.GitHubUserActivity) {
+            return <GitHubUserEventContainer gitHubUser={this.props.gitHubUser} />;
+        } else {
+            return null;
+        }
     }
 }
