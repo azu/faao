@@ -1,8 +1,7 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { UseCase } from "almin";
+import { UseCase, UseCaseExecutor } from "almin";
 import { appLocator } from "../../AppLocator";
-import { UseCaseExecutor } from "almin/lib/UseCaseExecutor";
 
 /**
  * Extends React.Component for Container.
