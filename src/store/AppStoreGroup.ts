@@ -1,8 +1,7 @@
 // MIT © 2017 azu
 
-import { StoreMap } from "almin/lib/UILayer/StoreGroupTypes";
+import { StoreGroup, StoreGroupTypes } from "almin";
 import { ProfileStore } from "./ProfileStore/ProfileStore";
-import { StoreGroup } from "almin";
 import { appRepository } from "../infra/repository/AppRepository";
 import { gitHubSearchListRepository } from "../infra/repository/GitHubSearchListRepository";
 import { gitHubSearchStreamRepository } from "../infra/repository/GitHubSearchStreamRepository";
@@ -55,7 +54,7 @@ export const createStoreMap = () => {
     };
 };
 
-export const createAppStoreGroup = <T>(storeMap: StoreMap<T>) => {
+export const createAppStoreGroup = <T>(storeMap: StoreGroupTypes.StoreMap<T>) => {
     return new StoreGroup(storeMap);
 };
 // singleton state/store

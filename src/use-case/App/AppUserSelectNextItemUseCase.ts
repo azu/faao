@@ -72,6 +72,8 @@ export class AppUserSelectNextItemUseCase extends UseCase {
                 .executor(useCase => {
                     return useCase.execute(nextEvent);
                 });
+        } else {
+            throw new Error("Unknown openedContent:" + openedContent);
         }
     }
 }

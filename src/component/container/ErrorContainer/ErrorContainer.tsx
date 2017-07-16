@@ -1,20 +1,9 @@
 import * as React from "react";
 import { NoticeState } from "../../../store/Notice/NoticeStore";
-import {
-    DefaultButton,
-    Dialog,
-    PrimaryButton,
-    DialogFooter,
-    DialogType,
-    MessageBarType,
-    MessageBar
-} from "office-ui-fabric-react";
+import { Dialog, DialogFooter, DialogType, PrimaryButton } from "office-ui-fabric-react";
 import { GenericErrorNotice } from "../../../domain/Notice/GenericErrorNotice";
 import { BaseContainer } from "../BaseContainer";
-import {
-    EditQueryPanelUseCase,
-    OpenQueryPanelUseCase
-} from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
+import { EditQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { SearchQueryErrorNotice } from "../../../domain/Notice/SearchQueryErrorNotice";
 import { createDismissErrorNoticeUseCase } from "../../../use-case/Notice/DismissErrorNoticeUseCase";
 import { Notice } from "../../../domain/Notice/Notice";
@@ -27,7 +16,7 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     onDismiss = () => {
         const errorNotice = this.props.notice.errorNotice;
         if (errorNotice) {
-            return this.useCase(createDismissErrorNoticeUseCase()).executor(useCase =>
+            this.useCase(createDismissErrorNoticeUseCase()).executor(useCase =>
                 useCase.execute(errorNotice)
             );
         }

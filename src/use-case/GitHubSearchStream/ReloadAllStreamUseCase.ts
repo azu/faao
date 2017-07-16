@@ -54,7 +54,7 @@ export class ReloadAllStreamUseCase extends UseCase {
         const promises: Promise<void>[] = allQueries.map(query => {
             const stream = this.args.gitHubSearchStreamRepository.findByQuery(query);
             if (!stream) {
-                return;
+                return Promise.resolve();
             }
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
