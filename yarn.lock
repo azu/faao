@@ -290,21 +290,21 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
-almin-logger@5.0.0-2:
-  version "5.0.0-2"
-  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-5.0.0-2.tgz#e5a8acf26a11cfe005b7a8db5b103db3bb37f07a"
+almin-logger@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-5.0.0.tgz#99e23e22c4cae3d199bef6b6cf45128b19f989ed"
   dependencies:
     map-like "^2.0.0"
 
-almin-react-container@0.3.9:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.3.9.tgz#57f43abe09bcc3c41f574c660e34e7d7b74a6d1b"
+almin-react-container@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.3.10.tgz#ed5803c3caa79b43a5f133b900041b4739c3f249"
   dependencies:
     shallow-equal-object "^1.0.1"
 
-almin@0.13.9:
-  version "0.13.9"
-  resolved "https://registry.yarnpkg.com/almin/-/almin-0.13.9.tgz#01206219d8929f4cd84a47f1a15ace99c9c5d515"
+almin@^0.13.10:
+  version "0.13.10"
+  resolved "https://registry.yarnpkg.com/almin/-/almin-0.13.10.tgz#91c2b8a74674cecd01a72fbe61c7e5ab9ea32ee9"
   dependencies:
     map-like "^2.0.0"
     shallow-equal-object "^1.0.1"
