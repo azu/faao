@@ -93,3 +93,4 @@ public/build-resoruce/
 /dist/
 # icons
 !/build/
+tool/test-latest/
