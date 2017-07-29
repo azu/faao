@@ -19,6 +19,13 @@
       "./types",
       "./node_modules/@types"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "*"
+      ]
+    },
     /* Strict Type-Checking Options */
     "strict": true,
     /* Additional Checks */
