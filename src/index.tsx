@@ -12,8 +12,7 @@ import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { runDOMBootstrap } from "./bootstrap/index";
-
-const AlminLogger = require("almin-logger");
+import { AlminLogger } from "almin-logger";
 // instances
 const dispatcher = new Dispatcher();
 // context connect dispatch with stores
