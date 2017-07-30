@@ -71,9 +71,9 @@
     "clean": "rimraf public/build dist && mkdirp public/build",
     "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "npm run build && build --dir",
-    "dist": "npm run build && build --x64 --ia32",
-    "release": "npm run build && build --x64 --ia32 --publish onTagOrDraft"
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "release": "npm run build && electron-builder"
   },
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
