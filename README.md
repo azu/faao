@@ -1,6 +1,6 @@
 # Faao [![Build Status](https://travis-ci.org/azu/faao.svg?branch=master)](https://travis-ci.org/azu/faao)
 
-Faao is a GitHub issue client like jasper.
+Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 
 [![gif](https://media.giphy.com/media/xUOrweo4UAStll4QP6/giphy.gif)](https://giphy.com/gifs/xUOrweo4UAStll4QP6/fullscreen)
 

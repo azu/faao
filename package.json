@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "azu",
+  "author": "azu <azuciao@gmail.com>",
   "license": "MIT",
   "files": [
     "bin/",
@@ -8,7 +8,7 @@
     "src/"
   ],
   "name": "faao",
-  "description": "Faao is a GitHub issue client like jasper.",
+  "description": "Faao is a GitHub Issue/Pull Request client on Electron/Browser.",
   "version": "1.0.0",
   "main": "electron.js",
   "build": {
@@ -31,6 +31,20 @@
         "dmg"
       ],
       "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     },
     "linux": {
       "target": [
@@ -71,9 +85,9 @@
     "clean": "rimraf public/build dist && mkdirp public/build",
     "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "npm run build && build --dir",
-    "dist": "npm run build && build --x64 --ia32",
-    "release": "npm run build && build --x64 --ia32 --publish onTagOrDraft"
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "release": "npm run build && electron-builder"
   },
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
