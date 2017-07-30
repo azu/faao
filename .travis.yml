@@ -48,7 +48,7 @@ after_success:
                              --iv "$encrypted_d5d527d3f6a6_iv" \
                              --path-encrypted-key ".travis/github_deploy_key.enc"
 
-        $(npm bin)/update-branch --commands "yarn run build:browser && yarn run build:docs" \
+        $(npm bin)/update-branch --commands "yarn run build && yarn run build:docs" \
                                  --commit-message "Update website [skip ci]" \
                                  --directory "./public" \
                                  --distribution-branch "gh-pages" \
