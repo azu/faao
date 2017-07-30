@@ -125,12 +125,18 @@
   dependencies:
     electron "*"
 
-"@types/glob@^5.0.30":
+"@types/glob@*", "@types/glob@^5.0.30":
   version "5.0.30"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.30.tgz#1026409c5625a8689074602808d082b2867b8a51"
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/globby@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/globby/-/globby-0.6.0.tgz#38f1510501ff96407cd602934f1b2e8f1cba1ff8"
+  dependencies:
+    "@types/glob" "*"
 
 "@types/jest@^19.2.4":
   version "19.2.4"
@@ -164,9 +170,19 @@
   version "4.14.65"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.65.tgz#a0f78d71ffcd3c02628d5f616410c98c424326d5"
 
+"@types/meow@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@types/meow/-/meow-3.6.2.tgz#d13867f97d8b258200e14f59c6ed07f08b34280e"
+  dependencies:
+    "@types/minimist" "*"
+
 "@types/minimatch@*":
   version "2.0.29"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-2.0.29.tgz#5002e14f75e2d71e564281df0431c8c1b4a2a36a"
+
+"@types/minimist@*":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
 
 "@types/moment@^2.13.0":
   version "2.13.0"
@@ -301,6 +317,18 @@ almin-react-container@^0.3.11:
   resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.3.11.tgz#09bd25717b7b75b38a295703ed1fa87a63979399"
   dependencies:
     shallow-equal-object "^1.0.1"
+
+almin-usecase-map-generator@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/almin-usecase-map-generator/-/almin-usecase-map-generator-1.0.2.tgz#f74c59099eeae317d53f3b35ecff870675d6740d"
+  dependencies:
+    "@types/globby" "^0.6.0"
+    "@types/lodash.groupby" "^4.6.2"
+    "@types/meow" "^3.6.2"
+    globby "^6.1.0"
+    lodash.groupby "^4.6.0"
+    meow "^3.7.0"
+    nomnoml "^0.1.1"
 
 almin@^0.13.11:
   version "0.13.11"
@@ -4021,7 +4049,7 @@ memory-fs@^0.4.0, memory-fs@~0.4.1:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-meow@^3.1.0, meow@^3.3.0:
+meow@^3.1.0, meow@^3.3.0, meow@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/meow/-/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
   dependencies:
