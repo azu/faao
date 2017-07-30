@@ -11,6 +11,10 @@ env:
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
+os:
+  - linux
+  - osx
+
 cache:
   directories:
   - node_modules
@@ -30,21 +34,10 @@ before_install:
 install:
 - yarn
 
-jobs:
-  fast_finish: true
-  include:
-    # Test
-    - stage: test
-      script: yarn run ci
-    # Deploy
-    - stage: deploy
-      os: linux
-      scripts:
-        - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn release; fi
-    - stage: deploy
-      os: osx
-      scripts:
-        - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn release -- --mac --win; fi
+script:
+  - yarn run ci
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn release; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn release -- --mac --win; fi
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
