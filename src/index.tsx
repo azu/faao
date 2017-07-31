@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 // polyfill
-require("request-idle-polyfill");
+import { createReloadAllStreamUseCase } from "./use-case/GitHubSearchStream/ReloadAllStreamUseCase";
 // index
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -13,6 +13,8 @@ import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
+
+require("request-idle-polyfill");
 // instances
 const dispatcher = new Dispatcher();
 // context connect dispatch with stores
@@ -37,7 +39,11 @@ appLocator.context = context;
 runDOMBootstrap();
 // start render
 const AppWrapContainer = AlminReactContainer.create<AppStoreGroupState>(AppContainer, context);
-ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), () => {
+ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), async () => {
     // render and restore repositories
-    context.useCase(createSystemReadyToLaunchAppUseCase()).executor(useCase => useCase.execute());
+    await context
+        .useCase(createSystemReadyToLaunchAppUseCase())
+        .executor(useCase => useCase.execute());
+    // reload all stream at first
+    await context.useCase(createReloadAllStreamUseCase()).executor(useCase => useCase.execute());
 });

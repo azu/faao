@@ -14,16 +14,10 @@ import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
 import classNames from "classnames";
 import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListPanelContainer";
 import { AppMainColumn } from "./AppMainColumn/AppMainColumn";
-import { createReloadAllStreamUseCase } from "../../use-case/GitHubSearchStream/ReloadAllStreamUseCase";
 
 const suitcssClassnames = require("suitcss-classnames");
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
-    componentDidMount() {
-        // reload all stream at first
-        this.useCase(createReloadAllStreamUseCase()).executor(useCase => useCase.execute());
-    }
-
     render() {
         const AppContainerMobileMenuClassName = suitcssClassnames({
             component: "AppContainerColumn-mobile",
