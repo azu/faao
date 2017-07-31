@@ -27,12 +27,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
         });
         return (
             <div className="AppContainer">
-                <ProfileContainer profile={this.props.profile} />
+                {/* Systematic */}
                 <ObserverContainer />
-                <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />
-                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
-                {/* Actual DOM*/}
+                {/* Main */}
                 <nav className="AppContainer-mobileNav">
                     <AppMobileNav mobile={this.props.mobile} />
                 </nav>
@@ -51,6 +49,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                         gitHubSearchStream={this.props.gitHubSearchStream}
                     />
                 </div>
+                {/* Panel */}
+                <ErrorContainer notice={this.props.notice} />
+                <ProfileContainer profile={this.props.profile} />
+                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
                 <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
                 <QuerySettingContainer
                     gitHubSearchList={this.props.gitHubSearchList}
@@ -58,6 +60,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 />
                 <QuickIssueContainer quickIssue={this.props.quickIssue} />
             </div>
+            // Put webview into here in electron
         );
     }
 }
