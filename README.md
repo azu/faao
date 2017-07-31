@@ -33,10 +33,12 @@ Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 ### Browser
 
     yarn start
+    open http://localhost:8080/
     
 ### Electron
 
-    yarn run start:electron
+    yarn start
+    yarn run electron
 
 ## How to pronounce "Faao"?
 
