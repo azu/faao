@@ -14,10 +14,16 @@ import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
 import classNames from "classnames";
 import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListPanelContainer";
 import { AppMainColumn } from "./AppMainColumn/AppMainColumn";
+import { createReloadAllStreamUseCase } from "../../use-case/GitHubSearchStream/ReloadAllStreamUseCase";
 
 const suitcssClassnames = require("suitcss-classnames");
 
 export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
+    componentDidMount() {
+        // reload all stream at first
+        this.useCase(createReloadAllStreamUseCase()).executor(useCase => useCase.execute());
+    }
+
     render() {
         const AppContainerMobileMenuClassName = suitcssClassnames({
             component: "AppContainerColumn-mobile",
@@ -27,12 +33,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
         });
         return (
             <div className="AppContainer">
-                <ProfileContainer profile={this.props.profile} />
+                {/* Systematic */}
                 <ObserverContainer />
-                <ErrorContainer notice={this.props.notice} />
                 <ShortcutKeyContainer />
-                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
-                {/* Actual DOM*/}
+                {/* Main */}
                 <nav className="AppContainer-mobileNav">
                     <AppMobileNav mobile={this.props.mobile} />
                 </nav>
@@ -51,6 +55,10 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                         gitHubSearchStream={this.props.gitHubSearchStream}
                     />
                 </div>
+                {/* Panel */}
+                <ErrorContainer notice={this.props.notice} />
+                <ProfileContainer profile={this.props.profile} />
+                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
                 <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
                 <QuerySettingContainer
                     gitHubSearchList={this.props.gitHubSearchList}
@@ -58,6 +66,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 />
                 <QuickIssueContainer quickIssue={this.props.quickIssue} />
             </div>
+            // Put webview into here in electron
         );
     }
 }
