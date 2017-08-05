@@ -2,7 +2,20 @@
 const url = require("url");
 const { Menu, app, shell, BrowserWindow } = require('electron');
 const defaultMenu = require('electron-default-menu');
-const URL = process.env.FAAO_URL || "https://azu.github.io/faao/";
+const getHTMLUrl = () => {
+    if (process.env.FAAO_URL) {
+        return process.env.FAAO_URL;
+    }
+    const useRemote = process.argv.indexOf("--use-remote") !== -1;
+    if (useRemote) {
+        return "https://azu.github.io/faao/"
+    }
+    return `file://${__dirname}/public/index.html`;
+};
+const URL = getHTMLUrl();
+if (process.env.NODE_ENV !== "production") {
+    console.info(`Open: ${URL}`);
+}
 // context-menu for window
 require('electron-context-menu')();
 // Standard stuff
