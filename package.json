@@ -203,7 +203,7 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,css}": [
+    "*.{js,jsx,ts,tsx,css}": [
       "prettier --write --print-width 100 --tab-width 4",
       "git add"
     ]
