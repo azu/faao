@@ -34,7 +34,7 @@ export class AppMobileNav extends BaseContainer<AppMobileNavProps, {}> {
     };
 
     subscribeMenuUseCase() {
-        this.unSubscribe = appLocator.context.onDidExecuteEachUseCase(
+        this.unSubscribe = appLocator.context.events.onDidExecuteEachUseCase(
             (_payload, _meta: DispatcherPayloadMeta) => {
                 this.unSubscribe();
                 this.useCase(new CloseMobileMenuUseCase()).executor(useCase => useCase.execute());
