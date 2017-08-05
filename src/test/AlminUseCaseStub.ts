@@ -67,7 +67,7 @@ export function createStubContext(
             }
         };
     };
-    context.onWillExecuteEachUseCase((_payload, meta: DispatcherPayloadMeta) => {
+    context.events.onWillExecuteEachUseCase((_payload, meta: DispatcherPayloadMeta) => {
         if (UseCase.isUseCase(meta.useCase)) {
             // stub useCase before execute
             (meta as any).useCase = createMockUseCase(meta.useCase);
