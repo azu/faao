@@ -23,7 +23,7 @@ const context = new Context({
     store: appStoreGroup,
     options: {
         strict: true,
-        performanceProfile: true
+        performanceProfile: process.env.NODE_ENV !== "production"
     }
 });
 // setup localForage
