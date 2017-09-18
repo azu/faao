@@ -20,7 +20,11 @@ const dispatcher = new Dispatcher();
 // context connect dispatch with stores
 const context = new Context({
     dispatcher,
-    store: appStoreGroup
+    store: appStoreGroup,
+    options: {
+        strict: true,
+        performanceProfile: true
+    }
 });
 // setup localForage
 localForage.config({
