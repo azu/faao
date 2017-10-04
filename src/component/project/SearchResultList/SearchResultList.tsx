@@ -73,7 +73,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
 
         const icon = createIcon(item.iconType, item.iconColor);
         return (
-            <div className={className} onClick={onClick}>
+            <div className={className} onClick={onClick} tabIndex={-1}>
                 <span className="SearchResultListItem-primaryText">
                     <a className="SearchResultListItem-link" href={item.html_url}>
                         {icon} {item.title}

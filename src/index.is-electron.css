@@ -64,7 +64,7 @@
 .electron-view .electron-nav {
     flex: 1;
     will-change: width;
-    transition: width 0.2s cubic-bezier(0, 0, 0, 1.01);
+    transition: width 0.1s cubic-bezier(0, 0, 0, 1.01);
     width: var(--electron-nav--width);
 }
 

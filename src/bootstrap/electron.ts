@@ -16,19 +16,18 @@ export function inject() {
     anyWindow.electronNavigation = new ElectronNavigation();
     anyWindow.electronNavigation.newTab("https://github.com");
     window.addEventListener("load", () => {
-        const nav = document.querySelector(".electron-nav");
+        // const nav = document.querySelector(".electron-nav");
         const webview = document.querySelector("webview.nav-views-view");
         if (!webview) {
             throw new Error("webview not found");
         }
-        webview.addEventListener("mouseenter", () => {
-            document.body.classList.add("is-focus");
-        });
-        webview.addEventListener("mouseleave", () => {
-            document.body.classList.remove("is-focus");
-        });
-        webview.addEventListener("blur", () => {
-            document.body.classList.remove("is-focus");
-        });
+        const onFocusChange = function() {
+            if (webview === document.activeElement) {
+                document.body.classList.add("is-focus");
+            } else {
+                document.body.classList.remove("is-focus");
+            }
+        };
+        document.addEventListener("focus", onFocusChange, true);
     });
 }
