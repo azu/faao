@@ -26,17 +26,17 @@ export class AppMainColumnState {
         const openedContent = param.openedContent;
         if (!openedContent) {
             return new AppMainColumnState({
-                ...this as AppMainColumnStateArgs,
+                ...(this as AppMainColumnStateArgs),
                 showType: AppMainColumnShowType.NONE
             });
         } else if (isOpenedGitHubStream(openedContent)) {
             return new AppMainColumnState({
-                ...this as AppMainColumnStateArgs,
+                ...(this as AppMainColumnStateArgs),
                 showType: AppMainColumnShowType.GitHubStream
             });
         } else if (isOpenedGitHubUser(openedContent)) {
             return new AppMainColumnState({
-                ...this as AppMainColumnStateArgs,
+                ...(this as AppMainColumnStateArgs),
                 showType: AppMainColumnShowType.GitHubUserActivity
             });
         }

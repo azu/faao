@@ -21,9 +21,8 @@ export function sort<T extends GitHubSearchResultItem>(items: T[], sortType: Sor
     return items;
 }
 
-export interface GitHubSearchResultItemSortedCollectionArgs<
-    T extends GitHubSearchResultItem
-> extends GitHubSearchResultItemCollectionArgs<T> {
+export interface GitHubSearchResultItemSortedCollectionArgs<T extends GitHubSearchResultItem>
+    extends GitHubSearchResultItemCollectionArgs<T> {
     sortType: SortTypeArgs;
 }
 

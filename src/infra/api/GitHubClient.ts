@@ -104,47 +104,59 @@ export class GitHubClient {
             fetch: () => Promise<FetchResponse>;
             next_page_url?: string;
         };
-        this.gh.fromUrl("/user").fetch().then((response: any) => {
-            const login = response.login;
-            const onFetch = (fetchResponse: FetchResponse) => {
-                debug("response %o", fetchResponse);
-                const items = fetchResponse.items.map(item => {
-                    return GitHubUserActivityEventFactory.create(item);
-                });
-                onProgress(items)
-                    .then(isContinue => {
-                        if (isContinue) {
-                            // fetch next page if needed
-                            if (fetchResponse.next_page_url) {
-                                this.gh
-                                    .fromUrl(fetchResponse.next_page_url)
-                                    .fetch()
-                                    .then(onFetch, onError);
+        this.gh
+            .fromUrl("/user")
+            .fetch()
+            .then((response: any) => {
+                const login = response.login;
+                const onFetch = (fetchResponse: FetchResponse) => {
+                    debug("response %o", fetchResponse);
+                    const items = fetchResponse.items.map(item => {
+                        return GitHubUserActivityEventFactory.create(item);
+                    });
+                    onProgress(items)
+                        .then(isContinue => {
+                            if (isContinue) {
+                                // fetch next page if needed
+                                if (fetchResponse.next_page_url) {
+                                    this.gh
+                                        .fromUrl(fetchResponse.next_page_url)
+                                        .fetch()
+                                        .then(onFetch, onError);
+                                } else {
+                                    onComplete();
+                                }
                             } else {
                                 onComplete();
                             }
-                        } else {
-                            onComplete();
-                        }
-                    })
-                    .catch(onError);
-            };
-            return this.gh.fromUrl(`/users/${login}/events`).fetch().then(onFetch, onError);
-        });
+                        })
+                        .catch(onError);
+                };
+                return this.gh
+                    .fromUrl(`/users/${login}/events`)
+                    .fetch()
+                    .then(onFetch, onError);
+            });
     }
 
     userProfile(): Promise<GitHubUserProfile> {
-        return this.gh.fromUrl("/user").fetch().then((response: any) => {
-            return new GitHubUserProfile({
-                loginName: response.login,
-                avatarURL: response.avatar_url
+        return this.gh
+            .fromUrl("/user")
+            .fetch()
+            .then((response: any) => {
+                return new GitHubUserProfile({
+                    loginName: response.login,
+                    avatarURL: response.avatar_url
+                });
             });
-        });
     }
 
     rateLimits(): Promise<boolean> {
-        return this.gh.fromUrl("/rate_limit").fetch().then((response: any) => {
-            return response.rate.limit > 0;
-        });
+        return this.gh
+            .fromUrl("/rate_limit")
+            .fetch()
+            .then((response: any) => {
+                return response.rate.limit > 0;
+            });
     }
 }

@@ -33,7 +33,7 @@ export class OpenedGitHubUser implements OpenedGitHubUserArgs {
 
     openEvent(event: GitHubUserActivityEvent) {
         return new OpenedGitHubUser({
-            ...this as OpenedGitHubUserArgs,
+            ...(this as OpenedGitHubUserArgs),
             event
         });
     }

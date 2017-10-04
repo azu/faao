@@ -102,67 +102,68 @@ export class GitHubSettingList extends React.Component<
 
     render() {
         const contextTarget = this.state.contextTarget;
-        const contextMenu = contextTarget && this.state.isContextMenuVisible
-            ? <ContextualMenu
-                  shouldFocusOnMount={true}
-                  target={contextTarget}
-                  directionalHint={DirectionalHint.bottomRightEdge}
-                  arrowDirection={FocusZoneDirection.vertical}
-                  onDismiss={() => {
-                      this.setState({
-                          contextTarget: undefined,
-                          isContextMenuVisible: false
-                      });
-                  }}
-                  items={[
-                      {
-                          key: "label",
-                          itemType: ContextualMenuItemType.Header,
-                          name: this.state.contextTargetSetting!.id.toValue()
-                      },
-                      {
-                          key: "show-events",
-                          iconProps: {
-                              iconName: "Heart"
-                          },
-                          onClick: (event: React.MouseEvent<HTMLElement>) => {
-                              this.onShowUserEvents(event);
-                          },
-                          name: "Show events"
-                      },
-                      {
-                          key: "refresh-setting",
-                          iconProps: {
-                              iconName: "Refresh"
-                          },
-                          onClick: (event: React.MouseEvent<HTMLElement>) => {
-                              this.onRefreshSetting(event);
-                          },
-                          name: "Refresh Setting"
-                      },
-                      {
-                          key: "edit-setting",
-                          iconProps: {
-                              iconName: "Edit"
-                          },
-                          onClick: (event: React.MouseEvent<HTMLElement>) => {
-                              this.onEditSetting(event);
-                          },
-                          name: "Edit Setting"
-                      },
-                      {
-                          key: "delete-setting",
-                          iconProps: {
-                              iconName: "Delete"
-                          },
-                          onClick: (event: React.MouseEvent<HTMLElement>) => {
-                              this.onDeleteSetting(event);
-                          },
-                          name: "Delete Setting"
-                      }
-                  ]}
-              />
-            : null;
+        const contextMenu =
+            contextTarget && this.state.isContextMenuVisible ? (
+                <ContextualMenu
+                    shouldFocusOnMount={true}
+                    target={contextTarget}
+                    directionalHint={DirectionalHint.bottomRightEdge}
+                    arrowDirection={FocusZoneDirection.vertical}
+                    onDismiss={() => {
+                        this.setState({
+                            contextTarget: undefined,
+                            isContextMenuVisible: false
+                        });
+                    }}
+                    items={[
+                        {
+                            key: "label",
+                            itemType: ContextualMenuItemType.Header,
+                            name: this.state.contextTargetSetting!.id.toValue()
+                        },
+                        {
+                            key: "show-events",
+                            iconProps: {
+                                iconName: "Heart"
+                            },
+                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                                this.onShowUserEvents(event);
+                            },
+                            name: "Show events"
+                        },
+                        {
+                            key: "refresh-setting",
+                            iconProps: {
+                                iconName: "Refresh"
+                            },
+                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                                this.onRefreshSetting(event);
+                            },
+                            name: "Refresh Setting"
+                        },
+                        {
+                            key: "edit-setting",
+                            iconProps: {
+                                iconName: "Edit"
+                            },
+                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                                this.onEditSetting(event);
+                            },
+                            name: "Edit Setting"
+                        },
+                        {
+                            key: "delete-setting",
+                            iconProps: {
+                                iconName: "Delete"
+                            },
+                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                                this.onDeleteSetting(event);
+                            },
+                            name: "Delete Setting"
+                        }
+                    ]}
+                />
+            ) : null;
         const facepileProps: IFacepileProps = {
             personaSize: PersonaSize.small,
             personas: createFacepilePersonas(this.props.settings, this.onClick),

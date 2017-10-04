@@ -42,7 +42,8 @@
     padding: 16px !important;
 }
 
-.ProfileModal-exportButton, .ProfileModal-importButton {
+.ProfileModal-exportButton,
+.ProfileModal-importButton {
     border-bottom: 1px solid #dddddd !important;
 }
 

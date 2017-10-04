@@ -49,6 +49,7 @@
     width: 91.66667%;
 }
 
-.GridCell.col-full, .GridCell.col-12of12 {
+.GridCell.col-full,
+.GridCell.col-12of12 {
     width: 100%;
 }

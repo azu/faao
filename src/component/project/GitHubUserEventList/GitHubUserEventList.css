@@ -9,7 +9,7 @@
 
 .GitHubUserEventListItem {
     color: #333333;
-    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-family: "Segoe UI Regular WestEuropean", "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-weight: normal;
     box-sizing: border-box;
     margin: 0;
@@ -18,9 +18,10 @@
     width: 100%;
 }
 
-.GitHubUserEventListItem:before, .GitHubUserEventListItem:after {
+.GitHubUserEventListItem:before,
+.GitHubUserEventListItem:after {
     display: table;
-    content: '';
+    content: "";
     line-height: 0;
 }
 
@@ -30,14 +31,8 @@
 
 .GitHubUserEventListItem-body {
     color: #212121;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-size: 17px;
     margin: 0;
     padding: 0;
@@ -45,14 +40,8 @@
 
 .GitHubUserEventListItem-tertiaryText {
     color: #767676;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
     overflow: hidden;
@@ -64,14 +53,8 @@
     margin: 0;
     padding: 0.2rem 0;
     font-size: 17px;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
 }
 
 .GitHubUserEventListItem-footer {
@@ -88,14 +71,8 @@
 
 .GitHubUserEventListItem-updateDate {
     color: #333333;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     text-align: right;
 }
 

@@ -185,7 +185,7 @@ export class GitHubUserActivityEvent extends ValueObject {
 
     toJSON(): GitHubUserActivityEventJSON {
         return {
-            ...this as GitHubUserActivityEvent,
+            ...(this as GitHubUserActivityEvent),
             id: this.id.toValue()
         };
     }

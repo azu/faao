@@ -82,7 +82,7 @@ export class QuickIssueState implements QuickIssueStateObject {
             return this;
         }
         return new QuickIssueState({
-            ...this as QuickIssueStateObject,
+            ...(this as QuickIssueStateObject),
             ...object
         });
     }
@@ -90,12 +90,12 @@ export class QuickIssueState implements QuickIssueStateObject {
     reduce(payload: OpenQuickIssueUseCasePayload | CloseQuickIssueUseCasePayload) {
         if (payload instanceof OpenQuickIssueUseCasePayload) {
             return new QuickIssueState({
-                ...this as QuickIssueStateObject,
+                ...(this as QuickIssueStateObject),
                 isOpened: true
             });
         } else if (payload instanceof CloseQuickIssueUseCasePayload) {
             return new QuickIssueState({
-                ...this as QuickIssueStateObject,
+                ...(this as QuickIssueStateObject),
                 isOpened: false
             });
         }

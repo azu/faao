@@ -43,7 +43,7 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
             return this;
         }
         return new GitHubSearchListState({
-            ...this as GitHubSearchListState,
+            ...(this as GitHubSearchListState),
             searchLists: gitHubSearchLists
         });
     }
@@ -59,41 +59,41 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
     ) {
         if (payload instanceof OpenSearchListPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isSearchListPanelOpened: true
             });
         }
         if (payload instanceof CloseSearchListPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isSearchListPanelOpened: false,
                 editingSearchList: undefined
             });
         }
         if (payload instanceof EditSearchListPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isSearchListPanelOpened: true,
                 editingSearchList: payload.type
             });
         }
         if (payload instanceof OpenQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isQueryPanelOpened: true,
                 editingSearchList: payload.searchList
             });
         }
         if (payload instanceof EditQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isQueryPanelOpened: true,
                 editingQuery: payload.query
             });
         }
         if (payload instanceof CloseQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
-                ...this as GitHubSearchListState,
+                ...(this as GitHubSearchListState),
                 isQueryPanelOpened: false,
                 editingSearchList: undefined,
                 editingQuery: undefined

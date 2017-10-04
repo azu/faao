@@ -38,13 +38,11 @@ export class FetchGitHubUserDataUserCase extends UseCase {
         }
         const gitHubClient = new GitHubClient(gitHubSetting);
         const gitHubUser =
-            findGitHubUserByGitHubSettingId(
-                {
-                    gitHubSettingID: gitHubSetting.id,
-                    gitHubUserRepository: this.args.gitHubUserRepository,
-                    gitHubSettingRepository: this.args.gitHubSettingRepository
-                }
-            ) || GitHubUserFactory.create();
+            findGitHubUserByGitHubSettingId({
+                gitHubSettingID: gitHubSetting.id,
+                gitHubUserRepository: this.args.gitHubUserRepository,
+                gitHubSettingRepository: this.args.gitHubSettingRepository
+            }) || GitHubUserFactory.create();
         const profile = await gitHubClient.userProfile();
         gitHubUser.updateProfile(profile);
         // save githubuser

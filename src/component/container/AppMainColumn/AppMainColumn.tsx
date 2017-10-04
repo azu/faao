@@ -23,9 +23,7 @@ export class AppMainColumn extends React.Component<AppMainColumnProps, {}> {
     render() {
         const showContainer = this.getShowContainer(this.props.appMainColumn.showType);
         return (
-            <div className={classnames("AppMainColumn", this.props.className)}>
-                {showContainer}
-            </div>
+            <div className={classnames("AppMainColumn", this.props.className)}>{showContainer}</div>
         );
     }
 

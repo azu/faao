@@ -19,12 +19,12 @@ export class MobileState implements MobileStateObject {
     reduce(payload: OpenMobileMenuUseCasePayload | CloseMobileMenuUseCasePayload) {
         if (payload instanceof OpenMobileMenuUseCasePayload) {
             return new MobileState({
-                ...this as MobileState,
+                ...(this as MobileState),
                 isMenuOpened: true
             });
         } else if (payload instanceof CloseMobileMenuUseCasePayload) {
             return new MobileState({
-                ...this as MobileState,
+                ...(this as MobileState),
                 isMenuOpened: false
             });
         }

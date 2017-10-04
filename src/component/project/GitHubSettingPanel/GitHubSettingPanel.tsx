@@ -101,14 +101,13 @@ export class GitHubSettingPanel extends React.Component<
     }
 
     render() {
-        const errorMessage = this.state.error
-            ? <MessageBar messageBarType={MessageBarType.error}>
-                  {String(this.state.error)}
-              </MessageBar>
-            : null;
-        const headerText = this.props.setting === undefined
-            ? "Add new GitHub Setting"
-            : "Edit GitHub Setting";
+        const errorMessage = this.state.error ? (
+            <MessageBar messageBarType={MessageBarType.error}>
+                {String(this.state.error)}
+            </MessageBar>
+        ) : null;
+        const headerText =
+            this.props.setting === undefined ? "Add new GitHub Setting" : "Edit GitHub Setting";
         return (
             <Panel
                 className="GitHubSettingPanel"

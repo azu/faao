@@ -28,10 +28,6 @@ export class Grid extends React.Component<GridProps, {}> {
         const names = suitClassNames({
             component: "Grid"
         });
-        return (
-            <div className={classNames(names, this.props.className)}>
-                {this.props.children}
-            </div>
-        );
+        return <div className={classNames(names, this.props.className)}>{this.props.children}</div>;
     }
 }

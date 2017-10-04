@@ -82,14 +82,13 @@ export class SearchListSettingPanel extends React.Component<
     }
 
     render() {
-        const errorMessage = this.state.error
-            ? <MessageBar messageBarType={MessageBarType.error}>
-                  {String(this.state.error)}
-              </MessageBar>
-            : null;
-        const headerText = this.props.gitHubSearchList === undefined
-            ? "Add new Search List"
-            : "Edit Search List";
+        const errorMessage = this.state.error ? (
+            <MessageBar messageBarType={MessageBarType.error}>
+                {String(this.state.error)}
+            </MessageBar>
+        ) : null;
+        const headerText =
+            this.props.gitHubSearchList === undefined ? "Add new Search List" : "Edit Search List";
         return (
             <Panel
                 className="SearchListSettingPanel"

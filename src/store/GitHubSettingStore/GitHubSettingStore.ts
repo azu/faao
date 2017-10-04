@@ -64,7 +64,7 @@ export class GitHubSettingState implements GitHubSettingStateObject {
             return this;
         }
         return new GitHubSettingState({
-            ...this as GitHubSettingStateObject,
+            ...(this as GitHubSettingStateObject),
             settings: settings
         });
     }
@@ -74,13 +74,13 @@ export class GitHubSettingState implements GitHubSettingStateObject {
     ): GitHubSettingState {
         if (payload instanceof OpenSettingPanelUseCasePayload) {
             return new GitHubSettingState({
-                ...this as GitHubSettingStateObject,
+                ...(this as GitHubSettingStateObject),
                 isOpenSettingPanel: true,
                 editingSetting: payload.setting
             });
         } else if (payload instanceof CloseSettingPanelUseCasePayload) {
             return new GitHubSettingState({
-                ...this as GitHubSettingStateObject,
+                ...(this as GitHubSettingStateObject),
                 isOpenSettingPanel: false,
                 editingSetting: undefined
             });

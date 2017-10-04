@@ -28,54 +28,55 @@ export class ExpandableSearch extends React.Component<
     };
 
     render() {
-        const contextMenu = this.state.contextTarget && this.state.isContextMenuVisible
-            ? <ContextualMenu
-                  shouldFocusOnMount={true}
-                  target={this.state.contextTarget}
-                  gapSpace={16}
-                  directionalHint={DirectionalHint.bottomAutoEdge}
-                  onDismiss={() => {
-                      this.setState({
-                          contextTarget: undefined,
-                          isContextMenuVisible: false
-                      });
-                  }}
-                  items={[
-                      {
-                          key: "state:open",
-                          name: "state:open",
-                          ariaLabel: "set state:open to filer",
-                          onClick: (_event: React.MouseEvent<any>) => {
-                              this.props.onChangeValue("state:open");
-                          }
-                      },
-                      {
-                          key: "state:closed",
-                          name: "state:closed",
-                          ariaLabel: "set state:closed to filer",
-                          onClick: (_event: React.MouseEvent<any>) => {
-                              this.props.onChangeValue("state:closed");
-                          }
-                      },
-                      {
-                          key: "type:issue",
-                          name: "type:issue",
-                          ariaLabel: "set type:issue to filer",
-                          onClick: (_event: React.MouseEvent<any>) => {
-                              this.props.onChangeValue("type:issue");
-                          }
-                      },
-                      {
-                          key: "type:pr",
-                          name: "type:pr",
-                          ariaLabel: "set type:pr to filer",
-                          onClick: (_event: React.MouseEvent<any>) => {
-                              this.props.onChangeValue("type:pr");
-                          }
-                      }
-                  ]}
-              />
-            : null;
+        const contextMenu =
+            this.state.contextTarget && this.state.isContextMenuVisible ? (
+                <ContextualMenu
+                    shouldFocusOnMount={true}
+                    target={this.state.contextTarget}
+                    gapSpace={16}
+                    directionalHint={DirectionalHint.bottomAutoEdge}
+                    onDismiss={() => {
+                        this.setState({
+                            contextTarget: undefined,
+                            isContextMenuVisible: false
+                        });
+                    }}
+                    items={[
+                        {
+                            key: "state:open",
+                            name: "state:open",
+                            ariaLabel: "set state:open to filer",
+                            onClick: (_event: React.MouseEvent<any>) => {
+                                this.props.onChangeValue("state:open");
+                            }
+                        },
+                        {
+                            key: "state:closed",
+                            name: "state:closed",
+                            ariaLabel: "set state:closed to filer",
+                            onClick: (_event: React.MouseEvent<any>) => {
+                                this.props.onChangeValue("state:closed");
+                            }
+                        },
+                        {
+                            key: "type:issue",
+                            name: "type:issue",
+                            ariaLabel: "set type:issue to filer",
+                            onClick: (_event: React.MouseEvent<any>) => {
+                                this.props.onChangeValue("type:issue");
+                            }
+                        },
+                        {
+                            key: "type:pr",
+                            name: "type:pr",
+                            ariaLabel: "set type:pr to filer",
+                            onClick: (_event: React.MouseEvent<any>) => {
+                                this.props.onChangeValue("type:pr");
+                            }
+                        }
+                    ]}
+                />
+            ) : null;
         return (
             <div className={classNames("ExpandableSearch", this.props.className)}>
                 {contextMenu}

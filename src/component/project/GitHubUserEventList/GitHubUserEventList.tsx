@@ -37,14 +37,10 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
                         <a href={item.htmlURL}>{item.shortPath}</a>
                     </h1>
                 </header>
-                <p className="GitHubUserEventListItem-body">
-                    {item.description}
-                </p>
+                <p className="GitHubUserEventListItem-body">{item.description}</p>
                 <footer className="GitHubUserEventListItem-footer">
                     <span> created </span>
-                    <span className="GitHubUserEventListItem-updateDate">
-                        {item.created_at}
-                    </span>
+                    <span className="GitHubUserEventListItem-updateDate">{item.created_at}</span>
                     <span> by </span>
                     <span className="GitHubUserEventListItem-author">
                         <img

@@ -47,7 +47,7 @@ export class NoticeState implements NoticeStateArgs {
         }
 
         return new NoticeState({
-            ...this as NoticeState,
+            ...(this as NoticeState),
             ...args
         });
     }

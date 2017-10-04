@@ -121,11 +121,11 @@ export class QuerySettingPanel extends React.Component<
     }
 
     render() {
-        const errorMessage = this.state.error
-            ? <MessageBar messageBarType={MessageBarType.error}>
-                  {String(this.state.error)}
-              </MessageBar>
-            : null;
+        const errorMessage = this.state.error ? (
+            <MessageBar messageBarType={MessageBarType.error}>
+                {String(this.state.error)}
+            </MessageBar>
+        ) : null;
         return (
             <Panel
                 className="QuerySettingPanel"
@@ -166,9 +166,7 @@ export class QuerySettingPanel extends React.Component<
                     onChanged={text => this.setState({ query: text })}
                 />
                 <p className="ms-font-xs QuerySettingPanel-itemDescription">
-                    This query is same with GitHub Search query.
-                    Please see
-                    {" "}
+                    This query is same with GitHub Search query. Please see{" "}
                     <Link href="https://help.github.com/articles/searching-issues/">
                         GitHub document
                     </Link>

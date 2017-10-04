@@ -7,7 +7,7 @@ export class NoticeRepository extends NullableBaseRepository<Notice> {
     // https://github.com/Microsoft/TypeScript/issues/7657
     // https://github.com/Microsoft/TypeScript/pull/10916
     findAllByType<T extends Notice, S extends T>(
-        predicate: (((notice: T) => boolean) | ((notice: T) => notice is S))
+        predicate: ((notice: T) => boolean) | ((notice: T) => notice is S)
     ): S[] {
         return this.map.values().filter(entity => {
             return predicate(entity as T);

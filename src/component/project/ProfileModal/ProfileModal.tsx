@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Modal } from "office-ui-fabric-react/lib/components/Modal";
 import { ProfileJSONEditor } from "./ProfileJSONEditor/ProfileJSONEditor";
-import { CommandButton, CompoundButton, MessageBar, MessageBarType } from "office-ui-fabric-react";
+import { CommandButton, MessageBar, MessageBarType } from "office-ui-fabric-react";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 
 export interface ProfileModalProps {
@@ -45,11 +45,15 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
 
     render() {
         const validateJSONError = this.state.validateJSONError;
-        const errorMessageJSON = validateJSONError !== undefined
-            ? <MessageBar messageBarType={MessageBarType.error} className="ProfileModal-messageBar">
-                  {String(validateJSONError)}
-              </MessageBar>
-            : null;
+        const errorMessageJSON =
+            validateJSONError !== undefined ? (
+                <MessageBar
+                    messageBarType={MessageBarType.error}
+                    className="ProfileModal-messageBar"
+                >
+                    {String(validateJSONError)}
+                </MessageBar>
+            ) : null;
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -92,8 +96,8 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                             </div>
                             <div className="ms-Grid-col ms-u-sm6 ms-u-md8 ms-u-lg10 u-height-44">
                                 <p className="u-height-44">
-                                    You can export data to JSON.
-                                    Left editor is current data as JSON.
+                                    You can export data to JSON. Left editor is current data as
+                                    JSON.
                                 </p>
                             </div>
                         </div>
@@ -114,22 +118,19 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                                 </CommandButton>
                             </div>
                             <div className="ms-Grid-col ms-u-sm6 ms-u-md8 ms-u-lg10 u-height-44">
-                                <p className="u-height-44">
-                                    You can import data from JSON.
-                                </p>
+                                <p className="u-height-44">You can import data from JSON.</p>
                             </div>
                             <MessageBar
                                 className="ProfileModal-messageBar"
                                 messageBarType={MessageBarType.warning}
                                 ariaLabel="Warning on import"
                             >
-                                Warning - Import data and it overwrite exist data.
-                                It means that current profile will be deleted.
+                                Warning - Import data and it overwrite exist data. It means that
+                                current profile will be deleted.
                             </MessageBar>
                         </div>
                     </div>
                 </div>
-
             </Modal>
         );
     }

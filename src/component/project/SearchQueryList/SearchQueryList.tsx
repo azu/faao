@@ -42,43 +42,44 @@ export class SearchQueryListItem extends React.Component<
             borderLeft: `${this.props.query.color.hexCode} 3px solid`,
             paddingLeft: "0.5em"
         };
-        const contextMenu = this.state.contextTarget && this.state.isContextMenuVisible
-            ? <ContextualMenu
-                  shouldFocusOnMount={true}
-                  target={this.state.contextTarget}
-                  directionalHint={DirectionalHint.rightBottomEdge}
-                  onDismiss={() => {
-                      this.setState({
-                          contextTarget: undefined,
-                          isContextMenuVisible: false
-                      });
-                  }}
-                  items={[
-                      {
-                          key: "edit-query",
-                          iconProps: {
-                              iconName: "Edit"
-                          },
-                          onClick: (event: React.MouseEvent<any>) => {
-                              this.props.onEditQuery(event, this.props.query);
-                          },
-                          name: "Edit query"
-                      },
-                      {
-                          key: "delete-query",
-                          iconProps: {
-                              iconName: "Delete"
-                          },
-                          onClick: (event: React.MouseEvent<any>) => {
-                              if (confirm(`Does delete "${this.props.query.name}"?`)) {
-                                  this.props.onDeleteQuery(event, this.props.query);
-                              }
-                          },
-                          name: "Delete query"
-                      }
-                  ]}
-              />
-            : null;
+        const contextMenu =
+            this.state.contextTarget && this.state.isContextMenuVisible ? (
+                <ContextualMenu
+                    shouldFocusOnMount={true}
+                    target={this.state.contextTarget}
+                    directionalHint={DirectionalHint.rightBottomEdge}
+                    onDismiss={() => {
+                        this.setState({
+                            contextTarget: undefined,
+                            isContextMenuVisible: false
+                        });
+                    }}
+                    items={[
+                        {
+                            key: "edit-query",
+                            iconProps: {
+                                iconName: "Edit"
+                            },
+                            onClick: (event: React.MouseEvent<any>) => {
+                                this.props.onEditQuery(event, this.props.query);
+                            },
+                            name: "Edit query"
+                        },
+                        {
+                            key: "delete-query",
+                            iconProps: {
+                                iconName: "Delete"
+                            },
+                            onClick: (event: React.MouseEvent<any>) => {
+                                if (confirm(`Does delete "${this.props.query.name}"?`)) {
+                                    this.props.onDeleteQuery(event, this.props.query);
+                                }
+                            },
+                            name: "Delete query"
+                        }
+                    ]}
+                />
+            ) : null;
 
         const className = suitcssClassnames({
             component: "SearchQueryListItem",
@@ -90,9 +91,7 @@ export class SearchQueryListItem extends React.Component<
             <div className={className}>
                 {contextMenu}
                 <Link style={style} className="SearchQueryListItem-button" onClick={onClick}>
-                    <span className="SearchQueryListItem-primaryText">
-                        {this.props.query.name}
-                    </span>
+                    <span className="SearchQueryListItem-primaryText">{this.props.query.name}</span>
                 </Link>
 
                 <IconButton
@@ -103,7 +102,6 @@ export class SearchQueryListItem extends React.Component<
                     text={"More"}
                     onClick={this.onClickOpenContextMenu}
                 />
-
             </div>
         );
     }
@@ -161,14 +159,15 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                     ref={(c: List) => (this.list = c)}
                     className="SearchQueryList"
                     items={this.props.searchList.queries}
-                    onRenderCell={(query: GitHubSearchQuery) =>
+                    onRenderCell={(query: GitHubSearchQuery) => (
                         <SearchQueryListItem
                             query={query}
                             isActive={query.equals(this.props.activeQuery)}
                             onClickQuery={this.props.onClickQuery}
                             onEditQuery={this.props.onEditQuery}
                             onDeleteQuery={this.props.onDeleteQuery}
-                        />}
+                        />
+                    )}
                 />
             </div>
         );

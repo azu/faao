@@ -53,14 +53,14 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
     }) {
         if (!stream) {
             return new GitHubSearchStreamState({
-                ...this as GitHubSearchStreamStateArgs,
+                ...(this as GitHubSearchStreamStateArgs),
                 items: [],
                 displayItems: [],
                 rawItemCount: 0
             });
         }
         return new GitHubSearchStreamState({
-            ...this as GitHubSearchStreamState,
+            ...(this as GitHubSearchStreamState),
             items: stream.items,
             rawItemCount: stream.itemSortedCollection.rawItemCount,
             displayItems: stream.items.map(item => {
@@ -83,12 +83,12 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
     reduce(payload: LoadingStartedPayload | LoadingFinishedPayload) {
         if (payload instanceof LoadingStartedPayload) {
             return new GitHubSearchStreamState({
-                ...this as GitHubSearchStreamState,
+                ...(this as GitHubSearchStreamState),
                 isLoading: true
             });
         } else if (payload instanceof LoadingFinishedPayload) {
             return new GitHubSearchStreamState({
-                ...this as GitHubSearchStreamState,
+                ...(this as GitHubSearchStreamState),
                 isLoading: false
             });
         }

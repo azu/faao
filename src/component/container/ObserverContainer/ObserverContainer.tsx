@@ -10,9 +10,8 @@ const debug = require("debug")("faao:ObserverContainer");
 export class ObserverContainer extends BaseContainer<{}, {}> {
     timeScheduler: TimeScheduler;
     onOnlineStatus = () => {
-        const networkStatus: AppNetworkStatus = typeof navigator !== "undefined"
-            ? navigator.onLine ? "online" : "offline"
-            : "online";
+        const networkStatus: AppNetworkStatus =
+            typeof navigator !== "undefined" ? (navigator.onLine ? "online" : "offline") : "online";
         this.useCase(createUpdateAppNetworkStatusUseCase()).executor(useCase =>
             useCase.execute(networkStatus)
         );

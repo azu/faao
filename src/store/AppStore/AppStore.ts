@@ -30,7 +30,7 @@ export class AppState implements AppStateArgs {
 
     update({ activeStream, activeItem, activeQuery, activeSearchList }: AppStateArgs) {
         return new AppState({
-            ...this as AppState,
+            ...(this as AppState),
             activeStream: activeStream,
             activeItem: activeItem,
             activeQuery: activeQuery,

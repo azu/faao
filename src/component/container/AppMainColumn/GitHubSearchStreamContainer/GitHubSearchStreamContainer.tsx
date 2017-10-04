@@ -28,25 +28,28 @@ export class GitHubSearchStreamContainer extends BaseContainer<
     };
 
     render() {
-        const list = this.props.gitHubSearchStream.hasResult
-            ? <SearchResultList
-                  className="GitHubSearchStreamContainer-list"
-                  items={this.props.gitHubSearchStream.displayItems}
-                  activeItem={this.props.app.activeItem}
-                  onClickItem={this.onClickItem}
-              />
-            : <EmptySearchResultList />;
-        const colorBar = this.props.app.activeQuery || this.props.app.activeSearchList
-            ? <ProgressColorBar
-                  color={
-                      this.props.app.activeQuery
-                          ? this.props.app.activeQuery.color.hexCode
-                          : "#1abc9c"
-                  }
-                  isCompleted={!this.props.gitHubSearchStream.isLoading}
-                  height="3px"
-              />
-            : null;
+        const list = this.props.gitHubSearchStream.hasResult ? (
+            <SearchResultList
+                className="GitHubSearchStreamContainer-list"
+                items={this.props.gitHubSearchStream.displayItems}
+                activeItem={this.props.app.activeItem}
+                onClickItem={this.onClickItem}
+            />
+        ) : (
+            <EmptySearchResultList />
+        );
+        const colorBar =
+            this.props.app.activeQuery || this.props.app.activeSearchList ? (
+                <ProgressColorBar
+                    color={
+                        this.props.app.activeQuery
+                            ? this.props.app.activeQuery.color.hexCode
+                            : "#1abc9c"
+                    }
+                    isCompleted={!this.props.gitHubSearchStream.isLoading}
+                    height="3px"
+                />
+            ) : null;
         return (
             <div className={classNames("GitHubSearchStreamContainer", this.props.className)}>
                 <GitHubSearchStreamCommandBarContainer
@@ -54,9 +57,7 @@ export class GitHubSearchStreamContainer extends BaseContainer<
                     filterWord={this.props.gitHubSearchStream.filterWord}
                 />
                 {colorBar}
-                <div className="GitHubSearchStreamContainer-main">
-                    {list}
-                </div>
+                <div className="GitHubSearchStreamContainer-main">{list}</div>
             </div>
         );
     }

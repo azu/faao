@@ -29,17 +29,17 @@ export class ProfileState {
     ) {
         if (payload instanceof ExportProfileUseCasePayload) {
             return new ProfileState({
-                ...this as ProfileState,
+                ...(this as ProfileState),
                 exportedJSON: payload.json
             });
         } else if (payload instanceof OpenProfileWindowUseCasePayload) {
             return new ProfileState({
-                ...this as ProfileState,
+                ...(this as ProfileState),
                 isShow: true
             });
         } else if (payload instanceof CloseProfileWindowUseCasePayload) {
             return new ProfileState({
-                ...this as ProfileState,
+                ...(this as ProfileState),
                 isShow: false
             });
         }
