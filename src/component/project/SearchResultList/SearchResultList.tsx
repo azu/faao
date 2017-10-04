@@ -22,6 +22,7 @@ const suitcssClassnames = require("suitcss-classnames");
 export interface SearchResultListItemProps {
     isActive: boolean;
     item: GitHubSearchStreamStateItem;
+    index?: number;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
 }
 
@@ -73,7 +74,12 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
 
         const icon = createIcon(item.iconType, item.iconColor);
         return (
-            <div className={className} onClick={onClick} tabIndex={-1}>
+            <div
+                className={className}
+                onClick={onClick}
+                tabIndex={-1}
+                data-SearchResultListItem-index={this.props.index}
+            >
                 <span className="SearchResultListItem-primaryText">
                     <a className="SearchResultListItem-link" href={item.html_url}>
                         {icon} {item.title}
@@ -155,12 +161,13 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
                 items={this.props.items}
                 renderedWindowsBehind={10}
                 renderedWindowsAhead={10}
-                onRenderCell={item => {
+                onRenderCell={(item, index) => {
                     return (
                         <SearchResultListItem
                             item={item}
                             isActive={item.equals(this.props.activeItem)}
                             onClickItem={onClickItem}
+                            index={index}
                         />
                     );
                 }}
@@ -177,10 +184,11 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
             () => {
                 this._list.forceUpdate();
                 const activeElement = document.querySelector(
-                    `.ms-List-cell[data-list-index='${index}']`
+                    `[data-SearchResultListItem-index='${index}']`
                 );
                 if (activeElement) {
                     activeElement.scrollIntoView();
+                    (activeElement as HTMLElement).focus();
                 }
             }
         );

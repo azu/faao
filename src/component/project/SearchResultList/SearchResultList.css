@@ -9,7 +9,7 @@
 
 .SearchResultListItem {
     color: #333333;
-    font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    font-family: "Segoe UI Regular WestEuropean", "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-weight: normal;
     box-sizing: border-box;
     margin: 0;
@@ -18,9 +18,14 @@
     width: 100%;
 }
 
-.SearchResultListItem:before, .SearchResultListItem:after {
+.SearchResultListItem:focus {
+    outline: 0;
+}
+
+.SearchResultListItem:before,
+.SearchResultListItem:after {
     display: table;
-    content: '';
+    content: "";
     line-height: 0;
 }
 
@@ -39,27 +44,15 @@
 
 .SearchResultListItem-primaryText {
     color: #212121;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-size: 17px;
 }
 
 .SearchResultListItem-tertiaryText {
     color: #767676;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
     overflow: hidden;
@@ -81,14 +74,8 @@
 
 .SearchResultListItem-updateDate {
     color: #333333;
-    font-family: 'Segoe UI Semilight WestEuropean',
-        'Segoe UI Semilight',
-        'Segoe WP Semilight',
-        'Segoe UI',
-        'Segoe WP',
-        Tahoma,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
+        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
     text-align: right;
 }
 
