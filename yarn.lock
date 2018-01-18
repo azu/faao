@@ -76,9 +76,9 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@immutable-array/unshift/-/unshift-1.0.1.tgz#874b7916bc7f8a9f659c658160e2305ca7a83108"
 
-"@microsoft/load-themed-styles@^1.2.2":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@microsoft/load-themed-styles/-/load-themed-styles-1.4.0.tgz#1830bddbcf101712ca260217e55ab744a52041dc"
+"@microsoft/load-themed-styles@^1.7.13":
+  version "1.7.24"
+  resolved "https://registry.yarnpkg.com/@microsoft/load-themed-styles/-/load-themed-styles-1.7.24.tgz#7126a20486f2b85bd86ae4f577e48c82587e9151"
 
 "@types/babel-core@^6.7.14":
   version "6.7.14"
@@ -190,50 +190,69 @@
   dependencies:
     moment "*"
 
-"@types/node@*", "@types/node@^7.0.18", "@types/node@^7.0.31":
+"@types/node@*", "@types/node@^7.0.18":
   version "7.0.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
-"@types/prop-types@^15.5.1":
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.1.tgz#1ecf52621299e65b855374337fb11fd2d1066fc1"
+"@types/node@^9.3.0":
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
 
-"@types/react-color@^2.11.2":
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/@types/react-color/-/react-color-2.11.2.tgz#540bf79956e290b26d36b7cba96fcc2b2d8afe8d"
+"@types/prop-types@^15.5.2":
+  version "15.5.2"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.2.tgz#3c6b8dceb2906cc87fe4358e809f9d20c8d59be1"
+
+"@types/react-color@^2.13.3":
+  version "2.13.3"
+  resolved "https://registry.yarnpkg.com/@types/react-color/-/react-color-2.13.3.tgz#e0452a614c679ae9b9db7aa865f561145bd88da3"
   dependencies:
     "@types/react" "*"
 
-"@types/react-dom@^15.5.0":
-  version "15.5.0"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.0.tgz#7f4fb9613d4051141773242f7b6b5f1a46b34bd9"
+"@types/react-dom@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.3.tgz#8accad7eabdab4cca3e1a56f5ccb57de2da0ff64"
   dependencies:
+    "@types/node" "*"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^15.0.29":
-  version "15.0.29"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.29.tgz#a10831b9d025bcef6cab7bc1c6547bdddbabc938"
+"@types/react@*", "@types/react@16.0.34":
+  version "16.0.34"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.34.tgz#7a8f795afd8a404a9c4af9539b24c75d3996914e"
 
 "@types/url-join@^0.8.2":
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-0.8.2.tgz#1181ecbe1d97b7034e0ea1e35e62e86cc26b422d"
 
-"@uifabric/styling@>=0.8.0 <1.0.0":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-0.10.2.tgz#89c14ecc773ce9da68c945ccf856fafcd2db5ee1"
+"@uifabric/icons@>=5.4.0 <6.0.0", "@uifabric/icons@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/icons/-/icons-5.4.0.tgz#549e108653c6845aff9f37a256e0b5da13f15b3c"
   dependencies:
-    "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/utilities" ">=4.3.0 <5.0.0"
-    glamor "^2.20.24"
-    rtl-css-js "^1.1.1"
-    tslib "^1.6.0"
+    "@uifabric/styling" ">=5.15.1 <6.0.0"
+    tslib "^1.7.1"
 
-"@uifabric/utilities@>=4.3.0 <5.0.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-4.3.0.tgz#b0ed8da750f651c56075fd4daaf7ef45710a2b6f"
+"@uifabric/merge-styles@>=5.10.0 <6.0.0", "@uifabric/merge-styles@>=5.10.1 <6.0.0", "@uifabric/merge-styles@>=5.9.0 <6.0.0":
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/@uifabric/merge-styles/-/merge-styles-5.10.1.tgz#12d4f4c1857b3a97a9ffa9d725dbd46be956f992"
   dependencies:
+    tslib "^1.7.1"
+
+"@uifabric/styling@>=5.15.1 <6.0.0":
+  version "5.15.1"
+  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-5.15.1.tgz#2b6487cb781279d5d84a01aa511a573e8274bf3a"
+  dependencies:
+    "@microsoft/load-themed-styles" "^1.7.13"
+    "@uifabric/merge-styles" ">=5.10.0 <6.0.0"
+    "@uifabric/utilities" ">=5.6.1 <6.0.0"
+    tslib "^1.7.1"
+
+"@uifabric/utilities@>=5.6.1 <6.0.0":
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-5.6.1.tgz#bbf5890267815ceee3c568dc20510197b9989387"
+  dependencies:
+    "@microsoft/load-themed-styles" "^1.7.13"
+    "@uifabric/merge-styles" ">=5.9.0 <6.0.0"
     prop-types "^15.5.10"
-    tslib "^1.6.0"
+    tslib "^1.7.1"
 
 abab@^1.0.3:
   version "1.0.3"
@@ -306,15 +325,15 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
-almin-logger@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-6.1.1.tgz#07e7a1771605975194ec2a0f5b9f08291f431790"
+almin-logger@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-6.1.2.tgz#9ae105f751099ac40d27ddd6d31d1339b840677b"
   dependencies:
     map-like "^2.0.0"
 
-almin-react-container@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.6.0.tgz#f61bb364484b71df9837f0c52969d266b6dac751"
+almin-react-container@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.6.1.tgz#628ca8ab6529e3223fa3e5e2ed13043a9e4bdb32"
   dependencies:
     shallow-equal-object "^1.0.1"
 
@@ -330,9 +349,9 @@ almin-usecase-map-generator@^1.0.2:
     meow "^3.7.0"
     nomnoml "^0.1.1"
 
-almin@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/almin/-/almin-0.15.0.tgz#40b86307b4393caff79539652b73ef8a7efe547a"
+almin@^0.15.1:
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/almin/-/almin-0.15.1.tgz#55af524958e3467d327879544138bc097fa52980"
   dependencies:
     map-like "^2.0.0"
     shallow-equal-object "^1.0.1"
@@ -865,7 +884,7 @@ babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.18.0, babel-runtime@^6.22.0:
+babel-runtime@^6.22.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
@@ -1593,7 +1612,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.1, create-react-class@^15.6.0:
+create-react-class@^15.5.1:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -2451,7 +2470,19 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.8, fbjs@^0.8.9:
+fbjs@^0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
+
+fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -2733,15 +2764,6 @@ github-url-to-object@^4.0.2:
   resolved "https://registry.yarnpkg.com/github-url-to-object/-/github-url-to-object-4.0.2.tgz#11e206d54263b701a9e3b7cc09a55bb3886e0c97"
   dependencies:
     is-url "^1.1.0"
-
-glamor@^2.20.24:
-  version "2.20.25"
-  resolved "https://registry.yarnpkg.com/glamor/-/glamor-2.20.25.tgz#71b84b82b67a9327771ac59de53ee915d148a4a3"
-  dependencies:
-    babel-runtime "^6.18.0"
-    fbjs "^0.8.8"
-    object-assign "^4.1.0"
-    prop-types "^15.5.8"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -4451,15 +4473,17 @@ octokat@^0.8:
     lodash "^4.16.4"
     xmlhttprequest "~1.8.0"
 
-office-ui-fabric-react@~4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-4.6.0.tgz#66b3b3f35b27fead8387bc0bbdeeac5644ee1287"
+office-ui-fabric-react@~5.40.0:
+  version "5.40.0"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-5.40.0.tgz#fc8d75763217e87c6e5b8ce1be39a8eb97b32f84"
   dependencies:
-    "@microsoft/load-themed-styles" "^1.2.2"
-    "@uifabric/styling" ">=0.8.0 <1.0.0"
-    "@uifabric/utilities" ">=4.3.0 <5.0.0"
+    "@microsoft/load-themed-styles" "^1.7.13"
+    "@uifabric/icons" ">=5.4.0 <6.0.0"
+    "@uifabric/merge-styles" ">=5.10.1 <6.0.0"
+    "@uifabric/styling" ">=5.15.1 <6.0.0"
+    "@uifabric/utilities" ">=5.6.1 <6.0.0"
     prop-types "^15.5.10"
-    tslib "^1.6.0"
+    tslib "^1.7.1"
 
 on-finished@~2.3.0:
   version "2.3.0"
@@ -5156,12 +5180,20 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8:
+prop-types@^15.5.10, prop-types@^15.5.4:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
+
+prop-types@^15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 proxy-addr@~1.1.4:
   version "1.1.4"
@@ -5285,14 +5317,14 @@ react-color@^2.13.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.1.2"
 
-react-dom@^15.6.1:
-  version "15.6.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
+react-dom@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
-    fbjs "^0.8.9"
+    fbjs "^0.8.16"
     loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.10"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react-octicons@^0.1.0:
   version "0.1.0"
@@ -5304,15 +5336,14 @@ react-topbar-progress-indicator@^1.0.0:
   dependencies:
     topbar "^0.1.3"
 
-react@^15.6.1:
-  version "15.6.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
+react@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
-    create-react-class "^15.6.0"
-    fbjs "^0.8.9"
+    fbjs "^0.8.16"
     loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.10"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 reactcss@^1.2.0:
   version "1.2.2"
@@ -5568,10 +5599,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-rtl-css-js@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/rtl-css-js/-/rtl-css-js-1.1.1.tgz#219d10721b8044845771a03bea2e5c4387821024"
-
 run-series@^1.1.1:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/run-series/-/run-series-1.1.4.tgz#89a73ddc5e75c9ef8ab6320c0a1600d6a41179b9"
@@ -5698,6 +5725,10 @@ sha.js@^2.4.0, sha.js@^2.4.8:
 shallow-equal-object@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/shallow-equal-object/-/shallow-equal-object-1.0.1.tgz#a402410fb4b7c15370ec7e78701e9280f1c1d1e4"
+
+shallow-equal-object@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/shallow-equal-object/-/shallow-equal-object-1.1.1.tgz#0c016b8cc16dc59ab76739b6eeaa9c99d68beef7"
 
 shebang-command@^1.2.0:
   version "1.2.0"
@@ -6230,9 +6261,9 @@ tsconfig@^6.0.0:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
 
-tslib@^1.6.0:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
+tslib@^1.7.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.8.1.tgz#6946af2d1d651a7b1863b531d6e5afa41aa44eac"
 
 tty-browserify@0.0.0:
   version "0.0.0"
