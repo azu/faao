@@ -131,8 +131,8 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         selectedIndex: number;
     };
 
-    constructor() {
-        super();
+    constructor(args: SearchResultListProps) {
+        super(args);
         this.state = {
             selectedIndex: 0
         };

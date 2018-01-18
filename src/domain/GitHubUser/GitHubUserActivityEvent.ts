@@ -5,8 +5,7 @@ import { compile, parse, ParsedEvent } from "parse-github-event";
 import * as url from "url";
 import urljoin from "url-join";
 
-export interface Payload {
-}
+export interface Payload {}
 
 export interface Repo {
     id: number;
@@ -100,6 +99,7 @@ export class GitHubUserActivityEvent extends ValueObject {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
     public: boolean;
+    isRead: boolean;
     payload: any;
     repo: Repo;
     actor: Actor;

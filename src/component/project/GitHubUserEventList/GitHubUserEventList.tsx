@@ -71,8 +71,8 @@ export class GitHubUserEventList extends React.Component<GitHubUserEventListProp
         selectedIndex: number;
     };
 
-    constructor() {
-        super();
+    constructor(props: GitHubUserEventListProps) {
+        super(props);
         this.state = {
             selectedIndex: 0
         };

@@ -2,14 +2,25 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import {
-    ContextualMenu, ContextualMenuItemType, DirectionalHint, Facepile, FocusZoneDirection, IFacepilePersona,
-    IFacepileProps, PersonaSize
+    ContextualMenu,
+    ContextualMenuItemType,
+    DirectionalHint,
+    Facepile,
+    FocusZoneDirection,
+    IFacepilePersona,
+    IFacepileProps,
+    PersonaSize
 } from "office-ui-fabric-react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingViewModel } from "../../../store/GitHubSettingStore/GitHubSettingStore";
 
-export const createFacepilePersonas = (settings: GitHubSettingViewModel[],
-                                       onClickHandler: (event: React.MouseEvent<HTMLElement> | undefined, setting: GitHubSetting) => void): IFacepilePersona[] => {
+export const createFacepilePersonas = (
+    settings: GitHubSettingViewModel[],
+    onClickHandler: (
+        event: React.MouseEvent<HTMLElement> | undefined,
+        setting: GitHubSetting
+    ) => void
+): IFacepilePersona[] => {
     return settings.map((setting): IFacepilePersona => {
         return {
             personaName: setting.id.toValue(),
@@ -37,10 +48,12 @@ export interface GitHubSettingListState {
     isContextMenuVisible: boolean;
 }
 
-export class GitHubSettingList extends React.Component<GitHubSettingListProps,
-    GitHubSettingListState> {
-    constructor() {
-        super();
+export class GitHubSettingList extends React.Component<
+    GitHubSettingListProps,
+    GitHubSettingListState
+> {
+    constructor(props: GitHubSettingListProps) {
+        super(props);
         this.state = {
             contextTarget: undefined,
             contextTargetSetting: undefined,
@@ -56,7 +69,10 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps,
         });
     };
 
-    onClick = (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => {
+    onClick = (event: React.MouseEvent<HTMLElement> | undefined, setting: GitHubSetting) => {
+        if (!event) {
+            return;
+        }
         this.props.onClickSetting(event, setting);
         this.showContextMenu(event, setting);
     };
@@ -116,7 +132,10 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps,
                             iconProps: {
                                 iconName: "Heart"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onShowUserEvents(event);
                             },
                             name: "Show events"
@@ -126,7 +145,10 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps,
                             iconProps: {
                                 iconName: "Refresh"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onRefreshSetting(event);
                             },
                             name: "Refresh Setting"
@@ -136,7 +158,10 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps,
                             iconProps: {
                                 iconName: "Edit"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onEditSetting(event);
                             },
                             name: "Edit Setting"
@@ -146,7 +171,10 @@ export class GitHubSettingList extends React.Component<GitHubSettingListProps,
                             iconProps: {
                                 iconName: "Delete"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onDeleteSetting(event);
                             },
                             name: "Delete Setting"

@@ -13,7 +13,9 @@ import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
+import { initializeIcons } from "@uifabric/icons";
 
+initializeIcons();
 require("request-idle-polyfill");
 // instances
 const dispatcher = new Dispatcher();
