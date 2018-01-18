@@ -2,9 +2,7 @@
 import { Payload, UseCase } from "almin";
 
 export class OpenProfileWindowUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "OpenProfileWindowUseCase" });
-    }
+    type = "OpenProfileWindowUseCase";
 }
 
 export class OpenProfileWindowUseCase extends UseCase {
@@ -14,9 +12,7 @@ export class OpenProfileWindowUseCase extends UseCase {
 }
 
 export class CloseProfileWindowUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "CloseProfileWindowUseCasePayload" });
-    }
+    type = "CloseProfileWindowUseCasePayload";
 }
 
 export class CloseProfileWindowUseCase extends UseCase {

@@ -3,21 +3,18 @@ import { Payload, UseCase } from "almin";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 export class OpenSearchListPanelUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "OpenSearchListPanelUseCasePayload" });
-    }
+    type = "OpenSearchListPanelUseCasePayload";
 }
 
 export class EditSearchListPanelUseCasePayload extends Payload {
+    type = "EditSearchListPanelUseCasePayload";
     constructor(public gitHubSearchList: GitHubSearchList) {
-        super({ type: "EditSearchListPanelUseCasePayload" });
+        super();
     }
 }
 
 export class CloseSearchListPanelUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "CloseSearchListPanelUseCasePayload" });
-    }
+    type = "CloseSearchListPanelUseCasePayload";
 }
 
 export class EditSearchListPanelUseCase extends UseCase {

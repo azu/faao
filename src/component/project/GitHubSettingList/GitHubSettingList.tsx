@@ -2,28 +2,20 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import {
-    ContextualMenu,
-    ContextualMenuItemType,
-    DirectionalHint,
-    Facepile,
-    FocusZoneDirection,
-    IFacepilePersona,
-    IFacepileProps,
-    PersonaSize
+    ContextualMenu, ContextualMenuItemType, DirectionalHint, Facepile, FocusZoneDirection, IFacepilePersona,
+    IFacepileProps, PersonaSize
 } from "office-ui-fabric-react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSettingViewModel } from "../../../store/GitHubSettingStore/GitHubSettingStore";
 
-export const createFacepilePersonas = (
-    settings: GitHubSettingViewModel[],
-    onClickHandler: (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => void
-): IFacepilePersona[] => {
+export const createFacepilePersonas = (settings: GitHubSettingViewModel[],
+                                       onClickHandler: (event: React.MouseEvent<HTMLElement> | undefined, setting: GitHubSetting) => void): IFacepilePersona[] => {
     return settings.map((setting): IFacepilePersona => {
         return {
             personaName: setting.id.toValue(),
             imageUrl: setting.avatarURL,
-            onClick: (event: React.MouseEvent<HTMLElement>) => {
-                onClickHandler(event, setting);
+            onClick: (event: React.MouseEvent<HTMLElement> | undefined) => {
+                onClickHandler(event || undefined, setting);
             }
         };
     });
@@ -45,10 +37,8 @@ export interface GitHubSettingListState {
     isContextMenuVisible: boolean;
 }
 
-export class GitHubSettingList extends React.Component<
-    GitHubSettingListProps,
-    GitHubSettingListState
-> {
+export class GitHubSettingList extends React.Component<GitHubSettingListProps,
+    GitHubSettingListState> {
     constructor() {
         super();
         this.state = {

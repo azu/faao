@@ -1,10 +1,7 @@
 // MIT © 2017 azu
 import { Store } from "almin";
 import { NoticeRepository } from "../../infra/repository/NoticeRepository";
-import {
-    isSearchQueryErrorNotice,
-    SearchQueryErrorNotice
-} from "../../domain/Notice/SearchQueryErrorNotice";
+import { isSearchQueryErrorNotice, SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 import { GenericErrorNotice, isGenericErrorNotice } from "../../domain/Notice/GenericErrorNotice";
 import { shallowEqual } from "shallow-equal-object";
 
@@ -17,7 +14,7 @@ export class NoticeState implements NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
     genericErrorNotices: GenericErrorNotice[];
 
-    constructor(args: NoticeStateArgs) {
+    constructor(args: NoticeStateArgs | NoticeState) {
         this.searchQueryErrorNotices = args.searchQueryErrorNotices;
         this.genericErrorNotices = args.genericErrorNotices;
     }

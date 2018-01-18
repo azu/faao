@@ -5,7 +5,8 @@ import { compile, parse, ParsedEvent } from "parse-github-event";
 import * as url from "url";
 import urljoin from "url-join";
 
-export interface Payload {}
+export interface Payload {
+}
 
 export interface Repo {
     id: number;
@@ -185,8 +186,14 @@ export class GitHubUserActivityEvent extends ValueObject {
 
     toJSON(): GitHubUserActivityEventJSON {
         return {
-            ...(this as GitHubUserActivityEvent),
-            id: this.id.toValue()
+            id: this.id.toValue(),
+            type: this.type,
+            public: this.public,
+            payload: this.payload,
+            repo: this.repo,
+            actor: this.actor,
+            org: this.org,
+            created_at: this.created_at
         };
     }
 }

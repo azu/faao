@@ -2,11 +2,7 @@
 import { Payload, UseCase } from "almin";
 
 export class OpenQuickIssueUseCasePayload extends Payload {
-    constructor() {
-        super({
-            type: "OpenQuickIssueUseCasePayload"
-        });
-    }
+    type = "OpenQuickIssueUseCasePayload"
 }
 
 export class OpenQuickIssueUseCase extends UseCase {
