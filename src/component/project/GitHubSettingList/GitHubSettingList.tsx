@@ -16,14 +16,17 @@ import { GitHubSettingViewModel } from "../../../store/GitHubSettingStore/GitHub
 
 export const createFacepilePersonas = (
     settings: GitHubSettingViewModel[],
-    onClickHandler: (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => void
+    onClickHandler: (
+        event: React.MouseEvent<HTMLElement> | undefined,
+        setting: GitHubSetting
+    ) => void
 ): IFacepilePersona[] => {
     return settings.map((setting): IFacepilePersona => {
         return {
             personaName: setting.id.toValue(),
             imageUrl: setting.avatarURL,
-            onClick: (event: React.MouseEvent<HTMLElement>) => {
-                onClickHandler(event, setting);
+            onClick: (event: React.MouseEvent<HTMLElement> | undefined) => {
+                onClickHandler(event || undefined, setting);
             }
         };
     });
@@ -49,8 +52,8 @@ export class GitHubSettingList extends React.Component<
     GitHubSettingListProps,
     GitHubSettingListState
 > {
-    constructor() {
-        super();
+    constructor(props: GitHubSettingListProps) {
+        super(props);
         this.state = {
             contextTarget: undefined,
             contextTargetSetting: undefined,
@@ -66,7 +69,10 @@ export class GitHubSettingList extends React.Component<
         });
     };
 
-    onClick = (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => {
+    onClick = (event: React.MouseEvent<HTMLElement> | undefined, setting: GitHubSetting) => {
+        if (!event) {
+            return;
+        }
         this.props.onClickSetting(event, setting);
         this.showContextMenu(event, setting);
     };
@@ -126,7 +132,10 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Heart"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onShowUserEvents(event);
                             },
                             name: "Show events"
@@ -136,7 +145,10 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Refresh"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onRefreshSetting(event);
                             },
                             name: "Refresh Setting"
@@ -146,7 +158,10 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Edit"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onEditSetting(event);
                             },
                             name: "Edit Setting"
@@ -156,7 +171,10 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Delete"
                             },
-                            onClick: (event: React.MouseEvent<HTMLElement>) => {
+                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.onDeleteSetting(event);
                             },
                             name: "Delete Setting"

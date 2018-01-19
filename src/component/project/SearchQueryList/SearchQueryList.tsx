@@ -60,7 +60,10 @@ export class SearchQueryListItem extends React.Component<
                             iconProps: {
                                 iconName: "Edit"
                             },
-                            onClick: (event: React.MouseEvent<any>) => {
+                            onClick: (event?: React.MouseEvent<any>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 this.props.onEditQuery(event, this.props.query);
                             },
                             name: "Edit query"
@@ -70,7 +73,10 @@ export class SearchQueryListItem extends React.Component<
                             iconProps: {
                                 iconName: "Delete"
                             },
-                            onClick: (event: React.MouseEvent<any>) => {
+                            onClick: (event?: React.MouseEvent<any>) => {
+                                if (!event) {
+                                    return;
+                                }
                                 if (confirm(`Does delete "${this.props.query.name}"?`)) {
                                     this.props.onDeleteQuery(event, this.props.query);
                                 }

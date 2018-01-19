@@ -99,6 +99,7 @@ export class GitHubUserActivityEvent extends ValueObject {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
     public: boolean;
+    isRead: boolean;
     payload: any;
     repo: Repo;
     actor: Actor;
@@ -185,8 +186,14 @@ export class GitHubUserActivityEvent extends ValueObject {
 
     toJSON(): GitHubUserActivityEventJSON {
         return {
-            ...(this as GitHubUserActivityEvent),
-            id: this.id.toValue()
+            id: this.id.toValue(),
+            type: this.type,
+            public: this.public,
+            payload: this.payload,
+            repo: this.repo,
+            actor: this.actor,
+            org: this.org,
+            created_at: this.created_at
         };
     }
 }

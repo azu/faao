@@ -1,10 +1,7 @@
 // MIT © 2017 azu
 import { ChangedPayload, Payload, UseCase } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
-import {
-    GitHubSettingRepository,
-    gitHubSettingRepository
-} from "../../infra/repository/GitHubSettingsRepository";
+import { GitHubSettingRepository, gitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
@@ -16,15 +13,11 @@ import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearch
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
 export class LoadingStartedPayload extends Payload {
-    constructor() {
-        super({ type: "LoadingStatedPayload" });
-    }
+    type = "LoadingStatedPayload";
 }
 
 export class LoadingFinishedPayload extends Payload {
-    constructor() {
-        super({ type: "LoadingFinishedPayload" });
-    }
+    type = "LoadingFinishedPayload";
 }
 
 export const createSearchQueryToUpdateStreamUseCase = () => {

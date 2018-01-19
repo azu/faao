@@ -10,6 +10,7 @@
     "sourceMap": true,
     "declaration": false,
     "jsx": "react",
+    "skipLibCheck": true,
     // Transform jsx syntax in babels phase
     "lib": [
       "es2017",

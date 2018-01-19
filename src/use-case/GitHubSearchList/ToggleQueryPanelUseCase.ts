@@ -4,21 +4,23 @@ import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQue
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 export class OpenQueryPanelUseCasePayload extends Payload {
+    type = "OpenQueryPanelUseCasePayload";
+
     constructor(public searchList: GitHubSearchList) {
-        super({ type: "OpenQueryPanelUseCasePayload" });
+        super();
     }
 }
 
 export class EditQueryPanelUseCasePayload extends Payload {
+    type = "EditQueryPanelUseCasePayload";
+
     constructor(public query: GitHubSearchQuery) {
-        super({ type: "EditQueryPanelUseCasePayload" });
+        super();
     }
 }
 
 export class CloseQueryPanelUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "CloseQueryPanelUseCasePayload" });
-    }
+    type = "CloseQueryPanelUseCasePayload";
 }
 
 export class EditQueryPanelUseCase extends UseCase {

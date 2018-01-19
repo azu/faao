@@ -2,9 +2,7 @@
 import { Payload, UseCase } from "almin";
 
 export class OpenMobileMenuUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "OpenMobileMenuUseCasePayload" });
-    }
+    type = "OpenMobileMenuUseCasePayload";
 }
 
 export class OpenMobileMenuUseCase extends UseCase {
@@ -14,9 +12,7 @@ export class OpenMobileMenuUseCase extends UseCase {
 }
 
 export class CloseMobileMenuUseCasePayload extends Payload {
-    constructor() {
-        super({ type: "CloseMobileMenuUseCasePayload" });
-    }
+    type = "CloseMobileMenuUseCasePayload";
 }
 
 export class CloseMobileMenuUseCase extends UseCase {

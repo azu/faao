@@ -31,7 +31,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
     filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 
-    constructor(args: GitHubSearchStreamStateArgs) {
+    constructor(args: GitHubSearchStreamStateArgs | GitHubSearchStreamState) {
         this.isLoading = args.isLoading;
         this.items = args.items;
         this.itemCount = this.items.length;

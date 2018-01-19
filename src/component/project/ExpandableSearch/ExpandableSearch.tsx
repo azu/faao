@@ -46,7 +46,7 @@ export class ExpandableSearch extends React.Component<
                             key: "state:open",
                             name: "state:open",
                             ariaLabel: "set state:open to filer",
-                            onClick: (_event: React.MouseEvent<any>) => {
+                            onClick: (_event?: React.MouseEvent<any>) => {
                                 this.props.onChangeValue("state:open");
                             }
                         },
@@ -54,7 +54,7 @@ export class ExpandableSearch extends React.Component<
                             key: "state:closed",
                             name: "state:closed",
                             ariaLabel: "set state:closed to filer",
-                            onClick: (_event: React.MouseEvent<any>) => {
+                            onClick: (_event?: React.MouseEvent<any>) => {
                                 this.props.onChangeValue("state:closed");
                             }
                         },
@@ -62,7 +62,7 @@ export class ExpandableSearch extends React.Component<
                             key: "type:issue",
                             name: "type:issue",
                             ariaLabel: "set type:issue to filer",
-                            onClick: (_event: React.MouseEvent<any>) => {
+                            onClick: (_event?: React.MouseEvent<any>) => {
                                 this.props.onChangeValue("type:issue");
                             }
                         },
@@ -70,7 +70,7 @@ export class ExpandableSearch extends React.Component<
                             key: "type:pr",
                             name: "type:pr",
                             ariaLabel: "set type:pr to filer",
-                            onClick: (_event: React.MouseEvent<any>) => {
+                            onClick: (_event?: React.MouseEvent<any>) => {
                                 this.props.onChangeValue("type:pr");
                             }
                         }

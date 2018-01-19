@@ -6,14 +6,16 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";
 import AlminReactContainer from "almin-react-container";
-import { appStoreGroup, AppStoreGroupState, debuggable } from "./store/AppStoreGroup";
+import { appStoreGroup, debuggable } from "./store/AppStoreGroup";
 import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
+import { initializeIcons } from "@uifabric/icons";
 
+initializeIcons();
 require("request-idle-polyfill");
 // instances
 const dispatcher = new Dispatcher();
@@ -42,7 +44,7 @@ appLocator.context = context;
 // initialize
 runDOMBootstrap();
 // start render
-const AppWrapContainer = AlminReactContainer.create<AppStoreGroupState>(AppContainer, context);
+const AppWrapContainer = AlminReactContainer.create(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), async () => {
     // render and restore repositories
     await context
