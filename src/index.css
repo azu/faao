@@ -2,7 +2,6 @@
 @import "./index.is-browser.css";
 @import "./index.is-electron.css";
 @import "./index.is-mobile.css";
-@import "./component/**/*.css";
 
 * {
     box-sizing: border-box;

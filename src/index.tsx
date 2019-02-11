@@ -15,6 +15,12 @@ import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
 import { initializeIcons } from "@uifabric/icons";
 
+function allRequire(context: any) {
+    context.keys().forEach(context);
+}
+
+allRequire((require as any).context("./", true, /\.css$/));
+
 initializeIcons();
 require("request-idle-polyfill");
 // instances
