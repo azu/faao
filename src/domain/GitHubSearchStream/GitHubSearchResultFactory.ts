@@ -7,8 +7,6 @@ export interface GitHubSearchResultJSON {
 }
 
 export class GitHubSearchResultFactory {
-    items: GitHubSearchResultItemJSON[];
-
     /**
      * Convert response json to GitHubSearchResult.
      * @param result

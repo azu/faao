@@ -4,11 +4,13 @@ import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchL
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
-    CloseQueryPanelUseCasePayload, EditQueryPanelUseCasePayload,
+    CloseQueryPanelUseCasePayload,
+    EditQueryPanelUseCasePayload,
     OpenQueryPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import {
-    CloseSearchListPanelUseCasePayload, EditSearchListPanelUseCasePayload,
+    CloseSearchListPanelUseCasePayload,
+    EditSearchListPanelUseCasePayload,
     OpenSearchListPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 import { shallowEqual } from "shallow-equal-object";

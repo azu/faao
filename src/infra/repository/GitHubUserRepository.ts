@@ -6,7 +6,7 @@ import { NullableBaseRepository } from "./NullableBaseRepository";
 const debug = require("debug")("faao:GitHubUserRepository");
 
 export class GitHubUserRepository extends NullableBaseRepository<GitHubUser> {
-    storage: LocalForage;
+    storage!: LocalForage;
 
     /**
      * Please call this before find* API

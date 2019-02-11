@@ -4,10 +4,16 @@ import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { gitHubSettingRepository, GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    gitHubSettingRepository,
+    GitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { ProfileService } from "../../domain/Profile/ProfileService";
 import { ProfileJSON } from "../../domain/Profile/Profile";
-import { gitHubUserRepository, GitHubUserRepository } from "../../infra/repository/GitHubUserRepository";
+import {
+    gitHubUserRepository,
+    GitHubUserRepository
+} from "../../infra/repository/GitHubUserRepository";
 
 export class ExportProfileUseCasePayload extends Payload {
     type = "ExportProfileUseCasePayload";

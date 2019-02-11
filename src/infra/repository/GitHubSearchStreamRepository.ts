@@ -14,7 +14,7 @@ import { EntityMap } from "./EntityMap";
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
 export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitHubSearchStream> {
-    storage: LocalForage;
+    storage!: LocalForage;
     map = new EntityMap<GitHubSearchStream>();
 
     async ready() {

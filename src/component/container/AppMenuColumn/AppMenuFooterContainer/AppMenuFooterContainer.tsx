@@ -32,7 +32,7 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
         {
             key: "profile",
             name: "Imports/Exports",
-            icon: "Setting",
+            icon: "Settings",
             ariaLabel: "Imports/Exports",
             onClick: async () => {
                 await this.useCase(new OpenProfileWindowUseCase()).executor(useCase =>

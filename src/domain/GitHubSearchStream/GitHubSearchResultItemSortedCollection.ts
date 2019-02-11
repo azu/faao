@@ -32,7 +32,7 @@ export interface GitHubSearchResultItemSortedCollectionArgs<T extends GitHubSear
 export class GitHubSearchResultItemSortedCollection<
     T extends GitHubSearchResultItem
 > extends GitHubSearchResultItemCollection<T> {
-    sortType: SortTypeArgs;
+    sortType?: SortTypeArgs;
 
     constructor(protected args: GitHubSearchResultItemSortedCollectionArgs<T>) {
         super({

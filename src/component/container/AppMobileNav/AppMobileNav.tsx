@@ -16,7 +16,7 @@ export interface AppMobileNavProps {
 }
 
 export class AppMobileNav extends BaseContainer<AppMobileNavProps, {}> {
-    unSubscribe: () => void;
+    unSubscribe!: () => void;
     onClickMenuButton = () => {
         if (this.props.mobile.isMenuOpened) {
             return this.useCase(new CloseMobileMenuUseCase())

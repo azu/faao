@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "newLine": "LF",
     "rootDir": "./",
@@ -9,9 +8,8 @@
     "target": "es5",
     "sourceMap": true,
     "declaration": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "skipLibCheck": true,
-    // Transform jsx syntax in babels phase
     "lib": [
       "es2017",
       "dom"
@@ -20,25 +18,18 @@
       "./types",
       "./node_modules/@types"
     ],
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "*"
-      ]
-    },
-    /* Strict Type-Checking Options */
     "strict": true,
-    /* Additional Checks */
     "noUnusedLocals": false,
-    /* Report errors on unused locals. */
     "noUnusedParameters": true,
-    /* Report errors on unused parameters. */
     "noImplicitReturns": true,
-    /* Report error when not all code paths in function return a value. */
     "noFallthroughCasesInSwitch": true,
-    /* Report errors for fallthrough cases in switch statement. */
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": [
     "types/**/*",

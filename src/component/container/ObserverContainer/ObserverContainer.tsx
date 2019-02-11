@@ -8,7 +8,7 @@ import { createReloadAllStreamUseCase } from "../../../use-case/GitHubSearchStre
 
 const debug = require("debug")("faao:ObserverContainer");
 export class ObserverContainer extends BaseContainer<{}, {}> {
-    timeScheduler: TimeScheduler;
+    timeScheduler!: TimeScheduler;
     onOnlineStatus = () => {
         const networkStatus: AppNetworkStatus =
             typeof navigator !== "undefined" ? (navigator.onLine ? "online" : "offline") : "online";

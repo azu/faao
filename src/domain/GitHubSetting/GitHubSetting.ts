@@ -29,6 +29,7 @@ export class GitHubSetting extends Entity<Identifier<GitHubSetting>> implements 
 
     constructor(args: GitHubSettingArgs) {
         super(args.id);
+        this.id = args.id;
         this.token = args.token;
         this.apiHost = args.apiHost;
         this.webHost = args.webHost;

@@ -21,15 +21,17 @@ export const createFacepilePersonas = (
         setting: GitHubSetting
     ) => void
 ): IFacepilePersona[] => {
-    return settings.map((setting): IFacepilePersona => {
-        return {
-            personaName: setting.id.toValue(),
-            imageUrl: setting.avatarURL,
-            onClick: (event: React.MouseEvent<HTMLElement> | undefined) => {
-                onClickHandler(event || undefined, setting);
-            }
-        };
-    });
+    return settings.map(
+        (setting): IFacepilePersona => {
+            return {
+                personaName: setting.id.toValue(),
+                imageUrl: setting.avatarURL,
+                onClick: (event: React.MouseEvent<HTMLElement> | undefined) => {
+                    onClickHandler(event || undefined, setting);
+                }
+            };
+        }
+    );
 };
 
 export interface GitHubSettingListProps {

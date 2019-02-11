@@ -11,7 +11,7 @@ export interface GitHubSearchResultItemCollectionArgs<T> {
 export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
     protected readonly rawItems: T[];
     items: T[];
-    filter: SearchFilter;
+    filter?: SearchFilter;
 
     constructor(protected args: GitHubSearchResultItemCollectionArgs<T>) {
         this.rawItems = uniqBy(args.items, item => item.id.toValue());
