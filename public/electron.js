@@ -14,7 +14,7 @@ const getHTMLUrl = () => {
     if (useRemote) {
         return "https://azu.github.io/faao/";
     }
-    return `file://${__dirname}/public/index.html`;
+    return `file://${path.join(__dirname, "../build/index.html")}`;
 };
 const URL = getHTMLUrl();
 if (process.env.NODE_ENV !== "production") {

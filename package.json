@@ -10,15 +10,15 @@
   "name": "faao",
   "description": "Faao is a GitHub Issue/Pull Request client on Electron/Browser.",
   "version": "1.0.0",
-  "main": "electron.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "build": {
     "productName": "Faao",
     "appId": "info.efcl.faao",
     "asar": true,
     "npmRebuild": false,
     "files": [
-      "electron.js",
-      "public/**/*",
+      "build/**/*",
       "node_modules/**/*"
     ],
     "win": {
@@ -59,19 +59,17 @@
   },
   "scripts": {
     "test": "npm-run-all test:* lint",
-    "test:unit": "jest",
+    "test:unit": "react-scripts test --env=jsdom",
     "lint": "npm-run-all --parallel lint:*",
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "prepublishOnly": "npm run --if-present build",
     "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 100 --tab-width 4",
     "start": "npm-run-all clean --parallel server electron",
-    "electron": "cross-env FAAO_URL=http://localhost:3000/ electron electron.js",
-    "server": "BROWSER=none react-scripts start",
+    "electron": "wait-on http://localhost:3000 && cross-env FAAO_URL=http://localhost:3000/ electron .",
+    "server": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "test:js": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "clean": "rimraf public/build dist && mkdirp public/build",
-    "ci": "npm test && cross-env NODE_ENV=development RUNTIME_TARGET=browser webpack",
     "postinstall": "electron-builder install-app-deps",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
@@ -104,7 +102,8 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^23.10.5",
     "typemoq": "^1.7.0",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3",
+    "wait-on": "^3.2.0"
   },
   "dependencies": {
     "@immutable-array/prototype": "^1.0.2",

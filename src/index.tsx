@@ -1,6 +1,5 @@
 // MIT © 2017 azu
 // polyfill
-import { createReloadAllStreamUseCase } from "./use-case/GitHubSearchStream/ReloadAllStreamUseCase";
 // index
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -11,6 +10,7 @@ import { appLocator } from "./AppLocator";
 import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
+import { createReloadAllStreamUseCase } from "./use-case/GitHubSearchStream/ReloadAllStreamUseCase";
 import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
 import { initializeIcons } from "@uifabric/icons";
