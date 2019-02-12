@@ -5,7 +5,7 @@ import { NoticeRepository } from "../../../infra/repository/NoticeRepository";
 import * as TypeMoq from "typemoq";
 
 describe("ShowErrorNoticeUseCase", () => {
-    it("should save error notice to repository", () => {
+    xit("should save error notice to repository", () => {
         const { context } = createStubContext(ShowErrorNoticeUseCase);
         const noticeRepository = new NoticeRepository();
         const notice = TypeMoq.It.isAny();

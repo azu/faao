@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-export class GitHubSettingUser {
-    name: string;
-    imageUrl: string;
+export abstract class GitHubSettingUser {
+    abstract name: string;
+    abstract imageUrl: string;
 }

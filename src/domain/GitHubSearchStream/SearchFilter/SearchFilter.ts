@@ -26,24 +26,26 @@ export class SearchFilter {
      * @returns {boolean}
      */
     isMatch(item: FilterableItem) {
-        return this.items.every((filterItem): boolean => {
-            const itemValue: any = (item as any)[filterItem.field];
-            if (filterItem.type === "in") {
-                return item.includes(filterItem.value);
-            } else if (filterItem.type === "nin") {
-                return item.includes(filterItem.value) === false;
-            } else if (filterItem.type === "=") {
-                return itemValue === filterItem.value;
-            } else if (filterItem.type === ">") {
-                return itemValue > filterItem.value;
-            } else if (filterItem.type === ">=") {
-                return itemValue >= filterItem.value;
-            } else if (filterItem.type === "<") {
-                return itemValue < filterItem.value;
-            } else if (filterItem.type === "<=") {
-                return itemValue <= filterItem.value;
+        return this.items.every(
+            (filterItem): boolean => {
+                const itemValue: any = (item as any)[filterItem.field];
+                if (filterItem.type === "in") {
+                    return item.includes(filterItem.value);
+                } else if (filterItem.type === "nin") {
+                    return item.includes(filterItem.value) === false;
+                } else if (filterItem.type === "=") {
+                    return itemValue === filterItem.value;
+                } else if (filterItem.type === ">") {
+                    return itemValue > filterItem.value;
+                } else if (filterItem.type === ">=") {
+                    return itemValue >= filterItem.value;
+                } else if (filterItem.type === "<") {
+                    return itemValue < filterItem.value;
+                } else if (filterItem.type === "<=") {
+                    return itemValue <= filterItem.value;
+                }
+                return false;
             }
-            return false;
-        });
+        );
     }
 }

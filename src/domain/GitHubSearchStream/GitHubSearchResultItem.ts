@@ -173,7 +173,8 @@ export interface GitHubSearchResultItemJSON {
     title: string;
     user: User;
     labels: Label[];
-    state: string;
+    state: "merged" | "closed" | "open";
+    pull_request?: any;
     locked: boolean;
     assignee: Assignee | null;
     assignees: Assignee[];
@@ -213,9 +214,29 @@ export class GitHubSearchResultItem {
     score: number;
 
     constructor(item: GitHubSearchResultItemJSON) {
-        Object.assign(this, item, {
-            id: new Identifier<GitHubSearchResultItem>(String(item.id))
-        });
+        this.id = new Identifier<GitHubSearchResultItem>(String(item.id));
+        this.url = item.url;
+        this.repository_url = item.repository_url;
+        this.labels_url = item.labels_url;
+        this.comments_url = item.comments_url;
+        this.events_url = item.events_url;
+        this.html_url = item.html_url;
+        this.number = item.number;
+        this.title = item.title;
+        this.user = item.user;
+        this.labels = item.labels;
+        this.state = item.state;
+        this.pull_request = item.pull_request;
+        this.locked = item.locked;
+        this.assignee = item.assignee;
+        this.assignees = item.assignees;
+        this.milestone = item.milestone;
+        this.comments = item.comments;
+        this.created_at = item.created_at;
+        this.updated_at = item.updated_at;
+        this.body = item.body;
+        this.score = item.score;
+        this.closed_at = item.closed_at;
     }
 
     get createdAtDate() {

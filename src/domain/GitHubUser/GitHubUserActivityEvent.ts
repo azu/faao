@@ -108,9 +108,17 @@ export class GitHubUserActivityEvent extends ValueObject {
 
     parsedEvent?: ParsedEvent;
 
-    constructor(event: Partial<GitHubUserActivityEvent>) {
+    constructor(event: GitHubUserActivityEvent) {
         super();
-        Object.assign(this, event);
+        this.id = event.id;
+        this.type = event.type;
+        this.public = event.public;
+        this.isRead = event.isRead;
+        this.payload = event.payload;
+        this.repo = event.repo;
+        this.actor = event.actor;
+        this.org = event.org;
+        this.created_at = event.created_at;
         this.parsedEvent = parse(this.toJSON());
     }
 
@@ -178,6 +186,8 @@ export class GitHubUserActivityEvent extends ValueObject {
     }
 
     static fromJSON(json: GitHubUserActivityEventJSON): GitHubUserActivityEvent {
+        // FIXME: fix type
+        // @ts-ignore
         return new GitHubUserActivityEvent({
             ...json,
             id: new Identifier<GitHubUserActivityEvent>(json.id)

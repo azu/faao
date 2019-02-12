@@ -8,8 +8,7 @@ import { Entity, Identifier } from "../Entity";
 export type Notice = AbstractNotice | GenericErrorNotice | SearchQueryErrorNotice;
 
 export abstract class AbstractNotice extends Entity<Identifier<AbstractNotice>> {
-    type: string;
-    message: string;
+    abstract type: string;
     timeStamp: number;
 
     constructor() {

@@ -22,9 +22,7 @@ export class AppMenuHeaderContainer extends BaseContainer<AppMenuHeaderContainer
             icon: "EditMirrored",
             ariaLabel: "Quick New Issue",
             onClick: () => {
-                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
+                this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
             }
         }
     ];
@@ -32,7 +30,7 @@ export class AppMenuHeaderContainer extends BaseContainer<AppMenuHeaderContainer
     render() {
         return (
             <header className="AppMenuHeaderContainer">
-                <CommandBar isSearchBoxVisible={false} items={this.menuItems} />
+                <CommandBar items={this.menuItems} />
             </header>
         );
     }

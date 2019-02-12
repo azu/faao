@@ -17,19 +17,26 @@ import { GitHubSettingViewModel } from "../../../store/GitHubSettingStore/GitHub
 export const createFacepilePersonas = (
     settings: GitHubSettingViewModel[],
     onClickHandler: (
-        event: React.MouseEvent<HTMLElement> | undefined,
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | undefined,
         setting: GitHubSetting
     ) => void
 ): IFacepilePersona[] => {
-    return settings.map((setting): IFacepilePersona => {
-        return {
-            personaName: setting.id.toValue(),
-            imageUrl: setting.avatarURL,
-            onClick: (event: React.MouseEvent<HTMLElement> | undefined) => {
-                onClickHandler(event || undefined, setting);
-            }
-        };
-    });
+    return settings.map(
+        (setting): IFacepilePersona => {
+            return {
+                personaName: setting.id.toValue(),
+                imageUrl: setting.avatarURL,
+                onClick: (
+                    event:
+                        | React.MouseEvent<HTMLElement>
+                        | React.KeyboardEvent<HTMLElement>
+                        | undefined
+                ) => {
+                    onClickHandler(event || undefined, setting);
+                }
+            };
+        }
+    );
 };
 
 export interface GitHubSettingListProps {
@@ -61,7 +68,10 @@ export class GitHubSettingList extends React.Component<
         };
     }
 
-    showContextMenu = (event: React.MouseEvent<HTMLElement>, setting: GitHubSetting) => {
+    showContextMenu = (
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+        setting: GitHubSetting
+    ) => {
         this.setState({
             contextTarget: event.currentTarget,
             contextTargetSetting: setting,
@@ -69,28 +79,33 @@ export class GitHubSettingList extends React.Component<
         });
     };
 
-    onClick = (event: React.MouseEvent<HTMLElement> | undefined, setting: GitHubSetting) => {
+    onClick = (
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | undefined,
+        setting: GitHubSetting
+    ) => {
         if (!event) {
             return;
         }
         this.props.onClickSetting(event, setting);
         this.showContextMenu(event, setting);
     };
-    onEditSetting = (event: React.MouseEvent<HTMLElement>) => {
+    onEditSetting = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             this.props.onEditSetting(event, setting);
         }
     };
 
-    onRefreshSetting = (event: React.MouseEvent<HTMLElement>) => {
+    onRefreshSetting = (
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             this.props.onRefreshSetting(event, setting);
         }
     };
 
-    onDeleteSetting = (event: React.MouseEvent<HTMLElement>) => {
+    onDeleteSetting = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             if (confirm(`Does delete "${setting.id.toValue()}"?`)) {
@@ -99,7 +114,12 @@ export class GitHubSettingList extends React.Component<
         }
     };
 
-    onShowUserEvents = (event: React.MouseEvent<HTMLElement>) => {
+    onShowUserEvents = (
+        event:
+            | React.MouseEvent<HTMLElement>
+            | React.KeyboardEvent<HTMLElement>
+            | React.KeyboardEvent<HTMLElement>
+    ) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
             this.props.onShowUserEvents(event, setting);
@@ -114,7 +134,6 @@ export class GitHubSettingList extends React.Component<
                     shouldFocusOnMount={true}
                     target={contextTarget}
                     directionalHint={DirectionalHint.bottomRightEdge}
-                    arrowDirection={FocusZoneDirection.vertical}
                     onDismiss={() => {
                         this.setState({
                             contextTarget: undefined,
@@ -132,7 +151,12 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Heart"
                             },
-                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }
@@ -145,7 +169,12 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Refresh"
                             },
-                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }
@@ -158,7 +187,12 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Edit"
                             },
-                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }
@@ -171,7 +205,11 @@ export class GitHubSettingList extends React.Component<
                             iconProps: {
                                 iconName: "Delete"
                             },
-                            onClick: (event?: React.MouseEvent<HTMLElement>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }

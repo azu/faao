@@ -12,7 +12,7 @@ import sortBy from "lodash.sortby";
 const debug = require("debug")("faao:GitHubSearchListRepository");
 
 export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHubSearchList> {
-    storage: LocalForage;
+    storage!: LocalForage;
 
     constructor(protected initialEntity: GitHubSearchList) {
         super(initialEntity);

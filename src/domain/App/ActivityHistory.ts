@@ -60,8 +60,8 @@ export class ActivityHistory<T> {
             this.items = splice(items, existItemIndex, 1, aItem);
             return;
         }
-        if (items.length > this.limit) {
-            this.items = items.slice(1, this.limit).concat(aItem);
+        if (items.length >= this.limit) {
+            this.items = items.slice(1).concat(aItem);
             return;
         }
         this.items = items.concat(aItem);

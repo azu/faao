@@ -66,7 +66,7 @@ export interface GitHubUserEventListProps {
 }
 
 export class GitHubUserEventList extends React.Component<GitHubUserEventListProps, {}> {
-    private _list: List;
+    private _list!: List;
     state: {
         selectedIndex: number;
     };

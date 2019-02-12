@@ -126,7 +126,7 @@ export interface SearchResultListProps {
 }
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
-    private _list: List;
+    private _list!: List;
     state: {
         selectedIndex: number;
     };
@@ -188,7 +188,6 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
                 );
                 if (activeElement) {
                     activeElement.scrollIntoView();
-                    (activeElement as HTMLElement).focus();
                 }
             }
         );

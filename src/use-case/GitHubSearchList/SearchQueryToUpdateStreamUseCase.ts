@@ -1,7 +1,10 @@
 // MIT © 2017 azu
 import { ChangedPayload, Payload, UseCase } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
-import { GitHubSettingRepository, gitHubSettingRepository } from "../../infra/repository/GitHubSettingsRepository";
+import {
+    GitHubSettingRepository,
+    gitHubSettingRepository
+} from "../../infra/repository/GitHubSettingsRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
@@ -48,7 +51,9 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
         if (!gitHubSetting) {
             return Promise.reject(
                 new Error(
-                    `Not found GitHubSetting. Please check the GitHubSetting of the query:${query.name}`
+                    `Not found GitHubSetting. Please check the GitHubSetting of the query:${
+                        query.name
+                    }`
                 )
             );
         }

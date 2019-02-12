@@ -8,7 +8,7 @@ import { createStorageInstance } from "./Storage";
 const debug = require("debug")("faao:AppRepository");
 
 export class AppRepository extends NonNullableBaseRepository<App> {
-    storage: LocalForage;
+    storage!: LocalForage;
 
     /**
      * Please call this before find* API

@@ -7,7 +7,7 @@ import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 const debug = require("debug")("faao:GitHubSettingRepository");
 
 export class GitHubSettingRepository extends NullableBaseRepository<GitHubSetting> {
-    storage: LocalForage;
+    storage!: LocalForage;
 
     /**
      * Please call this before find* API

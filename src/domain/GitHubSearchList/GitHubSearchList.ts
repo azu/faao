@@ -22,6 +22,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
 
     constructor(args: GitHubSearchListArgs) {
         super(args.id);
+        this.id = args.id;
         this.name = args.name;
         this.queries = args.queries;
     }
