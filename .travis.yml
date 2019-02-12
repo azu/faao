@@ -35,7 +35,7 @@ install:
 - yarn
 
 script:
-  - yarn run ci
+  - yarn test
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_PULL_REQUEST" == false ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn release; fi
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_PULL_REQUEST" == false ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn release -- --mac --win; fi
 
