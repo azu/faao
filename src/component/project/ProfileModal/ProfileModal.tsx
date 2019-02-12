@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Modal } from "office-ui-fabric-react/lib/components/Modal";
+import { Modal } from "office-ui-fabric-react";
 import { ProfileJSONEditor } from "./ProfileJSONEditor/ProfileJSONEditor";
 import { CommandButton, MessageBar, MessageBarType } from "office-ui-fabric-react";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 
+const FixModal: any = Modal as any;
 export interface ProfileModalProps {
     isOpen: boolean;
     code: string;
@@ -55,7 +56,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                 </MessageBar>
             ) : null;
         return (
-            <Modal
+            <FixModal
                 isOpen={this.props.isOpen}
                 onDismiss={this.props.onDismiss}
                 isBlocking={false}
@@ -131,7 +132,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                         </div>
                     </div>
                 </div>
-            </Modal>
+            </FixModal>
         );
     }
 }

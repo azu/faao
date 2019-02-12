@@ -117,7 +117,7 @@
     "@types/react-color": "^2.13.3",
     "@types/react-dom": "16.8.0",
     "@types/url-join": "^0.8.2",
-    "@uifabric/icons": "^5.4.0",
+    "@uifabric/icons": "^6.3.0",
     "almin": "^0.15.1",
     "almin-logger": "^6.1.2",
     "almin-react-container": "^0.6.1",
@@ -142,7 +142,7 @@
     "map-like": "^2.0.0",
     "moment": "^2.18.1",
     "octokat": "^0.8",
-    "office-ui-fabric-react": "~5.40.0",
+    "office-ui-fabric-react": "~6.136.0",
     "parse-github-event": "^1.0.2",
     "react": "^16.8.1",
     "react-codemirror": "git://github.com/skidding/react-codemirror.git#106-fix-update",
@@ -158,8 +158,8 @@
     "whatwg-fetch": "^2.0.3"
   },
   "resolutions": {
-    "@types/react": "16.0.34",
-    "@types/react-dom": "16.0.3"
+    "@types/react": "16.8.2",
+    "@types/react-dom": "16.8.0"
   },
   "jest": {
     "transform": {

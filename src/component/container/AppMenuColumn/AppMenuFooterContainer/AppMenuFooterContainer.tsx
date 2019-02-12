@@ -24,7 +24,7 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
             icon: "EditMirrored",
             ariaLabel: "Add new SearchList",
             onClick: () => {
-                return this.useCase(new OpenSearchListPanelUseCase()).executor(useCase =>
+                this.useCase(new OpenSearchListPanelUseCase()).executor(useCase =>
                     useCase.execute()
                 );
             }
@@ -34,13 +34,15 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
             name: "Imports/Exports",
             icon: "Settings",
             ariaLabel: "Imports/Exports",
-            onClick: async () => {
-                await this.useCase(new OpenProfileWindowUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
-                await this.useCase(createExportProfileUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
+            onClick: () => {
+                (async () => {
+                    await this.useCase(new OpenProfileWindowUseCase()).executor(useCase =>
+                        useCase.execute()
+                    );
+                    await this.useCase(createExportProfileUseCase()).executor(useCase =>
+                        useCase.execute()
+                    );
+                })();
             }
         }
     ];
@@ -50,11 +52,7 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
     render() {
         return (
             <header className="AppMenuFooterContainer">
-                <CommandBar
-                    isSearchBoxVisible={false}
-                    items={this.menuItems}
-                    farItems={this.farItems}
-                />
+                <CommandBar items={this.menuItems} farItems={this.farItems} />
             </header>
         );
     }

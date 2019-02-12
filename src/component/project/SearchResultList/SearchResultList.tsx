@@ -188,7 +188,6 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
                 );
                 if (activeElement) {
                     activeElement.scrollIntoView();
-                    (activeElement as HTMLElement).focus();
                 }
             }
         );

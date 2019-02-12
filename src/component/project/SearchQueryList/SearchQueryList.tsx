@@ -60,7 +60,11 @@ export class SearchQueryListItem extends React.Component<
                             iconProps: {
                                 iconName: "Edit"
                             },
-                            onClick: (event?: React.MouseEvent<any>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }
@@ -73,7 +77,11 @@ export class SearchQueryListItem extends React.Component<
                             iconProps: {
                                 iconName: "Delete"
                             },
-                            onClick: (event?: React.MouseEvent<any>) => {
+                            onClick: (
+                                event?:
+                                    | React.MouseEvent<HTMLElement>
+                                    | React.KeyboardEvent<HTMLElement>
+                            ) => {
                                 if (!event) {
                                     return;
                                 }
