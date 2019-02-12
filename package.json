@@ -59,7 +59,7 @@
   },
   "scripts": {
     "test": "npm-run-all test:* lint",
-    "test:unit": "react-scripts test --env=jsdom",
+    "test:unit": "react-scripts test --env=node",
     "lint": "npm-run-all --parallel lint:*",
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "prepublishOnly": "npm run --if-present build",
@@ -161,23 +161,7 @@
     "@types/react": "16.8.2",
     "@types/react-dom": "16.8.0"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "testPathIgnorePatterns": [
-      "node_modules",
-      "lib"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
+  "jest": {},
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css}": [
       "prettier --write --print-width 100 --tab-width 4",

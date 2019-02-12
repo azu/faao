@@ -236,6 +236,7 @@ export class GitHubSearchResultItem {
         this.updated_at = item.updated_at;
         this.body = item.body;
         this.score = item.score;
+        this.closed_at = item.closed_at;
     }
 
     get createdAtDate() {

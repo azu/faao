@@ -4,7 +4,7 @@ import { Identifier } from "../../Entity";
 import { GitHubSearchResultItem } from "../../GitHubSearchStream/GitHubSearchResultItem";
 
 describe("ActivityHistory", () => {
-    it("#readItem", () => {
+    describe("#readItem", () => {
         it("when reach limit, remove oldest item and add new item", () => {
             const limit = 3;
             const history = new ActivityHistory([], limit);
@@ -20,7 +20,7 @@ describe("ActivityHistory", () => {
             // reach limit
             history.readItem(items[3]);
             expect(history.items).toHaveLength(limit);
-            expect(history.findById(items[0].id)).toEqual(items[0]);
+            expect(history.findById(items[0].id)).toBeUndefined();
             expect(history.findById(items[3].id)).toEqual(items[3]);
         });
     });
