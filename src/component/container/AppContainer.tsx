@@ -14,6 +14,8 @@ import { AppMobileNav } from "./AppMobileNav/AppMobileNav";
 import classNames from "classnames";
 import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListPanelContainer";
 import { AppMainColumn } from "./AppMainColumn/AppMainColumn";
+import { BrowserView } from "./BrowserView/BrowserView";
+import isElectron from "is-electron";
 
 const suitcssClassnames = require("suitcss-classnames");
 
@@ -26,41 +28,46 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             }
         });
         return (
-            <div className="AppContainer">
-                {/* Systematic */}
-                <ObserverContainer />
-                <ShortcutKeyContainer />
-                {/* Main */}
-                <nav className="AppContainer-mobileNav">
-                    <AppMobileNav mobile={this.props.mobile} />
-                </nav>
-                <div className="AppContainer-body">
-                    <AppMenuColumn
-                        className={classNames("AppContainer-nav", AppContainerMobileMenuClassName)}
-                        app={this.props.app}
-                        gitHubSetting={this.props.gitHubSetting}
+            <>
+                <div className="AppContainer">
+                    {/* Systematic */}
+                    <ObserverContainer />
+                    <ShortcutKeyContainer />
+                    {/* Main */}
+                    <nav className="AppContainer-mobileNav">
+                        <AppMobileNav mobile={this.props.mobile} />
+                    </nav>
+                    <div className="AppContainer-body">
+                        <AppMenuColumn
+                            className={classNames(
+                                "AppContainer-nav",
+                                AppContainerMobileMenuClassName
+                            )}
+                            app={this.props.app}
+                            gitHubSetting={this.props.gitHubSetting}
+                            gitHubSearchList={this.props.gitHubSearchList}
+                        />
+                        <AppMainColumn
+                            className={classNames("AppContainer-main")}
+                            app={this.props.app}
+                            appMainColumn={this.props.appMainColumn}
+                            gitHubUser={this.props.gitHubUser}
+                            gitHubSearchStream={this.props.gitHubSearchStream}
+                        />
+                    </div>
+                    {/* Panel */}
+                    <ErrorContainer notice={this.props.notice} />
+                    <ProfileContainer profile={this.props.profile} />
+                    <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
+                    <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
+                    <QuerySettingContainer
                         gitHubSearchList={this.props.gitHubSearchList}
+                        gitHubSetting={this.props.gitHubSetting}
                     />
-                    <AppMainColumn
-                        className={classNames("AppContainer-main")}
-                        app={this.props.app}
-                        appMainColumn={this.props.appMainColumn}
-                        gitHubUser={this.props.gitHubUser}
-                        gitHubSearchStream={this.props.gitHubSearchStream}
-                    />
+                    <QuickIssueContainer quickIssue={this.props.quickIssue} />
                 </div>
-                {/* Panel */}
-                <ErrorContainer notice={this.props.notice} />
-                <ProfileContainer profile={this.props.profile} />
-                <SearchListPanelContainer gitHubSearchList={this.props.gitHubSearchList} />
-                <GitHubSettingPanelContainer gitHubSetting={this.props.gitHubSetting} />
-                <QuerySettingContainer
-                    gitHubSearchList={this.props.gitHubSearchList}
-                    gitHubSetting={this.props.gitHubSetting}
-                />
-                <QuickIssueContainer quickIssue={this.props.quickIssue} />
-            </div>
-            // Put webview into here in electron
+                {isElectron() ? <BrowserView url={"https://example.com"} /> : null}
+            </>
         );
     }
 }

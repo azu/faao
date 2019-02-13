@@ -40,3 +40,7 @@
 .AppContainer-body {
     flex: 1;
 }
+
+.AppContainer .BrowserView {
+    width: var(--electron-nav--width);
+}
