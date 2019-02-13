@@ -1,11 +1,13 @@
 :root {
     --App-nav--width: 180px;
+    --App-body--width: 320px;
 }
 
 .AppContainer {
-    width: 100%;
-    height: 100%;
     margin: 0;
+    width: calc(var(--App-nav--width) + var(--App-body--width));
+    min-width: calc(var(--App-nav--width) + var(--App-body--width));
+    height: 100%;
 }
 
 .AppContainer-mobileNav {
@@ -26,9 +28,11 @@
 
 .AppContainer-main {
     flex: 1;
+    /* prevent  width  https://qiita.com/shota_abe/items/853cf7e927eab2b3e8cd */
+    min-width: 0;
+    width: 100%;
     /* scrollable main . body is not scroll*/
     height: 100%;
-    width: calc(100% - var(--App-nav--width));
 }
 
 /* Layout Header */
@@ -41,6 +45,7 @@
     flex: 1;
 }
 
-.AppContainer .BrowserView {
+.BrowserView {
+    flex: 1;
     width: var(--electron-nav--width);
 }

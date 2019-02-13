@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import { BrowserWindow, BrowserView } from "electron";
+import { BrowserView, BrowserWindow } from "electron";
 
 const times = (count: number, cb: (item: any) => any) => {
     return Array.from(new Array(count), (_, index) => cb(index));
@@ -73,8 +73,7 @@ export class ViewPool {
     }
 
     private findByURL(url: string) {
-        const view = this.pool.find(v => v.webContents.getURL() === url);
-        return view;
+        return this.pool.find(v => v.webContents.getURL() === url);
     }
 
     private nextIdx(): number {

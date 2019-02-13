@@ -1,5 +1,4 @@
 /* electron */
-@import "../node_modules/electron-navigation/themes/material-light.css";
 
 :root {
     --electron-nav--width: 800px;
