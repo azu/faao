@@ -8,9 +8,10 @@ export function openURLInTab(url: string) {
     }
 }
 
+const { ipcRenderer } = (window as any).require("electron");
 export function openPage(url: string) {
-    if (window.electronNavigation) {
-        window.electronNavigation.changeTab(url);
+    if (ipcRenderer) {
+        ipcRenderer.send("browser-view-load-url", url);
     } else {
         window.open(url, "_faao");
     }

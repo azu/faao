@@ -1,6 +1,9 @@
-"use strict";
-const url = require("url");
-const { Menu, app, shell, BrowserWindow } = require("electron");
+import * as url from "url";
+import * as path from "path";
+
+import { app, ipcMain, BrowserWindow, Menu, shell } from "electron";
+import { ViewPool } from "./ViewPool";
+
 const defaultMenu = require("electron-default-menu");
 /**
  * get url for loading BrowserWindow
@@ -17,20 +20,24 @@ const getHTMLUrl = () => {
     return `file://${path.join(__dirname, "../build/index.html")}`;
 };
 const URL = getHTMLUrl();
+let viewPool: ViewPool;
+let mainWindow: BrowserWindow;
 if (process.env.NODE_ENV !== "production") {
     console.info(`Open: ${URL}`);
 }
 // context-menu for window
 require("electron-context-menu")();
 // Standard stuff
-app.on("gpu-process-crashed", event => {
+app.on("gpu-process-crashed", (event: any) => {
     console.log("gpu-process-crashed", event);
 });
 app.on("ready", () => {
+    // View Pool redirect
+    viewPool = new ViewPool(5);
     const menu = defaultMenu(app, shell);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -45,7 +52,7 @@ app.on("ready", () => {
     mainWindow.loadURL(URL);
 
     // prevent navigation in main webview
-    mainWindow.webContents.once("dom-ready", function(e) {
+    mainWindow.webContents.once("dom-ready", function(_event) {
         mainWindow.webContents.on("will-navigate", (event, URL) => {
             const { protocol, hostname } = url.parse(URL);
             if (protocol === "http:" || protocol === "https:") {
@@ -58,10 +65,38 @@ app.on("ready", () => {
             }
         });
     });
+
+    viewPool.on("will-navigate", (url: string) => {
+        mainWindow.webContents.send("browser-view-will-navigate", url);
+    });
 });
+
+ipcMain.on("browser-view-change-size", (_event: any, size: Size) => {
+    console.log("browser-view-change-size", size);
+    viewPool.setBounds(size);
+});
+
+ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
+    console.log("browser-view-load-url", url);
+    const view = await viewPool.open(url);
+    mainWindow.setBrowserView(view);
+});
+
+ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {
+    console.log("browser-view-prefetch", url);
+    viewPool.prefetch(url);
+});
+
+interface Size {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
 // https://github.com/electron/electron/blob/master/docs/tutorial/security.md#checklist
-app.on("web-contents-created", (event, contents) => {
-    contents.on("will-attach-webview", (event, webPreferences, params) => {
+app.on("web-contents-created", (_event, contents) => {
+    contents.on("will-attach-webview", (_event, webPreferences, _params) => {
         // Strip away preload scripts if unused or verify their location is legitimate
         delete webPreferences.preload;
         delete webPreferences.preloadURL;

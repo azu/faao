@@ -58,7 +58,7 @@
 
 .electron-view #js-app {
     flex: 1;
-    max-width: calc(100% - var(--electron-nav--width));
+    max-width: 100%;
 }
 
 .electron-view .electron-nav {

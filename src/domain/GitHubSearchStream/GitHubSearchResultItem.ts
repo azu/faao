@@ -212,6 +212,7 @@ export class GitHubSearchResultItem {
     updated_at: string;
     body: string;
     score: number;
+    closed_at?: any;
 
     constructor(item: GitHubSearchResultItemJSON) {
         this.id = new Identifier<GitHubSearchResultItem>(String(item.id));

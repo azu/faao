@@ -1001,10 +1001,10 @@
   dependencies:
     "@types/glob" "*"
 
-"@types/jest@^24.0.0":
-  version "24.0.0"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-24.0.0.tgz#848492026c327b3548d92be0352a545c36a21e8a"
-  integrity sha512-kOafJnUTnMd7/OfEO/x3I47EHswNjn+dbz9qk3mtonr1RvKT+1FGVxnxAx08I9K8Tl7j9hpoJRE7OCf+t10fng==
+"@types/jest@^24.0.1":
+  version "24.0.1"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-24.0.1.tgz#8945411140e7cdfd5ea76380e5f5fa7bf17646ea"
+  integrity sha512-4KNToPz5SAVa0GZrYAL3Q43p5MY/QBmYclYAmqPeqAmbgQ4lXkgKK0mYtr9S+N2Az0JvFaYJECztHZuFGhG3zw==
 
 "@types/lodash.groupby@^4.6.2":
   version "4.6.2"
@@ -1012,21 +1012,31 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.sortby@^4.7.2":
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/@types/lodash.sortby/-/lodash.sortby-4.7.2.tgz#00df83251e2c4be0a90e0c015ed5de50a72b92c3"
+"@types/lodash.groupby@^4.6.4":
+  version "4.6.4"
+  resolved "https://registry.npmjs.org/@types/lodash.groupby/-/lodash.groupby-4.6.4.tgz#4dbb730b0a8ad46915b7406d1e247cfd7a79b288"
+  integrity sha512-WvjZ0XtKdNUNGwY0udB3DiP3PC4mW6L3ESkJudA+LsgB2+LCUXUu3Pa+idzenLqBbMOcbBeAWPmEWSvyH0VWjw==
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.throttle@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@types/lodash.throttle/-/lodash.throttle-4.1.2.tgz#52356fa3fa52b0327e73e92763d607f76f9ced5b"
+"@types/lodash.sortby@^4.7.4":
+  version "4.7.4"
+  resolved "https://registry.npmjs.org/@types/lodash.sortby/-/lodash.sortby-4.7.4.tgz#14f9d45b6214b32cbe2f6332990b386d4b2dd09a"
+  integrity sha512-Byy/JXUl7VCKOjqk2XyOEa4kRp2UBuPPkdQpIwSi+54t3KDa1vkIRU+qFEoWZMLcMUbBq8+Iy8Ybri8AqFYLTA==
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.uniqby@^4.7.2":
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.2.tgz#3454021cad94ef4fd27bceed4954486137ac8e6d"
+"@types/lodash.throttle@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.npmjs.org/@types/lodash.throttle/-/lodash.throttle-4.1.4.tgz#db210627eb05ef68af99344669818c5baad24039"
+  integrity sha512-ZniM2KbesKU9Qyv+mxbp1/3xAzJyrrXcfdYdOpuO8VFIG04E2VGqzXUKjNiqOKTBpNXR3r0F9yukldLBX4z5HA==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.uniqby@^4.7.4":
+  version "4.7.4"
+  resolved "https://registry.npmjs.org/@types/lodash.uniqby/-/lodash.uniqby-4.7.4.tgz#09aaf4e79023af38d6baf1684e1f4f5490f3f1ef"
+  integrity sha512-qTZR/CABwOtOQ2Ywq5sVF5sZttXZZLpQQzfLZI0ht2yxEp0m1zxVw0vygcxpQhFH7Z5hQnZvHkkAXPheXxBxrw==
   dependencies:
     "@types/lodash" "*"
 
@@ -1058,19 +1068,20 @@
   version "7.0.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
-"@types/node@^10.12.18", "@types/node@^10.12.24":
+"@types/node@^10.12.18":
   version "10.12.24"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.12.24.tgz#b13564af612a22a20b5d95ca40f1bffb3af315cf"
   integrity sha512-GWWbvt+z9G5otRBW8rssOFgRY87J9N/qbhqfjMZ+gUuL6zoL+Hm6gP/8qQBG4jjimqdaNLCehcVapZ/Fs2WjCQ==
 
-"@types/prop-types@*":
+"@types/node@^11.9.0":
+  version "11.9.0"
+  resolved "https://registry.npmjs.org/@types/node/-/node-11.9.0.tgz#35fea17653490dab82e1d5e69731abfdbf13160d"
+  integrity sha512-ry4DOrC+xenhQbzk1iIPzCZGhhPGEFv7ia7Iu6XXSLVluiJIe9FfG7Iu3mObH9mpxEXCWLCMU4JWbCCR9Oy1Zg==
+
+"@types/prop-types@*", "@types/prop-types@^15.5.8":
   version "15.5.8"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
-
-"@types/prop-types@^15.5.2":
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.2.tgz#3c6b8dceb2906cc87fe4358e809f9d20c8d59be1"
 
 "@types/q@^1.5.1":
   version "1.5.1"
@@ -1603,6 +1614,11 @@ are-we-there-yet@~1.1.2:
   dependencies:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
+
+arg@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
+  integrity sha512-ZWc51jO3qegGkVh8Hwpv636EkbesNV5ZNQPCtRa+0qytRYPEs9IYT9qITY9buezqUH5uqyzlWLcufrzU2rffdg==
 
 argparse@^1.0.7:
   version "1.0.9"
@@ -3704,6 +3720,11 @@ detect-port-alt@1.1.6:
   dependencies:
     address "^1.0.1"
     debug "^2.6.0"
+
+diff@^3.1.0:
+  version "3.5.0"
+  resolved "https://registry.npmjs.org/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
+  integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
 diff@^3.2.0:
   version "3.2.0"
@@ -7445,7 +7466,7 @@ make-dir@^1.0.0:
   dependencies:
     pify "^2.3.0"
 
-make-error@1.x:
+make-error@1.x, make-error@^1.1.1:
   version "1.3.5"
   resolved "https://registry.npmjs.org/make-error/-/make-error-1.3.5.tgz#efe4e81f6db28cadd605c70f29c831b58ef776c8"
   integrity sha512-c3sIjNUow0+8swNwVpqoH4YCShKNFkMaw6oH1mNS2haDZQqkeZFlHS3dhoeEbKKmJB4vXpJucU6oH75aDYeE9g==
@@ -11438,6 +11459,17 @@ ts-jest@^23.10.5:
     semver "^5.5"
     yargs-parser "10.x"
 
+ts-node@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/ts-node/-/ts-node-8.0.2.tgz#9ecdf8d782a0ca4c80d1d641cbb236af4ac1b756"
+  integrity sha512-MosTrinKmaAcWgO8tqMjMJB22h+sp3Rd1i4fdoWY4mhBDekOwIAKI/bzmRi7IcbCmjquccYg2gcF6NBkLgr0Tw==
+  dependencies:
+    arg "^4.1.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
+    source-map-support "^0.5.6"
+    yn "^3.0.0"
+
 ts-pnp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/ts-pnp/-/ts-pnp-1.0.0.tgz#44a3a9e8c13fcb711bcda75d7b576c21af120c9d"
@@ -12413,6 +12445,11 @@ yauzl@2.4.1:
   resolved "https://registry.yarnpkg.com/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
   dependencies:
     fd-slicer "~1.0.1"
+
+yn@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/yn/-/yn-3.0.0.tgz#0073c6b56e92aed652fbdfd62431f2d6b9a7a091"
+  integrity sha512-+Wo/p5VRfxUgBUGy2j/6KX2mj9AYJWOHuhMjMcbBFc3y54o9/4buK1ksBvuiK01C3kby8DH9lSmJdSxw+4G/2Q==
 
 yup@^0.26.10:
   version "0.26.10"
