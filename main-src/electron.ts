@@ -1,6 +1,8 @@
-"use strict";
-const url = require("url");
-const { Menu, app, shell, BrowserWindow } = require("electron");
+import * as url from "url";
+import * as path from "path";
+
+import { app, BrowserWindow, Menu, shell } from "electron";
+
 const defaultMenu = require("electron-default-menu");
 /**
  * get url for loading BrowserWindow
@@ -23,7 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 // context-menu for window
 require("electron-context-menu")();
 // Standard stuff
-app.on("gpu-process-crashed", event => {
+app.on("gpu-process-crashed", (event: any) => {
     console.log("gpu-process-crashed", event);
 });
 app.on("ready", () => {
@@ -45,7 +47,7 @@ app.on("ready", () => {
     mainWindow.loadURL(URL);
 
     // prevent navigation in main webview
-    mainWindow.webContents.once("dom-ready", function(e) {
+    mainWindow.webContents.once("dom-ready", function(_event) {
         mainWindow.webContents.on("will-navigate", (event, URL) => {
             const { protocol, hostname } = url.parse(URL);
             if (protocol === "http:" || protocol === "https:") {
@@ -60,8 +62,8 @@ app.on("ready", () => {
     });
 });
 // https://github.com/electron/electron/blob/master/docs/tutorial/security.md#checklist
-app.on("web-contents-created", (event, contents) => {
-    contents.on("will-attach-webview", (event, webPreferences, params) => {
+app.on("web-contents-created", (_event, contents) => {
+    contents.on("will-attach-webview", (_event, webPreferences, _params) => {
         // Strip away preload scripts if unused or verify their location is legitimate
         delete webPreferences.preload;
         delete webPreferences.preloadURL;
