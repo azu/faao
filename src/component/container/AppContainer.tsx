@@ -77,7 +77,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                         url={
                             this.props.app.activeItem
                                 ? this.props.app.activeItem.html_url
-                                : "http://example.com"
+                                : "https://github.com"
                         }
                     />
                 ) : null}

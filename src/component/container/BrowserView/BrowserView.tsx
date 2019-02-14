@@ -112,9 +112,6 @@ export class BrowserView extends React.Component<Props> {
     }
 
     componentDidUpdate(prevProps: Props, _prevState: any, __: any) {
-        if (prevProps.url !== this.props.url) {
-            ipcRenderer.send("browser-view-load-url", this.props.url);
-        }
         if (prevProps.visible !== this.props.visible) {
             if (this.props.visible === true) {
                 ipcRenderer.send("browser-view-show");
