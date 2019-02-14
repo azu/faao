@@ -14,6 +14,7 @@ export function prefetch(url: string) {
 
 export class PrefetchItemsForOpen extends UseCase {
     execute(urlList: string[]) {
+        console.log("prefetching...", urlList);
         urlList.forEach(url => {
             prefetch(url);
         });

@@ -33,7 +33,7 @@ app.on("gpu-process-crashed", (event: any) => {
 });
 app.on("ready", () => {
     // View Pool redirect
-    viewPool = new ViewPool(3);
+    viewPool = new ViewPool(10);
     const menu = defaultMenu(app, shell);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window
@@ -88,9 +88,7 @@ ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
 
 ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {
     console.log("browser-view-prefetch", url);
-    viewPool.prefetch(url).then(view => {
-        console.log("prefetched view: ", view);
-    });
+    viewPool.prefetch(url);
 });
 
 ipcMain.on("browser-view-show", () => {

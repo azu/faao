@@ -94,3 +94,7 @@ For bugs and feature requests, [please create an issue](https://github.com/azu/f
 ## License
 
 MIT © azu
+
+with based on korat's ViewPool implementation.
+
+- https://github.com/pocke/korat/blob/f6beb9eb625fa2927ab19e8316110189dd0b6ab0/src/mainProcess/ViewPool.ts

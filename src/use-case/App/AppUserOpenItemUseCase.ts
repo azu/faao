@@ -1,4 +1,5 @@
 // MIT © 2017 azu
+const debug = require("debug")("AppUserOpenItemUseCase");
 import { UseCase } from "almin";
 import { OpenItemInNewTabUseCase } from "./OpenItemInNewTabUseCase";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
@@ -44,20 +45,19 @@ export class AppUserOpenItemUseCase extends UseCase {
                 const activeSearchList = activity.openedSearchListId
                     ? this.searchListRepository.findById(activity.openedSearchListId)
                     : undefined;
-                console.log("activeSearchList", activeSearchList);
+                debug("activeSearchList", activeSearchList);
                 if (!activeSearchList) {
                     return;
                 }
                 const searchStream = this.searchStreamRepository.findBySearchList(activeSearchList);
-                console.log("searchStream", searchStream);
                 if (!searchStream) {
                     return;
                 }
                 const nextItems = searchStream.itemSortedCollection.sliceItemsFromCurrentItem(
                     item,
-                    3
+                    8 // prefetch items // TODO: fix harcode
                 );
-                console.log("nextItems", nextItems);
+                debug("prefetch items:", nextItems);
                 return this.context.useCase(new PrefetchItemsForOpen()).executor(useCase => {
                     const itemsUrls = nextItems.map(item => item.html_url);
                     return useCase.execute(itemsUrls);

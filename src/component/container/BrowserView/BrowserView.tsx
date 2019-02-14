@@ -1,6 +1,7 @@
 import * as React from "react";
 
 const { ipcRenderer } = (window as any).require("electron");
+
 declare global {
     interface Window {
         ResizeObserver: ResizeObserver;
@@ -72,6 +73,8 @@ interface DOMRectReadOnly {
 
 interface Props {
     url: string;
+    // BrowserView can not to be overlay/
+    // Workaround for visible BrowserView
     visible: boolean;
 }
 
@@ -81,7 +84,6 @@ export class BrowserView extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         this.el = React.createRef();
-
         this.onResize = this.onResize.bind(this);
     }
 

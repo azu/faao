@@ -105,6 +105,6 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         if (index === -1) {
             return [];
         }
-        return this.items.slice(index, index + length);
+        return this.items.slice(index + 1, index + length);
     }
 }
