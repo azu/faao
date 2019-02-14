@@ -33,7 +33,7 @@ app.on("gpu-process-crashed", (event: any) => {
 });
 app.on("ready", () => {
     // View Pool redirect
-    viewPool = new ViewPool(5);
+    viewPool = new ViewPool(3);
     const menu = defaultMenu(app, shell);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window
@@ -45,7 +45,7 @@ app.on("ready", () => {
             plugins: true,
             nodeIntegration: true, // We will disable this?
             nativeWindowOpen: true,
-            webviewTag: true
+            webviewTag: false
         }
     });
     mainWindow.maximize();
@@ -71,20 +71,25 @@ app.on("ready", () => {
     });
 });
 
+let _size: any;
 ipcMain.on("browser-view-change-size", (_event: any, size: Size) => {
     console.log("browser-view-change-size", size);
     viewPool.setBounds(size);
+    _size = size;
 });
 
 ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
     console.log("browser-view-load-url", url);
     const view = await viewPool.open(url);
     mainWindow.setBrowserView(view);
+    viewPool.setBounds(_size);
 });
 
 ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {
     console.log("browser-view-prefetch", url);
-    viewPool.prefetch(url);
+    viewPool.prefetch(url).then(view => {
+        console.log("prefetched view: ", view);
+    });
 });
 
 interface Size {

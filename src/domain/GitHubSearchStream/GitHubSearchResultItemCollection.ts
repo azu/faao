@@ -97,4 +97,15 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         });
         return this.getItemAtIndex(index - 1);
     }
+
+    sliceItemsFromCurrentItem(currentItem: T, length: number): T[] {
+        const index = this.items.findIndex(item => {
+            return item.equals(currentItem);
+        });
+        console.log("match item", index);
+        if (index === -1) {
+            return [];
+        }
+        return this.items.slice(index, index + length);
+    }
 }

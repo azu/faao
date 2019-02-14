@@ -78,7 +78,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                 className={className}
                 onClick={onClick}
                 tabIndex={-1}
-                data-SearchResultListItem-index={this.props.index}
+                data-searchresultitem-index={this.props.index}
             >
                 <span className="SearchResultListItem-primaryText">
                     <a className="SearchResultListItem-link" href={item.html_url}>
@@ -184,7 +184,7 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
             () => {
                 this._list.forceUpdate();
                 const activeElement = document.querySelector(
-                    `[data-SearchResultListItem-index='${index}']`
+                    `[data-searchresultitem-index='${index}']`
                 );
                 if (activeElement) {
                     activeElement.scrollIntoView();

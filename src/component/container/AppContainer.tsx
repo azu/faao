@@ -66,7 +66,15 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                     />
                     <QuickIssueContainer quickIssue={this.props.quickIssue} />
                 </div>
-                {isElectron() ? <BrowserView url={"https://example.com"} /> : null}
+                {isElectron() ? (
+                    <BrowserView
+                        url={
+                            this.props.app.activeItem
+                                ? this.props.app.activeItem.html_url
+                                : "http://example.com"
+                        }
+                    />
+                ) : null}
             </>
         );
     }

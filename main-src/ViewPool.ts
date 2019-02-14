@@ -17,23 +17,23 @@ export class ViewPool {
     private wins: Array<Electron.BrowserWindow>;
     private openedIdx: number;
     private headIdx: number;
-    private ev: EventEmitter;
+    private eventEmitter: EventEmitter;
 
     constructor(private length: number) {
-        this.ev = new EventEmitter();
+        this.eventEmitter = new EventEmitter();
         this.pool = times(this.length, idx => {
-            const v = new BrowserView({ webPreferences: { nodeIntegration: false } });
-            v.webContents.on("will-navigate", (_event, url) => {
+            const browserView = new BrowserView({ webPreferences: { nodeIntegration: false } });
+            browserView.webContents.on("will-navigate", (_event, url) => {
                 if (this.openedIdx === idx) {
-                    this.ev.emit("will-navigate", url);
+                    this.eventEmitter.emit("will-navigate", url);
                 }
             });
-            return v;
+            return browserView;
         });
         this.wins = times(this.length, idx => {
-            const w = new BrowserWindow({ width: 100, height: 100, show: false });
-            w.setBrowserView(this.pool[idx]);
-            return w;
+            const browserWindow = new BrowserWindow({ width: 100, height: 100, show: false });
+            browserWindow.setBrowserView(this.pool[idx]);
+            return browserWindow;
         });
 
         this.openedIdx = 0;
@@ -41,10 +41,10 @@ export class ViewPool {
     }
 
     async prefetch(url: string): Promise<BrowserView> {
-        const v = this.findByURL(url);
-        if (v) {
+        const browserView = this.findByURL(url);
+        if (browserView) {
             console.log("cache hit: ", url);
-            return v;
+            return browserView;
         }
         const idx = this.nextIdx();
         const view = this.pool[idx];
@@ -58,18 +58,19 @@ export class ViewPool {
     async open(url: string) {
         const view = await this.prefetch(url);
         this.openedIdx = this.pool.indexOf(view);
-        this.ev.emit("will-navigate", url);
+        this.eventEmitter.emit("will-navigate", url);
         return view;
     }
 
     setBounds(size: Size) {
         this.pool.forEach(v => {
             v.setBounds(size);
+            v.setAutoResize({ width: true, height: true });
         });
     }
 
     on(key: string, f: (...args: any[]) => void) {
-        this.ev.on(key, f);
+        this.eventEmitter.on(key, f);
     }
 
     private findByURL(url: string) {

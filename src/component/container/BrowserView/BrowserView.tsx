@@ -90,11 +90,13 @@ export class BrowserView extends React.Component<Props> {
             this.onResize();
         }, 16);
         const resizeObserver = new window.ResizeObserver(entries => {
-            entries.forEach(({ contentRect }) => {
-                const { x, y, width, height, top, right, bottom, left } = contentRect;
-                this.onResize({ x, y, width, height });
+            entries.forEach(({}) => {
+                // this.onResize();
             });
         });
+        if (this.el.current) {
+            resizeObserver.observe(this.el.current);
+        }
     }
 
     private onResize(size?: { x: number; y: number; width: number; height: number }) {
