@@ -14,13 +14,18 @@ import {
 import { PrefetchItemsForOpen } from "./PrefetchItemsForOpen";
 
 export const createAppUserOpenItemUseCase = () => {
-    return new AppUserOpenItemUseCase(appRepository, gitHubSearchStreamRepository);
+    return new AppUserOpenItemUseCase(
+        appRepository,
+        gitHubSearchStreamRepository,
+        gitHubSearchListRepository
+    );
 };
 
 export class AppUserOpenItemUseCase extends UseCase {
     constructor(
         public appRepository: AppRepository,
-        public searchStreamRepository: GitHubSearchStreamRepository
+        public searchStreamRepository: GitHubSearchStreamRepository,
+        public searchListRepository: GitHubSearchListRepository
     ) {
         super();
     }
@@ -35,11 +40,24 @@ export class AppUserOpenItemUseCase extends UseCase {
                 return useCase.execute(item.html_url);
             })
             .then(() => {
-                const gitHubSearchStream = this.searchStreamRepository.get();
-                const nextItems = gitHubSearchStream.itemSortedCollection.sliceItemsFromCurrentItem(
+                const activity = app.user.activity;
+                const activeSearchList = activity.openedSearchListId
+                    ? this.searchListRepository.findById(activity.openedSearchListId)
+                    : undefined;
+                console.log("activeSearchList", activeSearchList);
+                if (!activeSearchList) {
+                    return;
+                }
+                const searchStream = this.searchStreamRepository.findBySearchList(activeSearchList);
+                console.log("searchStream", searchStream);
+                if (!searchStream) {
+                    return;
+                }
+                const nextItems = searchStream.itemSortedCollection.sliceItemsFromCurrentItem(
                     item,
                     3
                 );
+                console.log("nextItems", nextItems);
                 return this.context.useCase(new PrefetchItemsForOpen()).executor(useCase => {
                     const itemsUrls = nextItems.map(item => item.html_url);
                     return useCase.execute(itemsUrls);

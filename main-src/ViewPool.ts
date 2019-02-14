@@ -18,8 +18,11 @@ export class ViewPool {
     private openedIdx: number;
     private headIdx: number;
     private eventEmitter: EventEmitter;
+    private currentSize!: Size;
+    private visible: boolean;
 
     constructor(private length: number) {
+        this.visible = true;
         this.eventEmitter = new EventEmitter();
         this.pool = times(this.length, idx => {
             const browserView = new BrowserView({ webPreferences: { nodeIntegration: false } });
@@ -59,6 +62,9 @@ export class ViewPool {
         const view = await this.prefetch(url);
         this.openedIdx = this.pool.indexOf(view);
         this.eventEmitter.emit("will-navigate", url);
+        if (this.currentSize) {
+            this.setBounds(this.currentSize);
+        }
         return view;
     }
 
@@ -67,6 +73,7 @@ export class ViewPool {
             v.setBounds(size);
             v.setAutoResize({ width: true, height: true });
         });
+        this.currentSize = size;
     }
 
     on(key: string, f: (...args: any[]) => void) {
@@ -92,5 +99,24 @@ export class ViewPool {
     debug() {
         // HACK: to avoid unused field error of this.wins
         console.log(this.wins);
+    }
+
+    show() {
+        this.visible = true;
+        this.pool.forEach(v => {
+            v.setBounds(this.currentSize);
+        });
+    }
+
+    hide() {
+        this.visible = false;
+        this.pool.forEach(v => {
+            v.setBounds({
+                width: 0,
+                height: 0,
+                x: 0,
+                y: 0
+            });
+        });
     }
 }

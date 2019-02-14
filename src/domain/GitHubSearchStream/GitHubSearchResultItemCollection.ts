@@ -102,7 +102,6 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         const index = this.items.findIndex(item => {
             return item.equals(currentItem);
         });
-        console.log("match item", index);
         if (index === -1) {
             return [];
         }

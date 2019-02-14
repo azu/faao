@@ -82,6 +82,7 @@ ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
     console.log("browser-view-load-url", url);
     const view = await viewPool.open(url);
     mainWindow.setBrowserView(view);
+    // should setBounds after setBrowserView
     viewPool.setBounds(_size);
 });
 
@@ -90,6 +91,14 @@ ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {
     viewPool.prefetch(url).then(view => {
         console.log("prefetched view: ", view);
     });
+});
+
+ipcMain.on("browser-view-show", () => {
+    viewPool.show();
+});
+
+ipcMain.on("browser-view-hide", () => {
+    viewPool.hide();
 });
 
 interface Size {

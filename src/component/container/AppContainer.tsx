@@ -27,6 +27,11 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 "is-opened": this.props.mobile.isMenuOpened
             }
         });
+        const isOpnendPopup =
+            this.props.gitHubSetting.isOpenSettingPanel ||
+            this.props.gitHubSearchList.isQueryPanelOpened ||
+            this.props.gitHubSearchList.isSearchListPanelOpened;
+        console.log("isOpnendPopup", isOpnendPopup);
         return (
             <>
                 <div className="AppContainer">
@@ -68,6 +73,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 </div>
                 {isElectron() ? (
                     <BrowserView
+                        visible={!isOpnendPopup}
                         url={
                             this.props.app.activeItem
                                 ? this.props.app.activeItem.html_url

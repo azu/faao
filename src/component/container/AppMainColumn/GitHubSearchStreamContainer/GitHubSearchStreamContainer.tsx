@@ -24,7 +24,9 @@ export class GitHubSearchStreamContainer extends BaseContainer<
 > {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         event.preventDefault();
-        this.useCase(createAppUserOpenItemUseCase()).executor(useCase => useCase.execute(item));
+        this.useCase(createAppUserOpenItemUseCase()).executor(useCase => {
+            return useCase.execute(item);
+        });
     };
 
     render() {
