@@ -33,7 +33,7 @@ app.on("gpu-process-crashed", (event: any) => {
 });
 app.on("ready", () => {
     // View Pool redirect
-    viewPool = new ViewPool(10);
+    viewPool = new ViewPool(3);
     const menu = defaultMenu(app, shell);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window

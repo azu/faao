@@ -84,36 +84,45 @@ export class BrowserView extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         this.el = React.createRef();
-        this.onResize = this.onResize.bind(this);
     }
 
     componentDidMount() {
         ipcRenderer.send("browser-view-load-url", this.props.url);
-        setTimeout(() => {
-            this.onResize();
-        }, 16);
+        const current = this.el.current;
+        if (!current) {
+            throw new Error("require this.el.current");
+        }
+        const rect = current.getBoundingClientRect();
         const resizeObserver = new window.ResizeObserver(entries => {
-            entries.forEach(({}) => {
-                // this.onResize();
+            entries.forEach(entry => {
+                console.log("entry", entry);
+                this.onResize({
+                    x: rect.left,
+                    y: rect.top,
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height
+                });
             });
         });
-        if (this.el.current) {
-            resizeObserver.observe(this.el.current);
-        }
+        setTimeout(() => {
+            this.onResize();
+            resizeObserver.observe(current);
+        }, 16);
     }
 
-    private onResize(size?: { x: number; y: number; width: number; height: number }) {
+    private onResize = (size?: { x: number; y: number; width: number; height: number }) => {
         const current = this.el.current;
         if (!current) {
             return;
         }
         const { x, y, width, height } = size ? size : (current.getBoundingClientRect() as DOMRect);
+        console.log({ x, y, width, height });
         ipcRenderer.send("browser-view-change-size", { x, y, width, height });
-    }
+    };
 
     componentDidUpdate(prevProps: Props, _prevState: any, __: any) {
         if (prevProps.visible !== this.props.visible) {
-            if (this.props.visible === true) {
+            if (this.props.visible) {
                 ipcRenderer.send("browser-view-show");
             } else {
                 ipcRenderer.send("browser-view-hide");

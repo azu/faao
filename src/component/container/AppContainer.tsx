@@ -31,7 +31,6 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             this.props.gitHubSetting.isOpenSettingPanel ||
             this.props.gitHubSearchList.isQueryPanelOpened ||
             this.props.gitHubSearchList.isSearchListPanelOpened;
-        console.log("isOpnendPopup", isOpnendPopup);
         return (
             <>
                 <div className="AppContainer">

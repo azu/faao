@@ -79,11 +79,17 @@ export class ViewPool {
     }
 
     setBounds(size: Size) {
+        const floorSize = {
+            x: Math.floor(size.x),
+            y: Math.floor(size.y),
+            width: Math.floor(size.width),
+            height: Math.floor(size.height)
+        };
         this.pool.forEach(v => {
-            v.setBounds(size);
+            v.setBounds(floorSize);
             v.setAutoResize({ width: true, height: true });
         });
-        this.currentSize = size;
+        this.currentSize = floorSize;
     }
 
     on(key: string, f: (...args: any[]) => void) {
