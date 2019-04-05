@@ -116,7 +116,6 @@ export class BrowserView extends React.Component<Props> {
             return;
         }
         const { x, y, width, height } = size ? size : (current.getBoundingClientRect() as DOMRect);
-        console.log({ x, y, width, height });
         ipcRenderer.send("browser-view-change-size", { x, y, width, height });
     };
 
