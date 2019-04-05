@@ -92,10 +92,10 @@ export class BrowserView extends React.Component<Props> {
         if (!current) {
             throw new Error("require this.el.current");
         }
-        const rect = current.getBoundingClientRect();
         const resizeObserver = new window.ResizeObserver(entries => {
             entries.forEach(entry => {
-                console.log("entry", entry);
+                // TODO: remove getBoundingClientRect
+                const rect = current.getBoundingClientRect();
                 this.onResize({
                     x: rect.left,
                     y: rect.top,
