@@ -130,6 +130,11 @@ export class BrowserView extends React.Component<Props> {
     }
 
     render() {
-        return <div className="BrowserView" ref={this.el} />;
+        return (
+            <div className="BrowserView">
+                <div className="BrowserView-address">{this.props.url}</div>
+                <div className="BrowserView-content" ref={this.el} />
+            </div>
+        );
     }
 }

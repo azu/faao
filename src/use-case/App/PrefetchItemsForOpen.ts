@@ -8,7 +8,7 @@ export function prefetch(url: string) {
     if (ipcRenderer) {
         ipcRenderer.send("browser-view-prefetch", url);
     } else {
-        console.warn("Can not prefetch, because thsi env has not ipc");
+        console.warn("Can not prefetch, because this env has not ipc");
     }
 }
 

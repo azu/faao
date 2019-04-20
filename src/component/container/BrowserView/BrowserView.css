@@ -1,3 +1,16 @@
 .BrowserView {
     background: #c8c8c8;
+    display: flex;
+    flex-direction: column;
+}
+
+.BrowserView-address {
+    height: 24px;
+    min-width: 100%;
+}
+
+.BrowserView-content {
+    flex: 1;
+    min-width: 100%;
+    background: #fff;
 }

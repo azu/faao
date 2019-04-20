@@ -53,29 +53,40 @@ export class ViewPool {
         this.headIdx = 0;
     }
 
-    async prefetch(url: string): Promise<BrowserView> {
+    async prefetch(url: string): Promise<void> {
         const browserView = this.findByURL(url);
         if (browserView) {
             console.log("cache hit: ", url);
-            return browserView;
         }
         const idx = this.nextIdx();
         const view = this.pool[idx];
-        const wc = view.webContents;
-        return new Promise((resolve, _reject) => {
-            wc.once("dom-ready", () => resolve(view));
+        return this.loadUrlIntoView(url, view).then(() => {
+            console.log("prefetch url:", url);
+        });
+    }
+
+    async loadUrlIntoView(url: string, browserView: BrowserView): Promise<void> {
+        const wc = browserView.webContents;
+        return new Promise(resolve => {
+            wc.once("dom-ready", () => resolve());
             wc.loadURL(url);
         });
     }
 
-    async open(url: string) {
-        const view = await this.prefetch(url);
-        this.openedIdx = this.pool.indexOf(view);
-        this.eventEmitter.emit("will-navigate", url);
-        if (this.currentSize) {
-            this.setBounds(this.currentSize);
+    async open(url: string): Promise<BrowserView> {
+        const cachedBrowserView = this.findByURL(url);
+        if (cachedBrowserView) {
+            console.log("Open view from cached", url);
+            // update openedIdx with cachedView's idx
+            this.openedIdx = this.pool.indexOf(cachedBrowserView);
+            return cachedBrowserView;
+        } else {
+            // load url to current view
+            console.log("Load and Open view", url);
+            const currentView = this.pool[this.openedIdx];
+            await this.loadUrlIntoView(url, currentView);
+            return currentView;
         }
-        return view;
     }
 
     setBounds(size: Size) {
@@ -108,7 +119,6 @@ export class ViewPool {
         if (nextIdx === this.openedIdx) {
             return this.nextIdx();
         } else {
-            console.log("nextIdx", nextIdx);
             return nextIdx;
         }
     }
