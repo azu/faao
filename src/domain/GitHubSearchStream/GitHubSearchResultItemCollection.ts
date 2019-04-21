@@ -55,7 +55,7 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
                 return;
             }
             const item = savedItems[index];
-            if (addingItem.updatedAtDate > item.updatedAtDate) {
+            if (addingItem.isLaterThan(item)) {
                 savedItems.splice(index, 1);
             } else {
                 addingItems.splice(addingIndex, 1);

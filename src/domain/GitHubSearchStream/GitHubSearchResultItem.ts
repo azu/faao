@@ -288,6 +288,10 @@ export class GitHubSearchResultItem {
         return this.id.equals(item.id);
     }
 
+    isLaterThan(item: GitHubSearchResultItem): boolean {
+        return this.updatedAtDate > item.updatedAtDate;
+    }
+
     static fromJSON(json: GitHubSearchResultItemJSON): GitHubSearchResultItem {
         const proto = Object.create(GitHubSearchResultItem.prototype);
         return Object.assign(proto, json, {
