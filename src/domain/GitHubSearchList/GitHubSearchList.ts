@@ -1,24 +1,29 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
+import { GitHubSearchQuery, GitHubSearchQueryJSON, isGitHubSearchQuery } from "./GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
+import { FaaoSearchQuery, FaaoSearchQueryJSON } from "./FaaoSearchQuery";
 
 export interface GitHubSearchListJSON {
     id: string;
     name: string;
-    queries: GitHubSearchQueryJSON[];
+    queries: (GitHubSearchQueryJSON | FaaoSearchQueryJSON)[];
 }
 
 export interface GitHubSearchListArgs {
     id: Identifier<GitHubSearchList>;
     name: string;
-    queries: GitHubSearchQuery[];
+    queries: (GitHubSearchQuery | FaaoSearchQuery)[];
 }
 
+export const isSearchQueryJSON = (query: any): query is GitHubSearchQueryJSON => {
+    return query.query !== undefined;
+};
+
 export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
-    id: Identifier<GitHubSearchList>;
-    name: string;
-    queries: GitHubSearchQuery[];
+    readonly id: Identifier<GitHubSearchList>;
+    readonly name: string;
+    queries: (GitHubSearchQuery | FaaoSearchQuery)[];
 
     constructor(args: GitHubSearchListArgs) {
         super(args.id);
@@ -31,7 +36,13 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         const list = Object.create(GitHubSearchList.prototype);
         return Object.assign(list, json, {
             id: new Identifier<GitHubSearchList>(json.id),
-            queries: json.queries.map(query => GitHubSearchQuery.fromJSON(query))
+            queries: json.queries.map(query => {
+                if (isSearchQueryJSON(query)) {
+                    return GitHubSearchQuery.fromJSON(query);
+                } else {
+                    return FaaoSearchQuery.fromJSON(query);
+                }
+            })
         });
     }
 
@@ -42,7 +53,11 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         });
     }
 
-    includesQuery(aQuery: GitHubSearchQuery): boolean {
+    get githubSearchQueries(): GitHubSearchQuery[] {
+        return this.queries.filter(query => isGitHubSearchQuery(query)) as GitHubSearchQuery[];
+    }
+
+    includesQuery(aQuery: GitHubSearchQuery | FaaoSearchQuery): boolean {
         return this.queries.some(query => {
             return query.equals(aQuery);
         });

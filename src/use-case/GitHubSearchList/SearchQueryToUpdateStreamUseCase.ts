@@ -12,6 +12,7 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -43,7 +44,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
         super();
     }
 
-    async execute(query: GitHubSearchQuery, stream: GitHubSearchStream) {
+    async execute(query: GitHubSearchQuery | FaaoSearchQuery, stream: GitHubSearchStream) {
         const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
         const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(
             query.gitHubSettingId

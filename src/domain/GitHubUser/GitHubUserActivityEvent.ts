@@ -4,6 +4,7 @@ import { ValueObject } from "../ValueObject";
 import { compile, parse, ParsedEvent } from "parse-github-event";
 import * as url from "url";
 import urljoin from "url-join";
+import ghUrlToObject from "github-url-to-object";
 
 export interface Payload {}
 
@@ -79,8 +80,6 @@ export interface GitHubUserActivityEventJSON {
     created_at: string;
 }
 
-const ghUrlToObject = require("github-url-to-object");
-
 /**
  * get origin from url
  */
@@ -128,6 +127,10 @@ export class GitHubUserActivityEvent extends ValueObject {
         } else if (this.repo) {
             const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
             const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
+            if (!object) {
+                console.warn("object is null");
+                return "";
+            }
             const origin = getOriginFromURL(object.https_url);
             if (origin) {
                 return urljoin(origin, `${object.user}.png?size=20`);
@@ -141,6 +144,10 @@ export class GitHubUserActivityEvent extends ValueObject {
         // https://github.com/zeke/github-url-to-object#github-enterprise
         const isEnterprise = !this.htmlURL.startsWith("https://github.com/");
         const object = ghUrlToObject(this.htmlURL, { enterprise: isEnterprise });
+        if (!object) {
+            console.warn("object is null");
+            return "";
+        }
         return `${object.user}/${object.repo}`;
     }
 

@@ -11,6 +11,7 @@ import {
 } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 
 const debug = require("debug")("faao:ReloadAllStreamUseCase");
 export const createReloadAllStreamUseCase = () => {
@@ -43,7 +44,7 @@ export class ReloadAllStreamUseCase extends UseCase {
         }
         const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
         const allQueries = gitHubSearchLists.reduce(
-            (queries: GitHubSearchQuery[], gitHubSearchList) => {
+            (queries: (GitHubSearchQuery | FaaoSearchQuery)[], gitHubSearchList) => {
                 return queries.concat(gitHubSearchList.queries);
             },
             []

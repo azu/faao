@@ -19,6 +19,10 @@ export interface GitHubSearchQueryArgs {
     gitHubSettingId: Identifier<GitHubSetting>;
 }
 
+export const isGitHubSearchQuery = (query: any): query is GitHubSearchQuery => {
+    return query instanceof GitHubSearchQuery;
+};
+
 export class GitHubSearchQuery {
     name: string;
     query: string;
@@ -57,7 +61,7 @@ export class GitHubSearchQuery {
         return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
 
-    equals(aQuery?: GitHubSearchQuery): boolean {
+    equals(aQuery?: { hash: string }): boolean {
         if (aQuery === undefined) {
             return false;
         }

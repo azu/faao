@@ -2,6 +2,8 @@
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
+import { GitHubSearchQueryJSON } from "../GitHubSearchList/GitHubSearchQuery";
+import { FaaoSearchQueryJSON } from "../GitHubSearchList/FaaoSearchQuery";
 
 // Q. Why define duplicated interface?
 // A. We should define exportable data by manually
@@ -18,12 +20,7 @@ export interface ProfileJSON {
     GitHubSearchLists: {
         id: string;
         name: string;
-        queries: {
-            name: string;
-            query: string;
-            color: string;
-            gitHubSettingId: string;
-        }[];
+        queries: (GitHubSearchQueryJSON | FaaoSearchQueryJSON)[];
     }[];
     GitHubUsers?: {
         id: string;

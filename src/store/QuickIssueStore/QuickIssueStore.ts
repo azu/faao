@@ -44,7 +44,7 @@ export class QuickIssueState implements QuickIssueStateObject {
         // create issue list
         let queries: GitHubSearchQuery[] = [];
         this.gitHubSearchLists.forEach(searchList => {
-            queries = queries.concat(searchList.queries);
+            queries = queries.concat(searchList.githubSearchQueries);
         });
         const newIssueURLs = queries
             .map(query => {

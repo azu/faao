@@ -1,5 +1,8 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import {
+    GitHubSearchQuery,
+    isGitHubSearchQuery
+} from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
@@ -10,6 +13,10 @@ import {
 } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
 import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { GraphQLClient } from "graphql-request";
+
+import urlJoin from "url-join";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -40,13 +47,19 @@ const OctokatPlugins = [
 ];
 
 export class GitHubClient {
-    gh: any;
+    private gh: any;
+    private graphQLClient: GraphQLClient;
 
     constructor(gitHubSetting: GitHubSetting) {
         this.gh = new Octokat({
             token: gitHubSetting.token,
             rootURL: gitHubSetting.apiHost,
             plugins: OctokatPlugins
+        });
+        this.graphQLClient = new GraphQLClient(urlJoin(gitHubSetting.apiHost, "/graphql"), {
+            headers: {
+                authorization: `Bearer ${gitHubSetting.token}`
+            }
         });
     }
 
@@ -57,41 +70,99 @@ export class GitHubClient {
      * @param onComplete call when complete fetch
      */
     search(
-        query: GitHubSearchQuery,
+        query: GitHubSearchQuery | FaaoSearchQuery,
         onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
         onError: (error: Error) => void,
         onComplete: () => void
     ): void {
-        type FetchResponse = {
-            items: GitHubSearchResultItemJSON[];
-            incompleteResults: boolean;
-            fetch: () => Promise<FetchResponse>;
-        };
-        const onFetch = (response: FetchResponse) => {
-            debug("response %o", response);
-            // Support incompleteResults
-            const gitHubSearchResult = GitHubSearchResultFactory.create({
-                items: response.items || []
-            });
-            onProgress(gitHubSearchResult)
-                .then(isContinue => {
-                    if (!response.incompleteResults) {
-                        onComplete();
-                    } else if (isContinue) {
-                        response.fetch().then(onFetch);
-                    } else {
-                        onComplete();
-                    }
+        if (isGitHubSearchQuery(query)) {
+            type FetchResponse = {
+                items: GitHubSearchResultItemJSON[];
+                incompleteResults: boolean;
+                fetch: () => Promise<FetchResponse>;
+            };
+            const onFetch = (response: FetchResponse) => {
+                debug("response %o", response);
+                // Support incompleteResults
+                const gitHubSearchResult = GitHubSearchResultFactory.create({
+                    items: response.items || []
+                });
+                onProgress(gitHubSearchResult)
+                    .then(isContinue => {
+                        if (!response.incompleteResults) {
+                            onComplete();
+                        } else if (isContinue) {
+                            response.fetch().then(onFetch);
+                        } else {
+                            onComplete();
+                        }
+                    })
+                    .catch(onError);
+            };
+            this.gh.search.issues
+                .fetch({
+                    q: query.query,
+                    sort: "updated", // always updated
+                    per_page: 100
                 })
-                .catch(onError);
-        };
-        this.gh.search.issues
-            .fetch({
-                q: query.query,
-                sort: "updated", // always updated
-                per_page: 100
-            })
-            .then(onFetch, onError);
+                .then(onFetch, onError);
+        } else {
+            const queries = query.searchParams.params
+                .map(param => {
+                    const parsed = param.parsed();
+                    if (!parsed) {
+                        return;
+                    }
+                    return `
+  ${parsed.type}${parsed.no}: repository(owner: "${parsed.user}", name: "${parsed.repo}") {
+    ${parsed.type === "issue" ? "issue" : "pullRequest"}(number: ${parsed.no}) {
+      title
+      repository {
+        url
+      }
+      comments(last:1){
+        totalCount
+      }
+      id
+      number
+      author {
+        login
+      }
+      state
+      locked
+      assignees(first: 5) {
+        nodes {
+          avatarUrl
+        }
+      }
+      milestone {
+        id
+      }
+      createdAt
+      updatedAt
+      closedAt
+      url
+      body
+    }
+  }
+`;
+                })
+                .filter(query => query !== undefined);
+            const graphQLQuery = `{
+${queries.join("\n")}
+}`;
+            console.log(graphQLQuery);
+            this.graphQLClient.request(graphQLQuery).then(data => {
+                const items = Object.keys(data).map(key => {
+                    const type = /^issue/.test(key) ? "issue" : "pullRequest";
+                    return (data as any)[key][type];
+                });
+                console.log(JSON.stringify(items, null, 4));
+                const gitHubSearchResult = GitHubSearchResultFactory.create({
+                    items: items || []
+                });
+            });
+        }
     }
 
     events(
