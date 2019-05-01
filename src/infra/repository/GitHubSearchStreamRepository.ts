@@ -51,6 +51,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     }
 
     findBySearchList(searchList: GitHubSearchList): GitHubSearchStream | undefined {
+        console.log("searchList.id.toValue()", searchList.id.toValue());
         return this.map.get(searchList.id.toValue());
     }
 

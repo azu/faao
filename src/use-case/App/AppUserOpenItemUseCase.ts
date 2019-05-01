@@ -42,18 +42,14 @@ export class AppUserOpenItemUseCase extends UseCase {
             })
             .then(() => {
                 const activity = app.user.activity;
-                const activeSearchList = activity.openedSearchListId
-                    ? this.searchListRepository.findById(activity.openedSearchListId)
+                const activeSearchStream = activity.openedStreamId
+                    ? this.searchStreamRepository.findById(activity.openedStreamId)
                     : undefined;
-                debug("activeSearchList", activeSearchList);
-                if (!activeSearchList) {
+                debug("activeSearchStream", activeSearchStream);
+                if (!activeSearchStream) {
                     return;
                 }
-                const searchStream = this.searchStreamRepository.findBySearchList(activeSearchList);
-                if (!searchStream) {
-                    return;
-                }
-                const nextItems = searchStream.itemSortedCollection.sliceItemsFromCurrentItem(
+                const nextItems = activeSearchStream.itemSortedCollection.sliceItemsFromCurrentItem(
                     item,
                     8 // prefetch items // TODO: fix harcode
                 );
