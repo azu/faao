@@ -32,8 +32,6 @@ app.on("gpu-process-crashed", (event: any) => {
     console.log("gpu-process-crashed", event);
 });
 app.on("ready", () => {
-    // View Pool redirect
-    viewPool = new ViewPool(8);
     const menu = defaultMenu(app, shell);
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window
@@ -50,7 +48,6 @@ app.on("ready", () => {
     });
     mainWindow.maximize();
     mainWindow.loadURL(URL);
-
     // prevent navigation in main webview
     mainWindow.webContents.once("dom-ready", function(_event) {
         mainWindow.webContents.on("will-navigate", (event, URL) => {
@@ -65,7 +62,8 @@ app.on("ready", () => {
             }
         });
     });
-
+    // View Pool redirect
+    viewPool = new ViewPool(mainWindow, 8);
     viewPool.on("will-navigate", (url: string) => {
         mainWindow.webContents.send("browser-view-will-navigate", url);
     });
@@ -81,9 +79,7 @@ ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
     console.log("load url", url);
     const view = await viewPool.open(url);
     console.log("view", view.webContents.getURL());
-    mainWindow.setBrowserView(view);
-    // should setBounds after setBrowserView
-    viewPool.setBounds(_size);
+    viewPool.show(view);
 });
 
 ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {

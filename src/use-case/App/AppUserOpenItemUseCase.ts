@@ -51,7 +51,7 @@ export class AppUserOpenItemUseCase extends UseCase {
                 }
                 const nextItems = activeSearchStream.itemSortedCollection.sliceItemsFromCurrentItem(
                     item,
-                    8 // prefetch items // TODO: fix harcode
+                    3 // prefetch items // TODO: fix harcode
                 );
                 debug("prefetch items:", nextItems);
                 return this.context.useCase(new PrefetchItemsForOpen()).executor(useCase => {

@@ -20,7 +20,6 @@ interface Size {
 
 export class ViewPool {
     private pool: Array<Electron.BrowserView>;
-    private wins: Array<Electron.BrowserWindow>;
     private openedIdx: number;
     private headIdx: number;
     private eventEmitter: EventEmitter;
@@ -28,7 +27,7 @@ export class ViewPool {
     private visible: boolean;
     private lru: LRU.Cache<any, any>;
 
-    constructor(private length: number) {
+    constructor(private browerWindow: BrowserWindow, private length: number) {
         this.lru = new LRU({
             max: 30
         });
@@ -43,12 +42,9 @@ export class ViewPool {
             });
             return browserView;
         });
-        this.wins = times(this.length, idx => {
-            const browserWindow = new BrowserWindow({ width: 100, height: 100, show: false });
-            browserWindow.setBrowserView(this.pool[idx]);
-            return browserWindow;
+        this.pool.forEach(view => {
+            browerWindow.addBrowserView(view);
         });
-
         this.openedIdx = 0;
         this.headIdx = 0;
     }
@@ -89,16 +85,27 @@ export class ViewPool {
         }
     }
 
-    setBounds(size: Size) {
+    setBounds(size: Size, browserView?: BrowserView) {
         const floorSize = {
             x: Math.floor(size.x),
             y: Math.floor(size.y),
             width: Math.floor(size.width),
             height: Math.floor(size.height)
         };
+
+        const openedView = browserView ? browserView : this.pool[this.openedIdx];
         this.pool.forEach(v => {
-            v.setBounds(floorSize);
-            v.setAutoResize({ width: true, height: true });
+            if (openedView && v === openedView) {
+                v.setBounds(floorSize);
+                v.setAutoResize({ width: true, height: true });
+            } else {
+                v.setBounds({
+                    x: 0,
+                    y: 0,
+                    width: 0,
+                    height: 0
+                });
+            }
         });
         this.currentSize = floorSize;
     }
@@ -112,8 +119,9 @@ export class ViewPool {
     }
 
     private nextIdx(): number {
-        if (this.length === 1) return this.headIdx;
-
+        if (this.length === 1) {
+            return this.headIdx;
+        }
         const nextIdx = this.headIdx === this.length - 1 ? 0 : this.headIdx + 1;
         this.headIdx = nextIdx;
         if (nextIdx === this.openedIdx) {
@@ -123,20 +131,17 @@ export class ViewPool {
         }
     }
 
-    debug() {
-        // HACK: to avoid unused field error of this.wins
-        console.log(this.wins);
-    }
-
     /**
      * Show and Hide is workaround BrowserView
      * BrowserView can not to be hidden!
      */
-    show() {
+    show(browserView?: BrowserView) {
         this.visible = true;
-        this.pool.forEach(v => {
-            v.setBounds(this.currentSize);
-        });
+        this.setBounds(this.currentSize, browserView);
+        // debug
+        // this.pool.forEach((view, index) => {
+        //     console.log(`id: ${index}, url: ${view.webContents.getURL()}`);
+        // });
     }
 
     hide() {
