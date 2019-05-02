@@ -66,6 +66,8 @@ export class GitHubClient {
     /**
      * @param query
      * @param onProgress call with response when fetch each results
+     * onProgress handler should return Promise<boolean>
+     * if return true, continue to fetch
      * @param onError call with error when occur error
      * @param onComplete call when complete fetch
      */
@@ -107,6 +109,60 @@ export class GitHubClient {
                 })
                 .then(onFetch, onError);
         } else {
+            type QueryResponse = {
+                title: string;
+                repository: {
+                    url: string;
+                };
+                comments: {
+                    totalCount: number;
+                    nodes: {
+                        url: string;
+                    }[];
+                };
+                id: string;
+                number: number;
+                author: {
+                    login: string;
+                    avatarUrl: string;
+                    url: string;
+                };
+                state: "OPEN" | "CLOSED" | "MERGED";
+                locked: boolean;
+                labels: {
+                    nodes: {
+                        name: string;
+                        description: string;
+                        color: string;
+                        isDefault: boolean;
+                        url: string;
+                    }[];
+                };
+                assignees: {
+                    nodes: {
+                        avatarUrl: string;
+
+                        login: string;
+                        id: string;
+                        url: string;
+                    }[];
+                };
+                milestone: {
+                    title: string;
+                    description: string;
+                    url: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    dueOn?: string | null;
+                    closedAt: string | null;
+                    state: "OPEN" | "CLOSED";
+                };
+                createdAt: string;
+                updatedAt: string;
+                closedAt: string;
+                url: string;
+                body: string;
+            };
             const queries = query.searchParams.params
                 .map(param => {
                     const parsed = param.parsed();
@@ -122,21 +178,45 @@ export class GitHubClient {
       }
       comments(last:1){
         totalCount
+        nodes{
+          url
+        }
       }
       id
       number
       author {
         login
+        avatarUrl
+        url
       }
       state
       locked
-      assignees(first: 5) {
+      labels(first: 10){
+        nodes{
+          name
+          description
+          color
+          isDefault
+          url
+        }
+      }
+      assignees(first: 10) {
         nodes {
           avatarUrl
+          login
+          id
+          url
         }
       }
       milestone {
-        id
+        title
+        description
+        url
+        createdAt
+        updatedAt
+        dueOn
+        closedAt
+        state
       }
       createdAt
       updatedAt
@@ -151,15 +231,84 @@ export class GitHubClient {
             const graphQLQuery = `{
 ${queries.join("\n")}
 }`;
-            console.log(graphQLQuery);
+            const convertState = (
+                state: "OPEN" | "CLOSED" | "MERGED"
+            ): "open" | "closed" | "merged" => {
+                switch (state) {
+                    case "OPEN":
+                        return "open";
+                    case "CLOSED":
+                        return "closed";
+                    case "MERGED":
+                        return "merged";
+                    default:
+                        return state;
+                }
+            };
+            const convertQueryResponseToGitHubSearchResult = (
+                type: "pr" | "issue",
+                response: QueryResponse
+            ): GitHubSearchResultItemJSON => {
+                return {
+                    type,
+                    assignees: response.assignees.nodes.map(node => {
+                        return {
+                            login: node.login,
+                            avatar_url: node.avatarUrl,
+                            html_url: node.url
+                        };
+                    }),
+                    body: response.body,
+                    closed_at: response.closedAt,
+                    comments: response.comments.totalCount,
+                    created_at: response.createdAt,
+                    html_url: response.url,
+                    id: response.id,
+                    labels: response.labels.nodes.map(node => {
+                        return {
+                            color: node.color,
+                            default: node.isDefault,
+                            name: node.name,
+                            url: node.url
+                        };
+                    }),
+                    locked: response.locked,
+                    milestone: response.milestone
+                        ? {
+                              html_url: response.milestone.url,
+                              title: response.milestone.title,
+                              description: response.milestone.description,
+                              created_at: response.milestone.createdAt,
+                              updated_at: response.milestone.updatedAt,
+                              closed_at: response.milestone.closedAt,
+                              due_on: response.milestone.dueOn,
+                              state: convertState(response.milestone.state)
+                          }
+                        : null,
+                    number: response.number,
+                    state: convertState(response.state),
+                    title: response.title,
+                    updated_at: response.updatedAt,
+                    user: {
+                        avatar_url: response.author.avatarUrl,
+                        html_url: response.author.url,
+                        login: response.author.login
+                    }
+                };
+            };
             this.graphQLClient.request(graphQLQuery).then(data => {
                 const items = Object.keys(data).map(key => {
-                    const type = /^issue/.test(key) ? "issue" : "pullRequest";
-                    return (data as any)[key][type];
+                    const dataType = /^issue/.test(key) ? "issue" : "pullRequest";
+                    const queryResponse = (data as any)[key][dataType] as QueryResponse;
+                    const typeKey = dataType === "issue" ? "issue" : "pr";
+                    return convertQueryResponseToGitHubSearchResult(typeKey, queryResponse);
                 });
-                console.log(JSON.stringify(items, null, 4));
                 const gitHubSearchResult = GitHubSearchResultFactory.create({
                     items: items || []
+                });
+                onProgress(gitHubSearchResult).then((_continue: boolean) => {
+                    // TODO: handle onProgress resolve value
+                    onComplete();
                 });
             });
         }

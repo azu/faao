@@ -41,6 +41,7 @@ describe("GitHubClient", function() {
             );
         });
         it("search FaaoSearchQuery and pass results to progress callback", done => {
+            jest.setTimeout(20 * 1000);
             const client = new GitHubClient(config);
             const params = [
                 FaaoSearchQueryParam.fromJSON({

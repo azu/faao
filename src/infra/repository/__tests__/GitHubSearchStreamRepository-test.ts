@@ -7,7 +7,6 @@ import localForage from "localforage";
 import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { storageManger } from "../Storage";
-import sortBy from "lodash.sortby";
 
 const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
@@ -49,7 +48,7 @@ describe("GitHubSearchStreamRepository", () => {
             const resultStream = repository.findByQuery(testQuery);
             expect(resultStream).not.toBeUndefined();
             const actualItems = stream.items.map(item => item.toJSON());
-            expect(sortBy(actualItems, "id")).toEqual(sortBy(streamJSON.items, "id"));
+            expect(actualItems).toMatchSnapshot();
         });
     });
 });
