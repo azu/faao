@@ -72,7 +72,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     ): Promise<void> {
         this.map.set(searchListId.toValue(), stream);
         return this.storage.setItem(searchListId.toValue(), stream.toJSON()).then(() => {
-            debug("Save stream with search list");
+            debug("Save stream with SearchList");
         });
     }
 

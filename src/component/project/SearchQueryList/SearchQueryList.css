@@ -17,6 +17,7 @@
 }
 
 .SearchQueryList-headerLink {
+    width: 100%;
     font-size: 32px;
     margin: 0;
     padding: 0;

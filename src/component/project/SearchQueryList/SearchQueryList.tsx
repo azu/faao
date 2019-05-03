@@ -168,7 +168,7 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                         <Link className="SearchQueryList-headerLink" onClick={this.onClick}>
                             {this.props.searchList.name}
                         </Link>
-                        <CommandBarButton
+                        <IconButton
                             data-automation-id="add-query"
                             disabled={false}
                             checked={false}
