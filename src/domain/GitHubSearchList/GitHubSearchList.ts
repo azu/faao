@@ -1,29 +1,31 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery, GitHubSearchQueryJSON, isGitHubSearchQuery } from "./GitHubSearchQuery";
+import {
+    GitHubSearchQuery,
+    GitHubSearchQueryJSON,
+    isGitHubSearchQuery,
+    isSearchQueryJSON
+} from "./GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
-import { FaaoSearchQuery, FaaoSearchQueryJSON } from "./FaaoSearchQuery";
+import { FaaoSearchQuery, FaaoSearchQueryJSON, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
+import { QueryRole, QueryRoleJSON } from "./QueryRole";
 
 export interface GitHubSearchListJSON {
     id: string;
     name: string;
-    queries: (GitHubSearchQueryJSON | FaaoSearchQueryJSON)[];
+    queries: (FaaoSearchQueryJSON | GitHubSearchQueryJSON)[];
 }
 
 export interface GitHubSearchListArgs {
     id: Identifier<GitHubSearchList>;
     name: string;
-    queries: (GitHubSearchQuery | FaaoSearchQuery)[];
+    queries: (FaaoSearchQuery | GitHubSearchQuery)[];
 }
-
-export const isSearchQueryJSON = (query: any): query is GitHubSearchQueryJSON => {
-    return query.query !== undefined;
-};
 
 export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
     readonly id: Identifier<GitHubSearchList>;
     readonly name: string;
-    queries: (GitHubSearchQuery | FaaoSearchQuery)[];
+    queries: (FaaoSearchQuery | GitHubSearchQuery)[];
 
     constructor(args: GitHubSearchListArgs) {
         super(args.id);
@@ -39,9 +41,11 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
             queries: json.queries.map(query => {
                 if (isSearchQueryJSON(query)) {
                     return GitHubSearchQuery.fromJSON(query);
-                } else {
+                } else if (isFaaoSearchQueryJSON(query)) {
                     return FaaoSearchQuery.fromJSON(query);
                 }
+                console.error("Unknown query type", query);
+                throw new Error("Unknown query type");
             })
         });
     }
@@ -57,7 +61,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         return this.queries.filter(query => isGitHubSearchQuery(query)) as GitHubSearchQuery[];
     }
 
-    includesQuery(aQuery: GitHubSearchQuery | FaaoSearchQuery): boolean {
+    includesQuery(aQuery: QueryRole): boolean {
         return this.queries.some(query => {
             return query.equals(aQuery);
         });

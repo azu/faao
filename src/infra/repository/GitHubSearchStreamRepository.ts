@@ -11,6 +11,7 @@ import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
 import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
@@ -46,7 +47,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         return this.map.values().find(entity => gitHubSearchStreamId.equals(entity.id));
     }
 
-    findByQuery(query: GitHubSearchQuery | FaaoSearchQuery): GitHubSearchStream | undefined {
+    findByQuery(query: QueryRole): GitHubSearchStream | undefined {
         const hash = query.hash;
         return this.map.get(hash);
     }
@@ -60,10 +61,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         throw new Error("Use saveWithQuery");
     }
 
-    saveWithQuery(
-        stream: GitHubSearchStream,
-        query: GitHubSearchQuery | FaaoSearchQuery
-    ): Promise<void> {
+    saveWithQuery(stream: GitHubSearchStream, query: QueryRole): Promise<void> {
         const hash = query.hash;
         this.map.set(hash, stream);
         return this.storage.setItem(hash, stream.toJSON()).then(() => {

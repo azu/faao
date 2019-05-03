@@ -13,10 +13,11 @@ import {
 } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
 import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQuery, isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 import { GraphQLClient } from "graphql-request";
 
 import urlJoin from "url-join";
+import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -72,7 +73,7 @@ export class GitHubClient {
      * @param onComplete call when complete fetch
      */
     search(
-        query: GitHubSearchQuery | FaaoSearchQuery,
+        query: QueryRole,
         onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
         onError: (error: Error) => void,
         onComplete: () => void
@@ -108,7 +109,7 @@ export class GitHubClient {
                     per_page: 100
                 })
                 .then(onFetch, onError);
-        } else {
+        } else if (isFaaoSearchQuery(query)) {
             type QueryResponse = {
                 title: string;
                 repository: {

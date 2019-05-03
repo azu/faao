@@ -2,14 +2,11 @@ import { Identifier } from "../Entity";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { FaaoSearchQueryParams, FaaoSearchQueryParamsJSON } from "./FaaoSearchQueryParams";
-import { GitHubSearchQueryJSON } from "./GitHubSearchQuery";
+import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
 
-export interface FaaoSearchQueryJSON {
-    name: string;
+export type FaaoSearchQueryJSON = {
     searchParams: FaaoSearchQueryParamsJSON;
-    color: string;
-    gitHubSettingId: string;
-}
+} & QueryRoleJSON;
 
 export interface FaaoSearchQueryArgs {
     name: string;
@@ -17,6 +14,14 @@ export interface FaaoSearchQueryArgs {
     color: GitHubSearchQueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 }
+
+export const isFaaoSearchQuery = (query: QueryRole): query is FaaoSearchQuery => {
+    return query instanceof FaaoSearchQuery;
+};
+
+export const isFaaoSearchQueryJSON = (query: any): query is FaaoSearchQueryJSON => {
+    return isQueryRoleJSON(query) && query.searchParams !== undefined;
+};
 
 /**
  * Faao specific query.
