@@ -221,7 +221,7 @@ export class GitHubSettingList extends React.Component<
                 />
             ) : null;
         const facepileProps: IFacepileProps = {
-            personaSize: PersonaSize.small,
+            personaSize: PersonaSize.size32,
             personas: createFacepilePersonas(this.props.settings, this.onClick),
             ariaDescription: "Your GitHub account setting list",
             showAddButton: true,

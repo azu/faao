@@ -29,6 +29,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
         });
         const isOpnendPopup =
             this.props.quickIssue.isOpened ||
+            this.props.profile.isShow ||
             this.props.gitHubSetting.isOpenSettingPanel ||
             this.props.gitHubSearchList.openQueryPanelState ||
             this.props.gitHubSearchList.isSearchListPanelOpened;

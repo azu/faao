@@ -11,8 +11,9 @@
 .SearchQueryList-headerTitle {
     height: 32px;
     padding-left: 1rem;
-    vertical-align: top;
-    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .SearchQueryList-headerLink {

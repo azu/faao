@@ -75,8 +75,6 @@
 .SearchResultListItem-footer {
     font-size: 12px;
     padding: 0.2rem 0;
-    /* for .SearchResultListItem-meta is absolute */
-    position: relative;
 }
 
 .SearchResultListItem-authorIcon {
@@ -100,6 +98,15 @@
     font-size: 12px;
     padding: 3px 4px;
     margin-right: 0.2rem;
+}
+
+.SearchResultListItem-meta {
+    display: flex;
+}
+
+.SearchResultListItem-comments {
+    text-align: right;
+    flex: 1;
 }
 
 .SearchResultListItem-commentsIcon {
