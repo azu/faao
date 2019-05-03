@@ -12,13 +12,11 @@ export interface QuickIssueContainerProps {
 
 export class QuickIssueContainer extends BaseContainer<QuickIssueContainerProps, {}> {
     onDismiss = () => {
-        this.useCase(new CloseQuickIssueUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new CloseQuickIssueUseCase()).execute();
     };
 
     onSubmit = (issueURL: string, title: string, body: string) => {
-        this.useCase(new OpenGitHubIssueUseCase()).executor(useCase => {
-            return useCase.execute(issueURL, title, body);
-        });
+        this.useCase(new OpenGitHubIssueUseCase()).execute(issueURL, title, body);
     };
 
     render() {

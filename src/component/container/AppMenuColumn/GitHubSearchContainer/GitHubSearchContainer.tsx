@@ -31,45 +31,37 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             icon: "EditMirrored",
             ariaLabel: "Quick New Issue",
             onClick: () => {
-                return this.useCase(new OpenQuickIssueUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
+                return this.useCase(new OpenQuickIssueUseCase()).execute();
             }
         }
     ];
 
     onClickQuery = (query: UnionQuery) => {
         this.useCase(createSearchQueryAndOpenStreamUseCase())
-            .executor(useCase => useCase.execute(query))
+            .execute(query)
             .catch((error: Error) => {
                 console.error("onClickQuery", error);
             });
     };
 
     onEditQuery = (query: UnionQuery) => {
-        this.useCase(new EditQueryPanelUseCase()).executor(useCase => useCase.execute(query));
+        this.useCase(new EditQueryPanelUseCase()).execute(query);
     };
 
     onDeleteQuery = (query: UnionQuery) => {
-        this.useCase(createDeleteQueryUseCase()).executor(useCase => useCase.execute(query));
+        this.useCase(createDeleteQueryUseCase()).execute(query);
     };
 
     onClickAddingGitHubQuery = (searchList: GitHubSearchList) => {
-        this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
-            useCase.execute(searchList, "github")
-        );
+        this.useCase(new OpenQueryPanelUseCase()).execute(searchList, "github");
     };
 
     onClickAddingFaaoQuery = (searchList: GitHubSearchList) => {
-        this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
-            useCase.execute(searchList, "faao")
-        );
+        this.useCase(new OpenQueryPanelUseCase()).execute(searchList, "faao");
     };
 
     onClickSearchList = (searchList: GitHubSearchList) => {
-        this.useCase(createSearchQueriesAndOpenStreamUseCase()).executor(useCase =>
-            useCase.execute(searchList)
-        );
+        this.useCase(createSearchQueriesAndOpenStreamUseCase()).execute(searchList);
     };
 
     render() {

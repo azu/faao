@@ -53,9 +53,7 @@ runDOMBootstrap();
 const AppWrapContainer = AlminReactContainer.create(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), async () => {
     // render and restore repositories
-    await context
-        .useCase(createSystemReadyToLaunchAppUseCase())
-        .executor(useCase => useCase.execute());
+    await context.useCase(createSystemReadyToLaunchAppUseCase()).execute();
     // reload all stream at first
-    await context.useCase(createReloadAllStreamUseCase()).executor(useCase => useCase.execute());
+    await context.useCase(createReloadAllStreamUseCase()).execute();
 });

@@ -16,9 +16,7 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     onDismiss = () => {
         const errorNotice = this.props.notice.errorNotice;
         if (errorNotice) {
-            this.useCase(createDismissErrorNoticeUseCase()).executor(useCase =>
-                useCase.execute(errorNotice)
-            );
+            this.useCase(createDismissErrorNoticeUseCase()).execute(errorNotice);
         }
     };
 
@@ -74,9 +72,7 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
         }
         const onClick = () => {
             this.onDismiss();
-            this.useCase(new EditQueryPanelUseCase()).executor(useCase =>
-                useCase.execute(searchQueryErrorNotice.query)
-            );
+            this.useCase(new EditQueryPanelUseCase()).execute(searchQueryErrorNotice.query);
         };
         return (
             <div className="ErrorContainer-genericErrorNotice">

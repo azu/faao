@@ -28,19 +28,15 @@ export class GitHubSearchStreamContainer extends BaseContainer<
 > {
     onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
         event.preventDefault();
-        this.useCase(createAppUserOpenItemUseCase()).executor(useCase => {
-            return useCase.execute(item);
-        });
+        this.useCase(createAppUserOpenItemUseCase()).execute(item);
     };
 
     onClickQueryOptionMenu = (item: GitHubSearchResultItem, query: FaaoSearchQuery) => {
-        this.useCase(createUpdateFaaoQueryParamUseCase()).executor(useCase =>
-            useCase.execute(
-                {
-                    url: item.html_url
-                },
-                query
-            )
+        this.useCase(createUpdateFaaoQueryParamUseCase()).execute(
+            {
+                url: item.html_url
+            },
+            query
         );
     };
 

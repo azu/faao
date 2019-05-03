@@ -18,33 +18,26 @@ export class GitHubSettingPanelContainer extends BaseContainer<
     {}
 > {
     onDismiss = () => {
-        this.useCase(new CloseSettingPanelUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new CloseSettingPanelUseCase()).execute();
     };
 
     onSubmit = async (settingJSON: GitHubSettingJSON) => {
         try {
             // check grant
-            await this.useCase(new CheckGrantGitHubAPIUseCase()).executor(useCase =>
-                useCase.execute(settingJSON)
-            );
+            await this.useCase(new CheckGrantGitHubAPIUseCase()).execute(settingJSON);
             // update setting
             if (this.props.gitHubSetting.editingSetting) {
-                await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase => {
-                    return useCase.execute(settingJSON, this.props.gitHubSetting.editingSettingId);
-                });
-            } else {
-                await this.useCase(createSaveGitHubSettingUseCase()).executor(useCase =>
-                    useCase.execute(settingJSON)
+                await this.useCase(createSaveGitHubSettingUseCase()).execute(
+                    settingJSON,
+                    this.props.gitHubSetting.editingSettingId
                 );
+            } else {
+                await this.useCase(createSaveGitHubSettingUseCase()).execute(settingJSON);
             }
         } catch (error) {
-            await this.useCase(createShowGenericErrorUseCase()).executor(useCase =>
-                useCase.execute(error as Error)
-            );
+            await this.useCase(createShowGenericErrorUseCase()).execute(error as Error);
         } finally {
-            await this.useCase(new CloseSettingPanelUseCase()).executor(useCase =>
-                useCase.execute()
-            );
+            await this.useCase(new CloseSettingPanelUseCase()).execute();
         }
     };
 

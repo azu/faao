@@ -24,7 +24,7 @@ export class AppMenuHeaderContainer extends BaseContainer<AppMenuHeaderContainer
             },
             ariaLabel: "Quick New Issue",
             onClick: () => {
-                this.useCase(new OpenQuickIssueUseCase()).executor(useCase => useCase.execute());
+                this.useCase(new OpenQuickIssueUseCase()).execute();
             }
         }
     ];

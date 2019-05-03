@@ -13,16 +13,12 @@ export interface SearchListPanelContainerProps {
 
 export class SearchListPanelContainer extends BaseContainer<SearchListPanelContainerProps, {}> {
     onDismiss = () => {
-        this.useCase(new CloseSearchListPanelUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new CloseSearchListPanelUseCase()).execute();
     };
 
     onSubmit = async (gitHubSearchListJSON: Pick<GitHubSearchListJSON, "name">) => {
-        await this.useCase(createAddSearchListUseCase()).executor(useCase =>
-            useCase.execute(gitHubSearchListJSON.name)
-        );
-        await this.useCase(new CloseSearchListPanelUseCase()).executor(useCase =>
-            useCase.execute()
-        );
+        await this.useCase(createAddSearchListUseCase()).execute(gitHubSearchListJSON.name);
+        await this.useCase(new CloseSearchListPanelUseCase()).execute();
     };
 
     render() {

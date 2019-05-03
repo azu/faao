@@ -13,15 +13,15 @@ export interface ProfileContainerProps {
 
 export class ProfileContainer extends BaseContainer<ProfileContainerProps, {}> {
     onDismiss = () => {
-        this.useCase(new CloseProfileWindowUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new CloseProfileWindowUseCase()).execute();
     };
 
     onClickImportButton = (_event: React.MouseEvent<any>, json: ProfileJSON) => {
-        this.useCase(createImportProfileJSONUseCase()).executor(useCase => useCase.execute(json));
+        this.useCase(createImportProfileJSONUseCase()).execute(json);
     };
 
     onClickExportButton = () => {
-        this.useCase(createExportProfileUseCase()).executor(useCase => useCase.execute());
+        this.useCase(createExportProfileUseCase()).execute();
     };
 
     render() {

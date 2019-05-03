@@ -36,9 +36,7 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
                                 },
                                 ariaLabel: "Add new SearchList",
                                 onClick: () => {
-                                    this.useCase(new OpenSearchListPanelUseCase()).executor(
-                                        useCase => useCase.execute()
-                                    );
+                                    this.useCase(new OpenSearchListPanelUseCase()).execute();
                                 }
                             },
                             {
@@ -50,12 +48,10 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
                                 ariaLabel: "Imports/Exports Profile",
                                 onClick: () => {
                                     (async () => {
-                                        await this.useCase(new OpenProfileWindowUseCase()).executor(
-                                            useCase => useCase.execute()
-                                        );
-                                        await this.useCase(createExportProfileUseCase()).executor(
-                                            useCase => useCase.execute()
-                                        );
+                                        await this.useCase(
+                                            new OpenProfileWindowUseCase()
+                                        ).execute();
+                                        await this.useCase(createExportProfileUseCase()).execute();
                                     })();
                                 }
                             }

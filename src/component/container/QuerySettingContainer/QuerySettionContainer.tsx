@@ -24,7 +24,7 @@ export interface QuickIssueContainerProps {
 
 export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProps, {}> {
     onDismiss = () => {
-        this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new CloseQueryPanelUseCase()).execute();
     };
 
     onFaaoQuerySubmit = async (queryJSON: FaaoSearchQueryJSON) => {
@@ -32,17 +32,19 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
             const editingQuery = this.props.gitHubSearchList.editingQuery;
             if (isFaaoSearchQuery(editingQuery)) {
                 // edit query
-                await this.useCase(createUpdateQueryToSearchListUseCase()).executor(useCase => {
-                    return useCase.execute(queryJSON, editingQuery);
-                });
+                await this.useCase(createUpdateQueryToSearchListUseCase()).execute(
+                    queryJSON,
+                    editingQuery
+                );
             } else if (this.props.gitHubSearchList.editingSearchList) {
                 // add query
-                await this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase =>
-                    useCase.execute(this.props.gitHubSearchList.editingSearchList!, queryJSON)
+                await this.useCase(createSaveQueryToSearchListUseCase()).execute(
+                    this.props.gitHubSearchList.editingSearchList!,
+                    queryJSON
                 );
             }
         } finally {
-            await this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute());
+            await this.useCase(new CloseQueryPanelUseCase()).execute();
         }
     };
 
@@ -51,17 +53,19 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
             const editingQuery = this.props.gitHubSearchList.editingQuery;
             if (isGitHubSearchQuery(editingQuery)) {
                 // edit query
-                await this.useCase(createUpdateQueryToSearchListUseCase()).executor(useCase => {
-                    return useCase.execute(queryJSON, editingQuery);
-                });
+                await this.useCase(createUpdateQueryToSearchListUseCase()).execute(
+                    queryJSON,
+                    editingQuery
+                );
             } else if (this.props.gitHubSearchList.editingSearchList) {
                 // add query
-                await this.useCase(createSaveQueryToSearchListUseCase()).executor(useCase =>
-                    useCase.execute(this.props.gitHubSearchList.editingSearchList!, queryJSON)
+                await this.useCase(createSaveQueryToSearchListUseCase()).execute(
+                    this.props.gitHubSearchList.editingSearchList!,
+                    queryJSON
                 );
             }
         } finally {
-            await this.useCase(new CloseQueryPanelUseCase()).executor(useCase => useCase.execute());
+            await this.useCase(new CloseQueryPanelUseCase()).execute();
         }
     };
 

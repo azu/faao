@@ -20,13 +20,13 @@ export class AppMobileNav extends BaseContainer<AppMobileNavProps, {}> {
     onClickMenuButton = () => {
         if (this.props.mobile.isMenuOpened) {
             return this.useCase(new CloseMobileMenuUseCase())
-                .executor(useCase => useCase.execute())
+                .execute()
                 .then(() => {
                     this.unSubscribeMenuUseCase();
                 });
         } else {
             return this.useCase(new OpenMobileMenuUseCase())
-                .executor(useCase => useCase.execute())
+                .execute()
                 .then(() => {
                     this.subscribeMenuUseCase();
                 });
@@ -37,7 +37,7 @@ export class AppMobileNav extends BaseContainer<AppMobileNavProps, {}> {
         this.unSubscribe = appLocator.context.events.onDidExecuteEachUseCase(
             (_payload, _meta: DispatcherPayloadMeta) => {
                 this.unSubscribe();
-                this.useCase(new CloseMobileMenuUseCase()).executor(useCase => useCase.execute());
+                this.useCase(new CloseMobileMenuUseCase()).execute();
             }
         );
     }

@@ -17,16 +17,12 @@ export class GitHubUserEventContainerCommandBarContainer extends BaseContainer<
     {}
 > {
     onClickRefreshButton = () => {
-        this.useCase(createReloadCurrentUserActivityUseCase()).executor(useCase =>
-            useCase.execute()
-        );
+        this.useCase(createReloadCurrentUserActivityUseCase()).execute();
     };
 
     onChangeSearchValue = (value: any) => {
         if (typeof value === "string") {
-            this.useCase(createApplyFilterToCurrentUserActivityUseCase()).executor(useCase =>
-                useCase.execute(value)
-            );
+            this.useCase(createApplyFilterToCurrentUserActivityUseCase()).execute(value);
         }
     };
 

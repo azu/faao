@@ -17,14 +17,12 @@ export class GitHubSearchStreamCommandBarContainer extends BaseContainer<
     {}
 > {
     onClickRefreshButton = () => {
-        this.useCase(createReloadActiveStreamUseCase()).executor(useCase => useCase.execute());
+        this.useCase(createReloadActiveStreamUseCase()).execute();
     };
 
     onChangeSearchValue = (value: any) => {
         if (typeof value === "string") {
-            this.useCase(createApplyFilterToCurrentStreamUseCase()).executor(useCase =>
-                useCase.execute(value)
-            );
+            this.useCase(createApplyFilterToCurrentStreamUseCase()).execute(value);
         }
     };
 

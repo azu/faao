@@ -12,14 +12,12 @@ export class ObserverContainer extends BaseContainer<{}, {}> {
     onOnlineStatus = () => {
         const networkStatus: AppNetworkStatus =
             typeof navigator !== "undefined" ? (navigator.onLine ? "online" : "offline") : "online";
-        this.useCase(createUpdateAppNetworkStatusUseCase()).executor(useCase =>
-            useCase.execute(networkStatus)
-        );
+        this.useCase(createUpdateAppNetworkStatusUseCase()).execute(networkStatus);
     };
 
     onIntervalWork = () => {
         debug("try auto-reload");
-        this.useCase(createReloadAllStreamUseCase()).executor(useCase => useCase.execute());
+        this.useCase(createReloadAllStreamUseCase()).execute();
     };
 
     componentDidMount() {

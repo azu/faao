@@ -24,27 +24,23 @@ export class GitHubSettingContainer extends BaseContainer<GitHubSettingContainer
     };
 
     onEditSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        this.useCase(new OpenSettingPanelUseCase()).executor(useCase => useCase.execute(setting));
+        this.useCase(new OpenSettingPanelUseCase()).execute(setting);
     };
 
     onClickAddSetting = () => {
-        this.useCase(new OpenSettingPanelUseCase()).executor(useCase => useCase.execute());
+        this.useCase(new OpenSettingPanelUseCase()).execute();
     };
 
     onDeleteSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        this.useCase(createDeleteSettingUseCase()).executor(useCase => useCase.execute(setting));
+        this.useCase(createDeleteSettingUseCase()).execute(setting);
     };
 
     onRefreshSetting = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        this.useCase(createFetchGitHubUserDataUserCase()).executor(useCase =>
-            useCase.execute(setting.id)
-        );
+        this.useCase(createFetchGitHubUserDataUserCase()).execute(setting.id);
     };
 
     onShowUserEvents = (_event: SyntheticEvent<any>, setting: GitHubSetting) => {
-        this.useCase(createAppUserOpenGitHubUserCase()).executor(useCase =>
-            useCase.execute(setting.id)
-        );
+        this.useCase(createAppUserOpenGitHubUserCase()).execute(setting.id);
     };
 
     render() {
