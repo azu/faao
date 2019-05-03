@@ -41,19 +41,6 @@ script:
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
-after_success:
-  - |
-
-        $(npm bin)/set-up-ssh --key "$encrypted_d5d527d3f6a6_key" \
-                             --iv "$encrypted_d5d527d3f6a6_iv" \
-                             --path-encrypted-key ".travis/github_deploy_key.enc"
-
-        $(npm bin)/update-branch --commands "yarn run build && yarn run build:docs" \
-                                 --commit-message "Update website [skip ci]" \
-                                 --directory "./public" \
-                                 --distribution-branch "gh-pages" \
-                                 --source-branch "master"
-
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
