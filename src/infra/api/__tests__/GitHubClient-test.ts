@@ -5,7 +5,7 @@ import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/FaaoSearchQuer
 import { FaaoSearchQueryParams } from "../../../domain/GitHubSearchList/FaaoSearchQueryParams";
 import { FaaoSearchQueryParam } from "../../../domain/GitHubSearchList/FaaoSearchQueryParam";
 
-const GH_TOKEN = process.env.GH_TOKEN;
+const GH_TOKEN = process.env.TEST_GH_TOKEN;
 describe("GitHubClient", function() {
     if (!GH_TOKEN) {
         it("skip all. test needs process.env.GH_TOKEN", () => {});
@@ -29,6 +29,7 @@ describe("GitHubClient", function() {
                     query: "repo:azu/faao Quick Issue"
                 }),
                 searchResult => {
+                    console.log(searchResult.items);
                     expect(searchResult.items).toBeDefined();
                     return Promise.resolve(true);
                 },
