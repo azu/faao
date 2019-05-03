@@ -65,7 +65,8 @@
 }
 
 .SearchResultListItem-sideMenu {
-    width: 24px;
+    width: 32px;
+    margin-left: -12px;
 }
 
 .SearchResultListItem-footer {
