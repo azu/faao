@@ -79,7 +79,8 @@
     "preelectron-pack": "npm run build",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "release": "npm run build && electron-builder"
+    "release": "npm run build && electron-builder",
+    "website": "npm-run-all build build:docs"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.0",
