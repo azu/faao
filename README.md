@@ -22,7 +22,7 @@ Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 
 ### Browser
 
-- Open <https://azu.github.io/faao/>
+- Open <https://faao.netlify.com/>
 
 ### Electron
 
