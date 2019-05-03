@@ -795,55 +795,65 @@
   resolved "https://registry.npmjs.org/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@immutable-array/copy-within@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/copy-within/-/copy-within-1.0.1.tgz#dc5c4a673ed2e557197a7154781f5dc350b5dd4c"
+"@immutable-array/copy-within@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/copy-within/-/copy-within-1.0.4.tgz#1816a66ad8720ae9dd9ee051838fba62c19afcc8"
+  integrity sha1-GBamathyCundnuBRg4+6YsGa/Mg=
 
-"@immutable-array/fill@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/fill/-/fill-1.0.1.tgz#022b2acc383e992a3b72bd491f6f9861315ba834"
+"@immutable-array/fill@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/fill/-/fill-1.0.4.tgz#d70edd609d308288f406807d4be1bbbef08094f7"
+  integrity sha1-1w7dYJ0wgoj0BoB9S+G7vvCAlPc=
 
-"@immutable-array/pop@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/pop/-/pop-1.0.1.tgz#9bcd1b2788b514a8685e9b1bf6c76d06dd512b14"
+"@immutable-array/pop@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/pop/-/pop-1.0.4.tgz#a34dc8f379f37ca620e672f682effad448a023dd"
+  integrity sha1-o03I83nzfKYg5nL2gu/61EigI90=
 
-"@immutable-array/prototype@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@immutable-array/prototype/-/prototype-1.0.2.tgz#c8893a3bf11da589fc8ff1ae5c84d9ece05d9d46"
+"@immutable-array/prototype@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/prototype/-/prototype-1.0.4.tgz#abd70fdb06a24e75428a3d032d3c8226ad910322"
+  integrity sha1-q9cP2waiTnVCij0DLTyCJq2RAyI=
   dependencies:
-    "@immutable-array/copy-within" "^1.0.1"
-    "@immutable-array/fill" "^1.0.1"
-    "@immutable-array/pop" "^1.0.1"
-    "@immutable-array/push" "^1.0.1"
-    "@immutable-array/reverse" "^1.0.1"
-    "@immutable-array/shift" "^1.0.1"
-    "@immutable-array/sort" "^1.0.1"
-    "@immutable-array/splice" "^1.0.2"
-    "@immutable-array/unshift" "^1.0.1"
+    "@immutable-array/copy-within" "^1.0.4"
+    "@immutable-array/fill" "^1.0.4"
+    "@immutable-array/pop" "^1.0.4"
+    "@immutable-array/push" "^1.0.4"
+    "@immutable-array/reverse" "^1.0.4"
+    "@immutable-array/shift" "^1.0.4"
+    "@immutable-array/sort" "^1.0.4"
+    "@immutable-array/splice" "^1.0.4"
+    "@immutable-array/unshift" "^1.0.4"
 
-"@immutable-array/push@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/push/-/push-1.0.1.tgz#565c834c539340a98b1b781048089c184f501f36"
+"@immutable-array/push@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/push/-/push-1.0.4.tgz#74ae946494f03eb6b48f24aada3711e9962c4ebf"
+  integrity sha1-dK6UZJTwPra0jySq2jcR6ZYsTr8=
 
-"@immutable-array/reverse@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/reverse/-/reverse-1.0.1.tgz#f5d7ff8c4959f65a4b79a5942c5687493164ce0f"
+"@immutable-array/reverse@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/reverse/-/reverse-1.0.4.tgz#6efb3d814f2c09e89f7f4ad3271fe9f1d88462f9"
+  integrity sha1-bvs9gU8sCeiff0rTJx/p8diEYvk=
 
-"@immutable-array/shift@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/shift/-/shift-1.0.1.tgz#2fc0364da89e70336203777830fc65655e1c2cff"
+"@immutable-array/shift@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/shift/-/shift-1.0.4.tgz#6f8edc72ae9fe2835446c39d2ba992da3ff22ffd"
+  integrity sha1-b47ccq6f4oNURsOdK6mS2j/yL/0=
 
-"@immutable-array/sort@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/sort/-/sort-1.0.1.tgz#cf504b777c88653b7c9543d3db60aee93e3eff61"
+"@immutable-array/sort@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/sort/-/sort-1.0.4.tgz#05e961d3c2bef57c8db8a4413bbebfc8b68e6108"
+  integrity sha1-Belh08K+9XyNuKRBO76/yLaOYQg=
 
-"@immutable-array/splice@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@immutable-array/splice/-/splice-1.0.2.tgz#ca37511ffd93c984d4dc1ee1194ade4d452c6bec"
+"@immutable-array/splice@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/splice/-/splice-1.0.4.tgz#546d3de52b52b644e5e8179858d8873a40e31abb"
+  integrity sha1-VG095StStkTl6BeYWNiHOkDjGrs=
 
-"@immutable-array/unshift@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@immutable-array/unshift/-/unshift-1.0.1.tgz#874b7916bc7f8a9f659c658160e2305ca7a83108"
+"@immutable-array/unshift@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@immutable-array/unshift/-/unshift-1.0.4.tgz#cdafb37d515382e3028c68e15ae0997de962d8e2"
+  integrity sha1-za+zfVFTguMCjGjhWuCZfeli2OI=
 
 "@microsoft/load-themed-styles@^1.7.13":
   version "1.7.24"
@@ -1474,15 +1484,17 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
-almin-logger@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-6.1.2.tgz#9ae105f751099ac40d27ddd6d31d1339b840677b"
+almin-logger@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/almin-logger/-/almin-logger-6.2.3.tgz#b70592d3e63e211c0e61e1bd27409976f341d6b0"
+  integrity sha512-HACJQ/UGKuyX8PbXLxMtsQYNljV4yYuJeOCf+J786T7vdyN4/9Y90/jfb9xnwXulq4jtV74gckH2qZpv5XiHuA==
   dependencies:
     map-like "^2.0.0"
 
-almin-react-container@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.6.1.tgz#628ca8ab6529e3223fa3e5e2ed13043a9e4bdb32"
+almin-react-container@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/almin-react-container/-/almin-react-container-0.7.3.tgz#b790d619cea0f6cb1aa36ec5958fc8cfa7333a7b"
+  integrity sha512-4bnWFecNrZCjZYPYshKiXgXYoTSWkM7qy1cE1aQOr+dx0ZHfr2AwMbrN6JA7whYB3NRA8jid/TWfUxNBsAiUGQ==
   dependencies:
     shallow-equal-object "^1.0.1"
 
@@ -1498,9 +1510,10 @@ almin-usecase-map-generator@^1.0.2:
     meow "^3.7.0"
     nomnoml "^0.1.1"
 
-almin@^0.15.1:
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/almin/-/almin-0.15.1.tgz#55af524958e3467d327879544138bc097fa52980"
+almin@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/almin/-/almin-0.18.1.tgz#fa5df7a11b6c04e5fead36fd42d8884c724af6f7"
+  integrity sha512-W/fsBpew0Vf/2lWsqflyNLZvEb8+z8JzrNUKcjGVUm7wRVLhOWwMxiYmqGQ7Pbj+nckpI3P9abdAfq1sr9sD6g==
   dependencies:
     map-like "^2.0.0"
     shallow-equal-object "^1.0.1"
@@ -2796,6 +2809,11 @@ class-utils@^0.3.5:
 classnames@^2.2.3, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
 clean-css@4.2.x:
   version "4.2.1"
@@ -5255,9 +5273,10 @@ github-api@^3.0.0:
     js-base64 "^2.1.9"
     utf8 "^2.1.1"
 
-github-url-to-object@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/github-url-to-object/-/github-url-to-object-4.0.2.tgz#11e206d54263b701a9e3b7cc09a55bb3886e0c97"
+github-url-to-object@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/github-url-to-object/-/github-url-to-object-4.0.4.tgz#a9797b7026e18d53b50b07f45b7e169b55fd90ee"
+  integrity sha512-1Ri1pR8XTfzLpbtPz5MlW/amGNdNReuExPsbF9rxLsBfO1GH9RtDBamhJikd0knMWq3RTTQDbTtw0GGvvEAJEA==
   dependencies:
     is-url "^1.1.0"
 
