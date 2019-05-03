@@ -20,8 +20,10 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
     menuItems = [
         {
             key: "newSearchList",
-            name: "Add List",
-            icon: "EditMirrored",
+            name: "Add New SearchList",
+            iconProps: {
+                iconName: "EditMirrored"
+            },
             ariaLabel: "Add new SearchList",
             onClick: () => {
                 this.useCase(new OpenSearchListPanelUseCase()).executor(useCase =>
@@ -31,9 +33,11 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
         },
         {
             key: "profile",
-            name: "Imports/Exports",
-            icon: "Settings",
-            ariaLabel: "Imports/Exports",
+            name: "Imports/Exports Profile",
+            iconProps: {
+                iconName: "Settings"
+            },
+            ariaLabel: "Imports/Exports Profile",
             onClick: () => {
                 (async () => {
                     await this.useCase(new OpenProfileWindowUseCase()).executor(useCase =>
