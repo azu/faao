@@ -1,4 +1,4 @@
-# Faao [![Build Status](https://travis-ci.org/azu/faao.svg?branch=master)](https://travis-ci.org/azu/faao)
+# Faao [![Build Status](https://travis-ci.org/azu/faao.svg?branch=master)](https://travis-ci.org/azu/faao) [![Netlify Status](https://api.netlify.com/api/v1/badges/c8f19894-613a-41df-a91e-48c040c591c3/deploy-status)](https://app.netlify.com/sites/faao/deploys)
 
 Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 
