@@ -52,6 +52,6 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
     }
 
     get formattedUpdatedDateString(): string {
-        return moment(this.updatedAtDate).format("YYYY-MM-DD HH:MM");
+        return moment(this.updatedAtDate).fromNow();
     }
 }

@@ -78,16 +78,23 @@
     padding: 0.2rem 0;
 }
 
+.SearchResultListItem-author {
+    padding: 0 4px;
+    width: 16px;
+    height: 16px;
+}
+
 .SearchResultListItem-authorIcon {
-    width: 1em;
-    height: 1em;
+    width: 16px;
+    height: 16px;
+}
+
+.SearchResultListItem-issueNumber {
+    padding: 0 4px;
 }
 
 .SearchResultListItem-updateDate {
     color: #333333;
-    font-family: "Segoe UI Semilight WestEuropean", "Segoe UI Semilight", "Segoe WP Semilight",
-        "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
-    text-align: right;
 }
 
 .SearchResultListItem-labels {
@@ -97,12 +104,15 @@
 
 .SearchResultListItem-label {
     font-size: 12px;
-    padding: 3px 4px;
+    padding: 4px 4px;
     margin-right: 0.2rem;
 }
 
 .SearchResultListItem-meta {
     display: flex;
+    justify-content: center; /* 子要素をflexboxにより中央に配置する */
+    align-items: center; /* 子要素をflexboxにより中央に配置する */
+    padding: 2px 0;
 }
 
 .SearchResultListItem-comments {

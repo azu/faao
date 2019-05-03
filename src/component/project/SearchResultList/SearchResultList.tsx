@@ -152,18 +152,18 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                     <footer className={"SearchResultListItem-footer"}>
                         <div className="SearchResultListItem-labels">{labels}</div>
                         <div className="SearchResultListItem-meta">
-                            <span className="SearchResultListItem-issueNumber">
-                                {item.shortPath}#{item.number}
-                            </span>
                             <span className="SearchResultListItem-author">
                                 <img
                                     src={item.user.avatar_url}
                                     className="SearchResultListItem-authorIcon"
-                                    title={item.user.html_url}
+                                    alt={item.user.login}
                                 />
-                                {item.user.login}
                             </span>
-                            <span>@</span>
+                            <span className="SearchResultListItem-issueNumber">
+                                <a href={item.html_url}>
+                                    {item.shortPath}#{item.number}
+                                </a>
+                            </span>
                             <span className="SearchResultListItem-updateDate">
                                 {item.formattedUpdatedDateString}
                             </span>
