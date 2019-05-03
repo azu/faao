@@ -52,7 +52,7 @@ See [Domain documents](./docs/domain.md)
 
 ### UseCase
 
-Visualization: [Faao - UseCase architecture](https://azu.github.io/faao/meta/use-case.html "Faao - UseCase architecture")
+Visualization: [Faao - UseCase architecture](https://faao.netlify.com/meta/use-case.html)
 
 And See [UseCase documents](./docs/use-case.md)
 
