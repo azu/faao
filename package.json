@@ -18,7 +18,6 @@
     "asar": true,
     "npmRebuild": false,
     "files": [
-      "index.js",
       "main-src/**/*",
       "build/**/*",
       "node_modules/**/*"
