@@ -3,7 +3,6 @@ import React from "react";
 import {
     Dropdown,
     IDropdownOption,
-    Link,
     MessageBar,
     MessageBarType,
     Panel,
@@ -11,40 +10,38 @@ import {
     PrimaryButton,
     TextField
 } from "office-ui-fabric-react";
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON
-} from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorResult, GithubPicker } from "react-color";
+import {
+    FaaoSearchQuery,
+    FaaoSearchQueryJSON
+} from "../../../domain/GitHubSearchList/FaaoSearchQuery";
 
 export interface QuerySettingPanelProps {
     settings: GitHubSetting[];
-    query?: GitHubSearchQuery;
+    query?: FaaoSearchQuery;
     isOpen: boolean;
     // when close panel
     onDismiss: () => void;
     // when submit from panel
-    onSubmit: (queryJSON: GitHubSearchQueryJSON) => void;
+    onSubmit: (queryJSON: FaaoSearchQueryJSON) => void;
 }
 
-export interface QuerySettingPanelState {
-    gitHubSettingId: string;
-    query: string;
-    name: string;
-    color: string; // #hex,
+export type QuerySettingPanelState = FaaoSearchQueryJSON & {
     error: Error | null;
-}
+};
 
-export class QuerySettingPanel extends React.Component<
+export class FaaoQuerySettingPanel extends React.Component<
     QuerySettingPanelProps,
     QuerySettingPanelState
 > {
     state = {
         gitHubSettingId: "",
-        query: "",
         name: "",
         color: "", // #hex,
+        searchParams: {
+            params: []
+        },
         error: null
     };
 
@@ -75,8 +72,8 @@ export class QuerySettingPanel extends React.Component<
             () => {
                 this.props.onSubmit({
                     name: this.state.name,
-                    query: this.state.query,
                     color: this.state.color,
+                    searchParams: this.state.searchParams,
                     gitHubSettingId: this.state.gitHubSettingId
                 });
             }
@@ -93,16 +90,13 @@ export class QuerySettingPanel extends React.Component<
         if (this.state.color.length === 0) {
             return new Error("Please select color hex code");
         }
-        if (this.state.query.length === 0) {
-            return new Error("Please input search query");
-        }
         return true;
     };
 
-    updateStateWithQuery = (query: GitHubSearchQuery) => {
+    updateStateWithQuery = (query: FaaoSearchQuery) => {
         this.setState({
             gitHubSettingId: query.gitHubSettingId.toValue(),
-            query: query.query,
+            searchParams: query.searchParams,
             name: query.name,
             color: query.color.hexCode
         });
@@ -159,18 +153,6 @@ export class QuerySettingPanel extends React.Component<
                         this.setState({ name: text });
                     }}
                 />
-                <TextField
-                    label="Query:"
-                    placeholder="repo:azu/faao"
-                    value={this.state.query}
-                    onChanged={text => this.setState({ query: text })}
-                />
-                <p className="ms-font-xs QuerySettingPanel-itemDescription">
-                    This query is same with GitHub Search query. Please see{" "}
-                    <Link href="https://help.github.com/articles/searching-issues/">
-                        GitHub document
-                    </Link>
-                </p>
                 <TextField
                     label="Color:"
                     addonString="#"

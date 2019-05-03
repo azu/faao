@@ -88,7 +88,7 @@ export class SearchListSettingPanel extends React.Component<
             </MessageBar>
         ) : null;
         const headerText =
-            this.props.gitHubSearchList === undefined ? "Add new Search List" : "Edit Search List";
+            this.props.gitHubSearchList === undefined ? "Add New SearchList" : "Edit SearchList";
         return (
             <Panel
                 className="SearchListSettingPanel"
@@ -100,15 +100,14 @@ export class SearchListSettingPanel extends React.Component<
             >
                 <TextField
                     label="Name:"
-                    placeholder="Search List name"
+                    placeholder="SearchList name"
                     autoFocus={true}
                     defaultValue={this.state.name}
                     onChanged={text => this.setState({ name: text })}
                 />
-                <p className="ms-font-xs SearchListSettingPanel-itemDescription">
-                    <a href="https://github.com/settings/tokens">Personal Access Tokens</a> should
-                    have <b>repo</b>
-                    permission.
+                <p>
+                    SearchList is a group of queries. You can search multiple queries as a
+                    SearchList.
                 </p>
                 <div className="SearchListSettingPanel-footer">
                     {errorMessage}

@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQueryJSON } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
 
@@ -18,12 +18,7 @@ export interface ProfileJSON {
     GitHubSearchLists: {
         id: string;
         name: string;
-        queries: {
-            name: string;
-            query: string;
-            color: string;
-            gitHubSettingId: string;
-        }[];
+        queries: UnionQueryJSON[];
     }[];
     GitHubUsers?: {
         id: string;

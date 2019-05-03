@@ -9,8 +9,8 @@ import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
+import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:ReloadAllStreamUseCase");
 export const createReloadAllStreamUseCase = () => {
@@ -42,12 +42,9 @@ export class ReloadAllStreamUseCase extends UseCase {
             return;
         }
         const gitHubSearchLists = this.args.gitHubSearchListRepository.findAll();
-        const allQueries = gitHubSearchLists.reduce(
-            (queries: GitHubSearchQuery[], gitHubSearchList) => {
-                return queries.concat(gitHubSearchList.queries);
-            },
-            []
-        );
+        const allQueries = gitHubSearchLists.reduce((queries: QueryRole[], gitHubSearchList) => {
+            return queries.concat(gitHubSearchList.queries);
+        }, []);
         debug(
             allQueries.length > 0 ? `Update Queries: ${allQueries.length}` : "No updatable query"
         );

@@ -60,11 +60,22 @@
     white-space: nowrap;
 }
 
+.SearchResultListItem-nonContent {
+    display: flex;
+}
+
+.SearchResultListItem-sideMenu {
+    width: 32px;
+    margin-left: -12px;
+}
+
+.SearchResultListItem-footer {
+    flex: 1;
+}
+
 .SearchResultListItem-footer {
     font-size: 12px;
     padding: 0.2rem 0;
-    /* for .SearchResultListItem-meta is absolute */
-    position: relative;
 }
 
 .SearchResultListItem-authorIcon {
@@ -91,9 +102,12 @@
 }
 
 .SearchResultListItem-meta {
-    display: inline-block;
-    position: absolute;
-    right: 0;
+    display: flex;
+}
+
+.SearchResultListItem-comments {
+    text-align: right;
+    flex: 1;
 }
 
 .SearchResultListItem-commentsIcon {

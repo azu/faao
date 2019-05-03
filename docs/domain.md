@@ -30,14 +30,27 @@ User is not unique.
 SearchList is a collection of queries.
 
 - SearchList has queries
+
+## SearchQuery
+
+Query is a request unit.
+A query is related with specific GitHub Id.
+
 - GitHubQuery
     - Name
-    - Query(`q`)
+    - query content(`q`)
     - Color
     - `<relation>` gitHubSettingId *1
         - API Host
         - Token
         - ...
+- FaaoQuery
+    - Name
+    - QueryParams
+    - Color
+    - `<relation>` gitHubSettingId *1
+        - API Host
+        - Token
 
 ## Search Result
 

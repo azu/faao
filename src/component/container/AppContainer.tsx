@@ -28,9 +28,14 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
             }
         });
         const isOpnendPopup =
+            this.props.quickIssue.isOpened ||
+            this.props.profile.isShow ||
             this.props.gitHubSetting.isOpenSettingPanel ||
-            this.props.gitHubSearchList.isQueryPanelOpened ||
+            this.props.gitHubSearchList.openQueryPanelState ||
             this.props.gitHubSearchList.isSearchListPanelOpened;
+        let url = this.props.app.activeItem
+            ? this.props.app.activeItem.html_url
+            : "https://github.com";
         return (
             <>
                 <div className="AppContainer">
@@ -56,6 +61,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                             app={this.props.app}
                             appMainColumn={this.props.appMainColumn}
                             gitHubUser={this.props.gitHubUser}
+                            gitHubSearchList={this.props.gitHubSearchList}
                             gitHubSearchStream={this.props.gitHubSearchStream}
                         />
                     </div>
@@ -71,14 +77,11 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                     <QuickIssueContainer quickIssue={this.props.quickIssue} />
                 </div>
                 {isElectron() ? (
-                    <BrowserView
-                        visible={!isOpnendPopup}
-                        url={
-                            this.props.app.activeItem
-                                ? this.props.app.activeItem.html_url
-                                : "https://github.com"
-                        }
-                    />
+                    <>
+                        <BrowserView visible={!isOpnendPopup} url={url}>
+                            <a href={url}>{url}</a>
+                        </BrowserView>
+                    </>
                 ) : null}
             </>
         );

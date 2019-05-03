@@ -4,11 +4,9 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON
-} from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchQueryFactory } from "../../domain/GitHubSearchList/GitHubSearchQueryFactory";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { UnionQuery, UnionQueryJSON } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { createQueryFromUnionQueryJSON } from "../../domain/GitHubSearchList/QueryService";
 
 export const createUpdateQueryToSearchListUseCase = () => {
     return new UpdateQueryToSearchListUseCase(gitHubSearchListRepository);
@@ -19,13 +17,13 @@ export class UpdateQueryToSearchListUseCase extends UseCase {
         super();
     }
 
-    execute(queryJSON: GitHubSearchQueryJSON, editQuery: GitHubSearchQuery) {
-        const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
+    execute(queryJSON: UnionQueryJSON, editQuery: UnionQuery) {
+        const query = createQueryFromUnionQueryJSON(queryJSON);
         const searchList = this.gitHubSearchListRepository.findByQuery(editQuery);
         if (!searchList) {
             return;
         }
-        searchList.replaceQuery(editQuery, query);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.replaceQuery(editQuery, query);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

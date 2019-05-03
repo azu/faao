@@ -4,12 +4,12 @@ import {
     GitHubSearchStream,
     GitHubSearchStreamJSON
 } from "../../domain/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
+import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 
@@ -45,13 +45,12 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         return this.map.values().find(entity => gitHubSearchStreamId.equals(entity.id));
     }
 
-    findByQuery(query: GitHubSearchQuery): GitHubSearchStream | undefined {
+    findByQuery(query: QueryRole): GitHubSearchStream | undefined {
         const hash = query.hash;
         return this.map.get(hash);
     }
 
     findBySearchList(searchList: GitHubSearchList): GitHubSearchStream | undefined {
-        console.log("searchList.id.toValue()", searchList.id.toValue());
         return this.map.get(searchList.id.toValue());
     }
 
@@ -59,7 +58,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         throw new Error("Use saveWithQuery");
     }
 
-    saveWithQuery(stream: GitHubSearchStream, query: GitHubSearchQuery): Promise<void> {
+    saveWithQuery(stream: GitHubSearchStream, query: QueryRole): Promise<void> {
         const hash = query.hash;
         this.map.set(hash, stream);
         return this.storage.setItem(hash, stream.toJSON()).then(() => {
@@ -73,7 +72,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
     ): Promise<void> {
         this.map.set(searchListId.toValue(), stream);
         return this.storage.setItem(searchListId.toValue(), stream.toJSON()).then(() => {
-            debug("Save stream with search list");
+            debug("Save stream with SearchList");
         });
     }
 

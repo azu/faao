@@ -2,15 +2,13 @@
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { Identifier } from "../Entity";
+import { isQueryRoleJSON, QueryRoleJSON } from "./QueryRole";
 
 const execall = require("execall");
 
-export interface GitHubSearchQueryJSON {
-    name: string;
+export type GitHubSearchQueryJSON = {
     query: string;
-    color: string;
-    gitHubSettingId: string;
-}
+} & QueryRoleJSON;
 
 export interface GitHubSearchQueryArgs {
     name: string;
@@ -18,6 +16,14 @@ export interface GitHubSearchQueryArgs {
     color: GitHubSearchQueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 }
+
+export const isGitHubSearchQueryJSON = (query: any): query is GitHubSearchQueryJSON => {
+    return isQueryRoleJSON(query) && query.query !== undefined;
+};
+
+export const isGitHubSearchQuery = (query: any): query is GitHubSearchQuery => {
+    return query instanceof GitHubSearchQuery;
+};
 
 export class GitHubSearchQuery {
     name: string;
@@ -57,7 +63,7 @@ export class GitHubSearchQuery {
         return `${this.name}-${this.query}-${this.gitHubSettingId.toValue()}`;
     }
 
-    equals(aQuery?: GitHubSearchQuery): boolean {
+    equals(aQuery?: { hash: string }): boolean {
         if (aQuery === undefined) {
             return false;
         }

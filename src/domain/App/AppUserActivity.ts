@@ -2,7 +2,7 @@
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
@@ -69,7 +69,7 @@ export class AppUserActivity {
     get activeSearch():
         | Identifier<GitHubUser>
         | Identifier<GitHubSearchList>
-        | GitHubSearchQuery
+        | UnionQuery
         | undefined {
         return;
     }
@@ -82,7 +82,7 @@ export class AppUserActivity {
             : undefined;
     }
 
-    get openedQuery(): GitHubSearchQuery | undefined {
+    get openedQuery(): UnionQuery | undefined {
         return isOpenedGitHubSearchList(this.openedMenu) ? this.openedMenu.query : undefined;
     }
 
@@ -131,7 +131,7 @@ export class AppUserActivity {
         });
     }
 
-    activateQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
+    activateQuery(searchList: GitHubSearchList, query: UnionQuery) {
         this.openedMenu = new OpenedGitHubSearchList({
             gitHubSearchListId: searchList.id,
             query

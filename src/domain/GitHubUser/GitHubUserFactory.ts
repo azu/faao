@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { GitHubUser } from "./GitHubUser";
 import { Identifier } from "../Entity";
-import ulid from "ulid";
+import { ulid } from "ulid";
 import { DefaultEventMaxLimit, GitHubUserActivity } from "./GitHubUserActivity";
 
 export class GitHubUserFactory {

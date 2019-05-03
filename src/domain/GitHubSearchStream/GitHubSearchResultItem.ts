@@ -1,47 +1,15 @@
 import { Identifier } from "../Entity";
+import { string } from "prop-types";
 
-export interface Owner {
-    login: string;
-    id: number;
-    avatar_url: string;
-    gravatar_id: string;
-    url: string;
-    html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
-    type: string;
-    site_admin: boolean;
-}
+const ghUrlToObject = require("github-url-to-object");
 
 export interface User {
     login: string;
-    id: number;
     avatar_url: string;
-    gravatar_id: string;
-    url: string;
     html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
-    type: string;
-    site_admin: boolean;
 }
 
 export interface Label {
-    id: number;
     url: string;
     name: string;
     color: string;
@@ -49,195 +17,81 @@ export interface Label {
 }
 
 export interface Assignee {
-    login: String;
-    id: Number;
-    avatar_url: String;
-    gravatar_id: String;
-    url: String;
-    html_url: String;
-    followers_url: String;
-    following_url: String;
-    gists_url: String;
-    starred_url: String;
-    subscriptions_url: String;
-    organizations_url: String;
-    repos_url: String;
-    events_url: String;
-    received_events_url: String;
-    type: String;
-    site_admin: Boolean;
-}
-
-export interface Creator {
     login: string;
-    id: Number;
     avatar_url: string;
-    gravatar_id: string;
-    url: string;
     html_url: string;
-    followers_url: string;
-    following_url: string;
-    gists_url: string;
-    starred_url: string;
-    subscriptions_url: string;
-    organizations_url: string;
-    repos_url: string;
-    events_url: string;
-    received_events_url: string;
-    type: string;
-    site_admin: boolean;
 }
 
 export interface Milestone {
-    url: string;
     html_url: string;
-    labels_url: string;
-    id: number;
-    number: number;
     title: string;
     description: string;
-    creator: Creator;
-    open_issues: number;
-    closed_issues: number;
     state: string;
     created_at: string;
     updated_at: string;
-    due_on: string;
-    closed_at?: any;
-}
-
-export interface PullRequest {
-    url: string;
-    html_url: string;
-    diff_url: string;
-    patch_url: string;
-}
-
-export interface Repository {
-    id: number;
-    name: string;
-    full_name: string;
-    owner: Owner;
-    private: boolean;
-    html_url: string;
-    description: string;
-    fork: boolean;
-    url: string;
-    forks_url: string;
-    keys_url: string;
-    collaborators_url: string;
-    teams_url: string;
-    hooks_url: string;
-    issue_events_url: string;
-    events_url: string;
-    assignees_url: string;
-    branches_url: string;
-    tags_url: string;
-    blobs_url: string;
-    git_tags_url: string;
-    git_refs_url: string;
-    trees_url: string;
-    statuses_url: string;
-    languages_url: string;
-    stargazers_url: string;
-    contributors_url: string;
-    subscribers_url: string;
-    subscription_url: string;
-    commits_url: string;
-    git_commits_url: string;
-    comments_url: string;
-    issue_comment_url: string;
-    contents_url: string;
-    compare_url: string;
-    merges_url: string;
-    archive_url: string;
-    downloads_url: string;
-    issues_url: string;
-    pulls_url: string;
-    milestones_url: string;
-    notifications_url: string;
-    labels_url: string;
+    due_on?: string | null;
+    closed_at?: string | null;
 }
 
 // parse string
 // camelCase
 export interface GitHubSearchResultItemJSON {
-    url: string;
-    repository_url: string;
-    labels_url: string;
-    comments_url: string;
-    events_url: string;
     html_url: string;
-    id: number;
+    id: string;
     number: number;
     title: string;
     user: User;
     labels: Label[];
     state: "merged" | "closed" | "open";
-    pull_request?: any;
     locked: boolean;
-    assignee: Assignee | null;
     assignees: Assignee[];
     milestone: Milestone | null;
     comments: number;
     created_at: string;
     updated_at: string;
-    closed_at?: any;
+    closed_at?: string | null;
     body: string;
-    score: number;
+    // computed from response
+    type: "pr" | "issue";
 }
-
-const ghUrlToObject = require("github-url-to-object");
 
 export class GitHubSearchResultItem {
     id: Identifier<GitHubSearchResultItem>;
-    url: string;
-    repository_url: string;
-    labels_url: string;
-    comments_url: string;
-    events_url: string;
+    body: string;
     html_url: string;
     number: number;
     title: string;
     user: User;
     labels: Label[];
     state: "merged" | "closed" | "open";
-    pull_request?: PullRequest;
     locked: boolean;
-    assignee: Assignee | any;
     assignees: Assignee[];
-    milestone: Milestone | any;
+    milestone: Milestone | null;
     comments: number;
     created_at: string;
     updated_at: string;
-    body: string;
-    score: number;
-    closed_at?: any;
+    closed_at?: string | null;
+    // computed from response
+    type: "pr" | "issue";
 
     constructor(item: GitHubSearchResultItemJSON) {
         this.id = new Identifier<GitHubSearchResultItem>(String(item.id));
-        this.url = item.url;
-        this.repository_url = item.repository_url;
-        this.labels_url = item.labels_url;
-        this.comments_url = item.comments_url;
-        this.events_url = item.events_url;
+        this.body = item.body;
         this.html_url = item.html_url;
         this.number = item.number;
         this.title = item.title;
         this.user = item.user;
         this.labels = item.labels;
         this.state = item.state;
-        this.pull_request = item.pull_request;
         this.locked = item.locked;
-        this.assignee = item.assignee;
         this.assignees = item.assignees;
         this.milestone = item.milestone;
         this.comments = item.comments;
         this.created_at = item.created_at;
         this.updated_at = item.updated_at;
-        this.body = item.body;
-        this.score = item.score;
         this.closed_at = item.closed_at;
+        // type: https://developer.github.com/v3/search/#search-issues
+        this.type = item.type;
     }
 
     get createdAtDate() {
@@ -248,21 +102,19 @@ export class GitHubSearchResultItem {
         return new Date(this.updated_at);
     }
 
-    // type: https://developer.github.com/v3/search/#search-issues
-    get type(): "issue" | "pr" {
-        if (this.pull_request) {
-            return "pr";
-        } else {
-            return "issue";
-        }
-    }
-
     // owner/repo
     get shortPath() {
         // https://github.com/zeke/github-url-to-object#github-enterprise
         const isEnterprise = !this.html_url.startsWith("https://github.com/");
         const object = ghUrlToObject(this.html_url, { enterprise: isEnterprise });
         return `${object.user}/${object.repo}`;
+    }
+
+    get repositoryHtmlUrl() {
+        // https://github.com/zeke/github-url-to-object#github-enterprise
+        const isEnterprise = !this.html_url.startsWith("https://github.com/");
+        const object = ghUrlToObject(this.html_url, { enterprise: isEnterprise });
+        return object.https_url;
     }
 
     /**
@@ -272,7 +124,7 @@ export class GitHubSearchResultItem {
         if (this.title.includes(value)) {
             return true;
         }
-        if (this.url.includes(value)) {
+        if (this.html_url.includes(value)) {
             return true;
         }
         if (this.body.includes(value)) {
@@ -301,7 +153,7 @@ export class GitHubSearchResultItem {
 
     toJSON(): GitHubSearchResultItemJSON {
         return Object.assign({}, this, {
-            id: Number(this.id.toValue())
+            id: String(this.id.toValue())
         });
     }
 }

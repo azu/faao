@@ -2,7 +2,7 @@
 import { GenericErrorNotice } from "./GenericErrorNotice";
 import { SearchQueryErrorNotice } from "./SearchQueryErrorNotice";
 
-import ulid from "ulid";
+import { ulid } from "ulid";
 import { Entity, Identifier } from "../Entity";
 
 export type Notice = AbstractNotice | GenericErrorNotice | SearchQueryErrorNotice;

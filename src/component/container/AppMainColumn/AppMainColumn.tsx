@@ -10,12 +10,14 @@ import {
     AppMainColumnShowType,
     AppMainColumnState
 } from "../../../store/AppMainColumnStore/AppMainColumnStore";
+import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 
 export interface AppMainColumnProps {
     className?: string;
     app: AppState;
     gitHubUser: GitHubUserState;
     gitHubSearchStream: GitHubSearchStreamState;
+    gitHubSearchList: GitHubSearchListState;
     appMainColumn: AppMainColumnState;
 }
 
@@ -32,6 +34,7 @@ export class AppMainColumn extends React.Component<AppMainColumnProps, {}> {
             return (
                 <GitHubSearchStreamContainer
                     app={this.props.app}
+                    gitHubSearchList={this.props.gitHubSearchList}
                     gitHubSearchStream={this.props.gitHubSearchStream}
                 />
             );

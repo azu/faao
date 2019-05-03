@@ -11,7 +11,7 @@ import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface QuickIssueStateObject {
@@ -19,14 +19,14 @@ export interface QuickIssueStateObject {
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
 }
 
 export class QuickIssueState implements QuickIssueStateObject {
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
     isOpened: boolean;
 
     constructor(args: QuickIssueStateObject) {
@@ -44,7 +44,7 @@ export class QuickIssueState implements QuickIssueStateObject {
         // create issue list
         let queries: GitHubSearchQuery[] = [];
         this.gitHubSearchLists.forEach(searchList => {
-            queries = queries.concat(searchList.queries);
+            queries = queries.concat(searchList.githubSearchQueries);
         });
         const newIssueURLs = queries
             .map(query => {
@@ -64,12 +64,8 @@ export class QuickIssueState implements QuickIssueStateObject {
             // http://:host/:repo/issues/new
             const gitHubSetting = getSetting(this.activeQuery.gitHubSettingId);
             if (gitHubSetting) {
-                // api-host/repos/ -> web-host/
-                const webHost = this.activeItem.repository_url.replace(
-                    urlJoin(gitHubSetting.apiHost, "repos"),
-                    gitHubSetting.webHost
-                );
-                const newIssueURL = urlJoin(webHost, "issues/new");
+                const repositoryURL = this.activeItem.repositoryHtmlUrl;
+                const newIssueURL = urlJoin(repositoryURL, "issues/new");
                 newIssueURLs.unshift(newIssueURL);
             }
         }

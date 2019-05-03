@@ -47,4 +47,8 @@ export class Identifier<T> {
     toValue(): string {
         return this.value!;
     }
+
+    toJSON() {
+        return this.toValue();
+    }
 }

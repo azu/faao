@@ -4,7 +4,7 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 export const createDeleteQueryUseCase = () => {
     return new DeleteQueryUseCase(gitHubSearchListRepository);
@@ -15,12 +15,12 @@ export class DeleteQueryUseCase extends UseCase {
         super();
     }
 
-    execute(query: GitHubSearchQuery) {
+    execute(query: UnionQuery) {
         const searchList = this.gitHubSearchListRepository.findByQuery(query);
         if (!searchList) {
             return;
         }
-        searchList.deleteQuery(query);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.deleteQuery(query);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

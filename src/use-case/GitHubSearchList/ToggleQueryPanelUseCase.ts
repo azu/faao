@@ -1,12 +1,16 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import {
+    GitHubSearchQuery,
+    isGitHubSearchQuery
+} from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { QueryPanelType } from "../../store/GitHubSearchListStore/GitHubSearchListStore";
 
 export class OpenQueryPanelUseCasePayload extends Payload {
     type = "OpenQueryPanelUseCasePayload";
 
-    constructor(public searchList: GitHubSearchList) {
+    constructor(public searchList: GitHubSearchList, public panelType: QueryPanelType) {
         super();
     }
 }
@@ -14,7 +18,7 @@ export class OpenQueryPanelUseCasePayload extends Payload {
 export class EditQueryPanelUseCasePayload extends Payload {
     type = "EditQueryPanelUseCasePayload";
 
-    constructor(public query: GitHubSearchQuery) {
+    constructor(public query: UnionQuery, public panelType: QueryPanelType) {
         super();
     }
 }
@@ -24,14 +28,15 @@ export class CloseQueryPanelUseCasePayload extends Payload {
 }
 
 export class EditQueryPanelUseCase extends UseCase {
-    execute(query: GitHubSearchQuery) {
-        this.dispatch(new EditQueryPanelUseCasePayload(query));
+    execute(query: UnionQuery) {
+        const panelType: QueryPanelType = isGitHubSearchQuery(query) ? "github" : "faao";
+        this.dispatch(new EditQueryPanelUseCasePayload(query, panelType));
     }
 }
 
 export class OpenQueryPanelUseCase extends UseCase {
-    execute(searchList: GitHubSearchList) {
-        this.dispatch(new OpenQueryPanelUseCasePayload(searchList));
+    execute(searchList: GitHubSearchList, panelType: QueryPanelType) {
+        this.dispatch(new OpenQueryPanelUseCasePayload(searchList, panelType));
     }
 }
 

@@ -1,9 +1,16 @@
 // MIT © 2017 azu
 import * as React from "react";
 import { SyntheticEvent } from "react";
-import { ContextualMenu, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
+import {
+    CommandBarButton,
+    ContextualMenu,
+    DirectionalHint,
+    IconButton,
+    Link,
+    List
+} from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../../domain/GitHubSearchList/GitHubSearchList";
 import { shallowEqual } from "shallow-equal-object";
 
 const suitcssClassnames = require("suitcss-classnames");
@@ -11,9 +18,9 @@ const suitcssClassnames = require("suitcss-classnames");
 export interface SearchQueryListItemProps {
     query: GitHubSearchQuery;
     isActive: boolean;
-    onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
-    onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
-    onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onClickQuery: (query: GitHubSearchQuery) => void;
+    onEditQuery: (query: GitHubSearchQuery) => void;
+    onDeleteQuery: (query: GitHubSearchQuery) => void;
 }
 
 export interface SearchQueryListItemState {
@@ -35,8 +42,8 @@ export class SearchQueryListItem extends React.Component<
     };
 
     render() {
-        const onClick = (event: SyntheticEvent<any>) => {
-            this.props.onClickQuery(event, this.props.query);
+        const onClick = () => {
+            this.props.onClickQuery(this.props.query);
         };
         const style = {
             borderLeft: `${this.props.query.color.hexCode} 3px solid`,
@@ -68,7 +75,7 @@ export class SearchQueryListItem extends React.Component<
                                 if (!event) {
                                     return;
                                 }
-                                this.props.onEditQuery(event, this.props.query);
+                                this.props.onEditQuery(this.props.query);
                             },
                             name: "Edit query"
                         },
@@ -86,7 +93,7 @@ export class SearchQueryListItem extends React.Component<
                                     return;
                                 }
                                 if (confirm(`Does delete "${this.props.query.name}"?`)) {
-                                    this.props.onDeleteQuery(event, this.props.query);
+                                    this.props.onDeleteQuery(this.props.query);
                                 }
                             },
                             name: "Delete query"
@@ -123,13 +130,14 @@ export class SearchQueryListItem extends React.Component<
 
 export interface SearchQueryListProps {
     searchList: GitHubSearchList;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
     activeSearchList?: GitHubSearchList;
-    onClickSearchList: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
-    onClickAddingQuery: (event: SyntheticEvent<any>, searchList: GitHubSearchList) => void;
-    onClickQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
-    onEditQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
-    onDeleteQuery: (event: SyntheticEvent<any>, query: GitHubSearchQuery) => void;
+    onClickSearchList: (searchList: GitHubSearchList) => void;
+    onClickAddingGitHubQuery: (searchList: GitHubSearchList) => void;
+    onClickAddingFaaoQuery: (searchList: GitHubSearchList) => void;
+    onClickQuery: (query: GitHubSearchQuery) => void;
+    onEditQuery: (query: GitHubSearchQuery) => void;
+    onDeleteQuery: (query: GitHubSearchQuery) => void;
 }
 
 export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
@@ -161,11 +169,26 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                             {this.props.searchList.name}
                         </Link>
                         <IconButton
-                            className="SearchQueryList-addButton"
+                            data-automation-id="add-query"
+                            disabled={false}
+                            checked={false}
                             iconProps={{ iconName: "Add" }}
-                            title="Add query"
-                            ariaLabel="Add query"
-                            onClick={this.onClickAddingQuery}
+                            menuProps={{
+                                items: [
+                                    {
+                                        key: "github-query",
+                                        text: "Add GitHub query",
+                                        iconProps: { iconName: "Add" },
+                                        onClick: this.onClickAddingGitHubQuery
+                                    },
+                                    {
+                                        key: "faao-query",
+                                        text: "Add Faao query",
+                                        iconProps: { iconName: "Add" },
+                                        onClick: this.onClickAddingFaaoQuery
+                                    }
+                                ]
+                            }}
                         />
                     </h1>
                 </header>
@@ -187,11 +210,15 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
         );
     }
 
-    onClick = (event: SyntheticEvent<any>) => {
-        this.props.onClickSearchList(event, this.props.searchList);
+    onClick = () => {
+        this.props.onClickSearchList(this.props.searchList);
     };
 
-    onClickAddingQuery = (event: SyntheticEvent<any>) => {
-        this.props.onClickAddingQuery(event, this.props.searchList);
+    onClickAddingGitHubQuery = () => {
+        this.props.onClickAddingGitHubQuery(this.props.searchList);
+    };
+
+    onClickAddingFaaoQuery = () => {
+        this.props.onClickAddingFaaoQuery(this.props.searchList);
     };
 }

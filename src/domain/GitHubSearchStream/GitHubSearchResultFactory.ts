@@ -13,7 +13,9 @@ export class GitHubSearchResultFactory {
      * @returns {GitHubSearchResult}
      */
     static create(result: GitHubSearchResultJSON): GitHubSearchResult {
-        const items = result.items.map(item => new GitHubSearchResultItem(item));
+        const items = result.items.map(item => {
+            return new GitHubSearchResultItem(item);
+        });
         return new GitHubSearchResult({
             items
         });

@@ -1,7 +1,13 @@
 // MIT © 2017 azu
 import * as React from "react";
 import { SyntheticEvent } from "react";
-import { List } from "office-ui-fabric-react";
+import {
+    IContextualMenuItem,
+    ContextualMenuItemType,
+    DirectionalHint,
+    IconButton,
+    List
+} from "office-ui-fabric-react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";
 
 import classnames from "classnames";
@@ -9,6 +15,7 @@ import {
     GitHubSearchStreamStateItem,
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
+import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/FaaoSearchQuery";
 
 // save file-size
 const CommentIcon = require("react-octicons/lib/comment").default;
@@ -23,7 +30,9 @@ export interface SearchResultListItemProps {
     isActive: boolean;
     item: GitHubSearchStreamStateItem;
     index?: number;
+    faaoQueries: FaaoSearchQuery[];
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
+    onClickQueryOptionMenu: (item: GitHubSearchResultItem, query: FaaoSearchQuery) => void;
 }
 
 function getColorByBgColor(bgColor: string) {
@@ -46,11 +55,57 @@ export const createIcon = (iconType: IconType, color: string) => {
     }
 };
 
-export class SearchResultListItem extends React.Component<SearchResultListItemProps, {}> {
-    render() {
-        const onClick = (event: SyntheticEvent<any>) => {
-            this.props.onClickItem(event, this.props.item);
+const QueryButton = (props: {
+    item: GitHubSearchStreamStateItem;
+    faaoQueries: FaaoSearchQuery[];
+    onClickQuery(query: FaaoSearchQuery): void;
+}) => {
+    const headers: IContextualMenuItem[] = [
+        {
+            key: "Add item to Query",
+            itemType: ContextualMenuItemType.Header,
+            text: "Add item to Query"
+        }
+    ];
+    const items: IContextualMenuItem[] = props.faaoQueries.map(query => {
+        return {
+            key: query.name,
+            text: query.name,
+            iconProps: {
+                iconName: query.includesParameterURL(props.item.html_url)
+                    ? "CheckboxComposite"
+                    : "Checkbox"
+            },
+            onClick: () => {
+                props.onClickQuery(query);
+            }
         };
+    });
+
+    return (
+        <IconButton
+            disabled={props.faaoQueries.length === 0}
+            checked={false}
+            size={14}
+            menuProps={{
+                ariaLabel: "Query Option Menu",
+                directionalHint: DirectionalHint.bottomCenter,
+                items: headers.concat(items)
+            }}
+        />
+    );
+};
+
+export class SearchResultListItem extends React.Component<SearchResultListItemProps, {}> {
+    private onClick = (event: SyntheticEvent<any>) => {
+        this.props.onClickItem(event, this.props.item);
+    };
+    private onClickQueryOptionMenu = (query: FaaoSearchQuery) => {
+        this.props.onClickQueryOptionMenu(this.props.item, query);
+    };
+
+    render() {
+        const onClick = this.onClick;
         const item = this.props.item;
         const labels = item.labels.map(label => {
             const style = {
@@ -86,33 +141,41 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                     </a>
                 </span>
                 <span className="SearchResultListItem-tertiaryText">{item.body}</span>
-                <div className="SearchResultListItem-labels">{labels}</div>
-                <footer className="SearchResultListItem-footer">
-                    <span className="SearchResultListItem-issueNumber">
-                        {item.shortPath}#{item.number}
-                    </span>
-                    <span> updated </span>
-                    <span className="SearchResultListItem-updateDate">
-                        {item.formattedUpdatedDateString}
-                    </span>
-                    <span> by </span>
-                    <span className="SearchResultListItem-author">
-                        <img
-                            src={item.user.avatar_url}
-                            className="SearchResultListItem-authorIcon"
-                            title={item.user.html_url}
+                <div className="SearchResultListItem-nonContent">
+                    <aside className={"SearchResultListItem-sideMenu"}>
+                        <QueryButton
+                            item={item}
+                            faaoQueries={this.props.faaoQueries}
+                            onClickQuery={this.onClickQueryOptionMenu}
                         />
-                        {item.user.login}
-                    </span>
-                    <div className="SearchResultListItem-meta">
-                        <span className="SearchResultListItem-comments">
-                            <CommentIcon className="SearchResultListItem-commentsIcon" />
-                            <span className="SearchResultListItem-commentsCount">
-                                {item.comments}
+                    </aside>
+                    <footer className={"SearchResultListItem-footer"}>
+                        <div className="SearchResultListItem-labels">{labels}</div>
+                        <div className="SearchResultListItem-meta">
+                            <span className="SearchResultListItem-issueNumber">
+                                {item.shortPath}#{item.number}
                             </span>
-                        </span>
-                    </div>
-                </footer>
+                            <span className="SearchResultListItem-author">
+                                <img
+                                    src={item.user.avatar_url}
+                                    className="SearchResultListItem-authorIcon"
+                                    title={item.user.html_url}
+                                />
+                                {item.user.login}
+                            </span>
+                            <span>@</span>
+                            <span className="SearchResultListItem-updateDate">
+                                {item.formattedUpdatedDateString}
+                            </span>
+                            <span className="SearchResultListItem-comments">
+                                <CommentIcon className="SearchResultListItem-commentsIcon" />
+                                <span className="SearchResultListItem-commentsCount">
+                                    {item.comments}
+                                </span>
+                            </span>
+                        </div>
+                    </footer>
+                </div>
             </div>
         );
     }
@@ -121,8 +184,10 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
 export interface SearchResultListProps {
     className?: string;
     items: GitHubSearchStreamStateItem[];
+    faaoQueries: FaaoSearchQuery[];
     activeItem?: GitHubSearchResultItem;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
+    onClickQueryOptionMenu: (item: GitHubSearchResultItem, query: FaaoSearchQuery) => void;
 }
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
@@ -147,10 +212,19 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         }
     }
 
+    private onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+        this.props.onClickItem(event, item);
+    };
+
+    private onClick = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+        this.props.onClickItem(event, item);
+    };
+
+    private onClickQueryOptionMenu = (item: GitHubSearchResultItem, query: FaaoSearchQuery) => {
+        this.props.onClickQueryOptionMenu(item, query);
+    };
+
     render() {
-        const onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
-            this.props.onClickItem(event, item);
-        };
         return (
             <List
                 data-is-scrollable="true"
@@ -166,8 +240,10 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
                         <SearchResultListItem
                             item={item}
                             isActive={item.equals(this.props.activeItem)}
-                            onClickItem={onClickItem}
+                            onClickItem={this.onClickItem}
                             index={index}
+                            faaoQueries={this.props.faaoQueries}
+                            onClickQueryOptionMenu={this.props.onClickQueryOptionMenu}
                         />
                     );
                 }}
