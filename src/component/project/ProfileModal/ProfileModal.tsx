@@ -3,7 +3,6 @@ import { CommandButton, MessageBar, MessageBarType, Modal } from "office-ui-fabr
 import { ProfileJSONEditor } from "./ProfileJSONEditor/ProfileJSONEditor";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 
-const FixModal: any = Modal as any;
 export interface ProfileModalProps {
     isOpen: boolean;
     code: string;
@@ -55,11 +54,12 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                 </MessageBar>
             ) : null;
         return (
-            <FixModal
+            <Modal
                 isOpen={this.props.isOpen}
                 onDismiss={this.props.onDismiss}
                 isBlocking={false}
                 containerClassName="ProfileModal"
+                scrollableContentClassName="ProfileModal-scrollableContent"
             >
                 <div className="ProfileModal-left">
                     <h2 className="ms-font-xxl ProfileModal-leftTitle">Current Profile(JSON)</h2>
@@ -131,7 +131,7 @@ export class ProfileModal extends React.Component<ProfileModalProps, ProfileModa
                         </div>
                     </div>
                 </div>
-            </FixModal>
+            </Modal>
         );
     }
 }

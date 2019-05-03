@@ -3,7 +3,7 @@
     height: 80vh;
 }
 
-.ProfileModal {
+.ProfileModal-scrollableContent {
     display: flex;
 }
 
