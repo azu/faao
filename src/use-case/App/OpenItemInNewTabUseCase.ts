@@ -1,16 +1,11 @@
 // MIT © 2017 azu
 
 import { UseCase } from "almin";
+import isElectron from "is-electron";
 
-export function openURLInTab(url: string) {
-    if (window.electronNavigation) {
-        window.electronNavigation.changeTab(url);
-    }
-}
-
-const { ipcRenderer } = (window as any).require("electron");
 export function openPage(url: string) {
-    if (ipcRenderer) {
+    if (isElectron()) {
+        const { ipcRenderer } = (window as any).require("electron");
         ipcRenderer.send("browser-view-load-url", url);
     } else {
         window.open(url, "_faao");

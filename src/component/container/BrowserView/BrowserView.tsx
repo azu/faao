@@ -1,7 +1,8 @@
 import * as React from "react";
+import isElectron from "is-electron";
 
-const { ipcRenderer } = (window as any).require("electron");
-
+const nope = () => {};
+const ipcRenderer = isElectron() ? (window as any).require("electron").ipcRenderer : nope;
 declare global {
     interface Window {
         ResizeObserver: ResizeObserver;
