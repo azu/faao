@@ -18,7 +18,7 @@ export class SaveQueryToSearchListUseCase extends UseCase {
 
     execute(searchList: GitHubSearchList, queryJSON: UnionQueryJSON) {
         const query = createQueryFromUnionQueryJSON(queryJSON);
-        searchList.saveQuery(query);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.saveQuery(query);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

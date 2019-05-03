@@ -23,7 +23,7 @@ export class UpdateQueryToSearchListUseCase extends UseCase {
         if (!searchList) {
             return;
         }
-        searchList.replaceQuery(editQuery, query);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.replaceQuery(editQuery, query);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

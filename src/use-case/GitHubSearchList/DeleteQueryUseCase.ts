@@ -20,7 +20,7 @@ export class DeleteQueryUseCase extends UseCase {
         if (!searchList) {
             return;
         }
-        searchList.deleteQuery(query);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.deleteQuery(query);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

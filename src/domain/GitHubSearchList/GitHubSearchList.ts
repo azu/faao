@@ -11,6 +11,7 @@ import { FaaoSearchQuery, FaaoSearchQueryJSON, isFaaoSearchQueryJSON } from "./F
 
 export type UnionQuery = FaaoSearchQuery | GitHubSearchQuery;
 export type UnionQueryJSON = FaaoSearchQueryJSON | GitHubSearchQueryJSON;
+
 export interface GitHubSearchListJSON {
     id: string;
     name: string;
@@ -69,23 +70,31 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
     }
 
     saveQuery(aQuery: UnionQuery) {
-        this.queries = this.queries.concat(aQuery);
+        return new GitHubSearchList({
+            ...this,
+            queries: this.queries.concat(aQuery)
+        });
     }
 
     replaceQuery(oldQuery: UnionQuery, newQuery: UnionQuery) {
         const index = this.queries.indexOf(oldQuery);
         if (!this.queries[index]) {
-            return;
+            return this;
         }
-        this.queries = splice(this.queries, index, 1, newQuery);
+        return new GitHubSearchList({
+            ...this,
+            queries: splice(this.queries, index, 1, newQuery)
+        });
     }
 
     deleteQuery(aQuery: UnionQuery) {
         const index = this.queries.indexOf(aQuery);
         if (index === -1) {
-            return;
+            return this;
         }
-        this.queries.splice(index, 1);
-        this.queries = this.queries.slice();
+        return new GitHubSearchList({
+            ...this,
+            queries: splice(this.queries, index, 1)
+        });
     }
 }

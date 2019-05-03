@@ -25,7 +25,7 @@ export class AddParamToFaaoQueryUseCase extends UseCase {
             return;
         }
         const newQuery = query.addParam(new FaaoSearchQueryParam(param));
-        searchList.replaceQuery(query, newQuery);
-        return this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.replaceQuery(query, newQuery);
+        return this.gitHubSearchListRepository.save(newSearchList);
     }
 }

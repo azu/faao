@@ -11,6 +11,8 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { createReloadActiveStreamUseCase } from "../GitHubSearchStream/ReloadActiveStreamUseCase";
 
+const debug = require("debug")("faao:UpdateFaaoQueryParamUseCase");
+
 export const createUpdateFaaoQueryParamUseCase = () => {
     return new UpdateFaaoQueryParamUseCase(
         gitHubSearchListRepository,
@@ -37,11 +39,12 @@ export class UpdateFaaoQueryParamUseCase extends UseCase {
         }
         // update query
         const shouldDelete = query.includesParameterURL(param.url);
+        debug("shouldDelete: %o", shouldDelete);
         const newQuery = shouldDelete
             ? query.removeParam(new FaaoSearchQueryParam(param))
             : query.addParam(new FaaoSearchQueryParam(param));
-        searchList.replaceQuery(query, newQuery);
-        await this.gitHubSearchListRepository.save(searchList);
+        const newSearchList = searchList.replaceQuery(query, newQuery);
+        await this.gitHubSearchListRepository.save(newSearchList);
         // update stream - remove cache
         if (!shouldDelete) {
             return;
@@ -56,8 +59,9 @@ export class UpdateFaaoQueryParamUseCase extends UseCase {
         if (!item) {
             return;
         }
-        const newStream = stream.removeItemFromStream(item);
-        await this.gitHubSearchStreamRepository.saveWithQuery(newStream, newQuery);
+        debug("Remove cached item from stream", item, stream);
+        stream.removeItemFromStream(item);
+        await this.gitHubSearchStreamRepository.saveWithQuery(stream, newQuery);
         // refresh
         return this.context.useCase(createReloadActiveStreamUseCase()).execute();
     }

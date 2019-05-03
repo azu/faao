@@ -16,10 +16,6 @@ import { SearchListPanelContainer } from "./SearchListPanelContainer/SearchListP
 import { AppMainColumn } from "./AppMainColumn/AppMainColumn";
 import { BrowserView } from "./BrowserView/BrowserView";
 import isElectron from "is-electron";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
-import { CommandButton, DefaultButton, DirectionalHint } from "office-ui-fabric-react";
-import { createAddParamToFaaoQueryUseCase } from "../../use-case/GitHubSearchList/AddParamToFaaoQueryUseCase";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 
 const suitcssClassnames = require("suitcss-classnames");
 

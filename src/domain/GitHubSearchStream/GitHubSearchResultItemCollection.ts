@@ -105,12 +105,12 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         return this.items.find(predicate);
     }
 
-    removeItem(item: T): GitHubSearchResultItemCollection<T> {
+    removeItem(item: T): this {
         const index = this.items.findIndex(inItem => inItem.equals(item));
         if (index === -1) {
             return this;
         }
-        return new GitHubSearchResultItemCollection({
+        return new (this.constructor as any)({
             ...this,
             items: splice(this.items, index, 1)
         });
