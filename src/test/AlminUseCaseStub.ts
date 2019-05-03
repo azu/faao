@@ -46,7 +46,7 @@ export function createStubContext(
      * dispatched payload
      */
     const dispatchedPayloads: Payload[] = [];
-    context.onDispatch((payload, meta) => {
+    context.events.onDispatch((payload, meta) => {
         if (meta.useCase instanceof UseCaseConstructor) {
             dispatchedPayloads.push(payload);
         }
