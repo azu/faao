@@ -33,7 +33,7 @@ Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 ### Browser
 
     yarn start
-    open http://localhost:8080/
+    open http://localhost:3000/
     
 ### Electron
 

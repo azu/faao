@@ -10,7 +10,7 @@
   "name": "faao",
   "description": "Faao is a GitHub Issue/Pull Request client on Electron/Browser.",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "public/electron.js",
   "homepage": "./",
   "build": {
     "productName": "Faao",
@@ -20,7 +20,6 @@
     "files": [
       "index.js",
       "main-src/**/*",
-      "dist/**/*",
       "build/**/*",
       "node_modules/**/*"
     ],
@@ -70,14 +69,14 @@
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "prepublishOnly": "npm run --if-present build",
     "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 100 --tab-width 4",
-    "start": "npm-run-all clean --parallel server electron",
-    "electron": "wait-on http://localhost:3000 && cross-env FAAO_URL=http://localhost:3000/ electron .",
-    "server": "cross-env BROWSER=none react-scripts start",
+    "start": "cross-env BROWSER=none react-scripts start",
+    "electron": "wait-on http://localhost:3000 && cross-env FAAO_URL=http://localhost:3000/ electron public/electron.js",
     "watch:main": "tsc -p ./tsconfig.electron.json",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "clean": "rimraf public/build dist && mkdirp public/build",
     "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "npm run build",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "release": "npm run build && electron-builder"

@@ -83,8 +83,6 @@ crashlytics-build.properties
 
 
 /lib
-public/build
-public/build-resoruce/
 /.env
 !Profile/
 /.awcache/
@@ -92,5 +90,5 @@ public/build-resoruce/
 /tool/*.js
 /dist/
 # icons
-!/build/
+/build/
 tool/test-latest/
