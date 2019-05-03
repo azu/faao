@@ -18,9 +18,15 @@
     "asar": true,
     "npmRebuild": false,
     "files": [
+      "index.js",
+      "main-src/**/*",
+      "dist/**/*",
       "build/**/*",
       "node_modules/**/*"
     ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "win": {
       "target": [
         "nsis"
