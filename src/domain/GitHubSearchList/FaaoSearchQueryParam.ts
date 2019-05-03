@@ -15,6 +15,13 @@ export class FaaoSearchQueryParam {
         this.url = args.url;
     }
 
+    equals(v?: FaaoSearchQueryParam): boolean {
+        if (!v) {
+            return false;
+        }
+        return this.url === v.url;
+    }
+
     /**
      * return parsed parameter
      */

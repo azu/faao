@@ -4,21 +4,25 @@ import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearch
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import {
+    GitHubSearchList,
+    UnionQuery,
+    UnionQueryJSON
+} from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface AppStateArgs {
     activeStream?: GitHubSearchStream;
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
     activeSearchList?: GitHubSearchList;
 }
 
 export class AppState implements AppStateArgs {
     activeStream?: GitHubSearchStream;
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
     activeSearchList?: GitHubSearchList;
 
     constructor(args: AppStateArgs) {

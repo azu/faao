@@ -14,7 +14,7 @@ import {
 } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
-import { GitHubSearchList } from "../../../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../../../domain/GitHubSearchList/GitHubSearchList";
 import { createSearchQueriesAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueriesAndOpenStreamUseCase";
 import { AppState } from "../../../../store/AppStore/AppStore";
 
@@ -40,7 +40,7 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
         }
     ];
 
-    onClickQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+    onClickQuery = (query: UnionQuery) => {
         this.useCase(createSearchQueryAndOpenStreamUseCase())
             .executor(useCase => useCase.execute(query))
             .catch((error: Error) => {
@@ -48,19 +48,27 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
             });
     };
 
-    onEditQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+    onEditQuery = (query: UnionQuery) => {
         this.useCase(new EditQueryPanelUseCase()).executor(useCase => useCase.execute(query));
     };
 
-    onDeleteQuery = (_event: SyntheticEvent<any>, query: GitHubSearchQuery) => {
+    onDeleteQuery = (query: UnionQuery) => {
         this.useCase(createDeleteQueryUseCase()).executor(useCase => useCase.execute(query));
     };
 
-    onClickAddingQuery = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {
-        this.useCase(new OpenQueryPanelUseCase()).executor(useCase => useCase.execute(searchList));
+    onClickAddingGitHubQuery = (searchList: GitHubSearchList) => {
+        this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
+            useCase.execute(searchList, "github")
+        );
     };
 
-    onClickSearchList = (_event: SyntheticEvent<any>, searchList: GitHubSearchList) => {
+    onClickAddingFaaoQuery = (searchList: GitHubSearchList) => {
+        this.useCase(new OpenQueryPanelUseCase()).executor(useCase =>
+            useCase.execute(searchList, "faao")
+        );
+    };
+
+    onClickSearchList = (searchList: GitHubSearchList) => {
         this.useCase(createSearchQueriesAndOpenStreamUseCase()).executor(useCase =>
             useCase.execute(searchList)
         );
@@ -75,7 +83,8 @@ export class GitHubSearchContainer extends BaseContainer<GitHubSearchContainerPr
                     activeSearchList={this.props.app.activeSearchList}
                     activeQuery={this.props.app.activeQuery}
                     onClickSearchList={this.onClickSearchList}
-                    onClickAddingQuery={this.onClickAddingQuery}
+                    onClickAddingGitHubQuery={this.onClickAddingGitHubQuery}
+                    onClickAddingFaaoQuery={this.onClickAddingFaaoQuery}
                     onClickQuery={this.onClickQuery}
                     onEditQuery={this.onEditQuery}
                     onDeleteQuery={this.onDeleteQuery}

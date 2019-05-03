@@ -60,6 +60,18 @@
     white-space: nowrap;
 }
 
+.SearchResultListItem-nonContent {
+    display: flex;
+}
+
+.SearchResultListItem-sideMenu {
+    width: 24px;
+}
+
+.SearchResultListItem-footer {
+    flex: 1;
+}
+
 .SearchResultListItem-footer {
     font-size: 12px;
     padding: 0.2rem 0;
@@ -88,12 +100,6 @@
     font-size: 12px;
     padding: 3px 4px;
     margin-right: 0.2rem;
-}
-
-.SearchResultListItem-meta {
-    display: inline-block;
-    position: absolute;
-    right: 0;
 }
 
 .SearchResultListItem-commentsIcon {

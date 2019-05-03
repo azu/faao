@@ -4,13 +4,11 @@ import {
     GitHubSearchStream,
     GitHubSearchStreamJSON
 } from "../../domain/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");

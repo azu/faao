@@ -1,13 +1,14 @@
 // MIT © 2017 azu
 import {
     GitHubSearchList,
-    GitHubSearchListJSON
+    GitHubSearchListJSON,
+    UnionQuery
 } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListFactory } from "../../domain/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { createStorageInstance } from "./Storage";
 import sortBy from "lodash.sortby";
+import { FaaoSearchQuery, isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 
 const debug = require("debug")("faao:GitHubSearchListRepository");
 
@@ -52,8 +53,20 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         return sortBy(this.findAll(), predicate);
     }
 
-    findByQuery(aQuery: GitHubSearchQuery): GitHubSearchList | undefined {
+    findByQuery(aQuery: UnionQuery): GitHubSearchList | undefined {
         return this.map.values().find(searchList => searchList.includesQuery(aQuery));
+    }
+
+    findAllFaaoQuery(): FaaoSearchQuery[] {
+        const queries: FaaoSearchQuery[] = [];
+        this.findAll().forEach(searchList => {
+            searchList.queries.forEach(query => {
+                if (isFaaoSearchQuery(query)) {
+                    queries.push(query);
+                }
+            });
+        });
+        return queries;
     }
 
     save(entity: GitHubSearchList): Promise<void> {

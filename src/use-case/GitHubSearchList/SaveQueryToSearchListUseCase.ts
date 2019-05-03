@@ -4,9 +4,8 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQueryJSON } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchQueryFactory } from "../../domain/GitHubSearchList/GitHubSearchQueryFactory";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQueryJSON } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { createQueryFromUnionQueryJSON } from "../../domain/GitHubSearchList/QueryService";
 
 export const createSaveQueryToSearchListUseCase = () => {
     return new SaveQueryToSearchListUseCase(gitHubSearchListRepository);
@@ -17,8 +16,8 @@ export class SaveQueryToSearchListUseCase extends UseCase {
         super();
     }
 
-    execute(searchList: GitHubSearchList, queryJSON: GitHubSearchQueryJSON) {
-        const query = GitHubSearchQueryFactory.createFromJSON(queryJSON);
+    execute(searchList: GitHubSearchList, queryJSON: UnionQueryJSON) {
+        const query = createQueryFromUnionQueryJSON(queryJSON);
         searchList.saveQuery(query);
         return this.gitHubSearchListRepository.save(searchList);
     }

@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { Payload, Store } from "almin";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     CloseQueryPanelUseCasePayload,
@@ -14,37 +14,50 @@ import {
     OpenSearchListPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 import { shallowEqual } from "shallow-equal-object";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+
+export type QueryPanelType = "github" | "faao";
 
 export interface GitHubSearchListStateObject {
     searchLists: GitHubSearchList[];
     editingSearchList: GitHubSearchList | undefined;
-    editingQuery: GitHubSearchQuery | undefined;
-    isQueryPanelOpened: boolean;
+    editingQuery: UnionQuery | undefined;
+    openQueryPanelState: false | QueryPanelType;
     isSearchListPanelOpened: boolean;
+    faaoQueries: FaaoSearchQuery[];
 }
 
 export class GitHubSearchListState implements GitHubSearchListStateObject {
     isSearchListPanelOpened: boolean;
-    isQueryPanelOpened: boolean;
+    openQueryPanelState: false | QueryPanelType;
     editingSearchList: GitHubSearchList | undefined;
-    editingQuery: GitHubSearchQuery | undefined;
+    editingQuery: UnionQuery | undefined;
     searchLists: GitHubSearchList[];
+    faaoQueries: FaaoSearchQuery[];
 
     constructor(state: GitHubSearchListStateObject) {
         this.searchLists = state.searchLists;
-        this.isQueryPanelOpened = state.isQueryPanelOpened;
+        this.openQueryPanelState = state.openQueryPanelState;
         this.isSearchListPanelOpened = state.isSearchListPanelOpened;
         this.editingSearchList = state.editingSearchList;
         this.editingQuery = state.editingQuery;
+        this.faaoQueries = state.faaoQueries;
     }
 
-    update(gitHubSearchLists: GitHubSearchList[]) {
+    update({
+        faaoQueries,
+        gitHubSearchLists
+    }: {
+        faaoQueries: FaaoSearchQuery[];
+        gitHubSearchLists: GitHubSearchList[];
+    }) {
         if (shallowEqual(this.searchLists, gitHubSearchLists)) {
             return this;
         }
         return new GitHubSearchListState({
             ...(this as GitHubSearchListState),
-            searchLists: gitHubSearchLists
+            searchLists: gitHubSearchLists,
+            faaoQueries: faaoQueries
         });
     }
 
@@ -80,21 +93,21 @@ export class GitHubSearchListState implements GitHubSearchListStateObject {
         if (payload instanceof OpenQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...(this as GitHubSearchListState),
-                isQueryPanelOpened: true,
+                openQueryPanelState: payload.panelType,
                 editingSearchList: payload.searchList
             });
         }
         if (payload instanceof EditQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...(this as GitHubSearchListState),
-                isQueryPanelOpened: true,
+                openQueryPanelState: payload.panelType,
                 editingQuery: payload.query
             });
         }
         if (payload instanceof CloseQueryPanelUseCasePayload) {
             return new GitHubSearchListState({
                 ...(this as GitHubSearchListState),
-                isQueryPanelOpened: false,
+                openQueryPanelState: false,
                 editingSearchList: undefined,
                 editingQuery: undefined
             });
@@ -113,10 +126,11 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         this.gitHubSearchRepository = gitHubSearchListRepository;
         this.state = new GitHubSearchListState({
             isSearchListPanelOpened: false,
-            isQueryPanelOpened: false,
+            openQueryPanelState: false,
             editingSearchList: undefined,
             editingQuery: undefined,
-            searchLists: []
+            searchLists: [],
+            faaoQueries: []
         });
     }
 
@@ -125,7 +139,15 @@ export class GitHubSearchListStore extends Store<GitHubSearchListState> {
         const gitHubSearchLists = this.gitHubSearchRepository.findAllSortBy(
             searchList => searchList.name
         );
-        this.setState(this.state.update(gitHubSearchLists).reduce(payload));
+        const faaoQueries = this.gitHubSearchRepository.findAllFaaoQuery();
+        this.setState(
+            this.state
+                .update({
+                    gitHubSearchLists,
+                    faaoQueries
+                })
+                .reduce(payload)
+        );
     }
 
     getState() {

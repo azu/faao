@@ -17,7 +17,7 @@ export interface GitHubSearchQueryArgs {
     gitHubSettingId: Identifier<GitHubSetting>;
 }
 
-export const isSearchQueryJSON = (query: any): query is GitHubSearchQueryJSON => {
+export const isGitHubSearchQueryJSON = (query: any): query is GitHubSearchQueryJSON => {
     return isQueryRoleJSON(query) && query.query !== undefined;
 };
 

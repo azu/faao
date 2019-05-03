@@ -2,6 +2,7 @@
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import uniqBy from "lodash.uniqby";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
+import { splice } from "@immutable-array/prototype";
 
 export interface GitHubSearchResultItemCollectionArgs<T> {
     items: T[];
@@ -96,6 +97,23 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
             return item.equals(currentItem);
         });
         return this.getItemAtIndex(index - 1);
+    }
+
+    // TODO: should be more reasonable?
+    // find alias
+    findItemByPredicate(predicate: (item: GitHubSearchResultItem) => boolean) {
+        return this.items.find(predicate);
+    }
+
+    removeItem(item: T): GitHubSearchResultItemCollection<T> {
+        const index = this.items.findIndex(inItem => inItem.equals(item));
+        if (index === -1) {
+            return this;
+        }
+        return new GitHubSearchResultItemCollection({
+            ...this,
+            items: splice(this.items, index, 1)
+        });
     }
 
     sliceItemsFromCurrentItem(currentItem: T, length: number): T[] {

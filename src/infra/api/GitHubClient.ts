@@ -297,7 +297,10 @@ ${queries.join("\n")}
                     }
                 };
             };
-            this.graphQLClient.request(graphQLQuery).then(data => {
+            const requestPromise = query.hasRequestableSearchParams
+                ? this.graphQLClient.request(graphQLQuery)
+                : Promise.resolve({});
+            requestPromise.then(data => {
                 const items = Object.keys(data).map(key => {
                     const dataType = /^issue/.test(key) ? "issue" : "pullRequest";
                     const queryResponse = (data as any)[key][dataType] as QueryResponse;

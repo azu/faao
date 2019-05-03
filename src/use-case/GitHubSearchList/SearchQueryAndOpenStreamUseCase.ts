@@ -16,6 +16,7 @@ import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHu
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
+import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 export const createSearchQueryAndOpenStreamUseCase = () => {
@@ -33,7 +34,7 @@ export class SearchQueryAndOpenStreamUseCase extends SearchQueryToUpdateStreamUs
         super(gitHubSettingRepository, gitHubSearchStreamRepository);
     }
 
-    async execute(query: GitHubSearchQuery) {
+    async execute(query: UnionQuery) {
         const stream =
             gitHubSearchStreamRepository.findByQuery(query) || GitHubSearchStreamFactory.create();
         // save current stream

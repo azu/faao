@@ -4,7 +4,7 @@ import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 
@@ -35,7 +35,7 @@ export class AppUser {
         this.activity.activateSearchList(searchList);
     }
 
-    openQuery(searchList: GitHubSearchList, query: GitHubSearchQuery) {
+    openQuery(searchList: GitHubSearchList, query: UnionQuery) {
         this.activity.activateQuery(searchList, query);
     }
 

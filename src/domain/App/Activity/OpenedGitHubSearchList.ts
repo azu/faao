@@ -1,18 +1,28 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../../GitHubSearchList/GitHubSearchQuery";
+import {
+    GitHubSearchQuery,
+    GitHubSearchQueryJSON,
+    isGitHubSearchQuery,
+    isGitHubSearchQueryJSON
+} from "../../GitHubSearchList/GitHubSearchQuery";
 import { Identifier } from "../../Entity";
-import { GitHubSearchList } from "../../GitHubSearchList/GitHubSearchList";
+import {
+    GitHubSearchList,
+    UnionQuery,
+    UnionQueryJSON
+} from "../../GitHubSearchList/GitHubSearchList";
 import { ValueObject } from "../../ValueObject";
+import { FaaoSearchQuery, isFaaoSearchQueryJSON } from "../../GitHubSearchList/FaaoSearchQuery";
 
 export interface OpenedGitHubSearchListJSON {
     type: "OpenedGitHubSearchList";
     gitHubSearchListId: string;
-    query?: GitHubSearchQueryJSON;
+    query?: UnionQueryJSON;
 }
 
 export interface OpenedGitHubSearchListArgs {
     gitHubSearchListId: Identifier<GitHubSearchList>;
-    query?: GitHubSearchQuery;
+    query?: UnionQuery;
 }
 
 export const isOpenedGitHubSearchList = (v: any): v is OpenedGitHubSearchList => {
@@ -22,7 +32,7 @@ export const isOpenedGitHubSearchList = (v: any): v is OpenedGitHubSearchList =>
 export class OpenedGitHubSearchList extends ValueObject implements OpenedGitHubSearchListArgs {
     type = "OpenedGitHubStream";
     gitHubSearchListId: Identifier<GitHubSearchList>;
-    query?: GitHubSearchQuery;
+    query?: UnionQuery;
 
     constructor(args: OpenedGitHubSearchListArgs) {
         super();
@@ -37,7 +47,14 @@ export class OpenedGitHubSearchList extends ValueObject implements OpenedGitHubS
     static fromJSON(json: OpenedGitHubSearchListJSON): OpenedGitHubSearchList {
         return new OpenedGitHubSearchList({
             gitHubSearchListId: new Identifier<GitHubSearchList>(json.gitHubSearchListId),
-            query: json.query ? GitHubSearchQuery.fromJSON(json.query) : undefined
+            query: (query => {
+                if (isGitHubSearchQueryJSON(query)) {
+                    return GitHubSearchQuery.fromJSON(query);
+                } else if (isFaaoSearchQueryJSON(query)) {
+                    return FaaoSearchQuery.fromJSON(query);
+                }
+                return;
+            })(json.query)
         });
     }
 

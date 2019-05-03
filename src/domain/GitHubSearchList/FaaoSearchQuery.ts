@@ -3,6 +3,7 @@ import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { FaaoSearchQueryParams, FaaoSearchQueryParamsJSON } from "./FaaoSearchQueryParams";
 import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
+import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
 
 export type FaaoSearchQueryJSON = {
     searchParams: FaaoSearchQueryParamsJSON;
@@ -15,7 +16,7 @@ export interface FaaoSearchQueryArgs {
     gitHubSettingId: Identifier<GitHubSetting>;
 }
 
-export const isFaaoSearchQuery = (query: QueryRole): query is FaaoSearchQuery => {
+export const isFaaoSearchQuery = (query: any): query is FaaoSearchQuery => {
     return query instanceof FaaoSearchQuery;
 };
 
@@ -39,6 +40,10 @@ export class FaaoSearchQuery {
         this.searchParams = args.searchParams;
         this.color = args.color;
         this.gitHubSettingId = args.gitHubSettingId;
+    }
+
+    get hasRequestableSearchParams() {
+        return this.searchParams.hasAtLeastOne;
     }
 
     /**
@@ -71,6 +76,24 @@ export class FaaoSearchQuery {
             color: this.color.hexCode,
             gitHubSettingId: this.gitHubSettingId.toValue(),
             searchParams: this.searchParams.toJSON()
+        });
+    }
+
+    includesParameterURL(url: string) {
+        return this.searchParams.includesURL(url);
+    }
+
+    addParam(param: FaaoSearchQueryParam) {
+        return new FaaoSearchQuery({
+            ...this,
+            searchParams: this.searchParams.add(param)
+        });
+    }
+
+    removeParam(param: FaaoSearchQueryParam) {
+        return new FaaoSearchQuery({
+            ...this,
+            searchParams: this.searchParams.remove(param)
         });
     }
 }

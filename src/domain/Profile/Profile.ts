@@ -1,10 +1,7 @@
 // MIT © 2017 azu
-import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQueryJSON } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
-import { GitHubSearchQueryJSON } from "../GitHubSearchList/GitHubSearchQuery";
-import { FaaoSearchQueryJSON } from "../GitHubSearchList/FaaoSearchQuery";
-import { QueryRoleJSON } from "../GitHubSearchList/QueryRole";
 
 // Q. Why define duplicated interface?
 // A. We should define exportable data by manually
@@ -21,7 +18,7 @@ export interface ProfileJSON {
     GitHubSearchLists: {
         id: string;
         name: string;
-        queries: (FaaoSearchQueryJSON | GitHubSearchQueryJSON)[];
+        queries: UnionQueryJSON[];
     }[];
     GitHubUsers?: {
         id: string;

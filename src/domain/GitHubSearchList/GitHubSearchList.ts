@@ -3,29 +3,30 @@ import {
     GitHubSearchQuery,
     GitHubSearchQueryJSON,
     isGitHubSearchQuery,
-    isSearchQueryJSON
+    isGitHubSearchQueryJSON
 } from "./GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
 import { FaaoSearchQuery, FaaoSearchQueryJSON, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
-import { QueryRole, QueryRoleJSON } from "./QueryRole";
 
+export type UnionQuery = FaaoSearchQuery | GitHubSearchQuery;
+export type UnionQueryJSON = FaaoSearchQueryJSON | GitHubSearchQueryJSON;
 export interface GitHubSearchListJSON {
     id: string;
     name: string;
-    queries: (FaaoSearchQueryJSON | GitHubSearchQueryJSON)[];
+    queries: UnionQueryJSON[];
 }
 
 export interface GitHubSearchListArgs {
     id: Identifier<GitHubSearchList>;
     name: string;
-    queries: (FaaoSearchQuery | GitHubSearchQuery)[];
+    queries: UnionQuery[];
 }
 
 export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
     readonly id: Identifier<GitHubSearchList>;
     readonly name: string;
-    queries: (FaaoSearchQuery | GitHubSearchQuery)[];
+    queries: UnionQuery[];
 
     constructor(args: GitHubSearchListArgs) {
         super(args.id);
@@ -39,7 +40,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         return Object.assign(list, json, {
             id: new Identifier<GitHubSearchList>(json.id),
             queries: json.queries.map(query => {
-                if (isSearchQueryJSON(query)) {
+                if (isGitHubSearchQueryJSON(query)) {
                     return GitHubSearchQuery.fromJSON(query);
                 } else if (isFaaoSearchQueryJSON(query)) {
                     return FaaoSearchQuery.fromJSON(query);
@@ -61,17 +62,17 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         return this.queries.filter(query => isGitHubSearchQuery(query)) as GitHubSearchQuery[];
     }
 
-    includesQuery(aQuery: QueryRole): boolean {
+    includesQuery(aQuery: UnionQuery): boolean {
         return this.queries.some(query => {
             return query.equals(aQuery);
         });
     }
 
-    saveQuery(aQuery: GitHubSearchQuery) {
+    saveQuery(aQuery: UnionQuery) {
         this.queries = this.queries.concat(aQuery);
     }
 
-    replaceQuery(oldQuery: GitHubSearchQuery, newQuery: GitHubSearchQuery) {
+    replaceQuery(oldQuery: UnionQuery, newQuery: UnionQuery) {
         const index = this.queries.indexOf(oldQuery);
         if (!this.queries[index]) {
             return;
@@ -79,7 +80,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         this.queries = splice(this.queries, index, 1, newQuery);
     }
 
-    deleteQuery(aQuery: GitHubSearchQuery) {
+    deleteQuery(aQuery: UnionQuery) {
         const index = this.queries.indexOf(aQuery);
         if (index === -1) {
             return;

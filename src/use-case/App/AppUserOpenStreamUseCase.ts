@@ -3,11 +3,12 @@ import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
+import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 
 export const createAppUserOpenStreamUseCase = () => {
     return new AppUserOpenStreamUseCase(appRepository, gitHubSearchListRepository);
@@ -21,9 +22,9 @@ export class AppUserOpenStreamUseCase extends UseCase {
         super();
     }
 
-    execute(query: GitHubSearchQuery | GitHubSearchList, stream: GitHubSearchStream) {
+    execute(query: UnionQuery | GitHubSearchList, stream: GitHubSearchStream) {
         const app = this.appRepository.get();
-        if (GitHubSearchQuery.isQuery(query)) {
+        if (GitHubSearchQuery.isQuery(query) || isFaaoSearchQuery(query)) {
             const searchList = this.gitHubSearchListRepository.findByQuery(query);
             if (!searchList) {
                 throw new Error(`Not Found SearchList for query: ${query.name}`);

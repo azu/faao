@@ -11,7 +11,7 @@ import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 
 export interface QuickIssueStateObject {
@@ -19,14 +19,14 @@ export interface QuickIssueStateObject {
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
 }
 
 export class QuickIssueState implements QuickIssueStateObject {
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
     activeItem?: GitHubSearchResultItem;
-    activeQuery?: GitHubSearchQuery;
+    activeQuery?: UnionQuery;
     isOpened: boolean;
 
     constructor(args: QuickIssueStateObject) {
