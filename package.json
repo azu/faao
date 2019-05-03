@@ -72,6 +72,7 @@
     "start": "cross-env BROWSER=none react-scripts start",
     "electron": "wait-on http://localhost:3000 && cross-env FAAO_URL=http://localhost:3000/ electron public/electron.js",
     "watch:main": "tsc -p ./tsconfig.electron.json",
+    "build:docs": "almin-usecase-map-generator \"./src/use-case/**/*UseCase.ts\" --output build/meta/use-case.svg",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "clean": "rimraf public/build dist && mkdirp public/build",
