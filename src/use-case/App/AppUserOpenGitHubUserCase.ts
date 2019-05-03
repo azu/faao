@@ -51,6 +51,6 @@ export class AppUserOpenGitHubUserCase extends UseCase {
         await this.args.appRepository.save(app);
         return this.context
             .useCase(createFetchGitHubUserActivityUseCase())
-            .executor(useCase => useCase.execute(gitHubSetting.id));
+            .execute(gitHubSetting.id);
     }
 }

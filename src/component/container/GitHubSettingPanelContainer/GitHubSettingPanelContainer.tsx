@@ -7,10 +7,6 @@ import { GitHubSettingPanel } from "../../project/GitHubSettingPanel/GitHubSetti
 import { createSaveGitHubSettingUseCase } from "../../../use-case/GitHubSetting/SaveGitHubSettingUseCase";
 import { CloseSettingPanelUseCase } from "../../../use-case/GitHubSetting/ToggleSettingPanelUseCase";
 import { CheckGrantGitHubAPIUseCase } from "../../../use-case/GitHubSetting/CheckGrantGitHubAPIUseCase";
-import {
-    createShowErrorNoticeUseCase,
-    ShowErrorNoticeUseCase
-} from "../../../use-case/Notice/ShowErrorNoticeUseCase";
 import { createShowGenericErrorUseCase } from "../../../use-case/Notice/ShowGenericErrorUseCase";
 
 export interface GitHubSettingPanelContainerProps {

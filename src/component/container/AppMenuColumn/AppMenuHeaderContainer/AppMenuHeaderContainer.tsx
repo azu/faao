@@ -2,7 +2,7 @@
 import * as React from "react";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { BaseContainer } from "../../BaseContainer";
-import { CommandBar, IconButton, Label } from "office-ui-fabric-react";
+import { CommandBar } from "office-ui-fabric-react";
 import { OpenQuickIssueUseCase } from "../../../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { AppState } from "../../../../store/AppStore/AppStore";

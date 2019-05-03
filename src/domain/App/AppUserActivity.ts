@@ -1,7 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList, UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";

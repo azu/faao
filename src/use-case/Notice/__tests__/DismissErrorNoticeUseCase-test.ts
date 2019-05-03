@@ -22,7 +22,7 @@ describe("DismissErrorNoticeUseCase", () => {
         const noticeRepository = new NoticeRepository();
         return context
             .useCase(new DismissErrorNoticeUseCase(noticeRepository))
-            .executor(useCase => useCase.execute(notice))
+            .execute(notice)
             .then(() => {
                 expect(noticeRepository.findById(notice.id)).toBeUndefined();
             });

@@ -2,10 +2,10 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import {
-    IContextualMenuItem,
     ContextualMenuItemType,
     DirectionalHint,
     IconButton,
+    IContextualMenuItem,
     List
 } from "office-ui-fabric-react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";

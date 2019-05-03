@@ -14,7 +14,7 @@ describe("ToggleSettingPanelUseCase", () => {
             const { dispatchedPayloads, context } = createStubContext(OpenSettingPanelUseCase);
             return context
                 .useCase(new OpenSettingPanelUseCase())
-                .executor(useCase => useCase.execute())
+                .execute()
                 .then(() => {
                     expect(dispatchedPayloads[0]).toBeInstanceOf(OpenSettingPanelUseCasePayload);
                 });
@@ -29,7 +29,7 @@ describe("ToggleSettingPanelUseCase", () => {
             });
             return context
                 .useCase(new OpenSettingPanelUseCase())
-                .executor(useCase => useCase.execute(setting))
+                .execute(setting)
                 .then(() => {
                     const payload: OpenSettingPanelUseCasePayload = dispatchedPayloads[0];
                     expect(payload).toBeInstanceOf(OpenSettingPanelUseCasePayload);
@@ -42,7 +42,7 @@ describe("ToggleSettingPanelUseCase", () => {
             const { dispatchedPayloads, context } = createStubContext(CloseSettingPanelUseCase);
             return context
                 .useCase(new CloseSettingPanelUseCase())
-                .executor(useCase => useCase.execute())
+                .execute()
                 .then(() => {
                     expect(dispatchedPayloads[0]).toBeInstanceOf(CloseSettingPanelUseCasePayload);
                 });

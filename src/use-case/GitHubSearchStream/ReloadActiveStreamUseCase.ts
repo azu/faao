@@ -47,21 +47,17 @@ export class ReloadActiveStreamUseCase extends UseCase {
             }
             return this.context
                 .useCase(createSearchQueriesAndUpdateStreamUseCase())
-                .executor(useCase => useCase.execute(searchList));
+                .execute(searchList);
         } else if (activeQuery) {
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .executor(useCase => {
-                    return useCase.execute(activeQuery, activeStream);
-                })
+                .execute(activeQuery, activeStream)
                 .catch((error: Error) => {
                     const notice = new SearchQueryErrorNotice({
                         query: activeQuery,
                         error
                     });
-                    return this.context
-                        .useCase(createShowErrorNoticeUseCase())
-                        .executor(useCase => useCase.execute(notice));
+                    return this.context.useCase(createShowErrorNoticeUseCase()).execute(notice);
                 });
         }
     }

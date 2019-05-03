@@ -1,5 +1,4 @@
 import { Identifier } from "../Entity";
-import { string } from "prop-types";
 
 const ghUrlToObject = require("github-url-to-object");
 

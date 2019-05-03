@@ -92,7 +92,7 @@ describe("ImportProfileJSONUseCase", () => {
         };
         return context
             .useCase(importProfileJSONUseCase)
-            .executor(useCase => useCase.execute(profileJSON))
+            .execute(profileJSON)
             .then(() => {
                 expect(gitHubSettingRepository.findAll()).toHaveLength(2);
                 expect(gitHubSearchListRepository.findAll()).toHaveLength(2);

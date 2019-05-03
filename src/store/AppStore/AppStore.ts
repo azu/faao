@@ -3,12 +3,7 @@ import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import {
-    GitHubSearchList,
-    UnionQuery,
-    UnionQueryJSON
-} from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 

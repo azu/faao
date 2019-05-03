@@ -41,9 +41,7 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
                 GitHubSearchStreamFactory.create();
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .executor(useCase => {
-                    return useCase.execute(query, queryStream);
-                })
+                .execute(query, queryStream)
                 .then(() => {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);

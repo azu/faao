@@ -37,9 +37,7 @@ export class AppUserOpenItemUseCase extends UseCase {
         await this.appRepository.save(app);
         return this.context
             .useCase(new OpenItemInNewTabUseCase())
-            .executor(useCase => {
-                return useCase.execute(item.html_url);
-            })
+            .execute(item.html_url)
             .then(() => {
                 const activity = app.user.activity;
                 const activeSearchStream = activity.openedStreamId
@@ -54,10 +52,7 @@ export class AppUserOpenItemUseCase extends UseCase {
                     3 // prefetch items // TODO: fix harcode
                 );
                 debug("prefetch items:", nextItems);
-                return this.context.useCase(new PrefetchItemsForOpen()).executor(useCase => {
-                    const itemsUrls = nextItems.map(item => item.html_url);
-                    return useCase.execute(itemsUrls);
-                });
+                return this.context.useCase(new PrefetchItemsForOpen()).execute(itemsUrls);
             });
     }
 }

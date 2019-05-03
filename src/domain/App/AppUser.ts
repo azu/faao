@@ -3,7 +3,6 @@
 import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList, UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";

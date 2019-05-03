@@ -51,9 +51,7 @@ export class AppUserSelectPrevItemUseCase extends UseCase {
                 debug("Not found prev item");
                 return;
             }
-            return this.context.useCase(createAppUserSelectItemUseCase()).executor(useCase => {
-                return useCase.execute(nextItem);
-            });
+            return this.context.useCase(createAppUserSelectItemUseCase()).execute(nextItem);
         } else if (isOpenedGitHubUser(openedContent)) {
             const currentUser = this.args.gitHubUserRepository.findById(openedContent.gitHubUserId);
             const currentEvent = openedContent.event;
@@ -68,9 +66,7 @@ export class AppUserSelectPrevItemUseCase extends UseCase {
             }
             return this.context
                 .useCase(createAppUserOpenGitHubUserEventUseCase())
-                .executor(useCase => {
-                    return useCase.execute(nextEvent);
-                });
+                .execute(nextEvent);
         }
     }
 }

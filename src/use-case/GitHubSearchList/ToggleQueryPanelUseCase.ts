@@ -1,9 +1,6 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
-import {
-    GitHubSearchQuery,
-    isGitHubSearchQuery
-} from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { isGitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { QueryPanelType } from "../../store/GitHubSearchListStore/GitHubSearchListStore";
 

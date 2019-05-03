@@ -1,8 +1,6 @@
 // MIT © 2017 azu
 import {
     GitHubSearchQuery,
-    GitHubSearchQueryJSON,
-    isGitHubSearchQuery,
     isGitHubSearchQueryJSON
 } from "../../GitHubSearchList/GitHubSearchQuery";
 import { Identifier } from "../../Entity";

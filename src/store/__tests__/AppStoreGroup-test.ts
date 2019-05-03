@@ -16,9 +16,7 @@ describe("AppStoreGroup", () => {
                 store: appStoreGroup
             });
             // initialized application
-            return context
-                .useCase(createSystemReadyToLaunchAppUseCase())
-                .executor(useCase => useCase.execute());
+            return context.useCase(createSystemReadyToLaunchAppUseCase()).execute();
         });
         it("should not exist active items", () => {
             const state = appStoreGroup.getState();

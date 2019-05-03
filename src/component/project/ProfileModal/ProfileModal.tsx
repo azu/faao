@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Modal } from "office-ui-fabric-react";
+import { CommandButton, MessageBar, MessageBarType, Modal } from "office-ui-fabric-react";
 import { ProfileJSONEditor } from "./ProfileJSONEditor/ProfileJSONEditor";
-import { CommandButton, MessageBar, MessageBarType } from "office-ui-fabric-react";
 import { ProfileJSON } from "../../../domain/Profile/Profile";
 
 const FixModal: any = Modal as any;
