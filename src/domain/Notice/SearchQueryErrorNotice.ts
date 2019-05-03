@@ -1,6 +1,5 @@
 // MIT © 2017 az
 import { AbstractNotice } from "./Notice";
-import { GitHubSearchQuery } from "../GitHubSearchList/GitHubSearchQuery";
 import { UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 
 export function isSearchQueryErrorNotice(notice: AbstractNotice): notice is SearchQueryErrorNotice {

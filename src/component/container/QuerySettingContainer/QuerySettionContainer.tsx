@@ -14,10 +14,8 @@ import { createUpdateQueryToSearchListUseCase } from "../../../use-case/App/Upda
 import { FaaoQuerySettingPanel } from "../../project/FaaoQuerySettingPanel/FaaoQuerySettingPanel";
 import {
     FaaoSearchQueryJSON,
-    isFaaoSearchQuery,
-    isFaaoSearchQueryJSON
+    isFaaoSearchQuery
 } from "../../../domain/GitHubSearchList/FaaoSearchQuery";
-import { QueryRoleJSON } from "../../../domain/GitHubSearchList/QueryRole";
 
 export interface QuickIssueContainerProps {
     gitHubSearchList: GitHubSearchListState;

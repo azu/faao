@@ -11,7 +11,7 @@ describe("ShowErrorNoticeUseCase", () => {
         const notice = TypeMoq.It.isAny();
         return context
             .useCase(new ShowErrorNoticeUseCase(noticeRepository))
-            .executor(useCase => useCase.execute(notice))
+            .execute(notice)
             .then(() => {
                 expect(noticeRepository.get()).toBe(notice);
             });

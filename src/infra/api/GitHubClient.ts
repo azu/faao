@@ -1,8 +1,5 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchQuery,
-    isGitHubSearchQuery
-} from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { isGitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
@@ -13,7 +10,7 @@ import {
 } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
 import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
-import { FaaoSearchQuery, isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 import { GraphQLClient } from "graphql-request";
 
 import urlJoin from "url-join";

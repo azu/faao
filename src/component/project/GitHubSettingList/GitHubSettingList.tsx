@@ -6,7 +6,6 @@ import {
     ContextualMenuItemType,
     DirectionalHint,
     Facepile,
-    FocusZoneDirection,
     IFacepilePersona,
     IFacepileProps,
     PersonaSize

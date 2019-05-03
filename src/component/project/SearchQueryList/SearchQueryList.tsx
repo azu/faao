@@ -1,14 +1,6 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { SyntheticEvent } from "react";
-import {
-    CommandBarButton,
-    ContextualMenu,
-    DirectionalHint,
-    IconButton,
-    Link,
-    List
-} from "office-ui-fabric-react";
+import { ContextualMenu, DirectionalHint, IconButton, Link, List } from "office-ui-fabric-react";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSearchList, UnionQuery } from "../../../domain/GitHubSearchList/GitHubSearchList";
 import { shallowEqual } from "shallow-equal-object";

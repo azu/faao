@@ -2,7 +2,6 @@
 import { Payload, Store } from "almin";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     CloseQueryPanelUseCasePayload,
     EditQueryPanelUseCasePayload,

@@ -21,19 +21,15 @@ export class ShortcutKeyContainer extends BaseContainer<{}, {}> {
         this.combokeys = new Combokeys(document.documentElement);
         const actionMap = {
             "move-next-item": (_event: Event) => {
-                this.useCase(createAppUserSelectNextItemUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
+                this.useCase(createAppUserSelectNextItemUseCase()).execute();
             },
             "move-prev-item": (_event: Event) => {
-                this.useCase(createAppUserSelectPrevItemUseCase()).executor(useCase =>
-                    useCase.execute()
-                );
+                this.useCase(createAppUserSelectPrevItemUseCase()).execute();
             },
             "clear-cache-and-reload": (_event: Event) => {
                 if (window.confirm("Can clear cache data?")) {
                     this.useCase(createClearCacheDataUseCase())
-                        .executor(useCase => useCase.execute())
+                        .execute()
                         .then(() => {
                             window.location.reload(true);
                         });

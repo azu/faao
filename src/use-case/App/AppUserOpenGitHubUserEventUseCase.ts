@@ -17,8 +17,6 @@ export class AppUserOpenGitHubUserEventUseCase extends UseCase {
         const app = this.appRepository.get();
         app.user.openGitHubUserEvent(activityEvent);
         await this.appRepository.save(app);
-        return this.context.useCase(new OpenItemInNewTabUseCase()).executor(useCase => {
-            return useCase.execute(activityEvent.htmlURL);
-        });
+        return this.context.useCase(new OpenItemInNewTabUseCase()).execute(activityEvent.htmlURL);
     }
 }

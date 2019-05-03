@@ -2,7 +2,7 @@ import { Identifier } from "../Entity";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { FaaoSearchQueryParams, FaaoSearchQueryParamsJSON } from "./FaaoSearchQueryParams";
-import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
+import { isQueryRoleJSON, QueryRoleJSON } from "./QueryRole";
 import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
 
 export type FaaoSearchQueryJSON = {

@@ -2,7 +2,6 @@ import {
     gitHubSettingRepository,
     GitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
@@ -40,25 +39,17 @@ export class SearchQueryAndOpenStreamUseCase extends SearchQueryToUpdateStreamUs
         // save current stream
         await gitHubSearchStreamRepository.saveWithQuery(stream, query);
         // AppUser open stream and select first item
-        await this.context
-            .useCase(createAppUserOpenStreamUseCase())
-            .executor(useCase => useCase.execute(query, stream));
-        await this.context
-            .useCase(createAppUserSelectFirstItemUseCase())
-            .executor(useCase => useCase.execute());
+        await this.context.useCase(createAppUserOpenStreamUseCase()).execute(query, stream);
+        await this.context.useCase(createAppUserSelectFirstItemUseCase()).execute();
         return this.context
             .useCase(createSearchQueryToUpdateStreamUseCase())
-            .executor(useCase => {
-                return useCase.execute(query, stream);
-            })
+            .execute(query, stream)
             .catch((error: Error) => {
                 const notice = new SearchQueryErrorNotice({
                     query,
                     error
                 });
-                return this.context
-                    .useCase(createShowErrorNoticeUseCase())
-                    .executor(useCase => useCase.execute(notice));
+                return this.context.useCase(createShowErrorNoticeUseCase()).execute(notice);
             });
     }
 }

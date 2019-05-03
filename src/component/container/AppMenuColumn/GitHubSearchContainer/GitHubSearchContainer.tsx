@@ -1,9 +1,7 @@
 // MIT © 2017 azu
 import * as React from "react";
-import { SyntheticEvent } from "react";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { SearchQueryList } from "../../../project/SearchQueryList/SearchQueryList";
-import { GitHubSearchQuery } from "../../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { BaseContainer } from "../../BaseContainer";
 import { createSearchQueryAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueryAndOpenStreamUseCase";
 import classNames from "classnames";

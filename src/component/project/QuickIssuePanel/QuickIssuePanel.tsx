@@ -1,14 +1,13 @@
 // MIT © 2017 azu
 import React from "react";
 import {
-    Button,
     Dropdown,
-    Panel,
-    TextField,
-    PrimaryButton,
+    IDropdownOption,
     Label,
+    Panel,
     PanelType,
-    IDropdownOption
+    PrimaryButton,
+    TextField
 } from "office-ui-fabric-react";
 
 const CodeMirror = require("react-codemirror");

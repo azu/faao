@@ -23,9 +23,7 @@ describe("ExportProfileUseCase", () => {
                     gitHubUserRepository
                 })
             )
-            .executor(useCase => {
-                return useCase.execute();
-            })
+            .execute()
             .then(() => {
                 expect(dispatchedPayloads).toHaveLength(1);
                 const payload: any = dispatchedPayloads[0];

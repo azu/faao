@@ -1,18 +1,16 @@
 // MIT © 2017 azu
-import { ChangedPayload, Payload, UseCase } from "almin";
+import { Payload, UseCase } from "almin";
 import { GitHubClient } from "../../infra/api/GitHubClient";
 import {
     GitHubSettingRepository,
     gitHubSettingRepository
 } from "../../infra/repository/GitHubSettingsRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import {
     gitHubSearchStreamRepository,
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
@@ -72,7 +70,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                     // save current stream
                     await this.gitHubSearchStreamRepository.saveWithQuery(stream, query);
                     // refresh view
-                    this.dispatch(new ChangedPayload());
+                    this.dispatch({ type: "ChangedPayload" });
                     return continueToNext;
                 },
                 async (error: Error) => {

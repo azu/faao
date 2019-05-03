@@ -38,8 +38,6 @@ export class AppUserSelectFirstItemUseCase extends UseCase {
         if (!firstItem) {
             return;
         }
-        return this.context
-            .useCase(createAppUserSelectItemUseCase())
-            .executor(useCase => useCase.execute(firstItem));
+        return this.context.useCase(createAppUserSelectItemUseCase()).execute(firstItem);
     }
 }

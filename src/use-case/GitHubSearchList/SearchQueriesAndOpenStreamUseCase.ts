@@ -38,10 +38,8 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
         // AppUser open streamForSearchList and select first item
         await this.context
             .useCase(createAppUserOpenStreamUseCase())
-            .executor(useCase => useCase.execute(searchList, searchListStream));
-        await this.context
-            .useCase(createAppUserSelectFirstItemUseCase())
-            .executor(useCase => useCase.execute());
+            .execute(searchList, searchListStream);
+        await this.context.useCase(createAppUserSelectFirstItemUseCase()).execute();
         const promises = searchList.queries.map(query => {
             // Update each stream
             const queryStream =
@@ -49,9 +47,7 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
                 GitHubSearchStreamFactory.create();
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .executor(useCase => {
-                    return useCase.execute(query, queryStream);
-                })
+                .execute(query, queryStream)
                 .then(() => {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);

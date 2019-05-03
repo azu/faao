@@ -41,8 +41,6 @@ export class ReloadCurrentUserActivityUseCase extends UseCase {
         if (!setting) {
             return debug("Not found setting");
         }
-        return this.context
-            .useCase(createFetchGitHubUserActivityUseCase())
-            .executor(useCase => useCase.execute(setting.id));
+        return this.context.useCase(createFetchGitHubUserActivityUseCase()).execute(setting.id);
     }
 }

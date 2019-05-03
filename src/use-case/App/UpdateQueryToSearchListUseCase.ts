@@ -4,7 +4,6 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
 import { UnionQuery, UnionQueryJSON } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { createQueryFromUnionQueryJSON } from "../../domain/GitHubSearchList/QueryService";
 
