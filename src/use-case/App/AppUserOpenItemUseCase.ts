@@ -52,6 +52,7 @@ export class AppUserOpenItemUseCase extends UseCase {
                     3 // prefetch items // TODO: fix harcode
                 );
                 debug("prefetch items:", nextItems);
+                const itemsUrls = nextItems.map(item => item.html_url);
                 return this.context.useCase(new PrefetchItemsForOpen()).execute(itemsUrls);
             });
     }
