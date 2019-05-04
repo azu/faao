@@ -9,7 +9,7 @@ import {
     List
 } from "office-ui-fabric-react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";
-
+import removeMarkdown from "remove-markdown";
 import classnames from "classnames";
 import {
     GitHubSearchStreamStateItem,
@@ -140,7 +140,9 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                         {icon} {item.title}
                     </a>
                 </span>
-                <span className="SearchResultListItem-tertiaryText">{item.body}</span>
+                <span className="SearchResultListItem-tertiaryText">
+                    {removeMarkdown(item.body).trim()}
+                </span>
                 <div className="SearchResultListItem-nonContent">
                     <aside className={"SearchResultListItem-sideMenu"}>
                         <QueryButton
