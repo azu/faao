@@ -15,10 +15,11 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     filter?: SearchFilter;
 
     constructor(protected args: GitHubSearchResultItemCollectionArgs<T>) {
-        this.rawItems = uniqBy(args.items, item => item.id.toValue());
-        this.items = this.rawItems;
+        this.rawItems = args.items;
+        this.items = uniqBy(args.items, item => item.id.toValue());
         if (args.filter) {
-            this.applyFilter(args.filter);
+            this.filter = args.filter;
+            this.items = this.filterBySearchFilter(args.filter);
         }
     }
 
@@ -31,8 +32,11 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
     }
 
     applyFilter(filter: SearchFilter): void {
-        this.filter = filter;
-        this.items = this.filterBySearchFilter(filter);
+        return new (this.constructor as any)({
+            ...this,
+            filter,
+            items: this.filterBySearchFilter(filter)
+        });
     }
 
     filterBySearchFilter(filter: SearchFilter) {
@@ -63,15 +67,17 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
             }
         });
         const concatItems = savedItems.concat(addingItems);
-        return new GitHubSearchResultItemCollection(
-            Object.assign({}, this.args, {
-                items: concatItems
-            })
-        );
+        return new (this.constructor as any)({
+            ...this,
+            items: concatItems
+        });
     }
 
     clear() {
-        this.items = [];
+        return new (this.constructor as any)({
+            ...this,
+            items: []
+        });
     }
 
     /**

@@ -41,13 +41,17 @@ export class SearchQueriesAndUpdateStreamUseCase extends UseCase {
                 GitHubSearchStreamFactory.create();
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .execute(query, queryStream)
+                .execute(query)
                 .then(() => {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);
-                    searchListStream.mergeStream(queryStream);
+                    const stream = this.gitHubSearchStreamRepository.findBySearchList(searchList);
+                    if (!stream) {
+                        throw new Error("Not found stream for searchList");
+                    }
+                    const newStream = stream.mergeStream(queryStream);
                     return this.gitHubSearchStreamRepository.saveWithSearchList(
-                        searchListStream,
+                        newStream,
                         searchList.id
                     );
                 });

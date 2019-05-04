@@ -10,7 +10,6 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
-import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
@@ -43,7 +42,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
         super();
     }
 
-    async execute(query: QueryRole, stream: GitHubSearchStream) {
+    async execute(query: QueryRole) {
         const resolvedGitHubSettingRepository = await this.gitHubSettingRepository.ready();
         const gitHubSetting = resolvedGitHubSettingRepository.findGitHubSettingById(
             query.gitHubSettingId
@@ -63,20 +62,28 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
             gitHubClient.search(
                 query,
                 async (result: GitHubSearchResult) => {
+                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
+                    if (!stream) {
+                        throw new Error("stream is not found");
+                    }
                     debug("Searching result", result);
                     const continueToNext = !stream.alreadyHasResult(result);
                     debug("continueToNext", continueToNext);
-                    stream.mergeResult(result);
+                    const newStream = stream.mergeResult(result);
                     // save current stream
-                    await this.gitHubSearchStreamRepository.saveWithQuery(stream, query);
+                    await this.gitHubSearchStreamRepository.saveWithQuery(newStream, query);
                     // refresh view
                     this.dispatch({ type: "ChangedPayload" });
                     return continueToNext;
                 },
                 async (error: Error) => {
                     console.error(error.message, error.stack);
-                    stream.clear();
-                    await gitHubSearchStreamRepository.saveWithQuery(stream, query);
+                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
+                    if (!stream) {
+                        throw new Error("stream is not found");
+                    }
+                    const newStream = stream.clear();
+                    await gitHubSearchStreamRepository.saveWithQuery(newStream, query);
                     reject(error);
                 },
                 () => {

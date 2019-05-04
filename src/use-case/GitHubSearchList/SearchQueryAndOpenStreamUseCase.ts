@@ -39,11 +39,11 @@ export class SearchQueryAndOpenStreamUseCase extends SearchQueryToUpdateStreamUs
         // save current stream
         await gitHubSearchStreamRepository.saveWithQuery(stream, query);
         // AppUser open stream and select first item
-        await this.context.useCase(createAppUserOpenStreamUseCase()).execute(query, stream);
+        await this.context.useCase(createAppUserOpenStreamUseCase()).execute(query);
         await this.context.useCase(createAppUserSelectFirstItemUseCase()).execute();
         return this.context
             .useCase(createSearchQueryToUpdateStreamUseCase())
-            .execute(query, stream)
+            .execute(query)
             .catch((error: Error) => {
                 const notice = new SearchQueryErrorNotice({
                     query,

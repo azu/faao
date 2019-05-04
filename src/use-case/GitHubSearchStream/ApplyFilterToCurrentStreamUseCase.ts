@@ -40,17 +40,15 @@ export class ApplyFilterToCurrentStreamUseCase extends UseCase {
         if (!activeStream) {
             return debug("Not found current stream, streamId: %o", activeStreamId);
         }
-        activeStream.setFilters(filters);
-        console.log(app.user.activity);
+        const newStream = activeStream.applyFilterToStream(filters);
         if (app.user.activity.openedQuery) {
-            console.log(app.user.activity.openedQuery);
             return this.args.gitHubSearchStreamRepository.saveWithQuery(
-                activeStream,
+                newStream,
                 app.user.activity.openedQuery
             );
         } else if (app.user.activity.openedSearchListId) {
             return this.args.gitHubSearchStreamRepository.saveWithSearchList(
-                activeStream,
+                newStream,
                 app.user.activity.openedSearchListId
             );
         }

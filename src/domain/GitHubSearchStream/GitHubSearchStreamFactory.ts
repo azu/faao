@@ -3,12 +3,16 @@ import { GitHubSearchStream, GitHubSearchStreamJSON } from "./GitHubSearchStream
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import { Identifier } from "../Entity";
 import { ulid } from "ulid";
+import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
 
 export class GitHubSearchStreamFactory {
     static create() {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
-            items: []
+            itemSortedCollection: new GitHubSearchResultItemSortedCollection({
+                items: [],
+                sortType: "updated"
+            })
         });
     }
 
@@ -18,7 +22,10 @@ export class GitHubSearchStreamFactory {
         });
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
-            items
+            itemSortedCollection: new GitHubSearchResultItemSortedCollection({
+                items: [],
+                sortType: "updated"
+            })
         });
     }
 }

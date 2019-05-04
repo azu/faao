@@ -29,7 +29,6 @@ describe("GitHubClient", function() {
                     query: "repo:azu/faao Quick Issue"
                 }),
                 searchResult => {
-                    console.log(searchResult.items);
                     expect(searchResult.items).toBeDefined();
                     return Promise.resolve(true);
                 },

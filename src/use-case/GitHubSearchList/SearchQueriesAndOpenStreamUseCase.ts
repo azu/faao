@@ -36,9 +36,7 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
         // save current streamForSearchList
         await this.gitHubSearchStreamRepository.saveWithSearchList(searchListStream, searchList.id);
         // AppUser open streamForSearchList and select first item
-        await this.context
-            .useCase(createAppUserOpenStreamUseCase())
-            .execute(searchList, searchListStream);
+        await this.context.useCase(createAppUserOpenStreamUseCase()).execute(searchList);
         await this.context.useCase(createAppUserSelectFirstItemUseCase()).execute();
         const promises = searchList.queries.map(query => {
             // Update each stream
@@ -47,13 +45,17 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
                 GitHubSearchStreamFactory.create();
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .execute(query, queryStream)
+                .execute(query)
                 .then(() => {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);
-                    searchListStream.mergeStream(queryStream);
+                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
+                    if (!stream) {
+                        throw new Error("Stream is deleted accidentally!");
+                    }
+                    const newStream = stream.mergeStream(queryStream);
                     return this.gitHubSearchStreamRepository.saveWithSearchList(
-                        searchListStream,
+                        newStream,
                         searchList.id
                     );
                 });

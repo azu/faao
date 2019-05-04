@@ -32,21 +32,23 @@ export interface GitHubSearchResultItemSortedCollectionArgs<T extends GitHubSear
 export class GitHubSearchResultItemSortedCollection<
     T extends GitHubSearchResultItem
 > extends GitHubSearchResultItemCollection<T> {
-    sortType?: SortTypeArgs;
+    sortType: SortTypeArgs;
 
     constructor(protected args: GitHubSearchResultItemSortedCollectionArgs<T>) {
         super({
             items: args.items,
             filter: args.filter
         });
-        if (args.sortType) {
-            this.applySort(args.sortType);
-        }
+        this.sortType = args.sortType;
+        this.items = sort(this.items, args.sortType);
     }
 
     applySort(sortType: SortTypeArgs) {
-        this.sortType = sortType;
-        this.items = sort(this.items, sortType);
+        return new (this.constructor as any)({
+            ...this,
+            sortType: sortType,
+            items: sort(this.items, sortType)
+        });
     }
 
     mergeItems(items: T[]): GitHubSearchResultItemSortedCollection<T> {
@@ -68,10 +70,9 @@ export class GitHubSearchResultItemSortedCollection<
             }
         });
         const concatItems = savedItems.concat(actualAdding);
-        return new GitHubSearchResultItemSortedCollection(
-            Object.assign({}, this.args, {
-                items: concatItems
-            })
-        );
+        return new GitHubSearchResultItemSortedCollection({
+            ...this,
+            items: concatItems
+        });
     }
 }

@@ -13,6 +13,7 @@ import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearc
 import { LRUMapLike } from "lru-map-like";
 import { isOpenedGitHubStream } from "../../domain/App/Activity/OpenedGitHubStream";
 
+const debug = require("debug")("faao:GitHubSearchStreamStore");
 const stateItemCacheMap = new LRUMapLike<GitHubSearchResultItem, GitHubSearchStreamStateItem>(1000);
 
 export interface GitHubSearchStreamStateArgs {
@@ -52,6 +53,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
         itemHistory: ActivityHistory<GitHubSearchResultItem>;
     }) {
         if (!stream) {
+            debug("stream is not found in store");
             return new GitHubSearchStreamState({
                 ...(this as GitHubSearchStreamStateArgs),
                 items: [],
