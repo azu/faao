@@ -31,11 +31,11 @@ export class AppMenuFooterContainer extends BaseContainer<AppMenuFooterContainer
                         items: [
                             {
                                 key: "newSearchList",
-                                name: "Add New SearchList",
+                                name: "Create New SearchList",
                                 iconProps: {
                                     iconName: "EditMirrored"
                                 },
-                                ariaLabel: "Add new SearchList",
+                                ariaLabel: "Create New SearchList",
                                 onClick: () => {
                                     this.useCase(new OpenSearchListPanelUseCase()).execute();
                                 }

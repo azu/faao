@@ -88,7 +88,7 @@ export class SearchListSettingPanel extends React.Component<
             </MessageBar>
         ) : null;
         const headerText =
-            this.props.gitHubSearchList === undefined ? "Add New SearchList" : "Edit SearchList";
+            this.props.gitHubSearchList === undefined ? "Create New SearchList" : "Edit SearchList";
         return (
             <Panel
                 className="SearchListSettingPanel"
