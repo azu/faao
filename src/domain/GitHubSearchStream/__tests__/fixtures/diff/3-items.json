@@ -1,0 +1,231 @@
+{
+  "total_count": 3344,
+  "incomplete_results": false,
+  "items": [
+    {
+      "url": "https://api.github.com/repos/sympy/sympy/issues/3791",
+      "repository_url": "https://api.github.com/repos/sympy/sympy",
+      "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3791/labels{/name}",
+      "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3791/comments",
+      "events_url": "https://api.github.com/repos/sympy/sympy/issues/3791/events",
+      "html_url": "https://github.com/sympy/sympy/issues/3791",
+      "id": 28948943,
+      "number": 3791,
+      "title": "copy (not move) isympy to isympy.py",
+      "user": {
+        "login": "certik",
+        "id": 20568,
+        "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/certik",
+        "html_url": "https://github.com/certik",
+        "followers_url": "https://api.github.com/users/certik/followers",
+        "following_url": "https://api.github.com/users/certik/following{/other_user}",
+        "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+        "organizations_url": "https://api.github.com/users/certik/orgs",
+        "repos_url": "https://api.github.com/users/certik/repos",
+        "events_url": "https://api.github.com/users/certik/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/certik/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 84627344,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+          "name": "bug",
+          "color": "ededed",
+          "default": true
+        },
+        {
+          "id": 84627341,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+          "name": "imported",
+          "color": "ededed",
+          "default": false
+        },
+        {
+          "id": 84627345,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+          "name": "valid",
+          "color": "d4c5f9",
+          "default": false
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": {
+        "login": "certik",
+        "id": 20568,
+        "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/certik",
+        "html_url": "https://github.com/certik",
+        "followers_url": "https://api.github.com/users/certik/followers",
+        "following_url": "https://api.github.com/users/certik/following{/other_user}",
+        "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+        "organizations_url": "https://api.github.com/users/certik/orgs",
+        "repos_url": "https://api.github.com/users/certik/repos",
+        "events_url": "https://api.github.com/users/certik/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/certik/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "assignees": [
+        {
+          "login": "certik",
+          "id": 20568,
+          "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/certik",
+          "html_url": "https://github.com/certik",
+          "followers_url": "https://api.github.com/users/certik/followers",
+          "following_url": "https://api.github.com/users/certik/following{/other_user}",
+          "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+          "organizations_url": "https://api.github.com/users/certik/orgs",
+          "repos_url": "https://api.github.com/users/certik/repos",
+          "events_url": "https://api.github.com/users/certik/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/certik/received_events",
+          "type": "User",
+          "site_admin": false
+        }
+      ],
+      "milestone": null,
+      "comments": 10,
+      "created_at": "2008-02-10T10:39:45Z",
+      "updated_at": "2015-04-17T16:59:21Z",
+      "closed_at": null,
+      "body": "bc.. > Perfect. Is there something you would add to our installation instructions?\n\n> I need to get to some windows machine and try the experience for myself.\n> Just one thing. Copy isympy.py in Scripts directory along with plain\n> isympy as windows can not executes files without an extension.\n\np. Original issue for \"#3791\":https://github.com/sympy/sympy/issues/3791: \"http://code.google.com/p/sympy/issues/detail?id=692\":http://code.google.com/p/sympy/issues/detail?id=692\n\np. Original author: \"https://code.google.com/u/104039945248245758823/\":https://code.google.com/u/104039945248245758823/\n\np. Original owner: \"https://code.google.com/u/104039945248245758823/\":https://code.google.com/u/104039945248245758823/\n",
+      "score": 0.572412
+    },
+    {
+      "url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77",
+      "repository_url": "https://api.github.com/repos/fredrik-johansson/mpmath",
+      "labels_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/labels{/name}",
+      "comments_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/comments",
+      "events_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/events",
+      "html_url": "https://github.com/fredrik-johansson/mpmath/issues/77",
+      "id": 32125397,
+      "number": 77,
+      "title": "setup.py lacks shebang",
+      "user": {
+        "login": "vks",
+        "id": 33460,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/vks",
+        "html_url": "https://github.com/vks",
+        "followers_url": "https://api.github.com/users/vks/followers",
+        "following_url": "https://api.github.com/users/vks/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vks/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/vks/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vks/subscriptions",
+        "organizations_url": "https://api.github.com/users/vks/orgs",
+        "repos_url": "https://api.github.com/users/vks/repos",
+        "events_url": "https://api.github.com/users/vks/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/vks/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 94738783,
+          "url": "https://api.github.com/repos/fredrik-johansson/mpmath/labels/bug",
+          "name": "bug",
+          "color": "ededed",
+          "default": true
+        },
+        {
+          "id": 94738780,
+          "url": "https://api.github.com/repos/fredrik-johansson/mpmath/labels/imported",
+          "name": "imported",
+          "color": "ededed",
+          "default": false
+        },
+        {
+          "id": 94738781,
+          "url": "https://api.github.com/repos/fredrik-johansson/mpmath/labels/Priority-Medium",
+          "name": "Priority-Medium",
+          "color": "ededed",
+          "default": false
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+      ],
+      "milestone": null,
+      "comments": 9,
+      "created_at": "2008-04-24T01:23:02Z",
+      "updated_at": "2014-04-24T07:14:21Z",
+      "closed_at": null,
+      "body": "bc.. $ ./setup.py install  \n./setup.py: line 1: from: command not found  \n: command not found  \n'/setup.py: line 3: syntax error near unexpected token `name='mpmath',\n'/setup.py: line 3:`setup(name='mpmath',  \n$ python setup.py install\nrunning install  \nrunning build  \nrunning build_py \n[...]                               \n\nThis is trivial, simple #!python in the first line would do the job.\n\np. Original issue for \"#77\":https://github.com/fredrik-johansson/mpmath/issues/77: \"http://code.google.com/p/mpmath/issues/detail?id=37\":http://code.google.com/p/mpmath/issues/detail?id=37\n\np. Original author: \"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\":https://code.google.com/u/Vinzent.Steinberg@gmail.com/\n",
+      "score": 0.25339288
+    },
+    {
+      "url": "https://api.github.com/repos/sympy/sympy/issues/3953",
+      "repository_url": "https://api.github.com/repos/sympy/sympy",
+      "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3953/labels{/name}",
+      "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3953/comments",
+      "events_url": "https://api.github.com/repos/sympy/sympy/issues/3953/events",
+      "html_url": "https://github.com/sympy/sympy/issues/3953",
+      "id": 28949129,
+      "number": 3953,
+      "title": "new lambdify fails to raise an exception",
+      "user": {
+        "login": "vks",
+        "id": 33460,
+        "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/vks",
+        "html_url": "https://github.com/vks",
+        "followers_url": "https://api.github.com/users/vks/followers",
+        "following_url": "https://api.github.com/users/vks/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vks/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/vks/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vks/subscriptions",
+        "organizations_url": "https://api.github.com/users/vks/orgs",
+        "repos_url": "https://api.github.com/users/vks/repos",
+        "events_url": "https://api.github.com/users/vks/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/vks/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 84627344,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+          "name": "bug",
+          "color": "ededed",
+          "default": true
+        },
+        {
+          "id": 84627341,
+          "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+          "name": "imported",
+          "color": "ededed",
+          "default": false
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [
+      ],
+      "milestone": null,
+      "comments": 15,
+      "created_at": "2008-05-24T00:21:19Z",
+      "updated_at": "2015-04-17T16:58:11Z",
+      "closed_at": null,
+      "body": "bc.. I was reviving my efforts to compile functions to machine code and got this\n(you will probably need the latest revision):\n\nTraceback (most recent call last):\n  File \"/home/one/src/sympy/compilef.py\", line 331, in <module>\n    benchmark(f)\n  File \"/home/one/src/sympy/compilef.py\", line 302, in benchmark\n    pf = lambdify(var, f)\n  File\n\"/usr/local/lib/python2.5/site-packages/sympy/utilities/lambdify.py\", line\n169, in lambdify\n    buf = _get_namespace(m)\n  File\n\"/usr/local/lib/python2.5/site-packages/sympy/utilities/lambdify.py\", line\n184, in _get_namespace\n    _import(m)\n  File\n\"/usr/local/lib/python2.5/site-packages/sympy/utilities/lambdify.py\", line\n86, in _import\n    raise ImportError, \"Can't import %s with command %s\"%(modulename,\nNameError: name 'modulename' is not defined\n\nIt seems to fail at raising an exception because uses a non-existent name.\nI think that it tries to analyze the namespace and fails due to being used\nfrom a function, but I'm not sure. I did not yet look into lambdify's\nimplementation and I still need to figure out what exactly causes the bug.\n\nAt least the NameError should be fixed.\n\np. Original issue for \"#3953\":https://github.com/sympy/sympy/issues/3953: \"http://code.google.com/p/sympy/issues/detail?id=854\":http://code.google.com/p/sympy/issues/detail?id=854\n\np. Original author: \"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\":https://code.google.com/u/Vinzent.Steinberg@gmail.com/\n",
+      "score": 0.107590616
+    }
+  ]
+}

@@ -1,9 +1,29 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
-import uniqBy from "lodash.uniqby";
+import { uniqBy } from "lodash";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 import { splice } from "@immutable-array/prototype";
 import { CollectionRole } from "./CollectionRole";
+
+/**
+ * Uniq(A + B - Duplicated AB)
+ * @param arrayA
+ * @param arrayB
+ */
+const differenceWith = <T extends GitHubSearchResultItem>(arrayA: T[], arrayB: T[]) => {
+    const arraysAB = [arrayA, arrayB];
+    const arraysBA = [arrayB, arrayA];
+    const reduce = (arrays: T[][]) => {
+        return arrays.reduce(function(a, b) {
+            return a.filter(function(value) {
+                return !b.some(item => item.equals(value));
+            });
+        });
+    };
+    const AB = reduce(arraysAB);
+    const BA = reduce(arraysBA);
+    return uniqBy(AB.concat(BA), item => item.id.toValue());
+};
 
 export interface GitHubSearchResultItemCollectionArgs<T> {
     items: T[];
@@ -14,6 +34,7 @@ export class GitHubSearchResultItemCollection implements CollectionRole<GitHubSe
     readonly rawItems: GitHubSearchResultItem[];
     readonly items: GitHubSearchResultItem[];
     readonly filter?: SearchFilter;
+
     constructor(protected args: GitHubSearchResultItemCollectionArgs<GitHubSearchResultItem>) {
         this.rawItems = args.items;
         this.items = uniqBy(args.items, item => item.id.toValue());
@@ -48,6 +69,17 @@ export class GitHubSearchResultItemCollection implements CollectionRole<GitHubSe
     includes(aItem: GitHubSearchResultItem): boolean {
         return this.rawItems.some(item => {
             return aItem.equals(item);
+        });
+    }
+
+    /**
+     * return difference item collection between self and argument collection
+     * @param collection
+     */
+    differenceCollection(collection: CollectionRole<GitHubSearchResultItem>) {
+        return new GitHubSearchResultItemCollection({
+            ...this,
+            items: differenceWith(collection.items, this.items)
         });
     }
 

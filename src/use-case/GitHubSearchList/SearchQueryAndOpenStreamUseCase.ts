@@ -17,7 +17,7 @@ import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 
-const debug = require("debug")("faao:SearchGitHubUseCase");
+const debug = require("debug")("faao:SearchQueryAndOpenStreamUseCase");
 export const createSearchQueryAndOpenStreamUseCase = () => {
     return new SearchQueryAndOpenStreamUseCase(
         gitHubSettingRepository,

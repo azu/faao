@@ -2,7 +2,7 @@
 import { GitHubUserActivityEvent, GitHubUserActivityEventJSON } from "./GitHubUserActivityEvent";
 import { ValueObject } from "../ValueObject";
 import { SearchFilter } from "../GitHubSearchStream/SearchFilter/SearchFilter";
-import sortBy from "lodash.sortby";
+import { sortBy } from "lodash";
 
 const debug = require("debug")("faao:GitHubUserActivity");
 

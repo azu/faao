@@ -11,6 +11,9 @@ import {
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
+import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
+import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
+import { OSNotice } from "../../domain/Notice/OSNotice";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -57,6 +60,8 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
             );
         }
         const gitHubClient = new GitHubClient(gitHubSetting);
+        const firstStream = this.gitHubSearchStreamRepository.findByQuery(query);
+        let lastStream: undefined | GitHubSearchStream;
         return new Promise((resolve, reject) => {
             this.dispatch(new LoadingStartedPayload());
             gitHubClient.search(
@@ -72,6 +77,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                     const newStream = stream.mergeResult(result);
                     // save current stream
                     await this.gitHubSearchStreamRepository.saveWithQuery(newStream, query);
+                    lastStream = newStream;
                     // refresh view
                     this.dispatch({ type: "ChangedPayload" });
                     return continueToNext;
@@ -88,7 +94,25 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                 },
                 () => {
                     debug(`Searching Complete! Query:${query.name}`);
-                    resolve();
+                    if (lastStream && firstStream) {
+                        const diff = lastStream.itemSortedCollection.differenceCollection(
+                            firstStream.itemSortedCollection
+                        );
+                        const notices = diff.items.map(item => {
+                            return new OSNotice({
+                                title: item.title,
+                                body: item.body,
+                                subTitle: item.shortPath,
+                                icon: item.user.avatar_url
+                            });
+                        });
+                        this.context
+                            .useCase(createShowOSNoticesUseCase())
+                            .execute(notices)
+                            .then(() => resolve());
+                    } else {
+                        resolve();
+                    }
                 }
             );
         }).then(

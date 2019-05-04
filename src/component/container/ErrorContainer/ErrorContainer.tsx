@@ -5,8 +5,47 @@ import { GenericErrorNotice } from "../../../domain/Notice/GenericErrorNotice";
 import { BaseContainer } from "../BaseContainer";
 import { EditQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { SearchQueryErrorNotice } from "../../../domain/Notice/SearchQueryErrorNotice";
-import { createDismissErrorNoticeUseCase } from "../../../use-case/Notice/DismissErrorNoticeUseCase";
+import { createDismissNoticeUseCase } from "../../../use-case/Notice/DismissNoticeUseCase";
 import { Notice } from "../../../domain/Notice/Notice";
+import { OSNotice } from "../../../domain/Notice/OSNotice";
+import { shallowEqual } from "shallow-equal-object";
+import isElectron from "is-electron";
+
+const showOSNotifications = (notices: OSNotice[]) => {
+    if (!isElectron()) {
+        return;
+    }
+    const Notification: typeof import("electron").Notification = (window as any).require("electron")
+        .remote.Notification;
+    const nativeImage: typeof import("electron").nativeImage = (window as any).require("electron")
+        .remote.nativeImage;
+    notices.forEach(async notice => {
+        if (notice.icon) {
+            const imageBase64 = await fetch(notice.icon)
+                .then(r => r.arrayBuffer())
+                .then(buf => {
+                    const base64String = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                    return `data:image/png;base64,` + base64String;
+                });
+            console.log("imageBase64", imageBase64);
+            const image = nativeImage.createFromDataURL(imageBase64);
+            const myNotification = new Notification({
+                title: notice.title,
+                subtitle: notice.subTitle,
+                body: notice.body,
+                icon: image
+            });
+            myNotification.show();
+        } else {
+            const notification = new Notification({
+                title: notice.title,
+                body: notice.body,
+                icon: notice.icon
+            });
+            notification.show();
+        }
+    });
+};
 
 export interface ErrorContainerProps {
     notice: NoticeState;
@@ -16,9 +55,15 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     onDismiss = () => {
         const errorNotice = this.props.notice.errorNotice;
         if (errorNotice) {
-            this.useCase(createDismissErrorNoticeUseCase()).execute(errorNotice);
+            this.useCase(createDismissNoticeUseCase()).execute(errorNotice);
         }
     };
+
+    componentDidUpdate(prevProps: Readonly<ErrorContainerProps>): void {
+        if (!shallowEqual(prevProps.notice.osNotices, this.props.notice.osNotices)) {
+            showOSNotifications(this.props.notice.osNotices);
+        }
+    }
 
     render() {
         const messsage = this._makeMessage(this.props.notice.errorNotice);

@@ -140,7 +140,7 @@ export class GitHubSearchResultItem {
     }
 
     isLaterThan(item: GitHubSearchResultItem): boolean {
-        return this.updatedAtDate > item.updatedAtDate;
+        return this.updatedAtDate.getTime() > item.updatedAtDate.getTime();
     }
 
     static fromJSON(json: GitHubSearchResultItemJSON): GitHubSearchResultItem {

@@ -7,7 +7,7 @@ import {
 import { GitHubSearchListFactory } from "../../domain/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { createStorageInstance } from "./Storage";
-import sortBy from "lodash.sortby";
+import { sortBy } from "lodash";
 import { FaaoSearchQuery, isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
 
 const debug = require("debug")("faao:GitHubSearchListRepository");
@@ -49,7 +49,7 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         return this;
     }
 
-    findAllSortBy(predicate: (searchList: GitHubSearchList) => any): GitHubSearchList[] {
+    findAllSortBy(predicate: (searchList: GitHubSearchList) => string): GitHubSearchList[] {
         return sortBy(this.findAll(), predicate);
     }
 

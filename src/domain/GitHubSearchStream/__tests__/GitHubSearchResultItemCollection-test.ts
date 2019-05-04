@@ -37,6 +37,14 @@ describe("GitHubSearchResultItemCollection", () => {
             expect(item).toEqual(newItems[0]);
         });
     });
+    describe("#differenceCollection", () => {
+        it("should return a collection has 5 - 3 items", () => {
+            const sourceCollection = createCollection(require("./fixtures/diff/3-items.json"));
+            const newCollection = createCollection(require("./fixtures/diff/5-items.json"));
+            const results = newCollection.differenceCollection(sourceCollection);
+            expect(results.itemCount).toBe(2);
+        });
+    });
     describe("#filterBySearchFilter", () => {
         describe("in", () => {
             it("should filter by text", () => {

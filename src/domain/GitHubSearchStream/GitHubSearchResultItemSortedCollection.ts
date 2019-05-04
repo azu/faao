@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import sortBy from "lodash.sortby";
+import { sortBy } from "lodash";
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import {
     GitHubSearchResultItemCollection,
@@ -62,6 +62,10 @@ export class GitHubSearchResultItemSortedCollection
         });
     }
 
+    differenceCollection(collection: CollectionRole<GitHubSearchResultItem>) {
+        return collection.differenceCollection(this.collection);
+    }
+
     // implements
     get rawItemCount() {
         return this.collection.rawItemCount;
@@ -85,7 +89,7 @@ export class GitHubSearchResultItemSortedCollection
 
     mergeItems(items: GitHubSearchResultItem[]) {
         const savedItems = this.collection.rawItems.slice();
-        const addingItems = items.slice();
+        const addingItems = items;
         const actualAdding: GitHubSearchResultItem[] = [];
         addingItems.forEach(addingItem => {
             const index = savedItems.findIndex(savedItem => {
@@ -96,7 +100,7 @@ export class GitHubSearchResultItemSortedCollection
                 return;
             }
             const item = savedItems[index];
-            if (addingItem.updatedAtDate.getTime() > item.updatedAtDate.getTime()) {
+            if (addingItem.isLaterThan(item)) {
                 savedItems.splice(index, 1);
                 actualAdding.push(addingItem);
             }

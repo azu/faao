@@ -6,7 +6,7 @@ import { GitHubSettingRepository } from "../../infra/repository/GitHubSettingsRe
 import urlJoin from "url-join";
 import { OpenQuickIssueUseCasePayload } from "../../use-case/QuickIssue/OpenQuickIssueUseCase";
 import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQuickIssueUseCase";
-import uniqBy from "lodash.uniqby";
+import { uniqBy } from "lodash";
 import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
