@@ -12,8 +12,7 @@ export interface GitHubSearchStreamJSON {
 
 export interface GitHubSearchStreamArgs {
     id: Identifier<GitHubSearchStream>;
-    items: GitHubSearchResultItem[];
-    filter?: SearchFilter;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection;
 }
 
 /**
@@ -22,17 +21,11 @@ export interface GitHubSearchStreamArgs {
  */
 export class GitHubSearchStream {
     id: Identifier<GitHubSearchStream>;
-    filter?: SearchFilter;
-    itemSortedCollection: GitHubSearchResultItemSortedCollection<GitHubSearchResultItem>;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
         this.id = args.id;
-        this.filter = args.filter;
-        this.itemSortedCollection = new GitHubSearchResultItemSortedCollection({
-            items: args.items,
-            filter: this.filter,
-            sortType: "updated"
-        });
+        this.itemSortedCollection = args.itemSortedCollection;
     }
 
     /**
@@ -43,15 +36,21 @@ export class GitHubSearchStream {
     }
 
     get filterWord() {
-        if (!this.filter) {
+        if (!this.itemSortedCollection.filter) {
             return undefined;
         }
-        return this.filter.filterText;
+        return this.itemSortedCollection.filter.filterText;
     }
 
-    setFilters(filter: SearchFilter) {
-        this.filter = filter;
-        this.itemSortedCollection.applyFilter(filter);
+    get hasResultAtLeastOne(): boolean {
+        return this.itemSortedCollection.itemCount > 0;
+    }
+
+    applyFilterToStream(filter: SearchFilter) {
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.applyFilter(filter)
+        });
     }
 
     /**
@@ -70,15 +69,24 @@ export class GitHubSearchStream {
     }
 
     removeItemFromStream(item: GitHubSearchResultItem) {
-        this.itemSortedCollection = this.itemSortedCollection.removeItem(item);
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.removeItem(item)
+        });
     }
 
     mergeStream(stream: GitHubSearchStream) {
-        this.itemSortedCollection = this.itemSortedCollection.mergeItems(stream.items);
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.mergeItems(stream.items)
+        });
     }
 
     mergeResult(result: GitHubSearchResult) {
-        this.itemSortedCollection = this.itemSortedCollection.mergeItems(result.items);
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.mergeItems(result.items)
+        });
     }
 
     equals(entity: GitHubSearchStream): boolean {
@@ -88,8 +96,11 @@ export class GitHubSearchStream {
     static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(json.id),
-            items: json.items.map(rawItem => {
-                return GitHubSearchResultItem.fromJSON(rawItem);
+            itemSortedCollection: new GitHubSearchResultItemSortedCollection({
+                items: json.items.map(rawItem => {
+                    return GitHubSearchResultItem.fromJSON(rawItem);
+                }),
+                sortType: "updated"
             })
         });
     }
@@ -104,6 +115,9 @@ export class GitHubSearchStream {
     }
 
     clear() {
-        this.itemSortedCollection.clear();
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.clear()
+        });
     }
 }

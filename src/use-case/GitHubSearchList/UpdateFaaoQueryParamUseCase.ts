@@ -60,8 +60,8 @@ export class UpdateFaaoQueryParamUseCase extends UseCase {
             return;
         }
         debug("Remove cached item from stream", item, stream);
-        stream.removeItemFromStream(item);
-        await this.gitHubSearchStreamRepository.saveWithQuery(stream, newQuery);
+        const newStream = stream.removeItemFromStream(item);
+        await this.gitHubSearchStreamRepository.saveWithQuery(newStream, newQuery);
         // refresh
         return this.context.useCase(createReloadActiveStreamUseCase()).execute();
     }

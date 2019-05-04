@@ -9,9 +9,7 @@ import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
 
-const createCollection = (
-    json: GitHubSearchStreamJSON
-): GitHubSearchResultItemSortedCollection<GitHubSearchResultItem> => {
+const createCollection = (json: GitHubSearchStreamJSON): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromStreamJSON(json);
     return stream.itemSortedCollection;
 };
@@ -37,6 +35,14 @@ describe("GitHubSearchResultItemCollection", () => {
             expect(newCollection.items).toHaveLength(1);
             const item = newCollection.getFirstItem();
             expect(item).toEqual(newItems[0]);
+        });
+    });
+    describe("#differenceCollection", () => {
+        it("should return a collection has 5 - 3 items", () => {
+            const sourceCollection = createCollection(require("./fixtures/diff/3-items.json"));
+            const newCollection = createCollection(require("./fixtures/diff/5-items.json"));
+            const results = newCollection.differenceCollection(sourceCollection);
+            expect(results.itemCount).toBe(2);
         });
     });
     describe("#filterBySearchFilter", () => {

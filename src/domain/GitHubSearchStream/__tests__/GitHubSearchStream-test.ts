@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchStream } from "../GitHubSearchStream";
-import sortBy from "lodash.sortby";
+import { sortBy } from "lodash";
 
 describe("GitHubSearchStream", () => {
     it("should be toJSON <-> fromJSON", () => {

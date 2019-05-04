@@ -51,7 +51,7 @@ export class ReloadActiveStreamUseCase extends UseCase {
         } else if (activeQuery) {
             return this.context
                 .useCase(createSearchQueryToUpdateStreamUseCase())
-                .execute(activeQuery, activeStream)
+                .execute(activeQuery)
                 .catch((error: Error) => {
                     const notice = new SearchQueryErrorNotice({
                         query: activeQuery,

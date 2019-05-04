@@ -7,19 +7,24 @@ import {
 } from "../../domain/Notice/SearchQueryErrorNotice";
 import { GenericErrorNotice, isGenericErrorNotice } from "../../domain/Notice/GenericErrorNotice";
 import { shallowEqual } from "shallow-equal-object";
+import { isOSNotice, OSNotice } from "../../domain/Notice/OSNotice";
 
 export interface NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
     genericErrorNotices: GenericErrorNotice[];
+    osNotices: OSNotice[];
 }
 
 export class NoticeState implements NoticeStateArgs {
     searchQueryErrorNotices: SearchQueryErrorNotice[];
     genericErrorNotices: GenericErrorNotice[];
+    osNotices: OSNotice[];
 
     constructor(args: NoticeStateArgs | NoticeState) {
         this.searchQueryErrorNotices = args.searchQueryErrorNotices;
         this.genericErrorNotices = args.genericErrorNotices;
+        this.osNotices = args.osNotices;
+        console.log("this.osNotices", this.osNotices);
     }
 
     /**
@@ -41,7 +46,8 @@ export class NoticeState implements NoticeStateArgs {
     update(args: NoticeStateArgs) {
         if (
             shallowEqual(this.genericErrorNotices, args.genericErrorNotices) &&
-            shallowEqual(this.searchQueryErrorNotices, args.searchQueryErrorNotices)
+            shallowEqual(this.searchQueryErrorNotices, args.searchQueryErrorNotices) &&
+            shallowEqual(this.osNotices, args.osNotices)
         ) {
             return this;
         }
@@ -60,18 +66,21 @@ export class NoticeStore extends Store<NoticeState> {
         super();
         this.state = new NoticeState({
             searchQueryErrorNotices: [],
-            genericErrorNotices: []
+            genericErrorNotices: [],
+            osNotices: []
         });
     }
 
     receivePayload() {
         const genericErrorNotices = this.noticeRepository.findAllByType(isGenericErrorNotice);
+        const osNotices = this.noticeRepository.findAllByType(isOSNotice);
         const searchQueryErrorNotices = this.noticeRepository.findAllByType(
             isSearchQueryErrorNotice
         );
         const newState = this.state.update({
             searchQueryErrorNotices,
-            genericErrorNotices
+            genericErrorNotices,
+            osNotices
         });
         this.setState(newState);
     }

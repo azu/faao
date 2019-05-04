@@ -79,7 +79,7 @@ ipcMain.on("browser-view-load-url", async (_event: any, url: string) => {
     console.log("load url", url);
     const view = await viewPool.open(url);
     console.log("view", view.webContents.getURL());
-    viewPool.show(view);
+    viewPool.bringFrontBrowserView(view);
 });
 
 ipcMain.on("browser-view-prefetch", (_event: any, url: string) => {

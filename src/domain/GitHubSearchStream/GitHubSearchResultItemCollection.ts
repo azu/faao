@@ -1,24 +1,46 @@
 // MIT © 2017 azu
 import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
-import uniqBy from "lodash.uniqby";
+import { uniqBy } from "lodash";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 import { splice } from "@immutable-array/prototype";
+import { CollectionRole } from "./CollectionRole";
+
+/**
+ * Uniq(A + B - Duplicated AB)
+ * @param arrayA
+ * @param arrayB
+ */
+const differenceWith = <T extends GitHubSearchResultItem>(arrayA: T[], arrayB: T[]) => {
+    const arraysAB = [arrayA, arrayB];
+    const arraysBA = [arrayB, arrayA];
+    const reduce = (arrays: T[][]) => {
+        return arrays.reduce(function(a, b) {
+            return a.filter(function(value) {
+                return !b.some(item => item.equals(value));
+            });
+        });
+    };
+    const AB = reduce(arraysAB);
+    const BA = reduce(arraysBA);
+    return uniqBy(AB.concat(BA), item => item.id.toValue());
+};
 
 export interface GitHubSearchResultItemCollectionArgs<T> {
     items: T[];
     filter?: SearchFilter;
 }
 
-export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> {
-    protected readonly rawItems: T[];
-    items: T[];
-    filter?: SearchFilter;
+export class GitHubSearchResultItemCollection implements CollectionRole<GitHubSearchResultItem> {
+    readonly rawItems: GitHubSearchResultItem[];
+    readonly items: GitHubSearchResultItem[];
+    readonly filter?: SearchFilter;
 
-    constructor(protected args: GitHubSearchResultItemCollectionArgs<T>) {
-        this.rawItems = uniqBy(args.items, item => item.id.toValue());
-        this.items = this.rawItems;
+    constructor(protected args: GitHubSearchResultItemCollectionArgs<GitHubSearchResultItem>) {
+        this.rawItems = args.items;
+        this.items = uniqBy(args.items, item => item.id.toValue());
         if (args.filter) {
-            this.applyFilter(args.filter);
+            this.filter = args.filter;
+            this.items = this.filterBySearchFilter(args.filter);
         }
     }
 
@@ -30,9 +52,12 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         return this.items.length;
     }
 
-    applyFilter(filter: SearchFilter): void {
-        this.filter = filter;
-        this.items = this.filterBySearchFilter(filter);
+    applyFilter(filter: SearchFilter) {
+        return new (this.constructor as any)({
+            ...this,
+            filter,
+            items: this.filterBySearchFilter(filter)
+        });
     }
 
     filterBySearchFilter(filter: SearchFilter) {
@@ -41,13 +66,24 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         });
     }
 
-    includes(aItem: T): boolean {
+    includes(aItem: GitHubSearchResultItem): boolean {
         return this.rawItems.some(item => {
             return aItem.equals(item);
         });
     }
 
-    mergeItems(items: T[]): GitHubSearchResultItemCollection<T> {
+    /**
+     * return difference item collection between self and argument collection
+     * @param collection
+     */
+    differenceCollection(collection: CollectionRole<GitHubSearchResultItem>) {
+        return new GitHubSearchResultItemCollection({
+            ...this,
+            items: differenceWith(collection.items, this.items)
+        });
+    }
+
+    mergeItems(items: GitHubSearchResultItem[]): this {
         const savedItems = this.rawItems.slice();
         const addingItems = items.slice();
         addingItems.forEach((addingItem, addingIndex) => {
@@ -63,36 +99,38 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
             }
         });
         const concatItems = savedItems.concat(addingItems);
-        return new GitHubSearchResultItemCollection(
-            Object.assign({}, this.args, {
-                items: concatItems
-            })
-        );
+        return new (this.constructor as any)({
+            ...this,
+            items: concatItems
+        });
     }
 
     clear() {
-        this.items = [];
+        return new (this.constructor as any)({
+            ...this,
+            items: []
+        });
     }
 
     /**
      * get method respect filter
      */
-    getFirstItem(): T | undefined {
+    getFirstItem(): GitHubSearchResultItem | undefined {
         return this.getItemAtIndex(0);
     }
 
-    getItemAtIndex(index: number): T | undefined {
+    getItemAtIndex(index: number): GitHubSearchResultItem | undefined {
         return this.items[index];
     }
 
-    getNextItem(currentItem: T): T | undefined {
+    getNextItem(currentItem: GitHubSearchResultItem): GitHubSearchResultItem | undefined {
         const index = this.items.findIndex(item => {
             return item.equals(currentItem);
         });
         return this.getItemAtIndex(index + 1);
     }
 
-    getPrevItem(currentItem: T): T | undefined {
+    getPrevItem(currentItem: GitHubSearchResultItem): GitHubSearchResultItem | undefined {
         const index = this.items.findIndex(item => {
             return item.equals(currentItem);
         });
@@ -105,7 +143,7 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         return this.items.find(predicate);
     }
 
-    removeItem(item: T): this {
+    removeItem(item: GitHubSearchResultItem): this {
         const index = this.items.findIndex(inItem => inItem.equals(item));
         if (index === -1) {
             return this;
@@ -116,7 +154,10 @@ export class GitHubSearchResultItemCollection<T extends GitHubSearchResultItem> 
         });
     }
 
-    sliceItemsFromCurrentItem(currentItem: T, length: number): T[] {
+    sliceItemsFromCurrentItem(
+        currentItem: GitHubSearchResultItem,
+        length: number
+    ): GitHubSearchResultItem[] {
         const index = this.items.findIndex(item => {
             return item.equals(currentItem);
         });

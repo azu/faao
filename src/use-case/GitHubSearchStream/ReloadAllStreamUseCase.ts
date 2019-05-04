@@ -53,9 +53,7 @@ export class ReloadAllStreamUseCase extends UseCase {
             if (!stream) {
                 return Promise.resolve();
             }
-            return this.context
-                .useCase(createSearchQueryToUpdateStreamUseCase())
-                .execute(query, stream);
+            return this.context.useCase(createSearchQueryToUpdateStreamUseCase()).execute(query);
         });
         return Promise.all(promises);
     }
