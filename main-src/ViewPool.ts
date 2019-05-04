@@ -135,9 +135,13 @@ export class ViewPool {
      * Show and Hide is workaround BrowserView
      * BrowserView can not to be hidden!
      */
-    show(browserView?: BrowserView) {
-        this.visible = true;
+    bringFrontBrowserView(browserView: BrowserView) {
         this.setBounds(this.currentSize, browserView);
+    }
+
+    show() {
+        this.setBounds(this.currentSize);
+        this.visible = true;
         // debug
         // this.pool.forEach((view, index) => {
         //     console.log(`id: ${index}, url: ${view.webContents.getURL()}`);
