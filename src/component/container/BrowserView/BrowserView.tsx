@@ -1,5 +1,6 @@
 import * as React from "react";
 import isElectron from "is-electron";
+import { IconButton, Link } from "office-ui-fabric-react";
 
 const nope = () => {};
 const ipcRenderer = isElectron() ? (window as any).require("electron").ipcRenderer : nope;
@@ -120,6 +121,17 @@ export class BrowserView extends React.Component<Props> {
         ipcRenderer.send("browser-view-change-size", { x, y, width, height });
     };
 
+    private reloadBrowserView = () => {
+        ipcRenderer.send("browser-view-reload");
+    };
+    private goBackBrowserView = () => {
+        ipcRenderer.send("browser-view-go-back");
+    };
+
+    private goForwardBrowserView = () => {
+        ipcRenderer.send("browser-view-go-forward");
+    };
+
     componentDidUpdate(prevProps: Props, _prevState: any, __: any) {
         if (prevProps.visible !== this.props.visible) {
             if (this.props.visible) {
@@ -131,9 +143,41 @@ export class BrowserView extends React.Component<Props> {
     }
 
     render() {
+        const url = this.props.url;
         return (
             <div className="BrowserView">
-                <div className="BrowserView-address">{this.props.children}</div>
+                <div className="BrowserView-address" dir="ltr">
+                    <div className="BrowserView-addressButtons">
+                        <IconButton
+                            title={"Go Back"}
+                            iconProps={{
+                                iconName: "Back"
+                            }}
+                            onClick={this.goBackBrowserView}
+                        />
+                        <IconButton
+                            title={"Go Forward"}
+                            iconProps={{
+                                iconName: "Forward"
+                            }}
+                            onClick={this.goForwardBrowserView}
+                        />
+                        <IconButton
+                            title={"Refresh Browser View"}
+                            iconProps={{
+                                iconName: "Refresh"
+                            }}
+                            onClick={this.reloadBrowserView}
+                        />
+                    </div>
+                    <Link
+                        className={"BrowserView-addressLink"}
+                        title={"Open url in browser"}
+                        href={url}
+                    >
+                        {url}
+                    </Link>
+                </div>
                 <div className="BrowserView-content" ref={this.el} />
             </div>
         );

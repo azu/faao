@@ -155,4 +155,29 @@ export class ViewPool {
             });
         });
     }
+
+    get currentBrowserView(): BrowserView | undefined {
+        return this.pool[this.openedIdx];
+    }
+
+    reloadCurrentBrowserView() {
+        const browserView = this.currentBrowserView;
+        if (browserView) {
+            browserView.webContents.reload();
+        }
+    }
+
+    goBackCurrentBrowserView() {
+        const browserView = this.currentBrowserView;
+        if (browserView) {
+            browserView.webContents.goBack();
+        }
+    }
+
+    goForwardCurrentBrowserView() {
+        const browserView = this.currentBrowserView;
+        if (browserView) {
+            browserView.webContents.goForward();
+        }
+    }
 }

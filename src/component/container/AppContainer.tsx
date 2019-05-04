@@ -78,9 +78,7 @@ export class AppContainer extends BaseContainer<AppStoreGroupState, {}> {
                 </div>
                 {isElectron() ? (
                     <>
-                        <BrowserView visible={!isOpnendPopup} url={url}>
-                            <a href={url}>{url}</a>
-                        </BrowserView>
+                        <BrowserView visible={!isOpnendPopup} url={url} />
                     </>
                 ) : null}
             </>

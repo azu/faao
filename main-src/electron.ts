@@ -96,6 +96,15 @@ ipcMain.on("browser-view-hide", () => {
     viewPool.hide();
 });
 
+ipcMain.on("browser-view-reload", () => {
+    viewPool.reloadCurrentBrowserView();
+});
+ipcMain.on("browser-view-go-back", () => {
+    viewPool.goBackCurrentBrowserView();
+});
+ipcMain.on("browser-view-go-forward", () => {
+    viewPool.goForwardCurrentBrowserView();
+});
 interface Size {
     x: number;
     y: number;
