@@ -14,6 +14,7 @@ import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { OSNotice } from "../../domain/Notice/OSNotice";
+import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -67,10 +68,9 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
             gitHubClient.search(
                 query,
                 async (result: GitHubSearchResult) => {
-                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
-                    if (!stream) {
-                        throw new Error("stream is not found");
-                    }
+                    const stream =
+                        this.gitHubSearchStreamRepository.findByQuery(query) ||
+                        GitHubSearchStreamFactory.create();
                     debug("Searching result", result);
                     const continueToNext = !stream.alreadyHasResult(result);
                     debug("continueToNext", continueToNext);
