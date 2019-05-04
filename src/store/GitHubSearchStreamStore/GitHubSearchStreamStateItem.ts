@@ -23,19 +23,21 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
     }
 
     get iconType(): IconType {
-        if (this.type) {
+        if (this.type === "pr") {
             if (this.state === "merged") {
                 return "GitMergeIcon";
             } else {
                 return "GitPullRequestIcon";
             }
-        } else {
+        } else if (this.type == "issue") {
             if (this.state === "open") {
                 return "IssueOpenedIcon";
             } else {
                 return "IssueClosedIcon";
             }
         }
+        console.error(new Error("Unknown icon type"), this);
+        return "IssueOpenedIcon";
     }
 
     get iconColor(): string {

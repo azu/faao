@@ -141,7 +141,7 @@ export class GitHubSearchResultItemSortedCollection {
         const actualAdding: GitHubSearchResultItem[] = [];
         addingItems.forEach(addingItem => {
             const index = savedItems.findIndex(savedItem => {
-                return savedItem.id.equals(addingItem.id);
+                return savedItem.equals(addingItem);
             });
             if (index === -1) {
                 actualAdding.push(addingItem);

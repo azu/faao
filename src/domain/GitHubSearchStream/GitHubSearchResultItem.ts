@@ -136,7 +136,12 @@ export class GitHubSearchResultItem {
         if (!item) {
             return false;
         }
-        return this.id.equals(item.id);
+        if (this.id.equals(item.id)) {
+            return true;
+        }
+        // id is different between REST and GraphQL
+        // We handle this case using html_url
+        return this.html_url === item.html_url;
     }
 
     isLaterThan(item: GitHubSearchResultItem): boolean {
