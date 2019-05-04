@@ -2,8 +2,8 @@
 import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
 import { GitHubSearchResult } from "./GitHubSearchResult";
 
-export interface GitHubSearchResultJSON {
-    items: GitHubSearchResultItemJSON[];
+export interface RawGitHubSearchResultJSON {
+    items: (GitHubSearchResultItemJSON & { pull_request?: {} })[];
 }
 
 export class GitHubSearchResultFactory {
@@ -12,12 +12,11 @@ export class GitHubSearchResultFactory {
      * @param result
      * @returns {GitHubSearchResult}
      */
-    static create(result: GitHubSearchResultJSON): GitHubSearchResult {
+    static create(result: RawGitHubSearchResultJSON): GitHubSearchResult {
         const items = result.items.map(item => {
             return new GitHubSearchResultItem({
                 ...item,
-                // FIXME: raw response interface is not defined
-                type: (item as any).pull_request !== undefined ? "pr" : "issue"
+                type: item.pull_request !== undefined ? "pr" : "issue"
             });
         });
         return new GitHubSearchResult({

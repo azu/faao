@@ -4,7 +4,7 @@ import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import { Identifier } from "../Entity";
 import { ulid } from "ulid";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
-import { GitHubSearchResultJSON } from "./GitHubSearchResultFactory";
+import { RawGitHubSearchResultJSON } from "./GitHubSearchResultFactory";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export class GitHubSearchStreamFactory {
@@ -19,7 +19,7 @@ export class GitHubSearchStreamFactory {
         });
     }
 
-    static createFromSearchResultJSON(json: GitHubSearchResultJSON) {
+    static createFromSearchResultJSON(json: RawGitHubSearchResultJSON) {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
             itemSortedCollection: GitHubSearchResultItemSortedCollection.fromJSON({
