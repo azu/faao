@@ -12,7 +12,7 @@ export interface GitHubSearchStreamJSON {
 
 export interface GitHubSearchStreamArgs {
     id: Identifier<GitHubSearchStream>;
-    itemSortedCollection: GitHubSearchResultItemSortedCollection<GitHubSearchResultItem>;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface GitHubSearchStreamArgs {
  */
 export class GitHubSearchStream {
     id: Identifier<GitHubSearchStream>;
-    itemSortedCollection: GitHubSearchResultItemSortedCollection<GitHubSearchResultItem>;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
         this.id = args.id;

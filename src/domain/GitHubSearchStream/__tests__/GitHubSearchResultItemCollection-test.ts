@@ -9,9 +9,7 @@ import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
 
-const createCollection = (
-    json: GitHubSearchStreamJSON
-): GitHubSearchResultItemSortedCollection<GitHubSearchResultItem> => {
+const createCollection = (json: GitHubSearchStreamJSON): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromStreamJSON(json);
     return stream.itemSortedCollection;
 };

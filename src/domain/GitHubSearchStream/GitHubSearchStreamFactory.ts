@@ -23,7 +23,7 @@ export class GitHubSearchStreamFactory {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
             itemSortedCollection: new GitHubSearchResultItemSortedCollection({
-                items: [],
+                items: items,
                 sortType: "updated"
             })
         });

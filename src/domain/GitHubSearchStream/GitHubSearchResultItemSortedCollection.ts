@@ -5,6 +5,8 @@ import {
     GitHubSearchResultItemCollection,
     GitHubSearchResultItemCollectionArgs
 } from "./GitHubSearchResultItemCollection";
+import { CollectionRole } from "./CollectionRole";
+import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export const SortType = {
     updated: "updated",
@@ -29,32 +31,62 @@ export interface GitHubSearchResultItemSortedCollectionArgs<T extends GitHubSear
 /**
  * Always sorted items
  */
-export class GitHubSearchResultItemSortedCollection<
-    T extends GitHubSearchResultItem
-> extends GitHubSearchResultItemCollection<T> {
+export class GitHubSearchResultItemSortedCollection
+    implements CollectionRole<GitHubSearchResultItem> {
     sortType: SortTypeArgs;
+    private collection: GitHubSearchResultItemCollection;
 
-    constructor(protected args: GitHubSearchResultItemSortedCollectionArgs<T>) {
-        super({
-            items: args.items,
+    constructor(
+        protected args: GitHubSearchResultItemSortedCollectionArgs<GitHubSearchResultItem>
+    ) {
+        this.collection = new GitHubSearchResultItemCollection({
+            items: sort(args.items, args.sortType),
             filter: args.filter
         });
         this.sortType = args.sortType;
-        this.items = sort(this.items, args.sortType);
+    }
+
+    get items() {
+        return this.collection.items;
+    }
+
+    get filter() {
+        return this.collection.filter;
     }
 
     applySort(sortType: SortTypeArgs) {
         return new (this.constructor as any)({
             ...this,
             sortType: sortType,
-            items: sort(this.items, sortType)
+            items: sort(this.collection.items, sortType)
         });
     }
 
-    mergeItems(items: T[]): GitHubSearchResultItemSortedCollection<T> {
-        const savedItems = this.rawItems.slice();
+    // implements
+    get rawItemCount() {
+        return this.collection.rawItemCount;
+    }
+
+    get itemCount() {
+        return this.collection.itemCount;
+    }
+
+    applyFilter(filter: SearchFilter) {
+        return this.collection.applyFilter(filter);
+    }
+
+    filterBySearchFilter(filter: SearchFilter) {
+        return this.collection.filterBySearchFilter(filter);
+    }
+
+    includes(aItem: GitHubSearchResultItem) {
+        return this.collection.includes(aItem);
+    }
+
+    mergeItems(items: GitHubSearchResultItem[]) {
+        const savedItems = this.collection.rawItems.slice();
         const addingItems = items.slice();
-        const actualAdding: T[] = [];
+        const actualAdding: GitHubSearchResultItem[] = [];
         addingItems.forEach(addingItem => {
             const index = savedItems.findIndex(savedItem => {
                 return savedItem.id.equals(addingItem.id);
@@ -74,5 +106,37 @@ export class GitHubSearchResultItemSortedCollection<
             ...this,
             items: concatItems
         });
+    }
+
+    clear() {
+        return this.collection.clear();
+    }
+
+    getFirstItem() {
+        return this.collection.getFirstItem();
+    }
+
+    getItemAtIndex(index: number) {
+        return this.collection.getItemAtIndex(index);
+    }
+
+    getNextItem(currentItem: GitHubSearchResultItem) {
+        return this.collection.getNextItem(currentItem);
+    }
+
+    getPrevItem(currentItem: GitHubSearchResultItem) {
+        return this.collection.getPrevItem(currentItem);
+    }
+
+    findItemByPredicate(predicate: (item: GitHubSearchResultItem) => boolean) {
+        return this.collection.findItemByPredicate(predicate);
+    }
+
+    removeItem(item: GitHubSearchResultItem) {
+        return this.collection.removeItem(item);
+    }
+
+    sliceItemsFromCurrentItem(currentItem: GitHubSearchResultItem, length: number) {
+        return this.collection.sliceItemsFromCurrentItem(currentItem, length);
     }
 }
