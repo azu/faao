@@ -15,8 +15,12 @@ export class QuickIssueContainer extends BaseContainer<QuickIssueContainerProps,
         this.useCase(new CloseQuickIssueUseCase()).execute();
     };
 
-    onSubmit = (issueURL: string, title: string, body: string) => {
-        this.useCase(new OpenGitHubIssueUseCase()).execute(issueURL, title, body);
+    onSubmit = async (issueURL: string, title: string, body: string) => {
+        try {
+            await this.useCase(new OpenGitHubIssueUseCase()).execute(issueURL, title, body);
+        } finally {
+            await this.useCase(new CloseQuickIssueUseCase()).execute();
+        }
     };
 
     render() {
