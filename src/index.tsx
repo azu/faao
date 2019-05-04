@@ -1,6 +1,4 @@
 // MIT © 2017 azu
-// polyfill
-// index
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Context, Dispatcher } from "almin";
@@ -11,7 +9,7 @@ import { AppContainer } from "./component/container/AppContainer";
 import localForage from "localforage";
 import { createSystemReadyToLaunchAppUseCase } from "./use-case/System/SystemReadyToLaunchAppUseCase";
 import { createReloadAllStreamUseCase } from "./use-case/GitHubSearchStream/ReloadAllStreamUseCase";
-import { runDOMBootstrap } from "./bootstrap/index";
+import { runDOMBootstrap } from "./bootstrap";
 import { AlminLogger } from "almin-logger";
 import { initializeIcons } from "@uifabric/icons";
 import { createAppUserOpenItemUseCase } from "./use-case/App/AppUserOpenItemUseCase";
