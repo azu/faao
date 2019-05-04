@@ -46,17 +46,17 @@ export class SearchQueriesAndOpenStreamUseCase extends UseCase {
                 .then(() => {
                     // merge updated query stream to searchList stream.
                     debug(`Complete: ${query.name}. To merge searchListStream`);
-                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
+                    const queryStream = this.gitHubSearchStreamRepository.findByQuery(query);
                     const searchListStream = this.gitHubSearchStreamRepository.findBySearchList(
                         searchList
                     );
                     if (!searchListStream) {
                         throw new Error("SearchListStream is deleted accidentally!");
                     }
-                    if (!stream) {
+                    if (!queryStream) {
                         throw new Error("Stream is deleted accidentally!");
                     }
-                    const newStream = searchListStream.mergeStream(stream);
+                    const newStream = searchListStream.mergeStream(queryStream);
                     return this.gitHubSearchStreamRepository.saveWithSearchList(
                         newStream,
                         searchList.id
