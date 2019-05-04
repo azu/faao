@@ -14,7 +14,11 @@ export class GitHubSearchResultFactory {
      */
     static create(result: GitHubSearchResultJSON): GitHubSearchResult {
         const items = result.items.map(item => {
-            return new GitHubSearchResultItem(item);
+            return new GitHubSearchResultItem({
+                ...item,
+                // FIXME: raw response interface is not defined
+                type: (item as any).pull_request !== undefined ? "pr" : "issue"
+            });
         });
         return new GitHubSearchResult({
             items

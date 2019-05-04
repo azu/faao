@@ -76,9 +76,6 @@ export class GitHubSearchResultItemSortedCollection {
         this.rawItems = args.rawItems;
         this.items = from(args.rawItems)
             .filter(item => {
-                if (!args.filter) {
-                    return true;
-                }
                 return args.filter.isMatch(item);
             })
             .sortByDescending(item => {
