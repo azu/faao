@@ -162,9 +162,7 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                                 />
                             </span>
                             <span className="SearchResultListItem-issueNumber">
-                                <a href={item.html_url}>
-                                    {item.shortPath}#{item.number}
-                                </a>
+                                <a href={item.html_url}>{item.shortPath}</a>
                             </span>
                             <span className="SearchResultListItem-updateDate">
                                 {item.formattedUpdatedDateString}

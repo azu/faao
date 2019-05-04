@@ -101,12 +101,12 @@ export class GitHubSearchResultItem {
         return new Date(this.updated_at);
     }
 
-    // owner/repo
+    // owner/repo#number
     get shortPath() {
         // https://github.com/zeke/github-url-to-object#github-enterprise
         const isEnterprise = !this.html_url.startsWith("https://github.com/");
         const object = ghUrlToObject(this.html_url, { enterprise: isEnterprise });
-        return `${object.user}/${object.repo}`;
+        return `${object.user}/${object.repo}#${this.number}`;
     }
 
     get repositoryHtmlUrl() {
