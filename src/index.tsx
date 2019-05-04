@@ -14,6 +14,7 @@ import { createReloadAllStreamUseCase } from "./use-case/GitHubSearchStream/Relo
 import { runDOMBootstrap } from "./bootstrap/index";
 import { AlminLogger } from "almin-logger";
 import { initializeIcons } from "@uifabric/icons";
+import { createAppUserOpenItemUseCase } from "./use-case/App/AppUserOpenItemUseCase";
 
 function allRequire(context: any) {
     context.keys().forEach(context);
@@ -54,6 +55,11 @@ const AppWrapContainer = AlminReactContainer.create(AppContainer, context);
 ReactDOM.render(<AppWrapContainer />, document.getElementById("js-app"), async () => {
     // render and restore repositories
     await context.useCase(createSystemReadyToLaunchAppUseCase()).execute();
+    // re-open last item
+    const lastActiveItem = context.getState().app.activeItem;
+    if (lastActiveItem) {
+        await context.useCase(createAppUserOpenItemUseCase()).execute(lastActiveItem);
+    }
     // reload all stream at first
     await context.useCase(createReloadAllStreamUseCase()).execute();
 });
