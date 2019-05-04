@@ -27,7 +27,6 @@ const showOSNotifications = (notices: OSNotice[]) => {
                     const base64String = btoa(String.fromCharCode(...new Uint8Array(buf)));
                     return `data:image/png;base64,` + base64String;
                 });
-            console.log("imageBase64", imageBase64);
             const image = nativeImage.createFromDataURL(imageBase64);
             const myNotification = new Notification({
                 title: notice.title,
@@ -37,12 +36,12 @@ const showOSNotifications = (notices: OSNotice[]) => {
             });
             myNotification.show();
         } else {
-            const notification = new Notification({
-                title: notice.title,
-                body: notice.body,
-                icon: notice.icon
-            });
-            notification.show();
+            // const notification = new Notification({
+            //     title: notice.title,
+            //     body: notice.body,
+            //     icon: notice.icon
+            // });
+            // notification.show();
         }
     });
 };

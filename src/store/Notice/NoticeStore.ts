@@ -24,7 +24,6 @@ export class NoticeState implements NoticeStateArgs {
         this.searchQueryErrorNotices = args.searchQueryErrorNotices;
         this.genericErrorNotices = args.genericErrorNotices;
         this.osNotices = args.osNotices;
-        console.log("this.osNotices", this.osNotices);
     }
 
     /**

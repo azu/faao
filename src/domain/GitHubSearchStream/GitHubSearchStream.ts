@@ -1,13 +1,16 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
 import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
-import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
+import {
+    GitHubSearchResultItemSortedCollection,
+    GitHubSearchResultItemSortedCollectionJSON
+} from "./GitHubSearchResultItemSortedCollection";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 import { Identifier } from "../Entity";
 
 export interface GitHubSearchStreamJSON {
     id: string;
-    items: GitHubSearchResultItemJSON[];
+    itemSortedCollection: GitHubSearchResultItemSortedCollectionJSON;
 }
 
 export interface GitHubSearchStreamArgs {
@@ -89,6 +92,13 @@ export class GitHubSearchStream {
         });
     }
 
+    clear() {
+        return new GitHubSearchStream({
+            ...this,
+            itemSortedCollection: this.itemSortedCollection.clear()
+        });
+    }
+
     equals(entity: GitHubSearchStream): boolean {
         return this.id.equals(entity.id);
     }
@@ -96,28 +106,16 @@ export class GitHubSearchStream {
     static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(json.id),
-            itemSortedCollection: new GitHubSearchResultItemSortedCollection({
-                items: json.items.map(rawItem => {
-                    return GitHubSearchResultItem.fromJSON(rawItem);
-                }),
-                sortType: "updated"
-            })
+            itemSortedCollection: GitHubSearchResultItemSortedCollection.fromJSON(
+                json.itemSortedCollection
+            )
         });
     }
 
     toJSON(): GitHubSearchStreamJSON {
         return {
             id: this.id.toValue(),
-            items: this.items.map(item => {
-                return item.toJSON();
-            })
+            itemSortedCollection: this.itemSortedCollection.toJSON()
         };
-    }
-
-    clear() {
-        return new GitHubSearchStream({
-            ...this,
-            itemSortedCollection: this.itemSortedCollection.clear()
-        });
     }
 }

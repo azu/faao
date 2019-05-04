@@ -5065,6 +5065,11 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
+fromfrom@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/fromfrom/-/fromfrom-1.2.0.tgz#51d1047efbb1ff553ce0d95686bd2502cfb6b592"
+  integrity sha512-lc7NaDWUafklPmPd2sgvgGK6iWh3zZ+Py4Ec22SbfqQT77y9lJ+70LPlpl3rRxPJhB9liAMpyj5+f9FhW2OBdw==
+
 fs-extra-p@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/fs-extra-p/-/fs-extra-p-7.0.0.tgz#da9a72df71dc77fb938162025a5fc658713c98ab"

@@ -19,6 +19,7 @@ import {
     gitHubUserRepository,
     GitHubUserRepository
 } from "../../infra/repository/GitHubUserRepository";
+import { createClearCacheDataUseCase } from "./ClearCacheDataUseCase";
 
 export const createSystemReadyToLaunchAppUseCase = () => {
     return new SystemReadyToLaunchAppUseCase({
@@ -51,13 +52,30 @@ export class SystemReadyToLaunchAppUseCase extends UseCase {
     }
 
     async execute() {
-        await this.args.appRepository.ready();
-        await this.args.gitHubSettingRepository.ready();
-        await this.args.gitHubSearchListRepository.ready();
-        await this.args.gitHubSearchStreamRepository.ready();
-        await this.args.gitHubUserRepository.ready();
-        const networkStatus: AppNetworkStatus =
-            typeof navigator !== "undefined" ? (navigator.onLine ? "online" : "offline") : "online";
-        return this.context.useCase(createUpdateAppNetworkStatusUseCase()).execute(networkStatus);
+        try {
+            await this.args.appRepository.ready();
+            await this.args.gitHubSettingRepository.ready();
+            await this.args.gitHubSearchListRepository.ready();
+            await this.args.gitHubSearchStreamRepository.ready();
+            await this.args.gitHubUserRepository.ready();
+            const networkStatus: AppNetworkStatus =
+                typeof navigator !== "undefined"
+                    ? navigator.onLine
+                        ? "online"
+                        : "offline"
+                    : "online";
+            await this.context
+                .useCase(createUpdateAppNetworkStatusUseCase())
+                .execute(networkStatus);
+        } catch (error) {
+            console.error(error);
+            const isYes = window.confirm(
+                "Fail to ready from storage.\nApp will clear cache data. OK?"
+            );
+            if (isYes) {
+                await this.context.useCase(createClearCacheDataUseCase()).execute();
+                location.reload();
+            }
+        }
     }
 }

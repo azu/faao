@@ -35,7 +35,7 @@ describe("GitHubSearchStreamRepository", () => {
                 id: "stream1",
                 items: searchResultJSON.items
             };
-            const stream = GitHubSearchStreamFactory.createFromStreamJSON(streamJSON);
+            const stream = GitHubSearchStreamFactory.createFromSearchResultJSON(streamJSON);
             const repository = new GitHubSearchStreamRepository(stream);
             await repository.ready();
             const testQuery = new GitHubSearchQuery({

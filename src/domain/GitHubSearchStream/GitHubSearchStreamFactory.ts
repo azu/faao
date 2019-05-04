@@ -4,26 +4,27 @@ import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import { Identifier } from "../Entity";
 import { ulid } from "ulid";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
+import { GitHubSearchResultJSON } from "./GitHubSearchResultFactory";
+import { SearchFilter } from "./SearchFilter/SearchFilter";
 
 export class GitHubSearchStreamFactory {
     static create() {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
             itemSortedCollection: new GitHubSearchResultItemSortedCollection({
-                items: [],
+                rawItems: [],
+                filter: new SearchFilter(),
                 sortType: "updated"
             })
         });
     }
 
-    static createFromStreamJSON(json: GitHubSearchStreamJSON) {
-        const items = json.items.map(rawItem => {
-            return new GitHubSearchResultItem(rawItem);
-        });
+    static createFromSearchResultJSON(json: GitHubSearchResultJSON) {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
-            itemSortedCollection: new GitHubSearchResultItemSortedCollection({
-                items: items,
+            itemSortedCollection: GitHubSearchResultItemSortedCollection.fromJSON({
+                rawItems: json.items,
+                filter: new SearchFilter(),
                 sortType: "updated"
             })
         });

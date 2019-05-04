@@ -3,6 +3,7 @@
 exports[`GitHubSearchStreamRepository #findByQuery when exist stream json for query, it should return stream json 1`] = `
 Array [
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by Agent Golder on 2010-03-25 10:14**
 I just noticed that in some situations such as the Microsoft Office 2010 custom setup, features treeview can't be read normally but only using object navigation which sometimes is difficult to perform actions.
@@ -11,7 +12,9 @@ Why is this? Can a fix be made?
 ",
     "closed_at": null,
     "comments": 4,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/606/comments",
     "created_at": "2010-03-25T10:14:26Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/606/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/606",
     "id": "116022897",
     "labels": Array [
@@ -23,13 +26,16 @@ Why is this? Can a fix be made?
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/606/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 606,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.28862232,
     "state": "open",
     "title": "Inaccessible features treeview in Microsoft Office 2010 custom setup",
-    "type": undefined,
     "updated_at": "2015-11-10T04:22:01Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/606",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -51,6 +57,25 @@ Why is this? Can a fix be made?
     },
   },
   Object {
+    "assignee": Object {
+      "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
+      "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
+      "followers_url": "https://api.github.com/users/asmeurer/followers",
+      "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
+      "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/asmeurer",
+      "id": 71486,
+      "login": "asmeurer",
+      "organizations_url": "https://api.github.com/users/asmeurer/orgs",
+      "received_events_url": "https://api.github.com/users/asmeurer/received_events",
+      "repos_url": "https://api.github.com/users/asmeurer/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/asmeurer",
+    },
     "assignees": Array [
       Object {
         "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
@@ -96,7 +121,9 @@ Original owner: https://code.google.com/u/asmeurer@gmail.com/
 ",
     "closed_at": null,
     "comments": 6,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4966/comments",
     "created_at": "2010-03-20T16:09:09Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4966/events",
     "html_url": "https://github.com/sympy/sympy/issues/4966",
     "id": "28950379",
     "labels": Array [
@@ -136,13 +163,16 @@ Original owner: https://code.google.com/u/asmeurer@gmail.com/
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4966/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4966,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.381608,
     "state": "open",
     "title": "plotting tests open Python rocket ship application in Mac OS X",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4966",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
       "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
@@ -164,13 +194,16 @@ Original owner: https://code.google.com/u/asmeurer@gmail.com/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by aleksey_s on 2010-02-16 05:40**
 I noticed, that NVDA sometimes stops speaking of typed characters. It happens every time after resuming from standby mode and sometimes without any reason. Restarting of NVDA helps resolve this one. I think this was introduced in Sunday commits.
 ",
     "closed_at": null,
     "comments": 18,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/562/comments",
     "created_at": "2010-02-16T05:40:42Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/562/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/562",
     "id": "116022735",
     "labels": Array [
@@ -182,13 +215,16 @@ I noticed, that NVDA sometimes stops speaking of typed characters. It happens ev
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/562/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 562,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.37493137,
     "state": "open",
     "title": "NVDA stops speaking of typed characters from time to time",
-    "type": undefined,
     "updated_at": "2015-11-10T04:20:24Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/562",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -210,6 +246,7 @@ I noticed, that NVDA sometimes stops speaking of typed characters. It happens ev
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by aleksey_s on 2010-02-13 08:34**
 ## steps to reproduce
@@ -226,7 +263,9 @@ NVDA must gracefully report the change
 ",
     "closed_at": null,
     "comments": 2,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/556/comments",
     "created_at": "2010-02-13T08:34:34Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/556/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/556",
     "id": "116022712",
     "labels": Array [
@@ -245,13 +284,16 @@ NVDA must gracefully report the change
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/Windows%20command%20console",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/556/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 556,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 3.9446173,
     "state": "open",
     "title": "Keyboard layout change is not reported in console windows",
-    "type": undefined,
     "updated_at": "2015-11-10T04:20:11Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/556",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -273,6 +315,7 @@ NVDA must gracefully report the change
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by janusz on 2010-01-18 20:45**
 The algorithms, which are responsible for getting text information from The dialog Window, which can be accessed by recalling ffdshow  audio decoder. When user is triing to activate this dialog window, NVDA can freeze or user must wait more than 7 seconds until NVDA is ready for interactioning with user. This issue is also presented, if user is triing to use INSERT and 4 or 6 key, which is awailable on The numeric key pad. The Klitecodecpack, where The ffdshow filter is awailable can be downloaded by using The following direct link. 
@@ -291,7 +334,9 @@ The installation program for Klite codecpack will create necessary links for act
 ",
     "closed_at": null,
     "comments": 1,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/533/comments",
     "created_at": "2010-01-18T20:45:39Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/533/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/533",
     "id": "116022614",
     "labels": Array [
@@ -303,13 +348,16 @@ The installation program for Klite codecpack will create necessary links for act
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/533/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 533,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.28811592,
     "state": "open",
     "title": "NVDA is freezing while activating The dialog window which is awailable in The ffdshow audio decoder. This issue can cause that Nvda can not be used. Or NVDA can respond after 8 or more seconds. The algorithms, which are responsible for getting The text from The dialog Window are very complex and are allocating many system resources until The text from this dialog box is ready for speech synthesizer or Brltty.",
-    "type": undefined,
     "updated_at": "2015-11-10T04:19:17Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/533",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -331,6 +379,7 @@ The installation program for Klite codecpack will create necessary links for act
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "Originally reported by: **@wyuenho**
 
@@ -358,7 +407,9 @@ Reported by wyuenho@gmail.com
 ",
     "closed_at": null,
     "comments": 6,
+    "comments_url": "https://api.github.com/repos/cherrypy/cherrypy/issues/983/comments",
     "created_at": "2010-01-17T06:47:16Z",
+    "events_url": "https://api.github.com/repos/cherrypy/cherrypy/issues/983/events",
     "html_url": "https://github.com/cherrypy/cherrypy/issues/983",
     "id": "152024778",
     "labels": Array [
@@ -391,13 +442,16 @@ Reported by wyuenho@gmail.com
         "url": "https://api.github.com/repos/cherrypy/cherrypy/labels/major",
       },
     ],
+    "labels_url": "https://api.github.com/repos/cherrypy/cherrypy/issues/983/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 983,
+    "repository_url": "https://api.github.com/repos/cherrypy/cherrypy",
+    "score": 0.29482016,
     "state": "open",
     "title": "serving non-existent favicon.ico with staticfile throws error on refresh",
-    "type": undefined,
     "updated_at": "2017-02-03T16:56:35Z",
+    "url": "https://api.github.com/repos/cherrypy/cherrypy/issues/983",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/18138808?v=3",
       "events_url": "https://api.github.com/users/bb-migration/events{/privacy}",
@@ -419,13 +473,16 @@ Reported by wyuenho@gmail.com
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by scottbb on 2009-12-07 02:46**
 When using Cdex there is no beeping for the background progress bar.
 ",
     "closed_at": null,
     "comments": 3,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/500",
     "id": "116022500",
     "labels": Array [
@@ -437,13 +494,16 @@ When using Cdex there is no beeping for the background progress bar.
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 500,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.2525445,
     "state": "open",
     "title": "Cdex is not beeping in background or foreground  progress bars",
-    "type": undefined,
     "updated_at": "2015-11-10T04:18:00Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/500",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -465,6 +525,7 @@ When using Cdex there is no beeping for the background progress bar.
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by jteh on 2009-08-25 03:42**
 While NVDA is running, the system will not go into standby mode automatically despite being configured to do so.
@@ -482,7 +543,9 @@ This occurs because tones keeps an instance of \`nvwave.WavePlayer\` which it do
 ",
     "closed_at": null,
     "comments": 3,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/400/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/400/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/400",
     "id": "116022151",
     "labels": Array [
@@ -494,13 +557,16 @@ This occurs because tones keeps an instance of \`nvwave.WavePlayer\` which it do
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/400/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 400,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.28862226,
     "state": "open",
     "title": "NVDA prevents automatic system standby",
-    "type": undefined,
     "updated_at": "2015-11-10T04:14:15Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/400",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -522,13 +588,16 @@ This occurs because tones keeps an instance of \`nvwave.WavePlayer\` which it do
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by Hari on 2009-12-15 15:11**
 When deleting a selected text in any word pad/text editor, the NVDA, version 2009.1 (most recent release), says: \\"unselecting\\" followed by announcement of a word if present -- and if not, announcement of a carriage return. E.g., let's say we have following words written: \\"my test\\". And let's say we deleted the word \\"my\\", the NVDA says \\"unselecting test\\", which, you could see, is quite confusing. Now let's say the text is followed by a carriage return, it say the following: \\"unselecting carriage return\\". As noted before, this issue is global, i.e. it occurs in MS Word, Windows Word Pad, Jarte text editor, and so forth. 
 ",
     "closed_at": null,
     "comments": 4,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/510",
     "id": "116022534",
     "labels": Array [
@@ -540,13 +609,16 @@ When deleting a selected text in any word pad/text editor, the NVDA, version 200
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 510,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.3571519,
     "state": "open",
     "title": "Unclear indication of text deletion",
-    "type": undefined,
     "updated_at": "2015-11-10T04:18:22Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/510",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -568,6 +640,7 @@ When deleting a selected text in any word pad/text editor, the NVDA, version 200
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by pvagner on 2009-10-29 19:14**
 STR:
@@ -583,7 +656,9 @@ As the last message in the list gains the focus, NVDA should correctly announce 
 ",
     "closed_at": null,
     "comments": 2,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/446",
     "id": "116022302",
     "labels": Array [
@@ -595,13 +670,16 @@ As the last message in the list gains the focus, NVDA should correctly announce 
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 446,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.5102169,
     "state": "open",
     "title": "When deleting one before the last message in the outlook express message list NVDA fails to announce new item in focus",
-    "type": undefined,
     "updated_at": "2015-11-10T04:16:01Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/446",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -623,6 +701,7 @@ As the last message in the list gains the focus, NVDA should correctly announce 
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by aleksey_s on 2009-12-17 16:39**
 Sometimes, NVDA is too verbose in console windows.
@@ -640,7 +719,9 @@ STR:
 ",
     "closed_at": null,
     "comments": 12,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/513/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/513/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/513",
     "id": "116022543",
     "labels": Array [
@@ -666,13 +747,16 @@ STR:
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/Windows%20command%20console",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/513/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 513,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.5586072,
     "state": "open",
     "title": "Some output in command consoels spelled with speak typed characters enabled",
-    "type": undefined,
     "updated_at": "2016-07-06T00:25:51Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/513",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -694,13 +778,16 @@ STR:
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "**Reported by aarnott on 2009-09-18 22:35**
 A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Project Conversion dialog (opening page).  Windows Eyes can read it, but NVDA cannot.
 ",
     "closed_at": null,
     "comments": 0,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/comments",
     "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/events",
     "html_url": "https://github.com/nvaccess/nvda/issues/419",
     "id": "116022216",
     "labels": Array [
@@ -719,13 +806,16 @@ A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Pr
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 419,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.6790957,
     "state": "open",
     "title": "Unable to read text in hidden textbox",
-    "type": undefined,
     "updated_at": "2015-11-10T04:14:59Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/419",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -747,6 +837,7 @@ A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Pr
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "\`\`\`
 Intersect seems to generally work incorrectly, example is:
@@ -766,7 +857,9 @@ Original author: https://code.google.com/u/106893876112355965992/
 ",
     "closed_at": null,
     "comments": 4,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4748/comments",
     "created_at": "2009-09-17T11:53:10Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4748/events",
     "html_url": "https://github.com/sympy/sympy/issues/4748",
     "id": "28950088",
     "labels": Array [
@@ -785,13 +878,16 @@ Original author: https://code.google.com/u/106893876112355965992/
         "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4748/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4748,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.1793177,
     "state": "open",
     "title": "Intersect bug (feature)",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4748",
     "user": Object {
       "avatar_url": "https://avatars2.githubusercontent.com/u/134333?v=3",
       "events_url": "https://api.github.com/users/hut3/events{/privacy}",
@@ -813,6 +909,7 @@ Original author: https://code.google.com/u/106893876112355965992/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "\`\`\`
 I am using sympy 0.6.5 on linux but I see the behavior on windows too.
@@ -845,7 +942,9 @@ Original author: https://code.google.com/u/110078974596186779257/
 ",
     "closed_at": null,
     "comments": 10,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4724/comments",
     "created_at": "2009-09-01T04:11:45Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4724/events",
     "html_url": "https://github.com/sympy/sympy/issues/4724",
     "id": "28950057",
     "labels": Array [
@@ -885,13 +984,16 @@ Original author: https://code.google.com/u/110078974596186779257/
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4724/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4724,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.33729702,
     "state": "open",
     "title": "sympify of logical operations gets confused with ==",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4724",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
       "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
@@ -913,6 +1015,7 @@ Original author: https://code.google.com/u/110078974596186779257/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "In my first test pycallpraph barfed spectacularily (on windows XP/german), because it just fed the pathname for the picture - containing spaces - to dot. The easiest way to fix that is using the subprocess module (in the standard library since python 2.4).
 
@@ -920,7 +1023,9 @@ Original author: https://code.google.com/u/110078974596186779257/
 ",
     "closed_at": null,
     "comments": 0,
+    "comments_url": "https://api.github.com/repos/gak/pycallgraph/issues/84/comments",
     "created_at": "2009-08-12T12:20:44Z",
+    "events_url": "https://api.github.com/repos/gak/pycallgraph/issues/84/events",
     "html_url": "https://github.com/gak/pycallgraph/issues/84",
     "id": "46451",
     "labels": Array [
@@ -932,6 +1037,7 @@ Original author: https://code.google.com/u/110078974596186779257/
         "url": "https://api.github.com/repos/gak/pycallgraph/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/gak/pycallgraph/issues/84/labels{/name}",
     "locked": false,
     "milestone": Object {
       "closed_at": null,
@@ -969,10 +1075,12 @@ Original author: https://code.google.com/u/110078974596186779257/
       "url": "https://api.github.com/repos/gak/pycallgraph/milestones/2",
     },
     "number": 84,
+    "repository_url": "https://api.github.com/repos/gak/pycallgraph",
+    "score": 0.46282244,
     "state": "open",
     "title": "Escape pathnames for dot",
-    "type": undefined,
     "updated_at": "2013-09-14T06:35:51Z",
+    "url": "https://api.github.com/repos/gak/pycallgraph/issues/84",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/31338?v=3",
       "events_url": "https://api.github.com/users/gak/events{/privacy}",
@@ -994,6 +1102,7 @@ Original author: https://code.google.com/u/110078974596186779257/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "I am not totally sure about the new line numbers. What font are you using to display them? Arial Unicode doesn't support them (and it's the most comprehensive windows font I know of).
 
@@ -1001,7 +1110,9 @@ If we can find a commonly distributed windows font that supports them then no pr
 ",
     "closed_at": null,
     "comments": 15,
+    "comments_url": "https://api.github.com/repos/batterseapower/pinyin-toolkit/issues/132/comments",
     "created_at": "2009-07-12T20:10:41Z",
+    "events_url": "https://api.github.com/repos/batterseapower/pinyin-toolkit/issues/132/events",
     "html_url": "https://github.com/batterseapower/pinyin-toolkit/issues/132",
     "id": "35802",
     "labels": Array [
@@ -1013,13 +1124,16 @@ If we can find a commonly distributed windows font that supports them then no pr
         "url": "https://api.github.com/repos/batterseapower/pinyin-toolkit/labels/bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/batterseapower/pinyin-toolkit/issues/132/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 132,
+    "repository_url": "https://api.github.com/repos/batterseapower/pinyin-toolkit",
+    "score": 0.75318795,
     "state": "open",
     "title": "Line Number Indexes Beyond 20 Not Displayed",
-    "type": undefined,
     "updated_at": "2009-07-19T09:23:43Z",
+    "url": "https://api.github.com/repos/batterseapower/pinyin-toolkit/issues/132",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/90254?v=3",
       "events_url": "https://api.github.com/users/Nick3C/events{/privacy}",
@@ -1041,6 +1155,7 @@ If we can find a commonly distributed windows font that supports them then no pr
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "\`\`\`
 See this thread for more info: http://groups.google.com/group/sympy/browse_thread/thread/de26d886c983fbec
@@ -1051,7 +1166,9 @@ Original author: https://code.google.com/u/104039945248245758823/
 ",
     "closed_at": null,
     "comments": 7,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4563/comments",
     "created_at": "2009-06-09T06:06:53Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4563/events",
     "html_url": "https://github.com/sympy/sympy/issues/4563",
     "id": "28949846",
     "labels": Array [
@@ -1091,13 +1208,16 @@ Original author: https://code.google.com/u/104039945248245758823/
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4563/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4563,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 3.9501157,
     "state": "open",
     "title": "docs: adding instructions how to get stuff working on windows",
-    "type": undefined,
     "updated_at": "2016-02-25T19:02:17Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4563",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",
@@ -1119,12 +1239,15 @@ Original author: https://code.google.com/u/104039945248245758823/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "Check proper threading enter() and leave() for the code, not to have the entire program inside that...
 ",
     "closed_at": null,
     "comments": 0,
+    "comments_url": "https://api.github.com/repos/imrehg/mitter-fork/issues/2/comments",
     "created_at": "2009-05-26T04:40:00Z",
+    "events_url": "https://api.github.com/repos/imrehg/mitter-fork/issues/2/events",
     "html_url": "https://github.com/imrehg/mitter-fork/issues/2",
     "id": "19353",
     "labels": Array [
@@ -1136,13 +1259,16 @@ Original author: https://code.google.com/u/104039945248245758823/
         "url": "https://api.github.com/repos/imrehg/mitter-fork/labels/Bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/imrehg/mitter-fork/issues/2/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 2,
+    "repository_url": "https://api.github.com/repos/imrehg/mitter-fork",
+    "score": 6.2315407,
     "state": "open",
     "title": "Threading fix for windows",
-    "type": undefined,
     "updated_at": "2009-05-26T04:40:00Z",
+    "url": "https://api.github.com/repos/imrehg/mitter-fork/issues/2",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
       "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
@@ -1164,13 +1290,16 @@ Original author: https://code.google.com/u/104039945248245758823/
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "Systray icon remains after the application is closed. Mousover makes it disappear.
 Noticed on windows, not sure if it's the same under Linux as well...
 ",
     "closed_at": null,
     "comments": 0,
+    "comments_url": "https://api.github.com/repos/imrehg/minibook/issues/7/comments",
     "created_at": "2009-05-19T15:50:52Z",
+    "events_url": "https://api.github.com/repos/imrehg/minibook/issues/7/events",
     "html_url": "https://github.com/imrehg/minibook/issues/7",
     "id": "16922",
     "labels": Array [
@@ -1182,13 +1311,16 @@ Noticed on windows, not sure if it's the same under Linux as well...
         "url": "https://api.github.com/repos/imrehg/minibook/labels/Bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/imrehg/minibook/issues/7/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 7,
+    "repository_url": "https://api.github.com/repos/imrehg/minibook",
+    "score": 0.8229122,
     "state": "open",
     "title": "Systray icon remains after application close",
-    "type": undefined,
     "updated_at": "2009-06-07T05:32:03Z",
+    "url": "https://api.github.com/repos/imrehg/minibook/issues/7",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
       "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
@@ -1210,12 +1342,15 @@ Noticed on windows, not sure if it's the same under Linux as well...
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "Currently icon only resides in status bar, but no icon for the task bar part.
 ",
     "closed_at": null,
     "comments": 1,
+    "comments_url": "https://api.github.com/repos/imrehg/minibook/issues/2/comments",
     "created_at": "2009-05-16T01:21:33Z",
+    "events_url": "https://api.github.com/repos/imrehg/minibook/issues/2/events",
     "html_url": "https://github.com/imrehg/minibook/issues/2",
     "id": "15709",
     "labels": Array [
@@ -1227,13 +1362,16 @@ Noticed on windows, not sure if it's the same under Linux as well...
         "url": "https://api.github.com/repos/imrehg/minibook/labels/Bug",
       },
     ],
+    "labels_url": "https://api.github.com/repos/imrehg/minibook/issues/2/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 2,
+    "repository_url": "https://api.github.com/repos/imrehg/minibook",
+    "score": 0.71719646,
     "state": "open",
     "title": "Icon in app name",
-    "type": undefined,
     "updated_at": "2009-06-07T05:32:03Z",
+    "url": "https://api.github.com/repos/imrehg/minibook/issues/2",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
       "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
@@ -1255,6 +1393,7 @@ Noticed on windows, not sure if it's the same under Linux as well...
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. V 6.5
 the following code Crash:
@@ -1295,7 +1434,9 @@ p. Original author: \\"https://code.google.com/u/102679851029648305776/\\":https
 ",
     "closed_at": null,
     "comments": 4,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4446/comments",
     "created_at": "2009-03-25T20:57:24Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4446/events",
     "html_url": "https://github.com/sympy/sympy/issues/4446",
     "id": "28949709",
     "labels": Array [
@@ -1321,13 +1462,16 @@ p. Original author: \\"https://code.google.com/u/102679851029648305776/\\":https
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4446/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4446,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.40574965,
     "state": "open",
     "title": "creating lambda evaluator failed",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4446",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
       "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
@@ -1349,6 +1493,7 @@ p. Original author: \\"https://code.google.com/u/102679851029648305776/\\":https
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. From our feedback:
 
@@ -1367,7 +1512,9 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
 ",
     "closed_at": null,
     "comments": 6,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4331/comments",
     "created_at": "2008-12-06T01:02:51Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4331/events",
     "html_url": "https://github.com/sympy/sympy/issues/4331",
     "id": "28949579",
     "labels": Array [
@@ -1407,13 +1554,16 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4331/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4331,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.33729702,
     "state": "open",
     "title": "add jython howto to our docs",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4331",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",
@@ -1435,6 +1585,7 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. The ultimate solution is to provide test access to all developers on our
 buildbots (the buildbots allow to test only a patch that you send to them)
@@ -1451,7 +1602,9 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
 ",
     "closed_at": null,
     "comments": 39,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4216/comments",
     "created_at": "2008-09-21T01:05:27Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4216/events",
     "html_url": "https://github.com/sympy/sympy/issues/4216",
     "id": "28949449",
     "labels": Array [
@@ -1491,13 +1644,16 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4216/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 4216,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.124234945,
     "state": "open",
     "title": "Setup buildbot (again)",
-    "type": undefined,
     "updated_at": "2015-04-17T16:59:21Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4216",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",
@@ -1519,6 +1675,7 @@ p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "## bc.. In [39]: preview(x**x)
 
@@ -1542,7 +1699,9 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
 ",
     "closed_at": null,
     "comments": 23,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3971/comments",
     "created_at": "2008-06-03T18:43:56Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3971/events",
     "html_url": "https://github.com/sympy/sympy/issues/3971",
     "id": "28949151",
     "labels": Array [
@@ -1568,13 +1727,16 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3971/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3971,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.4166967,
     "state": "open",
     "title": "remove dependency on pexpect and add support for Mathtex",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:11Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3971",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
       "events_url": "https://api.github.com/users/vks/events{/privacy}",
@@ -1596,6 +1758,7 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. >>> from sympy import *
  Traceback (most recent call last):
@@ -1629,7 +1792,9 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
 ",
     "closed_at": null,
     "comments": 24,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3963/comments",
     "created_at": "2008-05-27T21:34:52Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3963/events",
     "html_url": "https://github.com/sympy/sympy/issues/3963",
     "id": "28949140",
     "labels": Array [
@@ -1655,13 +1820,16 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3963/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3963,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.26983762,
     "state": "open",
     "title": "fix upgrading via setup.py or add a big fat warning",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:11Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3963",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
       "events_url": "https://api.github.com/users/vks/events{/privacy}",
@@ -1683,6 +1851,7 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. I was reviving my efforts to compile functions to machine code and got this
 (you will probably need the latest revision):
@@ -1719,7 +1888,9 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
 ",
     "closed_at": null,
     "comments": 15,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3953/comments",
     "created_at": "2008-05-24T00:21:19Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3953/events",
     "html_url": "https://github.com/sympy/sympy/issues/3953",
     "id": "28949129",
     "labels": Array [
@@ -1738,13 +1909,16 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
         "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3953/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3953,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.107590616,
     "state": "open",
     "title": "new lambdify fails to raise an exception",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:11Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3953",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
       "events_url": "https://api.github.com/users/vks/events{/privacy}",
@@ -1766,6 +1940,7 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. $ ./setup.py install  
 ./setup.py: line 1: from: command not found  
@@ -1786,7 +1961,9 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
 ",
     "closed_at": null,
     "comments": 9,
+    "comments_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/comments",
     "created_at": "2008-04-24T01:23:02Z",
+    "events_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/events",
     "html_url": "https://github.com/fredrik-johansson/mpmath/issues/77",
     "id": "32125397",
     "labels": Array [
@@ -1812,13 +1989,16 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
         "url": "https://api.github.com/repos/fredrik-johansson/mpmath/labels/Priority-Medium",
       },
     ],
+    "labels_url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 77,
+    "repository_url": "https://api.github.com/repos/fredrik-johansson/mpmath",
+    "score": 0.25339288,
     "state": "open",
     "title": "setup.py lacks shebang",
-    "type": undefined,
     "updated_at": "2014-04-24T07:14:21Z",
+    "url": "https://api.github.com/repos/fredrik-johansson/mpmath/issues/77",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
       "events_url": "https://api.github.com/users/vks/events{/privacy}",
@@ -1840,6 +2020,25 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
     },
   },
   Object {
+    "assignee": Object {
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+      "events_url": "https://api.github.com/users/certik/events{/privacy}",
+      "followers_url": "https://api.github.com/users/certik/followers",
+      "following_url": "https://api.github.com/users/certik/following{/other_user}",
+      "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/certik",
+      "id": 20568,
+      "login": "certik",
+      "organizations_url": "https://api.github.com/users/certik/orgs",
+      "received_events_url": "https://api.github.com/users/certik/received_events",
+      "repos_url": "https://api.github.com/users/certik/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/certik",
+    },
     "assignees": Array [
       Object {
         "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
@@ -1875,7 +2074,9 @@ p. Original owner: \\"https://code.google.com/u/104039945248245758823/\\":https:
 ",
     "closed_at": null,
     "comments": 10,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3791/comments",
     "created_at": "2008-02-10T10:39:45Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3791/events",
     "html_url": "https://github.com/sympy/sympy/issues/3791",
     "id": "28948943",
     "labels": Array [
@@ -1901,13 +2102,16 @@ p. Original owner: \\"https://code.google.com/u/104039945248245758823/\\":https:
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3791/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3791,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.572412,
     "state": "open",
     "title": "copy (not move) isympy to isympy.py",
-    "type": undefined,
     "updated_at": "2015-04-17T16:59:21Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3791",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",
@@ -1929,6 +2133,7 @@ p. Original owner: \\"https://code.google.com/u/104039945248245758823/\\":https:
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. Trying to use with IRONPython and get the error below:
 
@@ -1947,7 +2152,9 @@ p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https
 ",
     "closed_at": null,
     "comments": 11,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3552/comments",
     "created_at": "2007-11-18T04:48:18Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3552/events",
     "html_url": "https://github.com/sympy/sympy/issues/3552",
     "id": "28948669",
     "labels": Array [
@@ -1980,13 +2187,16 @@ p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3552/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3552,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.3513895,
     "state": "open",
     "title": "ironpython: AttributeError: 'dictproxy' object has no attribute 'get'",
-    "type": undefined,
     "updated_at": "2015-04-17T16:58:11Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3552",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
       "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
@@ -2008,6 +2218,7 @@ p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https
     },
   },
   Object {
+    "assignee": null,
     "assignees": Array [],
     "body": "bc.. I don't have a macosx, but when I was presenting at SciPy2007, I borrowed a
 Mac OS X laptop and sympy was working well (with python2.5), except plotting:
@@ -2032,7 +2243,9 @@ p. Original owner: \\"https://code.google.com/u/115549613129666820104/\\":https:
 ",
     "closed_at": null,
     "comments": 17,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3408/comments",
     "created_at": "2007-08-20T05:37:18Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3408/events",
     "html_url": "https://github.com/sympy/sympy/issues/3408",
     "id": "28948494",
     "labels": Array [
@@ -2065,13 +2278,16 @@ p. Original owner: \\"https://code.google.com/u/115549613129666820104/\\":https:
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3408/labels{/name}",
     "locked": false,
     "milestone": null,
     "number": 3408,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.14507581,
     "state": "open",
     "title": "plotting on macos x freezes",
-    "type": undefined,
     "updated_at": "2016-03-07T03:34:54Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3408",
     "user": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",

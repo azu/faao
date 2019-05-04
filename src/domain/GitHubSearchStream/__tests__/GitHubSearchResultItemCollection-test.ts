@@ -2,20 +2,20 @@
 /**
  * @jest-environment null
  */
-import { GitHubSearchResultItemCollection } from "../GitHubSearchResultItemCollection";
 import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchResultItemSortedCollection } from "../GitHubSearchResultItemSortedCollection";
 import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
+import { GitHubSearchResultJSON } from "../GitHubSearchResult";
 
-const createCollection = (json: GitHubSearchStreamJSON): GitHubSearchResultItemSortedCollection => {
-    const stream = GitHubSearchStreamFactory.createFromStreamJSON(json);
+const createCollection = (json: GitHubSearchResultJSON): GitHubSearchResultItemSortedCollection => {
+    const stream = GitHubSearchStreamFactory.createFromSearchResultJSON(json);
     return stream.itemSortedCollection;
 };
-const createItems = (json: GitHubSearchStreamJSON): GitHubSearchResultItem[] => {
+const createItems = (json: GitHubSearchResultJSON): GitHubSearchResultItem[] => {
     return json.items.map(rawItem => {
-        return new GitHubSearchResultItem(rawItem);
+        return GitHubSearchResultItem.fromJSON(rawItem);
     });
 };
 describe("GitHubSearchResultItemCollection", () => {

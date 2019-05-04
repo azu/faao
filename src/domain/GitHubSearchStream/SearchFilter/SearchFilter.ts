@@ -7,11 +7,16 @@ export interface FilterableItem {
     includes(v: any): boolean;
 }
 
+export interface SearchFilterJSON {
+    filterText: string;
+    items: SearchFilterItemJSON[];
+}
+
 export class SearchFilter {
     filterText: string;
     items: SearchFilterItem[];
 
-    constructor(filterText: string) {
+    constructor(filterText: string = "") {
         this.filterText = filterText;
         this.items = filterable
             .Query(filterText)
@@ -32,7 +37,7 @@ export class SearchFilter {
                 if (filterItem.type === "in") {
                     return item.includes(filterItem.value);
                 } else if (filterItem.type === "nin") {
-                    return item.includes(filterItem.value) === false;
+                    return !item.includes(filterItem.value);
                 } else if (filterItem.type === "=") {
                     return itemValue === filterItem.value;
                 } else if (filterItem.type === ">") {
@@ -47,5 +52,18 @@ export class SearchFilter {
                 return false;
             }
         );
+    }
+
+    static fromJSON(json: SearchFilterJSON): SearchFilter {
+        const setting = Object.create(SearchFilter.prototype);
+        return Object.assign(setting, json, {
+            items: json.items.map(item => SearchFilterItem.fromJSON(item))
+        });
+    }
+
+    toJSON(): SearchFilterJSON {
+        return Object.assign({}, this, {
+            items: this.items.map(item => item.toJSON())
+        });
     }
 }

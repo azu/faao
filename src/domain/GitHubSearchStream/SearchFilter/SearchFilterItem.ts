@@ -19,4 +19,13 @@ export class SearchFilterItem implements SearchFilterItemJSON {
         this.value = json.value;
         this.originalField = json.originalField;
     }
+
+    static fromJSON(json: SearchFilterItemJSON): SearchFilterItem {
+        const setting = Object.create(SearchFilterItem.prototype);
+        return Object.assign(setting, json);
+    }
+
+    toJSON(): SearchFilterItemJSON {
+        return Object.assign({}, this);
+    }
 }
