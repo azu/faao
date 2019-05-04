@@ -1,7 +1,7 @@
 // MIT © 2017 az
 import { AbstractNotice } from "./Notice";
 import { UnionQuery } from "../GitHubSearchList/GitHubSearchList";
-import { GenericErrorNotice } from "./GenericErrorNotice";
+import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 
 export interface SearchQueryErrorNoticeArgs {
     title: string;
@@ -9,6 +9,10 @@ export interface SearchQueryErrorNoticeArgs {
     body: string;
     icon?: string;
     silent?: boolean;
+    refs: {
+        query: UnionQuery;
+        item: GitHubSearchResultItem;
+    };
 }
 
 export function isOSNotice(notice: AbstractNotice): notice is OSNotice {
@@ -23,6 +27,11 @@ export class OSNotice extends AbstractNotice {
     body: string;
     icon?: string;
     silent?: boolean;
+    // TODO: it can be GC?
+    refs: {
+        query: UnionQuery;
+        item: GitHubSearchResultItem;
+    };
 
     constructor(args: SearchQueryErrorNoticeArgs) {
         super();
@@ -31,5 +40,6 @@ export class OSNotice extends AbstractNotice {
         this.body = args.body;
         this.icon = args.icon;
         this.silent = args.silent;
+        this.refs = args.refs;
     }
 }

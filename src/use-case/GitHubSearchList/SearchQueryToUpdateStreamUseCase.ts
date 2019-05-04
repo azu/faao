@@ -15,6 +15,7 @@ import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearch
 import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { OSNotice } from "../../domain/Notice/OSNotice";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
+import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -105,7 +106,11 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                                 title: item.title,
                                 body: item.body,
                                 subTitle: item.shortPath,
-                                icon: item.user.avatar_url
+                                icon: item.user.avatar_url,
+                                refs: {
+                                    query: query as UnionQuery,
+                                    item: item
+                                }
                             });
                         });
                         this.context

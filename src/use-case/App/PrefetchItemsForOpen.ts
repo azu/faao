@@ -3,6 +3,7 @@
 import { UseCase } from "almin";
 import isElectron from "is-electron";
 
+const debug = require("debug")("faao:PrefetchItemsForOpen");
 export function prefetch(url: string) {
     if (isElectron()) {
         const { ipcRenderer } = (window as any).require("electron");
@@ -14,7 +15,7 @@ export function prefetch(url: string) {
 
 export class PrefetchItemsForOpen extends UseCase {
     execute(urlList: string[]) {
-        console.log("prefetching...", urlList);
+        debug("Prefetching...", urlList);
         urlList.forEach(url => {
             prefetch(url);
         });

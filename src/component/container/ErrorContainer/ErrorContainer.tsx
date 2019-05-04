@@ -10,8 +10,9 @@ import { Notice } from "../../../domain/Notice/Notice";
 import { OSNotice } from "../../../domain/Notice/OSNotice";
 import { shallowEqual } from "shallow-equal-object";
 import isElectron from "is-electron";
+import { createAppUserOpenStreamWithItemUseCase } from "../../../use-case/App/AppUserOpenStreamWithItemUseCase";
 
-const showOSNotifications = (notices: OSNotice[]) => {
+const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) => void) => {
     if (!isElectron()) {
         return;
     }
@@ -28,13 +29,17 @@ const showOSNotifications = (notices: OSNotice[]) => {
                     return `data:image/png;base64,` + base64String;
                 });
             const image = nativeImage.createFromDataURL(imageBase64);
-            const myNotification = new Notification({
+            const notification = new Notification({
                 title: notice.title,
                 subtitle: notice.subTitle,
                 body: notice.body,
                 icon: image
             });
-            myNotification.show();
+            notification.addListener("click", () => {
+                console.log("CLICK");
+                onClick(notice);
+            });
+            notification.show();
         } else {
             // const notification = new Notification({
             //     title: notice.title,
@@ -57,10 +62,17 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
             this.useCase(createDismissNoticeUseCase()).execute(errorNotice);
         }
     };
+    // click "Notification" and open item
+    private onClickNotification = (notice: OSNotice) => {
+        this.useCase(createAppUserOpenStreamWithItemUseCase()).execute(
+            notice.refs.query,
+            notice.refs.item
+        );
+    };
 
     componentDidUpdate(prevProps: Readonly<ErrorContainerProps>): void {
         if (!shallowEqual(prevProps.notice.osNotices, this.props.notice.osNotices)) {
-            showOSNotifications(this.props.notice.osNotices);
+            showOSNotifications(this.props.notice.osNotices, this.onClickNotification);
         }
     }
 
