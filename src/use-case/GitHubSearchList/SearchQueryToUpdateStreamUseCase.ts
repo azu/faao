@@ -94,7 +94,9 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                 },
                 () => {
                     debug(`Searching Complete! Query:${query.name}`);
-                    if (lastStream && firstStream) {
+                    // Notice updated results
+                    // First results is ignored
+                    if (lastStream && firstStream && firstStream.hasResultAtLeastOne) {
                         const diff = lastStream.itemSortedCollection.differenceCollection(
                             firstStream.itemSortedCollection
                         );

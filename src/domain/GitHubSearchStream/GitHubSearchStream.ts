@@ -42,6 +42,10 @@ export class GitHubSearchStream {
         return this.itemSortedCollection.filter.filterText;
     }
 
+    get hasResultAtLeastOne(): boolean {
+        return this.itemSortedCollection.itemCount > 0;
+    }
+
     applyFilterToStream(filter: SearchFilter) {
         return new GitHubSearchStream({
             ...this,
