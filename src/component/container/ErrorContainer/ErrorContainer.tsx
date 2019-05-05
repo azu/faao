@@ -36,7 +36,6 @@ const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) =>
                 icon: image
             });
             notification.addListener("click", () => {
-                console.log("CLICK");
                 onClick(notice);
             });
             notification.show();
