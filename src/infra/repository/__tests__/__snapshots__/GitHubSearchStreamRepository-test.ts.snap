@@ -475,58 +475,6 @@ Reported by wyuenho@gmail.com
   Object {
     "assignee": null,
     "assignees": Array [],
-    "body": "**Reported by scottbb on 2009-12-07 02:46**
-When using Cdex there is no beeping for the background progress bar.
-",
-    "closed_at": null,
-    "comments": 3,
-    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/comments",
-    "created_at": "2010-01-01T00:00:00Z",
-    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/events",
-    "html_url": "https://github.com/nvaccess/nvda/issues/500",
-    "id": "116022500",
-    "labels": Array [
-      Object {
-        "color": "fc2929",
-        "default": true,
-        "id": 284590813,
-        "name": "bug",
-        "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 500,
-    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
-    "score": 0.2525445,
-    "state": "open",
-    "title": "Cdex is not beeping in background or foreground  progress bars",
-    "updated_at": "2015-11-10T04:18:00Z",
-    "url": "https://api.github.com/repos/nvaccess/nvda/issues/500",
-    "user": Object {
-      "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
-      "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
-      "followers_url": "https://api.github.com/users/nvaccessAuto/followers",
-      "following_url": "https://api.github.com/users/nvaccessAuto/following{/other_user}",
-      "gists_url": "https://api.github.com/users/nvaccessAuto/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/nvaccessAuto",
-      "id": 14253915,
-      "login": "nvaccessAuto",
-      "organizations_url": "https://api.github.com/users/nvaccessAuto/orgs",
-      "received_events_url": "https://api.github.com/users/nvaccessAuto/received_events",
-      "repos_url": "https://api.github.com/users/nvaccessAuto/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/nvaccessAuto/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/nvaccessAuto/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/nvaccessAuto",
-    },
-  },
-  Object {
-    "assignee": null,
-    "assignees": Array [],
     "body": "**Reported by jteh on 2009-08-25 03:42**
 While NVDA is running, the system will not go into standby mode automatically despite being configured to do so.
 
@@ -590,17 +538,24 @@ This occurs because tones keeps an instance of \`nvwave.WavePlayer\` which it do
   Object {
     "assignee": null,
     "assignees": Array [],
-    "body": "**Reported by Hari on 2009-12-15 15:11**
-When deleting a selected text in any word pad/text editor, the NVDA, version 2009.1 (most recent release), says: \\"unselecting\\" followed by announcement of a word if present -- and if not, announcement of a carriage return. E.g., let's say we have following words written: \\"my test\\". And let's say we deleted the word \\"my\\", the NVDA says \\"unselecting test\\", which, you could see, is quite confusing. Now let's say the text is followed by a carriage return, it say the following: \\"unselecting carriage return\\". As noted before, this issue is global, i.e. it occurs in MS Word, Windows Word Pad, Jarte text editor, and so forth. 
+    "body": "**Reported by aarnott on 2009-09-18 22:35**
+A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Project Conversion dialog (opening page).  Windows Eyes can read it, but NVDA cannot.
 ",
     "closed_at": null,
-    "comments": 4,
-    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/comments",
+    "comments": 0,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/comments",
     "created_at": "2010-01-01T00:00:00Z",
-    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/events",
-    "html_url": "https://github.com/nvaccess/nvda/issues/510",
-    "id": "116022534",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/events",
+    "html_url": "https://github.com/nvaccess/nvda/issues/419",
+    "id": "116022216",
     "labels": Array [
+      Object {
+        "color": "ffffff",
+        "default": false,
+        "id": 284598354,
+        "name": "App specific: Microsoft Visual Studio",
+        "url": "https://api.github.com/repos/nvaccess/nvda/labels/App%20specific:%20Microsoft%20Visual%20Studio",
+      },
       Object {
         "color": "fc2929",
         "default": true,
@@ -609,77 +564,16 @@ When deleting a selected text in any word pad/text editor, the NVDA, version 200
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
-    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/labels{/name}",
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/labels{/name}",
     "locked": false,
     "milestone": null,
-    "number": 510,
+    "number": 419,
     "repository_url": "https://api.github.com/repos/nvaccess/nvda",
-    "score": 0.3571519,
+    "score": 0.6790957,
     "state": "open",
-    "title": "Unclear indication of text deletion",
-    "updated_at": "2015-11-10T04:18:22Z",
-    "url": "https://api.github.com/repos/nvaccess/nvda/issues/510",
-    "user": Object {
-      "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
-      "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
-      "followers_url": "https://api.github.com/users/nvaccessAuto/followers",
-      "following_url": "https://api.github.com/users/nvaccessAuto/following{/other_user}",
-      "gists_url": "https://api.github.com/users/nvaccessAuto/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/nvaccessAuto",
-      "id": 14253915,
-      "login": "nvaccessAuto",
-      "organizations_url": "https://api.github.com/users/nvaccessAuto/orgs",
-      "received_events_url": "https://api.github.com/users/nvaccessAuto/received_events",
-      "repos_url": "https://api.github.com/users/nvaccessAuto/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/nvaccessAuto/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/nvaccessAuto/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/nvaccessAuto",
-    },
-  },
-  Object {
-    "assignee": null,
-    "assignees": Array [],
-    "body": "**Reported by pvagner on 2009-10-29 19:14**
-STR:
-1) Open your outlook express and focus the list of messages.
-2) Make sure focus is set to the item immediately before the last item in the list (the second item from the very bottom).
-3) Press the delete key.
-
-Actual results:
-NVDA stays silent and you need to use NVDA+tab or NVDA+up arrow to get the currently selected item spoken.
-
-Expected results:
-As the last message in the list gains the focus, NVDA should correctly announce to that fact.
-",
-    "closed_at": null,
-    "comments": 2,
-    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/comments",
-    "created_at": "2010-01-01T00:00:00Z",
-    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/events",
-    "html_url": "https://github.com/nvaccess/nvda/issues/446",
-    "id": "116022302",
-    "labels": Array [
-      Object {
-        "color": "fc2929",
-        "default": true,
-        "id": 284590813,
-        "name": "bug",
-        "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 446,
-    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
-    "score": 0.5102169,
-    "state": "open",
-    "title": "When deleting one before the last message in the outlook express message list NVDA fails to announce new item in focus",
-    "updated_at": "2015-11-10T04:16:01Z",
-    "url": "https://api.github.com/repos/nvaccess/nvda/issues/446",
+    "title": "Unable to read text in hidden textbox",
+    "updated_at": "2015-11-10T04:14:59Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/419",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
@@ -780,24 +674,26 @@ STR:
   Object {
     "assignee": null,
     "assignees": Array [],
-    "body": "**Reported by aarnott on 2009-09-18 22:35**
-A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Project Conversion dialog (opening page).  Windows Eyes can read it, but NVDA cannot.
+    "body": "**Reported by pvagner on 2009-10-29 19:14**
+STR:
+1) Open your outlook express and focus the list of messages.
+2) Make sure focus is set to the item immediately before the last item in the list (the second item from the very bottom).
+3) Press the delete key.
+
+Actual results:
+NVDA stays silent and you need to use NVDA+tab or NVDA+up arrow to get the currently selected item spoken.
+
+Expected results:
+As the last message in the list gains the focus, NVDA should correctly announce to that fact.
 ",
     "closed_at": null,
-    "comments": 0,
-    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/comments",
+    "comments": 2,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/comments",
     "created_at": "2010-01-01T00:00:00Z",
-    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/events",
-    "html_url": "https://github.com/nvaccess/nvda/issues/419",
-    "id": "116022216",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/events",
+    "html_url": "https://github.com/nvaccess/nvda/issues/446",
+    "id": "116022302",
     "labels": Array [
-      Object {
-        "color": "ffffff",
-        "default": false,
-        "id": 284598354,
-        "name": "App specific: Microsoft Visual Studio",
-        "url": "https://api.github.com/repos/nvaccess/nvda/labels/App%20specific:%20Microsoft%20Visual%20Studio",
-      },
       Object {
         "color": "fc2929",
         "default": true,
@@ -806,16 +702,120 @@ A hidden text control is embedded on the Visual Studio (2008 and 2010 beta 1) Pr
         "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
       },
     ],
-    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/419/labels{/name}",
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/446/labels{/name}",
     "locked": false,
     "milestone": null,
-    "number": 419,
+    "number": 446,
     "repository_url": "https://api.github.com/repos/nvaccess/nvda",
-    "score": 0.6790957,
+    "score": 0.5102169,
     "state": "open",
-    "title": "Unable to read text in hidden textbox",
-    "updated_at": "2015-11-10T04:14:59Z",
-    "url": "https://api.github.com/repos/nvaccess/nvda/issues/419",
+    "title": "When deleting one before the last message in the outlook express message list NVDA fails to announce new item in focus",
+    "updated_at": "2015-11-10T04:16:01Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/446",
+    "user": Object {
+      "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
+      "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
+      "followers_url": "https://api.github.com/users/nvaccessAuto/followers",
+      "following_url": "https://api.github.com/users/nvaccessAuto/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nvaccessAuto/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/nvaccessAuto",
+      "id": 14253915,
+      "login": "nvaccessAuto",
+      "organizations_url": "https://api.github.com/users/nvaccessAuto/orgs",
+      "received_events_url": "https://api.github.com/users/nvaccessAuto/received_events",
+      "repos_url": "https://api.github.com/users/nvaccessAuto/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/nvaccessAuto/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nvaccessAuto/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/nvaccessAuto",
+    },
+  },
+  Object {
+    "assignee": null,
+    "assignees": Array [],
+    "body": "**Reported by Hari on 2009-12-15 15:11**
+When deleting a selected text in any word pad/text editor, the NVDA, version 2009.1 (most recent release), says: \\"unselecting\\" followed by announcement of a word if present -- and if not, announcement of a carriage return. E.g., let's say we have following words written: \\"my test\\". And let's say we deleted the word \\"my\\", the NVDA says \\"unselecting test\\", which, you could see, is quite confusing. Now let's say the text is followed by a carriage return, it say the following: \\"unselecting carriage return\\". As noted before, this issue is global, i.e. it occurs in MS Word, Windows Word Pad, Jarte text editor, and so forth. 
+",
+    "closed_at": null,
+    "comments": 4,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/comments",
+    "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/events",
+    "html_url": "https://github.com/nvaccess/nvda/issues/510",
+    "id": "116022534",
+    "labels": Array [
+      Object {
+        "color": "fc2929",
+        "default": true,
+        "id": 284590813,
+        "name": "bug",
+        "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/510/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 510,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.3571519,
+    "state": "open",
+    "title": "Unclear indication of text deletion",
+    "updated_at": "2015-11-10T04:18:22Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/510",
+    "user": Object {
+      "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
+      "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",
+      "followers_url": "https://api.github.com/users/nvaccessAuto/followers",
+      "following_url": "https://api.github.com/users/nvaccessAuto/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nvaccessAuto/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/nvaccessAuto",
+      "id": 14253915,
+      "login": "nvaccessAuto",
+      "organizations_url": "https://api.github.com/users/nvaccessAuto/orgs",
+      "received_events_url": "https://api.github.com/users/nvaccessAuto/received_events",
+      "repos_url": "https://api.github.com/users/nvaccessAuto/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/nvaccessAuto/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nvaccessAuto/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/nvaccessAuto",
+    },
+  },
+  Object {
+    "assignee": null,
+    "assignees": Array [],
+    "body": "**Reported by scottbb on 2009-12-07 02:46**
+When using Cdex there is no beeping for the background progress bar.
+",
+    "closed_at": null,
+    "comments": 3,
+    "comments_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/comments",
+    "created_at": "2010-01-01T00:00:00Z",
+    "events_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/events",
+    "html_url": "https://github.com/nvaccess/nvda/issues/500",
+    "id": "116022500",
+    "labels": Array [
+      Object {
+        "color": "fc2929",
+        "default": true,
+        "id": 284590813,
+        "name": "bug",
+        "url": "https://api.github.com/repos/nvaccess/nvda/labels/bug",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/nvaccess/nvda/issues/500/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 500,
+    "repository_url": "https://api.github.com/repos/nvaccess/nvda",
+    "score": 0.2525445,
+    "state": "open",
+    "title": "Cdex is not beeping in background or foreground  progress bars",
+    "updated_at": "2015-11-10T04:18:00Z",
+    "url": "https://api.github.com/repos/nvaccess/nvda/issues/500",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/14253915?v=3",
       "events_url": "https://api.github.com/users/nvaccessAuto/events{/privacy}",

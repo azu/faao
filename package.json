@@ -64,6 +64,7 @@
   "scripts": {
     "test": "npm-run-all test:* lint",
     "test:unit": "react-scripts test --env=node",
+    "updateSnapshot": "react-scripts test --updateSnapshot --env=node",
     "lint": "npm-run-all --parallel lint:*",
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "prepublishOnly": "npm run --if-present build",
