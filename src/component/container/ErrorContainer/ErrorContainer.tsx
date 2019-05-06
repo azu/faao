@@ -82,7 +82,7 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     componentDidUpdate(prevProps: Readonly<ErrorContainerProps>): void {
         const currentOSNotices = this.props.notice.osNotices;
         if (!shallowEqual(prevProps.notice.osNotices, currentOSNotices)) {
-            showOSNotifications(currentOSNotices, this.onClickNotification).then(() => {
+            showOSNotifications(currentOSNotices, this.onClickNotification).finally(() => {
                 this.useCase(createDismissNoticesUseCase()).execute(currentOSNotices);
             });
         }
