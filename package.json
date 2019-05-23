@@ -130,7 +130,7 @@
     "classnames": "^2.2.6",
     "codemirror": "^5.27.2",
     "combokeys": "^2.4.6",
-    "debug": "^2.6.8",
+    "debug": "^2.6.9",
     "electron-context-menu": "^0.12.1",
     "electron-default-menu": "^1.0.1",
     "execall": "^1.0.0",
