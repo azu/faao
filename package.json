@@ -81,7 +81,9 @@
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "release": "npm run build && electron-builder",
-    "website": "npm-run-all build build:docs"
+    "website": "npm-run-all build build:docs",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.0",
@@ -146,8 +148,8 @@
     "lru-cache": "^5.1.1",
     "lru-map-like": "^2.0.0",
     "map-like": "^2.0.0",
-    "moment": "^2.18.1",
-    "octokat": "^0.8",
+    "moment": "^2.19.3",
+    "octokat": "^0.8.0",
     "office-ui-fabric-react": "~6.176.0",
     "parse-github-event": "^1.0.2",
     "react": "^16.8.1",
@@ -163,7 +165,8 @@
     "ts-node": "^8.1.0",
     "ulid": "^2.3.0",
     "url-join": "^2.0.2",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "snyk": "^1.167.0"
   },
   "resolutions": {
     "@types/react": "16.8.2",
@@ -187,5 +190,6 @@
       "post-commit": "git reset",
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "snyk": true
 }
