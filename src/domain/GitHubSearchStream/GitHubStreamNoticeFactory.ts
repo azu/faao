@@ -2,6 +2,7 @@ import { App } from "../App/App";
 import { GitHubSearchStream } from "./GitHubSearchStream";
 import { OSNotice } from "../Notice/OSNotice";
 import { UnionQuery } from "../GitHubSearchList/GitHubSearchList";
+import { from } from "fromfrom";
 
 /**
  * Create OS Notices from updated Streams.
@@ -32,9 +33,12 @@ export const createOSNoticesFromStreams = ({
     const diff = lastStream.itemSortedCollection.differenceCollection(
         firstStream.itemSortedCollection
     );
-    return diff.items
+    return from(diff.items)
         .filter(item => {
             return app.user.activity.notificationActity.timeStamp < item.updatedAtDate.getTime();
+        })
+        .sortByDescending(item => {
+            return item.updated_at;
         })
         .map(item => {
             return new OSNotice({
@@ -47,5 +51,6 @@ export const createOSNoticesFromStreams = ({
                     item: item
                 }
             });
-        });
+        })
+        .toArray();
 };
