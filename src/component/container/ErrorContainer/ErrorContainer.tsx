@@ -11,8 +11,8 @@ import { OSNotice } from "../../../domain/Notice/OSNotice";
 import { shallowEqual } from "shallow-equal-object";
 import isElectron from "is-electron";
 import { createAppUserOpenStreamWithItemUseCase } from "../../../use-case/App/AppUserOpenStreamWithItemUseCase";
-import { createDismissNoticesUseCase } from "../../../use-case/Notice/DismissNoticesUseCase";
 import { createMarkOSNoticesAsShownUseCase } from "../../../use-case/Notice/MarkOSNoticesAsShownUseCase";
+import { encode } from "base64-arraybuffer";
 
 const debug = require("debug")("faao:ErrorContainer");
 const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) => void) => {
@@ -31,9 +31,9 @@ const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) =>
             if (notice.icon) {
                 try {
                     const imageBase64 = await fetch(notice.icon)
-                        .then(r => r.arrayBuffer())
-                        .then(buf => {
-                            const base64String = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                        .then(res => res.arrayBuffer())
+                        .then(arrayBuffer => {
+                            const base64String = encode(arrayBuffer);
                             return `data:image/png;base64,` + base64String;
                         });
                     const image = nativeImage.createFromDataURL(imageBase64);
