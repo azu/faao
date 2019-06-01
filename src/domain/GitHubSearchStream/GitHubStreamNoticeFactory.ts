@@ -37,7 +37,7 @@ export const createOSNoticesFromStreams = ({
         .filter(item => {
             return app.user.activity.notificationActity.timeStamp < item.updatedAtDate.getTime();
         })
-        .sortByDescending(item => {
+        .sortBy(item => {
             return item.updated_at;
         })
         .map(item => {
