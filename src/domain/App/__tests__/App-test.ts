@@ -28,6 +28,9 @@ describe("App", () => {
                             }
                         ]
                     },
+                    notificationActivity: {
+                        timeStamp: 1559379292114
+                    },
                     openedContent: {
                         type: "OpenedGitHubStream",
                         gitHubSearchStreamId: "01BK9992CN8HBNXM6PVKFWNGGR"

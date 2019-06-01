@@ -47,6 +47,10 @@ export class AppUser {
         this.activity.activateItem(item);
     }
 
+    seeNotificationAtTime(timeStamp: number) {
+        this.activity.seeNotificationAtTime(timeStamp);
+    }
+
     static fromJSON(json: AppUserJSON): AppUser {
         const proto = Object.create(AppUser.prototype);
         return Object.assign(proto, {

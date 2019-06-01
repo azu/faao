@@ -55,7 +55,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
         if (!stream) {
             debug("stream is not found in store");
             return new GitHubSearchStreamState({
-                ...(this as GitHubSearchStreamStateArgs),
+                ...this,
                 items: [],
                 displayItems: [],
                 rawItemCount: 0

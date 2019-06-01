@@ -21,6 +21,7 @@ import {
     OpenedGitHubStreamJSON
 } from "./Activity/OpenedGitHubStream";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
+import { NotificationActivity, NotificationActivityJSON } from "./NotificationActivity";
 
 // menu
 export type OpenedMenu = OpenedGitHubSearchList;
@@ -38,6 +39,7 @@ export type OpenedContentJSON = OpenedGitHubStreamJSON | OpenedGitHubUserJSON;
 export interface AppUserActivityJSON {
     streamItemHistory: ActivityHistoryJSON;
     userEventHistory: ActivityHistoryJSON;
+    notificationActivity: NotificationActivityJSON;
     openedMenu?: OpenedMenuJSON;
     openedContent?: OpenedContentJSON;
 }
@@ -45,6 +47,7 @@ export interface AppUserActivityJSON {
 export interface AppUserActivityArgs {
     streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
     userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
+    notificationActivity: NotificationActivity;
     openedMenu?: OpenedMenu;
     openedContent?: OpenedContent;
 }
@@ -52,12 +55,14 @@ export interface AppUserActivityArgs {
 export class AppUserActivity {
     streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
     userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
+    notificationActity: NotificationActivity;
     openedMenu?: OpenedGitHubSearchList;
     openedContent?: OpenedContent;
 
     constructor(args: AppUserActivityArgs) {
         this.streamItemHistory = args.streamItemHistory;
         this.userEventHistory = args.userEventHistory;
+        this.notificationActity = args.notificationActivity;
         this.openedMenu = args.openedMenu;
         this.openedContent = args.openedContent;
     }
@@ -155,6 +160,12 @@ export class AppUserActivity {
         }
     }
 
+    seeNotificationAtTime(timeStamp: number) {
+        this.notificationActity = new NotificationActivity({
+            timeStamp
+        });
+    }
+
     static fromJSON(json: AppUserActivityJSON): AppUserActivity {
         const openedContent = ((openedActivity?: OpenedContentJSON) => {
             if (!openedActivity) {
@@ -180,6 +191,7 @@ export class AppUserActivity {
         return new AppUserActivity({
             streamItemHistory: ActivityHistory.fromJSON(json.streamItemHistory),
             userEventHistory: ActivityHistory.fromJSON(json.userEventHistory),
+            notificationActivity: NotificationActivity.fromJSON(json.notificationActivity),
             openedMenu,
             openedContent
         });
@@ -189,6 +201,7 @@ export class AppUserActivity {
         return {
             streamItemHistory: this.streamItemHistory.toJSON(),
             userEventHistory: this.userEventHistory.toJSON(),
+            notificationActivity: this.notificationActity.toJSON(),
             openedMenu: this.openedMenu ? this.openedMenu.toJSON() : undefined,
             openedContent: this.openedContent ? this.openedContent.toJSON() : undefined
         };

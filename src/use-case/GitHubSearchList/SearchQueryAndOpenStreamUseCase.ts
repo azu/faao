@@ -16,6 +16,7 @@ import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstIt
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
 import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNotice";
 import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { UseCase } from "almin";
 
 const debug = require("debug")("faao:SearchQueryAndOpenStreamUseCase");
 export const createSearchQueryAndOpenStreamUseCase = () => {
@@ -25,12 +26,12 @@ export const createSearchQueryAndOpenStreamUseCase = () => {
     );
 };
 
-export class SearchQueryAndOpenStreamUseCase extends SearchQueryToUpdateStreamUseCase {
+export class SearchQueryAndOpenStreamUseCase extends UseCase {
     constructor(
-        protected gitHubSettingRepository: GitHubSettingRepository,
-        protected gitHubSearchStreamRepository: GitHubSearchStreamRepository
+        private gitHubSettingRepository: GitHubSettingRepository,
+        private gitHubSearchStreamRepository: GitHubSearchStreamRepository
     ) {
-        super(gitHubSettingRepository, gitHubSearchStreamRepository);
+        super();
     }
 
     async execute(query: UnionQuery) {

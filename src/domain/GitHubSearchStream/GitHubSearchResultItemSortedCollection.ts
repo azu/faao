@@ -80,11 +80,11 @@ export class GitHubSearchResultItemSortedCollection {
             })
             .sortByDescending(item => {
                 if (args.sortType === SortType.created) {
-                    return item.createdAtDate;
+                    return item.createdAtDate.getTime();
                 } else if (args.sortType === SortType.updated) {
-                    return item.updatedAtDate;
+                    return item.updatedAtDate.getTime();
                 }
-                return item.updatedAtDate;
+                return item.updatedAtDate.getTime();
             })
             .distinct()
             .toArray();
@@ -115,11 +115,11 @@ export class GitHubSearchResultItemSortedCollection {
     }
 
     filterBySearchFilter(searchFilter: SearchFilter) {
-        return filter(this.rawItems, searchFilter);
+        return filter(this.items, searchFilter);
     }
 
     includes(aItem: GitHubSearchResultItem): boolean {
-        return this.rawItems.some(item => {
+        return this.items.some(item => {
             return aItem.equals(item);
         });
     }

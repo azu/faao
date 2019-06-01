@@ -8,6 +8,7 @@ import { Identifier } from "../Entity";
 import { ulid } from "ulid";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
+import { NotificationActivity } from "./NotificationActivity";
 
 export class AppFactory {
     static create(): App {
@@ -17,7 +18,10 @@ export class AppFactory {
             user: new AppUser({
                 activity: new AppUserActivity({
                     streamItemHistory: new ActivityHistory<GitHubSearchResultItem>([]),
-                    userEventHistory: new ActivityHistory<GitHubUserActivityEvent>([])
+                    userEventHistory: new ActivityHistory<GitHubUserActivityEvent>([]),
+                    notificationActivity: new NotificationActivity({
+                        timeStamp: Date.now()
+                    })
                 })
             })
         });

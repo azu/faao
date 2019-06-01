@@ -12,6 +12,7 @@ import { shallowEqual } from "shallow-equal-object";
 import isElectron from "is-electron";
 import { createAppUserOpenStreamWithItemUseCase } from "../../../use-case/App/AppUserOpenStreamWithItemUseCase";
 import { createDismissNoticesUseCase } from "../../../use-case/Notice/DismissNoticesUseCase";
+import { createMarkOSNoticesAsShownUseCase } from "../../../use-case/Notice/MarkOSNoticesAsShownUseCase";
 
 const debug = require("debug")("faao:ErrorContainer");
 const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) => void) => {
@@ -22,34 +23,38 @@ const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) =>
         .remote.Notification;
     const nativeImage: typeof import("electron").nativeImage = (window as any).require("electron")
         .remote.nativeImage;
-    const promises = notices.map(async notice => {
+    // LIMIT
+    const NOTIFICATION_COUNT_AT_ONCE = 5;
+    const limitedNotices = notices.slice(0, NOTIFICATION_COUNT_AT_ONCE);
+    const promises = limitedNotices.map(async notice => {
         return new Promise(async resolve => {
             if (notice.icon) {
-                const imageBase64 = await fetch(notice.icon)
-                    .then(r => r.arrayBuffer())
-                    .then(buf => {
-                        const base64String = btoa(String.fromCharCode(...new Uint8Array(buf)));
-                        return `data:image/png;base64,` + base64String;
+                try {
+                    const imageBase64 = await fetch(notice.icon)
+                        .then(r => r.arrayBuffer())
+                        .then(buf => {
+                            const base64String = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                            return `data:image/png;base64,` + base64String;
+                        });
+                    const image = nativeImage.createFromDataURL(imageBase64);
+                    const notification = new Notification({
+                        title: notice.title,
+                        subtitle: notice.subTitle,
+                        body: notice.body,
+                        icon: image
                     });
-                const image = nativeImage.createFromDataURL(imageBase64);
-                const notification = new Notification({
-                    title: notice.title,
-                    subtitle: notice.subTitle,
-                    body: notice.body,
-                    icon: image
-                });
-                notification.addListener("click", () => {
-                    onClick(notice);
-                    resolve();
-                });
-                // > This event is not guaranteed to be emitted in all cases where the notification is closed.
-                notification.addListener("show", () => {
-                    // Automatically
-                    setTimeout(() => {
+                    notification.addListener("click", () => {
+                        onClick(notice);
                         resolve();
-                    }, 60 * 1000);
-                });
-                notification.show();
+                    });
+                    // > This event is not guaranteed to be emitted in all cases where the notification is closed.
+                    notification.addListener("show", () => {
+                        resolve();
+                    });
+                    notification.show();
+                } catch (error) {
+                    resolve();
+                }
             } else {
                 resolve();
             }
@@ -82,9 +87,13 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     componentDidUpdate(prevProps: Readonly<ErrorContainerProps>): void {
         const currentOSNotices = this.props.notice.osNotices;
         if (!shallowEqual(prevProps.notice.osNotices, currentOSNotices)) {
-            showOSNotifications(currentOSNotices, this.onClickNotification).finally(() => {
-                this.useCase(createDismissNoticesUseCase()).execute(currentOSNotices);
-            });
+            showOSNotifications(currentOSNotices, this.onClickNotification)
+                .catch(error => {
+                    debug("Throw Error on showing OS Notices", error);
+                })
+                .finally(() => {
+                    this.useCase(createMarkOSNoticesAsShownUseCase()).execute(Date.now());
+                });
         }
     }
 

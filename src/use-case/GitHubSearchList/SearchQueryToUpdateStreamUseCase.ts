@@ -13,9 +13,10 @@ import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearch
 import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
-import { OSNotice } from "../../domain/Notice/OSNotice";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
+import { createOSNoticesFromStreams } from "../../domain/GitHubSearchStream/GitHubStreamNoticeFactory";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -30,7 +31,8 @@ export class LoadingFinishedPayload extends Payload {
 export const createSearchQueryToUpdateStreamUseCase = () => {
     return new SearchQueryToUpdateStreamUseCase(
         gitHubSettingRepository,
-        gitHubSearchStreamRepository
+        gitHubSearchStreamRepository,
+        appRepository
     );
 };
 
@@ -41,8 +43,9 @@ export const createSearchQueryToUpdateStreamUseCase = () => {
  */
 export class SearchQueryToUpdateStreamUseCase extends UseCase {
     constructor(
-        protected gitHubSettingRepository: GitHubSettingRepository,
-        protected gitHubSearchStreamRepository: GitHubSearchStreamRepository
+        private gitHubSettingRepository: GitHubSettingRepository,
+        private gitHubSearchStreamRepository: GitHubSearchStreamRepository,
+        private appRepository: AppRepository
     ) {
         super();
     }
@@ -95,31 +98,17 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                 },
                 () => {
                     debug(`Searching Complete! Query:${query.name}`);
-                    // Notice updated results
-                    // First results is ignored
-                    if (lastStream && firstStream && firstStream.hasResultAtLeastOne) {
-                        const diff = lastStream.itemSortedCollection.differenceCollection(
-                            firstStream.itemSortedCollection
-                        );
-                        const notices = diff.items.map(item => {
-                            return new OSNotice({
-                                title: item.title,
-                                body: item.body,
-                                subTitle: item.shortPath,
-                                icon: item.user.avatar_url,
-                                refs: {
-                                    query: query as UnionQuery,
-                                    item: item
-                                }
-                            });
-                        });
-                        this.context
-                            .useCase(createShowOSNoticesUseCase())
-                            .execute(notices)
-                            .then(() => resolve());
-                    } else {
-                        resolve();
-                    }
+                    const app = this.appRepository.get();
+                    const osNotices = createOSNoticesFromStreams({
+                        app,
+                        query: query as UnionQuery,
+                        firstStream: firstStream,
+                        lastStream: lastStream
+                    });
+                    this.context
+                        .useCase(createShowOSNoticesUseCase())
+                        .execute(osNotices)
+                        .then(() => resolve());
                 }
             );
         }).then(

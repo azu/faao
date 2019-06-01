@@ -59,15 +59,16 @@ const QueryButton = (props: {
     item: GitHubSearchStreamStateItem;
     faaoQueries: FaaoSearchQuery[];
     onClickQuery(query: FaaoSearchQuery): void;
+    onCliclDumpItem(): void;
 }) => {
-    const headers: IContextualMenuItem[] = [
+    const queryHeaders: IContextualMenuItem[] = [
         {
             key: "Add item to Query",
             itemType: ContextualMenuItemType.Header,
             text: "Add item to Query"
         }
     ];
-    const items: IContextualMenuItem[] = props.faaoQueries.map(query => {
+    const queryItems: IContextualMenuItem[] = props.faaoQueries.map(query => {
         return {
             key: query.name,
             text: query.name,
@@ -82,6 +83,30 @@ const QueryButton = (props: {
         };
     });
 
+    const debugHeaders: IContextualMenuItem[] = [
+        {
+            key: "Debug Menu",
+            itemType: ContextualMenuItemType.Header,
+            text: "Debug Menu"
+        }
+    ];
+    const debugItems: IContextualMenuItem[] = [
+        {
+            key: "dump item",
+            text: "Dump item",
+            iconProps: {
+                iconName: "ConstructionCone"
+            },
+            onClick: () => {
+                props.onCliclDumpItem();
+            }
+        }
+    ];
+
+    const items =
+        process.env.REACT_APP === "test"
+            ? queryHeaders.concat(queryHeaders, queryItems)
+            : queryHeaders.concat(queryItems, debugHeaders, debugItems);
     return (
         <IconButton
             disabled={props.faaoQueries.length === 0}
@@ -90,7 +115,7 @@ const QueryButton = (props: {
             menuProps={{
                 ariaLabel: "Query Option Menu",
                 directionalHint: DirectionalHint.bottomCenter,
-                items: headers.concat(items)
+                items: items
             }}
         />
     );
@@ -149,6 +174,9 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                             item={item}
                             faaoQueries={this.props.faaoQueries}
                             onClickQuery={this.onClickQueryOptionMenu}
+                            onCliclDumpItem={() => {
+                                console.log(item);
+                            }}
                         />
                     </aside>
                     <footer className={"SearchResultListItem-footer"}>
