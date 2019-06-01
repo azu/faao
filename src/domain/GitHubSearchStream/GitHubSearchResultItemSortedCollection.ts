@@ -80,11 +80,11 @@ export class GitHubSearchResultItemSortedCollection {
             })
             .sortByDescending(item => {
                 if (args.sortType === SortType.created) {
-                    return item.createdAtDate.getTime();
+                    return item.updated_at;
                 } else if (args.sortType === SortType.updated) {
-                    return item.updatedAtDate.getTime();
+                    return item.updated_at;
                 }
-                return item.updatedAtDate.getTime();
+                return item.updated_at;
             })
             .distinct()
             .toArray();
