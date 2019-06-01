@@ -24,7 +24,7 @@ const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) =>
     const nativeImage: typeof import("electron").nativeImage = (window as any).require("electron")
         .remote.nativeImage;
     // LIMIT
-    const NOTIFICATION_COUNT_AT_ONCE = 10;
+    const NOTIFICATION_COUNT_AT_ONCE = 5;
     const limitedNotices = notices.slice(0, NOTIFICATION_COUNT_AT_ONCE);
     const promises = limitedNotices.map(async notice => {
         return new Promise(async resolve => {
