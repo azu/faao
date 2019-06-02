@@ -111,7 +111,6 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^23.10.5",
     "typemoq": "^1.7.0",
-    "typescript": "^3.4.5",
     "wait-on": "^3.2.0"
   },
   "dependencies": {
@@ -162,9 +161,9 @@
     "remove-markdown": "^0.3.0",
     "request-idle-polyfill": "^1.0.1",
     "shallow-equal-object": "^1.1.1",
-    "snyk": "^1.167.0",
     "suitcss-classnames": "^1.1.0",
     "ts-node": "^8.1.0",
+    "typescript": "^3.4.5",
     "ulid": "^2.3.0",
     "url-join": "^2.0.2",
     "whatwg-fetch": "^2.0.3"
