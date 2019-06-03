@@ -20,6 +20,8 @@
     "files": [
       "main-src/**/*",
       "build/**/*",
+      "tsconfig.json",
+      "tsconfig.electron.json",
       "node_modules/**/*"
     ],
     "directories": {
