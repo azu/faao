@@ -13,10 +13,6 @@ const getHTMLUrl = () => {
     if (process.env.FAAO_URL) {
         return process.env.FAAO_URL;
     }
-    const useRemote = process.argv.indexOf("--use-remote") !== -1;
-    if (useRemote) {
-        return "https://azu.github.io/faao/";
-    }
     return `file://${path.join(__dirname, "../build/index.html")}`;
 };
 const URL = getHTMLUrl();

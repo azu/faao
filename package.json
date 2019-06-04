@@ -19,14 +19,13 @@
     "npmRebuild": false,
     "files": [
       "main-src/**/*",
+      "public/**/*",
       "build/**/*",
+      "assets/**/*",
       "tsconfig.json",
       "tsconfig.electron.json",
       "node_modules/**/*"
     ],
-    "directories": {
-      "buildResources": "assets"
-    },
     "win": {
       "target": [
         "nsis"
@@ -95,8 +94,8 @@
     "almin-usecase-map-generator": "^1.0.2",
     "cross-env": "^5.2.0",
     "dependency-cruiser": "^2.2.3",
-    "electron": "5.0.0",
-    "electron-builder": "^20.39.0",
+    "electron": "5.0.2",
+    "electron-builder": "^20.41.0",
     "electron-packager": "^13.1.1",
     "glob": "^7.1.2",
     "husky": "^1.3.1",
@@ -189,6 +188,5 @@
       "post-commit": "git reset",
       "pre-commit": "lint-staged"
     }
-  },
-  "snyk": true
+  }
 }
