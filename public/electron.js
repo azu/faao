@@ -1,5 +1,5 @@
 "use strict";
-if (process.env.NODE_ENV === "development") {
+if (!!process.env.FAAO_URL) {
     require("ts-node").register({
         project: require("path").join(__dirname, "../tsconfig.electron.json")
     });
