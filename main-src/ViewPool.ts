@@ -5,7 +5,6 @@
  */
 import EventEmitter from "events";
 import { BrowserView, BrowserWindow } from "electron";
-import LRU from "lru-cache";
 
 const times = (count: number, cb: (item: any) => any) => {
     return Array.from(new Array(count), (_, index) => cb(index));
@@ -25,12 +24,8 @@ export class ViewPool {
     private eventEmitter: EventEmitter;
     private currentSize!: Size;
     private visible: boolean;
-    private lru: LRU.Cache<any, any>;
 
     constructor(private browerWindow: BrowserWindow, private length: number) {
-        this.lru = new LRU({
-            max: 30
-        });
         this.visible = true;
         this.eventEmitter = new EventEmitter();
         this.pool = times(this.length, idx => {

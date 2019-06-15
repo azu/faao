@@ -10,7 +10,7 @@
   "name": "faao",
   "description": "Faao is a GitHub Issue/Pull Request client on Electron/Browser.",
   "version": "1.0.0",
-  "main": "public/electron.js",
+  "main": "build/electron.js",
   "homepage": "./",
   "build": {
     "productName": "Faao",
@@ -72,16 +72,19 @@
     "prettier": "prettier \"src/**/*.{ts,tsx,css}\" --write --print-width 100 --tab-width 4",
     "start": "cross-env BROWSER=none react-scripts start",
     "electron": "wait-on http://localhost:3000 && cross-env FAAO_URL=http://localhost:3000/ electron public/electron.js",
-    "watch:main": "tsc -p ./tsconfig.electron.json",
+    "electron:prod": "electron build/electron.js",
     "build:docs": "almin-usecase-map-generator \"./src/use-case/**/*UseCase.ts\" --output build/meta/use-case.svg",
-    "build": "react-scripts build",
+    "build:main-src": "tsc -p ./tsconfig.electron.json",
+    "build:src": "react-scripts build",
+    "build": "npm-run-all build:src build:main-src",
     "eject": "react-scripts eject",
     "clean": "rimraf public/build dist && mkdirp public/build",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "npm run build",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "release": "npm run build && electron-builder"
+    "release": "npm run build && electron-builder",
+    "website": "npm-run-all build build:docs"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.0",
@@ -114,7 +117,6 @@
   "dependencies": {
     "@immutable-array/prototype": "^1.0.4",
     "@types/combokeys": "^2.4.5",
-    "@types/lru-cache": "^4.1.1",
     "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.8",
     "@types/react": "16.8.2",
@@ -143,7 +145,6 @@
     "localforage": "^1.5.0",
     "localforage-memoryStorageDriver": "^0.9.2",
     "lodash": "^4.17.11",
-    "lru-cache": "^5.1.1",
     "lru-map-like": "^2.0.0",
     "map-like": "^2.0.0",
     "moment": "^2.19.3",

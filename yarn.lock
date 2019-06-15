@@ -1032,11 +1032,6 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
   integrity sha512-pQvPkc4Nltyx7G1Ww45OjVqUsJP4UsZm+GWJpigXgkikZqJgRm4c48g027o6tdgubWHwFRF15iFd+Y4Pmqv6+Q==
 
-"@types/lru-cache@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-4.1.1.tgz#b2d87a5e3df8d4b18ca426c5105cd701c2306d40"
-  integrity sha512-8mNEUG6diOrI6pMqOHrHPDBB1JsrpedeMK9AWGzVCQ7StRRribiT9BRvUmF8aUws9iBbVlgVekOT5Sgzc1MTKw==
-
 "@types/meow@^3.6.2":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@types/meow/-/meow-3.6.2.tgz#d13867f97d8b258200e14f59c6ed07f08b34280e"

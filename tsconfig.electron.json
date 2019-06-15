@@ -3,7 +3,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
-    "outDir": "./public/",
+    "outDir": "./build/main-src",
     "target": "es2018",
     "sourceMap": false,
     "declaration": false,

@@ -13,7 +13,8 @@ const getHTMLUrl = () => {
     if (process.env.FAAO_URL) {
         return process.env.FAAO_URL;
     }
-    return `file://${path.join(__dirname, "../build/index.html")}`;
+    // build/main-src -> ../index.html
+    return `file://${path.join(__dirname, "../index.html")}`;
 };
 const URL = getHTMLUrl();
 let viewPool: ViewPool;
