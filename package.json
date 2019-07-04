@@ -34,7 +34,9 @@
     "test": "npm-run-all test:* lint",
     "test:unit": "react-scripts test --env=node",
     "updateSnapshot": "react-scripts test --updateSnapshot --env=node",
-    "website": "npm-run-all build build:docs"
+    "website": "npm-run-all build build:docs",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "husky": {
     "hooks": {
@@ -96,7 +98,8 @@
     "suitcss-classnames": "^1.1.0",
     "ulid": "^2.3.0",
     "url-join": "^2.0.2",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.0",
@@ -189,5 +192,6 @@
         "provider": "github"
       }
     ]
-  }
+  },
+  "snyk": true
 }
