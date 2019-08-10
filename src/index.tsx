@@ -21,7 +21,6 @@ function allRequire(context: any) {
 allRequire((require as any).context("./", true, /\.css$/));
 
 initializeIcons();
-require("request-idle-polyfill");
 // instances
 const dispatcher = new Dispatcher();
 // context connect dispatch with stores
