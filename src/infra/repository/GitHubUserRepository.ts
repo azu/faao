@@ -21,7 +21,7 @@ export class GitHubUserRepository extends NullableBaseRepository<GitHubUser> {
         });
         await this.storage.ready();
         const values: GitHubUserJSON[] = [];
-        await this.storage.iterate(value => {
+        await this.storage.iterate<GitHubUserJSON, void>(value => {
             values.push(value);
         });
         values

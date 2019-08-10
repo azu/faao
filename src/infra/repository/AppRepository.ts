@@ -23,7 +23,7 @@ export class AppRepository extends NonNullableBaseRepository<App> {
         });
         await this.storage.ready();
         const values: AppJSON[] = [];
-        await this.storage.iterate(value => {
+        await this.storage.iterate<AppJSON, void>(value => {
             values.push(value);
         });
         values

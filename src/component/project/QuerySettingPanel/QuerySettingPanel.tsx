@@ -16,7 +16,7 @@ import {
     GitHubSearchQueryJSON
 } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
-import { ColorResult, GithubPicker } from "react-color";
+import { ColorState, GithubPicker } from "react-color";
 
 export interface QuerySettingPanelProps {
     settings: GitHubSetting[];
@@ -54,7 +54,7 @@ export class QuerySettingPanel extends React.Component<
         });
     };
 
-    onChangeColor = (colorResult: ColorResult) => {
+    onChangeColor = (colorResult: ColorState) => {
         this.setState({
             color: colorResult.hex
         });

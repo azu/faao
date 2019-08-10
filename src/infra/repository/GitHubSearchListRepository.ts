@@ -32,7 +32,7 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         });
         await this.storage.ready();
         const values: GitHubSearchListJSON[] = [];
-        await this.storage.iterate(value => {
+        await this.storage.iterate<GitHubSearchListJSON, void>(value => {
             values.push(value);
         });
         if (values.length === 0) {

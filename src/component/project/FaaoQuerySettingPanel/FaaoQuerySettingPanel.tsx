@@ -11,7 +11,7 @@ import {
     TextField
 } from "office-ui-fabric-react";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
-import { ColorResult, GithubPicker } from "react-color";
+import { ColorState, GithubPicker } from "react-color";
 import {
     FaaoSearchQuery,
     FaaoSearchQueryJSON
@@ -51,7 +51,7 @@ export class FaaoQuerySettingPanel extends React.Component<
         });
     };
 
-    onChangeColor = (colorResult: ColorResult) => {
+    onChangeColor = (colorResult: ColorState) => {
         this.setState({
             color: colorResult.hex
         });

@@ -26,7 +26,7 @@ export class GitHubSearchStreamRepository extends NonNullableBaseRepository<GitH
         });
         await this.storage.ready();
         const values: [string, GitHubSearchStreamJSON][] = [];
-        await this.storage.iterate((value, key) => {
+        await this.storage.iterate<GitHubSearchStreamJSON, void>((value, key) => {
             values.push([key, value]);
         });
         values.forEach(([hash, json]) => {

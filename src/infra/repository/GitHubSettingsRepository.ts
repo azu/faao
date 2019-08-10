@@ -22,7 +22,7 @@ export class GitHubSettingRepository extends NullableBaseRepository<GitHubSettin
         });
         await this.storage.ready();
         const values: GitHubSettingJSON[] = [];
-        await this.storage.iterate(value => {
+        await this.storage.iterate<GitHubSettingJSON, void>(value => {
             values.push(value);
         });
         values

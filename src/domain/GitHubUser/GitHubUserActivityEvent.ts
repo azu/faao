@@ -118,7 +118,7 @@ export class GitHubUserActivityEvent extends ValueObject {
         this.actor = event.actor;
         this.org = event.org;
         this.created_at = event.created_at;
-        this.parsedEvent = parse(this.toJSON());
+        this.parsedEvent = parse(this.toJSON() as any);
     }
 
     get repoAvatarUrl() {
