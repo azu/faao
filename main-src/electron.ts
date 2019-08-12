@@ -84,7 +84,7 @@ app.on("open-url", function(event, openedUrl) {
 
     const passUrlToBrowser = (openedUrl: string) => {
         const { url, query, pathname } = queryToArgs(openedUrl);
-        if (pathname === "/query/add") {
+        if (pathname === "query/add") {
             if (url && query && mainWindow && mainWindow.webContents) {
                 mainWindow.webContents.send("faao-add-url-to-query", url, query);
             }
