@@ -9,13 +9,14 @@ import {
     List
 } from "office-ui-fabric-react";
 import { GitHubSearchResultItem } from "../../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import removeMarkdown from "remove-markdown";
 import classnames from "classnames";
 import {
     GitHubSearchStreamStateItem,
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/FaaoSearchQuery";
+
+const removeMarkdown = require("@azu/remove-markdown");
 
 // save file-size
 const CommentIcon = require("react-octicons/lib/comment").default;

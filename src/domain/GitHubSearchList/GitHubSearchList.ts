@@ -7,7 +7,13 @@ import {
 } from "./GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
-import { FaaoSearchQuery, FaaoSearchQueryJSON, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
+import {
+    FaaoSearchQuery,
+    FaaoSearchQueryJSON,
+    isFaaoSearchQuery,
+    isFaaoSearchQueryJSON
+} from "./FaaoSearchQuery";
+import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
 
 export type UnionQuery = FaaoSearchQuery | GitHubSearchQuery;
 export type UnionQueryJSON = FaaoSearchQueryJSON | GitHubSearchQueryJSON;
@@ -63,9 +69,36 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         return this.queries.filter(query => isGitHubSearchQuery(query)) as GitHubSearchQuery[];
     }
 
+    get faaoSearchQueries(): FaaoSearchQuery[] {
+        return this.queries.filter(query => isFaaoSearchQuery(query)) as FaaoSearchQuery[];
+    }
+
+    addNewUrlToFaaoQuery(url: string, queryName: string) {
+        const query = this.queries.find(query => {
+            return query.name === queryName;
+        });
+        if (!query || !isFaaoSearchQuery(query)) {
+            return this;
+        }
+        const newQuery = query.addParam(new FaaoSearchQueryParam({ url }));
+        return this.replaceQuery(query, newQuery);
+    }
+
     includesQuery(aQuery: UnionQuery): boolean {
         return this.queries.some(query => {
             return query.equals(aQuery);
+        });
+    }
+
+    findQueryByName(queryName: string): UnionQuery | undefined {
+        return this.queries.find(query => {
+            return query.name === queryName;
+        });
+    }
+    // prefer to use includesQuery
+    includesQueryName(queryName: string): boolean {
+        return this.queries.some(query => {
+            return query.name === queryName;
         });
     }
 

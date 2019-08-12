@@ -4,7 +4,7 @@ Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 
 [![gif](https://media.giphy.com/media/xUOrweo4UAStll4QP6/giphy.gif)](https://giphy.com/gifs/xUOrweo4UAStll4QP6/fullscreen)
 
-## Feature
+## Features
 
 - Support Modern browser/mobile/Electron(recommenced)
 - Support GitHub.com and GitHub Enterprise(GHE)
@@ -27,6 +27,10 @@ Faao is a GitHub Issue/Pull Request client on Electron/Browser.
 ### Electron
 
 - [ ] Download binary
+
+#### URL Schems
+
+- `faao://query/add?url=<url>&query=<queryName>`: Add `url` to `query` 
 
 ## Development
 

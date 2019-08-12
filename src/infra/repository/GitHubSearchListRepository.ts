@@ -49,6 +49,18 @@ export class GitHubSearchListRepository extends NonNullableBaseRepository<GitHub
         return this;
     }
 
+    // query
+    findQueryByName(aQueryName: string): UnionQuery | undefined {
+        for (const searchList of this.map.values()) {
+            const query = searchList.findQueryByName(aQueryName);
+            if (query) {
+                return query;
+            }
+        }
+        return;
+    }
+
+    // search list
     findAllSortBy(predicate: (searchList: GitHubSearchList) => string): GitHubSearchList[] {
         return sortBy(this.findAll(), predicate);
     }

@@ -149,15 +149,15 @@ export class FaaoQuerySettingPanel extends React.Component<
                     label="Name:"
                     placeholder="query name"
                     value={this.state.name}
-                    onChanged={text => {
+                    onChange={(_event, text = "") => {
                         this.setState({ name: text });
                     }}
                 />
                 <TextField
                     label="Color:"
-                    addonString="#"
+                    prefix="#"
                     value={this.state.color.replace(/^#/, "")}
-                    onChanged={text => this.setState({ color: text })}
+                    onChange={(_event, text = "") => this.setState({ color: text })}
                 />
                 <GithubPicker onChange={this.onChangeColor} />
                 <div className="QuickIssuePanelState-footer">

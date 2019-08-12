@@ -103,7 +103,7 @@ export class SearchListSettingPanel extends React.Component<
                     placeholder="SearchList name"
                     autoFocus={true}
                     defaultValue={this.state.name}
-                    onChanged={text => this.setState({ name: text })}
+                    onChange={(_event, text = "") => this.setState({ name: text })}
                 />
                 <p>
                     SearchList is a group of queries. You can search multiple queries as a

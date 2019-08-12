@@ -155,7 +155,7 @@ export class QuerySettingPanel extends React.Component<
                     label="Name:"
                     placeholder="query name"
                     value={this.state.name}
-                    onChanged={text => {
+                    onChange={(_event, text = "") => {
                         this.setState({ name: text });
                     }}
                 />
@@ -163,7 +163,7 @@ export class QuerySettingPanel extends React.Component<
                     label="Query:"
                     placeholder="repo:azu/faao"
                     value={this.state.query}
-                    onChanged={text => this.setState({ query: text })}
+                    onChange={(_event, text = "") => this.setState({ query: text })}
                 />
                 <p className="ms-font-xs QuerySettingPanel-itemDescription">
                     This query is same with GitHub Search query. Please see{" "}
@@ -173,9 +173,9 @@ export class QuerySettingPanel extends React.Component<
                 </p>
                 <TextField
                     label="Color:"
-                    addonString="#"
+                    prefix="#"
                     value={this.state.color.replace(/^#/, "")}
-                    onChanged={text => this.setState({ color: text })}
+                    onChange={(_event, text = "") => this.setState({ color: text })}
                 />
                 <GithubPicker onChange={this.onChangeColor} />
                 <div className="QuickIssuePanelState-footer">

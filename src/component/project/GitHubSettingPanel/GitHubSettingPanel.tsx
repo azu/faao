@@ -121,7 +121,7 @@ export class GitHubSettingPanel extends React.Component<
                     label="id:"
                     placeholder="unique id of the setting"
                     defaultValue={this.state.id}
-                    onChanged={text => {
+                    onChange={(_event, text = "") => {
                         this.setState({ id: text });
                     }}
                 />
@@ -130,7 +130,7 @@ export class GitHubSettingPanel extends React.Component<
                     label="Token:"
                     placeholder="GitHub Personal token"
                     defaultValue={this.state.token}
-                    onChanged={text => this.setState({ token: text })}
+                    onChange={(_event, text = "") => this.setState({ token: text })}
                 />
                 <p className="ms-font-xs GitHubSettingPanel-itemDescription">
                     <a href="https://github.com/settings/tokens">Personal Access Tokens</a> should
@@ -141,14 +141,14 @@ export class GitHubSettingPanel extends React.Component<
                     label="apiHost:"
                     value={this.state.apiHost}
                     placeholder="https://api.github.com"
-                    onChanged={text => this.setState({ apiHost: text })}
+                    onChange={(_event, text = "") => this.setState({ apiHost: text })}
                 />
 
                 <TextField
                     label="webHost:"
                     value={this.state.webHost}
                     placeholder="https://github.com"
-                    onChanged={text => this.setState({ webHost: text })}
+                    onChange={(_event, text = "") => this.setState({ webHost: text })}
                 />
                 <div className="GitHubSettingPanel-footer">
                     {errorMessage}

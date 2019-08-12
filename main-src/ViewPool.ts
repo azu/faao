@@ -91,8 +91,8 @@ export class ViewPool {
         const openedView = browserView ? browserView : this.pool[this.openedIdx];
         this.pool.forEach(v => {
             if (openedView && v === openedView) {
+                v.setAutoResize({ width: true, height: true, horizontal: true, vertical: true });
                 v.setBounds(floorSize);
-                v.setAutoResize({ width: true, height: true });
             } else {
                 v.setBounds({
                     x: 0,

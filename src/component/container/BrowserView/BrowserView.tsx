@@ -1,6 +1,8 @@
 import * as React from "react";
 import isElectron from "is-electron";
 import { IconButton, Link } from "office-ui-fabric-react";
+import { BaseContainer } from "../BaseContainer";
+import { createAddUrlToFaaoQueryUseCase } from "../../../use-case/GitHubSearchList/AddUrlToFaaoQueryUseCase";
 
 const nope = () => {};
 const ipcRenderer = isElectron() ? (window as any).require("electron").ipcRenderer : nope;
@@ -80,29 +82,28 @@ interface Props {
     visible: boolean;
 }
 
-export class BrowserView extends React.Component<Props> {
-    private el: React.RefObject<HTMLDivElement>;
-
-    constructor(props: Props) {
-        super(props);
-        this.el = React.createRef();
-    }
+export class BrowserView extends BaseContainer<Props> {
+    private el: React.RefObject<HTMLDivElement> = React.createRef();
 
     componentDidMount() {
+        ipcRenderer.on("faao-add-url-to-query", (_event: any, url: string, query: string) => {
+            console.log({ query, url });
+            this.useCase(createAddUrlToFaaoQueryUseCase()).execute(url, query);
+        });
         ipcRenderer.send("browser-view-load-url", this.props.url);
         const current = this.el.current;
         if (!current) {
             throw new Error("require this.el.current");
         }
         const resizeObserver = new window.ResizeObserver(entries => {
-            entries.forEach(entry => {
+            entries.forEach(_entry => {
                 // TODO: remove getBoundingClientRect
                 const rect = current.getBoundingClientRect();
                 this.onResize({
                     x: rect.left,
                     y: rect.top,
-                    width: entry.contentRect.width,
-                    height: entry.contentRect.height
+                    width: rect.width,
+                    height: rect.height
                 });
             });
         });
@@ -178,7 +179,8 @@ export class BrowserView extends React.Component<Props> {
                         {url}
                     </Link>
                 </div>
-                <div className="BrowserView-content" ref={this.el} />
+                {/* Workaround Electron https://github.com/electron/electron/issues/13468 */}
+                <div className="BrowserView-content" style={{ marginTop: "20px" }} ref={this.el} />
             </div>
         );
     }

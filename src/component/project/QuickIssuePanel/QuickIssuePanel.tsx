@@ -80,7 +80,7 @@ export class QuickIssuePanel extends React.Component<QuickIssuePanelProps, {}> {
                 <TextField
                     label="Issue Title:"
                     autoFocus={true}
-                    onChanged={text => {
+                    onChange={(_event, text = "") => {
                         this.setState({ title: text });
                     }}
                 />

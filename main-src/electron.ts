@@ -1,10 +1,9 @@
-import * as url from "url";
+import { URL } from "url";
 import * as path from "path";
 
 import { app, ipcMain, BrowserWindow, Menu, shell } from "electron";
 import { ViewPool } from "./ViewPool";
 
-const defaultMenu = require("electron-default-menu");
 /**
  * get url for loading BrowserWindow
  * @returns {string}
@@ -16,21 +15,21 @@ const getHTMLUrl = () => {
     // build/main-src -> ../index.html
     return `file://${path.join(__dirname, "../index.html")}`;
 };
-const URL = getHTMLUrl();
+const htmlURL = getHTMLUrl();
 let viewPool: ViewPool;
 let mainWindow: BrowserWindow;
 if (process.env.NODE_ENV !== "production") {
-    console.info(`Open: ${URL}`);
+    console.info(`Open: ${htmlURL}`);
 }
 // context-menu for window
 require("electron-context-menu")();
+// url schema: faoo://
+app.setAsDefaultProtocolClient("faao");
 // Standard stuff
 app.on("gpu-process-crashed", (event: any) => {
     console.log("gpu-process-crashed", event);
 });
 app.on("ready", () => {
-    const menu = defaultMenu(app, shell);
-    Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     // browser-window
     mainWindow = new BrowserWindow({
         width: 800,
@@ -44,18 +43,18 @@ app.on("ready", () => {
         }
     });
     mainWindow.maximize();
-    mainWindow.loadURL(URL);
+    mainWindow.loadURL(htmlURL);
     // prevent navigation in main webview
     mainWindow.webContents.once("dom-ready", function(_event) {
-        mainWindow.webContents.on("will-navigate", (event, URL) => {
-            const { protocol, hostname } = url.parse(URL);
+        mainWindow.webContents.on("will-navigate", (event, url) => {
+            const { protocol, hostname } = new URL(url);
             if (protocol === "http:" || protocol === "https:") {
                 if (hostname === "localhost") {
                     return;
                 }
                 event.preventDefault();
-                shell.openExternal(URL);
-                console.info("Stop navigation:" + URL);
+                shell.openExternal(url);
+                console.info("Stop navigation:" + url);
             }
         });
     });
@@ -66,6 +65,39 @@ app.on("ready", () => {
     });
 });
 
+app.on("open-url", function(event, openedUrl) {
+    event.preventDefault();
+
+    function queryToArgs(urlString: string) {
+        if (!urlString) {
+            return {
+                url: null
+            };
+        }
+        const { searchParams, pathname } = new URL(urlString);
+        return {
+            pathname,
+            url: searchParams.get("url"),
+            query: searchParams.get("query")
+        };
+    }
+
+    const passUrlToBrowser = (openedUrl: string) => {
+        const { url, query, pathname } = queryToArgs(openedUrl);
+        if (pathname === "/query/add") {
+            if (url && query && mainWindow && mainWindow.webContents) {
+                mainWindow.webContents.send("faao-add-url-to-query", url, query);
+            }
+        }
+    };
+    if (!app.isReady()) {
+        app.once("ready", () => {
+            passUrlToBrowser(openedUrl);
+        });
+    } else {
+        passUrlToBrowser(openedUrl);
+    }
+});
 let _size: any;
 ipcMain.on("browser-view-change-size", (_event: any, size: Size) => {
     viewPool.setBounds(size);
@@ -102,6 +134,7 @@ ipcMain.on("browser-view-go-back", () => {
 ipcMain.on("browser-view-go-forward", () => {
     viewPool.goForwardCurrentBrowserView();
 });
+
 interface Size {
     x: number;
     y: number;
