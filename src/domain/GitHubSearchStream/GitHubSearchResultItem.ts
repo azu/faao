@@ -49,14 +49,14 @@ export interface GitHubSearchResultItemJSON {
     created_at: string;
     updated_at: string;
     closed_at?: string | null;
-    body: string;
+    body: string | null;
     // computed from response
     type: "pr" | "issue";
 }
 
 export class GitHubSearchResultItem {
     id: Identifier<GitHubSearchResultItem>;
-    body: string;
+    body: string | null;
     html_url: string;
     number: number;
     title: string;
@@ -126,7 +126,7 @@ export class GitHubSearchResultItem {
         if (this.html_url.includes(value)) {
             return true;
         }
-        if (this.body.includes(value)) {
+        if (this.body && this.body.includes(value)) {
             return true;
         }
         return false;

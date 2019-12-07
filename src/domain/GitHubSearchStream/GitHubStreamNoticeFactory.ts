@@ -43,7 +43,7 @@ export const createOSNoticesFromStreams = ({
         .map(item => {
             return new OSNotice({
                 title: item.title,
-                body: item.body,
+                body: item.body || "",
                 subTitle: item.shortPath,
                 icon: item.user.avatar_url,
                 refs: {
