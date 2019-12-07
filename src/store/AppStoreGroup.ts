@@ -69,7 +69,7 @@ export const debuggable = () => {
     console.clear();
     // debug
     if (typeof global === "object") {
-        (<any>global).faao = {
+        (global as any).faao = {
             repositories: {
                 appRepository,
                 gitHubSettingRepository,

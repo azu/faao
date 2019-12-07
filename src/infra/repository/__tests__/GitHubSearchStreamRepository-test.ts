@@ -8,7 +8,6 @@ import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { storageManger } from "../Storage";
 
-const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
     beforeEach(async () => {
         await storageManger.useMemoryDriver();

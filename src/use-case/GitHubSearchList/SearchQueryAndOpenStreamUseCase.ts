@@ -7,10 +7,7 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { createAppUserOpenStreamUseCase } from "../App/AppUserOpenStreamUseCase";
-import {
-    createSearchQueryToUpdateStreamUseCase,
-    SearchQueryToUpdateStreamUseCase
-} from "./SearchQueryToUpdateStreamUseCase";
+import { createSearchQueryToUpdateStreamUseCase } from "./SearchQueryToUpdateStreamUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { createAppUserSelectFirstItemUseCase } from "../App/AppUserSelectFirstItemUseCase";
 import { createShowErrorNoticeUseCase } from "../Notice/ShowErrorNoticeUseCase";
@@ -18,7 +15,6 @@ import { SearchQueryErrorNotice } from "../../domain/Notice/SearchQueryErrorNoti
 import { UseCase } from "almin";
 import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
-const debug = require("debug")("faao:SearchQueryAndOpenStreamUseCase");
 export const createSearchQueryAndOpenStreamUseCase = () => {
     return new SearchQueryAndOpenStreamUseCase(
         gitHubSettingRepository,

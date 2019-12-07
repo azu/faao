@@ -190,7 +190,7 @@ export class GitHubClient {
             .map(param => {
                 const parsed = param.parsed();
                 if (!parsed) {
-                    return;
+                    return undefined;
                 }
                 return `
   ${parsed.type}${parsed.no}: repository(owner: "${parsed.user}", name: "${parsed.repo}") {
