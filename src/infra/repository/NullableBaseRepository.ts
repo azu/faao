@@ -5,8 +5,9 @@ import { EntityMap } from "./EntityMap";
 export class NullableBaseRepository<T extends Entity<Identifier<T>>> {
     map: EntityMap<T>;
     private lastUsed: T | null = null;
+    private initialEntity: T | undefined;
 
-    constructor(protected initialEntity?: T) {
+    constructor(initialEntity?: T) {
         this.initialEntity = initialEntity;
         this.map = new EntityMap<T>();
     }

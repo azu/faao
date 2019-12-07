@@ -10,11 +10,10 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
-import { QueryRole } from "../../domain/GitHubSearchList/queries/QueryRole";
+import { QueryRole, UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
-import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
 import { createOSNoticesFromStreams } from "../../domain/GitHubSearchStream/GitHubStreamNoticeFactory";
 

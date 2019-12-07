@@ -8,8 +8,11 @@ export const createDismissNoticeUseCase = () => {
 };
 
 export class DismissNoticeUseCase extends UseCase {
-    constructor(public noticeRepository: NoticeRepository) {
+    private noticeRepository: NoticeRepository;
+
+    constructor(noticeRepository: NoticeRepository) {
         super();
+        this.noticeRepository = noticeRepository;
     }
 
     execute(notice: Notice) {

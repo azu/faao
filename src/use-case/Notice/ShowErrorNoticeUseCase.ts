@@ -8,8 +8,10 @@ export const createShowErrorNoticeUseCase = () => {
 };
 
 export class ShowErrorNoticeUseCase extends UseCase {
-    constructor(public noticeRepository: NoticeRepository) {
+    private noticeRepository: NoticeRepository;
+    constructor(noticeRepository: NoticeRepository) {
         super();
+        this.noticeRepository = noticeRepository;
     }
 
     execute(notice: Notice) {
