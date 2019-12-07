@@ -1,6 +1,6 @@
 import { UseCase } from "almin";
-import { FaaoSearchQueryParam } from "../../domain/GitHubSearchList/FaaoSearchQueryParam";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQueryParam } from "../../domain/GitHubSearchList/queries/FaaoSearchQueryParam";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import {
     GitHubSearchListRepository,
     gitHubSearchListRepository

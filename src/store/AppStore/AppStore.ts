@@ -3,9 +3,10 @@ import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export interface AppStateArgs {
     activeStream?: GitHubSearchStream;

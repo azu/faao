@@ -14,7 +14,7 @@ import {
 import {
     GitHubSearchQuery,
     GitHubSearchQueryJSON
-} from "../../../domain/GitHubSearchList/GitHubSearchQuery";
+} from "../../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorState, GithubPicker } from "react-color";
 

@@ -1,5 +1,8 @@
 // MIT © 2017 azu
-import { isGitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import {
+    GitHubSearchQuery,
+    isGitHubSearchQuery
+} from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
@@ -10,11 +13,14 @@ import {
 } from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUserProfile } from "../../domain/GitHubUser/GitHubUserProfile";
 import { GitHubUserActivityEventFactory } from "../../domain/GitHubUser/GitHubUserActivityEventFactory";
-import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import {
+    FaaoSearchQuery,
+    isFaaoSearchQuery
+} from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import { GraphQLClient } from "graphql-request";
 
 import urlJoin from "url-join";
-import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
+import { QueryRole } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -76,98 +82,117 @@ export class GitHubClient {
         onComplete: () => void
     ): void {
         if (isGitHubSearchQuery(query)) {
-            type FetchResponse = {
-                items: GitHubSearchResultItemJSON[];
-                incompleteResults: boolean;
-                fetch: () => Promise<FetchResponse>;
-            };
-            const onFetch = (response: FetchResponse) => {
-                debug("response %o", response);
-                // Support incompleteResults
-                const gitHubSearchResult = GitHubSearchResultFactory.create({
-                    items: response.items || []
-                });
-                onProgress(gitHubSearchResult)
-                    .then(isContinue => {
-                        if (!response.incompleteResults) {
-                            onComplete();
-                        } else if (isContinue) {
-                            response.fetch().then(onFetch);
-                        } else {
-                            onComplete();
-                        }
-                    })
-                    .catch(onError);
-            };
-            this.gh.search.issues
-                .fetch({
-                    q: query.query,
-                    sort: "updated", // always updated
-                    per_page: 100
-                })
-                .then(onFetch, onError);
+            this.searchSearchQuery(query, onProgress, onError, onComplete);
         } else if (isFaaoSearchQuery(query)) {
-            type QueryResponse = {
-                title: string;
-                repository: {
-                    url: string;
-                };
-                comments: {
-                    totalCount: number;
-                    nodes: {
-                        url: string;
-                    }[];
-                };
-                id: string;
-                number: number;
-                author: {
-                    login: string;
-                    avatarUrl: string;
-                    url: string;
-                };
-                state: "OPEN" | "CLOSED" | "MERGED";
-                locked: boolean;
-                labels: {
-                    nodes: {
-                        name: string;
-                        description: string;
-                        color: string;
-                        isDefault: boolean;
-                        url: string;
-                    }[];
-                };
-                assignees: {
-                    nodes: {
-                        avatarUrl: string;
+            this.searchFaaoQuery(query, onProgress, onError, onComplete);
+        }
+    }
 
-                        login: string;
-                        id: string;
-                        url: string;
-                    }[];
-                };
-                milestone: {
-                    title: string;
-                    description: string;
+    private searchSearchQuery(
+        query: GitHubSearchQuery,
+        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ) {
+        type FetchResponse = {
+            items: GitHubSearchResultItemJSON[];
+            incompleteResults: boolean;
+            fetch: () => Promise<FetchResponse>;
+        };
+        const onFetch = (response: FetchResponse) => {
+            debug("response %o", response);
+            // Support incompleteResults
+            const gitHubSearchResult = GitHubSearchResultFactory.create({
+                items: response.items || []
+            });
+            onProgress(gitHubSearchResult)
+                .then(isContinue => {
+                    if (!response.incompleteResults) {
+                        onComplete();
+                    } else if (isContinue) {
+                        response.fetch().then(onFetch);
+                    } else {
+                        onComplete();
+                    }
+                })
+                .catch(onError);
+        };
+        this.gh.search.issues
+            .fetch({
+                q: query.query,
+                sort: "updated", // always updated
+                per_page: 100
+            })
+            .then(onFetch, onError);
+    }
+
+    private searchFaaoQuery(
+        query: FaaoSearchQuery,
+        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ) {
+        type QueryResponse = {
+            title: string;
+            repository: {
+                url: string;
+            };
+            comments: {
+                totalCount: number;
+                nodes: {
                     url: string;
-                    createdAt: string;
-                    updatedAt: string;
-                    dueOn?: string | null;
-                    closedAt: string | null;
-                    state: "OPEN" | "CLOSED";
-                };
+                }[];
+            };
+            id: string;
+            number: number;
+            author: {
+                login: string;
+                avatarUrl: string;
+                url: string;
+            };
+            state: "OPEN" | "CLOSED" | "MERGED";
+            locked: boolean;
+            labels: {
+                nodes: {
+                    name: string;
+                    description: string;
+                    color: string;
+                    isDefault: boolean;
+                    url: string;
+                }[];
+            };
+            assignees: {
+                nodes: {
+                    avatarUrl: string;
+
+                    login: string;
+                    id: string;
+                    url: string;
+                }[];
+            };
+            milestone: {
+                title: string;
+                description: string;
+                url: string;
                 createdAt: string;
                 updatedAt: string;
-                closedAt: string;
-                url: string;
-                body: string;
+                dueOn?: string | null;
+                closedAt: string | null;
+                state: "OPEN" | "CLOSED";
             };
-            const queries = query.searchParams.params
-                .map(param => {
-                    const parsed = param.parsed();
-                    if (!parsed) {
-                        return;
-                    }
-                    return `
+            createdAt: string;
+            updatedAt: string;
+            closedAt: string;
+            url: string;
+            body: string;
+        };
+        const queries = query.searchParams.params
+            .map(param => {
+                const parsed = param.parsed();
+                if (!parsed) {
+                    return;
+                }
+                return `
   ${parsed.type}${parsed.no}: repository(owner: "${parsed.user}", name: "${parsed.repo}") {
     ${parsed.type === "issue" ? "issue" : "pullRequest"}(number: ${parsed.no}) {
       title
@@ -224,80 +249,81 @@ export class GitHubClient {
     }
   }
 `;
-                })
-                .filter(query => query !== undefined);
-            const graphQLQuery = `{
+            })
+            .filter(query => query !== undefined);
+        const graphQLQuery = `{
 ${queries.join("\n")}
 }`;
-            const convertState = (
-                state: "OPEN" | "CLOSED" | "MERGED"
-            ): "open" | "closed" | "merged" => {
-                switch (state) {
-                    case "OPEN":
-                        return "open";
-                    case "CLOSED":
-                        return "closed";
-                    case "MERGED":
-                        return "merged";
-                    default:
-                        return state;
+        const convertState = (
+            state: "OPEN" | "CLOSED" | "MERGED"
+        ): "open" | "closed" | "merged" => {
+            switch (state) {
+                case "OPEN":
+                    return "open";
+                case "CLOSED":
+                    return "closed";
+                case "MERGED":
+                    return "merged";
+                default:
+                    return state;
+            }
+        };
+        const convertQueryResponseToGitHubSearchResult = (
+            type: "pr" | "issue",
+            response: QueryResponse
+        ): GitHubSearchResultItemJSON => {
+            return {
+                type,
+                assignees: response.assignees.nodes.map(node => {
+                    return {
+                        login: node.login,
+                        avatar_url: node.avatarUrl,
+                        html_url: node.url
+                    };
+                }),
+                body: response.body,
+                closed_at: response.closedAt,
+                comments: response.comments.totalCount,
+                created_at: response.createdAt,
+                html_url: response.url,
+                id: response.id,
+                labels: response.labels.nodes.map(node => {
+                    return {
+                        color: node.color,
+                        default: node.isDefault,
+                        name: node.name,
+                        url: node.url
+                    };
+                }),
+                locked: response.locked,
+                milestone: response.milestone
+                    ? {
+                          html_url: response.milestone.url,
+                          title: response.milestone.title,
+                          description: response.milestone.description,
+                          created_at: response.milestone.createdAt,
+                          updated_at: response.milestone.updatedAt,
+                          closed_at: response.milestone.closedAt,
+                          due_on: response.milestone.dueOn,
+                          state: convertState(response.milestone.state)
+                      }
+                    : null,
+                number: response.number,
+                state: convertState(response.state),
+                title: response.title,
+                updated_at: response.updatedAt,
+                user: {
+                    avatar_url: response.author.avatarUrl,
+                    html_url: response.author.url,
+                    login: response.author.login
                 }
             };
-            const convertQueryResponseToGitHubSearchResult = (
-                type: "pr" | "issue",
-                response: QueryResponse
-            ): GitHubSearchResultItemJSON => {
-                return {
-                    type,
-                    assignees: response.assignees.nodes.map(node => {
-                        return {
-                            login: node.login,
-                            avatar_url: node.avatarUrl,
-                            html_url: node.url
-                        };
-                    }),
-                    body: response.body,
-                    closed_at: response.closedAt,
-                    comments: response.comments.totalCount,
-                    created_at: response.createdAt,
-                    html_url: response.url,
-                    id: response.id,
-                    labels: response.labels.nodes.map(node => {
-                        return {
-                            color: node.color,
-                            default: node.isDefault,
-                            name: node.name,
-                            url: node.url
-                        };
-                    }),
-                    locked: response.locked,
-                    milestone: response.milestone
-                        ? {
-                              html_url: response.milestone.url,
-                              title: response.milestone.title,
-                              description: response.milestone.description,
-                              created_at: response.milestone.createdAt,
-                              updated_at: response.milestone.updatedAt,
-                              closed_at: response.milestone.closedAt,
-                              due_on: response.milestone.dueOn,
-                              state: convertState(response.milestone.state)
-                          }
-                        : null,
-                    number: response.number,
-                    state: convertState(response.state),
-                    title: response.title,
-                    updated_at: response.updatedAt,
-                    user: {
-                        avatar_url: response.author.avatarUrl,
-                        html_url: response.author.url,
-                        login: response.author.login
-                    }
-                };
-            };
-            const requestPromise = query.hasRequestableSearchParams
-                ? this.graphQLClient.request(graphQLQuery)
-                : Promise.resolve({});
-            requestPromise.then(data => {
+        };
+        const requestPromise = query.hasRequestableSearchParams
+            ? this.graphQLClient.request(graphQLQuery)
+            : Promise.resolve({});
+        requestPromise
+            .then(data => {
                 const items = Object.keys(data).map(key => {
                     const dataType = /^issue/.test(key) ? "issue" : "pullRequest";
                     const queryResponse = (data as any)[key][dataType] as QueryResponse;
@@ -311,8 +337,8 @@ ${queries.join("\n")}
                     // TODO: handle onProgress resolve value
                     onComplete();
                 });
-            });
-        }
+            })
+            .catch(onError);
     }
 
     events(

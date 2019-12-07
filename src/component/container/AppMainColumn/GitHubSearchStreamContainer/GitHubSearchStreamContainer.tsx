@@ -11,7 +11,7 @@ import { createAppUserOpenItemUseCase } from "../../../../use-case/App/AppUserOp
 import { GitHubSearchStreamCommandBarContainer } from "./GitHubSearchStreamCommandBarContainer/GitHubSearchStreamCommandBarContainer";
 import { EmptySearchResultList } from "../../../project/EmptySearchResultList/EmptySearchResultList";
 import { ProgressColorBar } from "../../../project/ProgressColorBar/ProgressColorBar";
-import { FaaoSearchQuery } from "../../../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQuery } from "../../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { createUpdateFaaoQueryParamUseCase } from "../../../../use-case/GitHubSearchList/UpdateFaaoQueryParamUseCase";
 

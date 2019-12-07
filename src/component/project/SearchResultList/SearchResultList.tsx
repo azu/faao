@@ -14,7 +14,7 @@ import {
     GitHubSearchStreamStateItem,
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
-import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 
 const removeMarkdown = require("@azu/remove-markdown");
 

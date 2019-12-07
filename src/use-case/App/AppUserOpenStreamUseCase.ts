@@ -1,19 +1,18 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import {
     GitHubSearchStreamRepository,
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
-import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export const createAppUserOpenStreamUseCase = () => {
     return new AppUserOpenStreamUseCase(

@@ -6,7 +6,7 @@ import { QuerySettingPanel } from "../../project/QuerySettingPanel/QuerySettingP
 import {
     GitHubSearchQueryJSON,
     isGitHubSearchQuery
-} from "../../../domain/GitHubSearchList/GitHubSearchQuery";
+} from "../../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSearchListState } from "../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { CloseQueryPanelUseCase } from "../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { createSaveQueryToSearchListUseCase } from "../../../use-case/GitHubSearchList/SaveQueryToSearchListUseCase";
@@ -15,7 +15,7 @@ import { FaaoQuerySettingPanel } from "../../project/FaaoQuerySettingPanel/FaaoQ
 import {
     FaaoSearchQueryJSON,
     isFaaoSearchQuery
-} from "../../../domain/GitHubSearchList/FaaoSearchQuery";
+} from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 
 export interface QuickIssueContainerProps {
     gitHubSearchList: GitHubSearchListState;

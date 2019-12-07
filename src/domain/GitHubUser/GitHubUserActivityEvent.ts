@@ -5,6 +5,7 @@ import { compile, parse, ParsedEvent } from "parse-github-event";
 import * as url from "url";
 import urljoin from "url-join";
 import ghUrlToObject from "github-url-to-object";
+import { GitHubUserActivityEventFactory } from "./GitHubUserActivityEventFactory";
 
 export interface Payload {}
 
@@ -67,11 +68,13 @@ export type EventType =
     | "StatusEvent"
     | "TeamEvent"
     | "TeamAddEvent"
-    | "WatchEvent";
+    | "WatchEvent"
+    | string;
 
 export interface GitHubUserActivityEventJSON {
     id: string;
     type: EventType;
+    isRead: boolean;
     public: boolean;
     payload: any;
     repo: Repo;
@@ -94,6 +97,19 @@ export function getOriginFromURL(URL: string) {
     return `${obj.protocol}//${obj.hostname}${obj.port ? `:${obj.port}` : ""}`;
 }
 
+export interface GitHubUserActivityEventProps {
+    id: Identifier<GitHubUserActivityEvent>;
+    type: EventType;
+    public: boolean;
+    isRead: boolean;
+    payload: any;
+    repo: Repo;
+    actor: Actor;
+    org: Org;
+    created_at: string;
+    parsedEvent?: ParsedEvent;
+}
+
 export class GitHubUserActivityEvent extends ValueObject {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
@@ -107,7 +123,7 @@ export class GitHubUserActivityEvent extends ValueObject {
 
     parsedEvent?: ParsedEvent;
 
-    constructor(event: GitHubUserActivityEvent) {
+    constructor(event: GitHubUserActivityEventProps) {
         super();
         this.id = event.id;
         this.type = event.type;
@@ -118,7 +134,7 @@ export class GitHubUserActivityEvent extends ValueObject {
         this.actor = event.actor;
         this.org = event.org;
         this.created_at = event.created_at;
-        this.parsedEvent = parse(this.toJSON() as any);
+        this.parsedEvent = event.parsedEvent;
     }
 
     get repoAvatarUrl() {
@@ -193,24 +209,13 @@ export class GitHubUserActivityEvent extends ValueObject {
     }
 
     static fromJSON(json: GitHubUserActivityEventJSON): GitHubUserActivityEvent {
-        // FIXME: fix type
-        // @ts-ignore
-        return new GitHubUserActivityEvent({
-            ...json,
-            id: new Identifier<GitHubUserActivityEvent>(json.id)
-        });
+        return GitHubUserActivityEventFactory.create(json);
     }
 
     toJSON(): GitHubUserActivityEventJSON {
         return {
-            id: this.id.toValue(),
-            type: this.type,
-            public: this.public,
-            payload: this.payload,
-            repo: this.repo,
-            actor: this.actor,
-            org: this.org,
-            created_at: this.created_at
+            ...this,
+            id: this.id.toValue()
         };
     }
 }

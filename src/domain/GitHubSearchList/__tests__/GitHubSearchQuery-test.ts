@@ -1,6 +1,6 @@
 // MIT © 2017 azu
-import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../GitHubSearchQuery";
-import { GitHubSearchQueryColor } from "../GitHubSearchQueryColor";
+import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../queries/GitHubSearchQuery";
+import { GitHubSearchQueryColor } from "../queries/GitHubSearchQueryColor";
 
 describe("GitHubSearchQuery", () => {
     it("json <-> model", () => {

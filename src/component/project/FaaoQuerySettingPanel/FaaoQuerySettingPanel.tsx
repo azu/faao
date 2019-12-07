@@ -15,7 +15,7 @@ import { ColorState, GithubPicker } from "react-color";
 import {
     FaaoSearchQuery,
     FaaoSearchQueryJSON
-} from "../../../domain/GitHubSearchList/FaaoSearchQuery";
+} from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 
 export interface QuerySettingPanelProps {
     settings: GitHubSetting[];

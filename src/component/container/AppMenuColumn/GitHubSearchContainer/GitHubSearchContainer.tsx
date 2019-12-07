@@ -12,9 +12,10 @@ import {
 } from "../../../../use-case/GitHubSearchList/ToggleQueryPanelUseCase";
 import { GitHubSettingState } from "../../../../store/GitHubSettingStore/GitHubSettingStore";
 import { createDeleteQueryUseCase } from "../../../../use-case/GitHubSearchList/DeleteQueryUseCase";
-import { GitHubSearchList, UnionQuery } from "../../../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../../../domain/GitHubSearchList/GitHubSearchList";
 import { createSearchQueriesAndOpenStreamUseCase } from "../../../../use-case/GitHubSearchList/SearchQueriesAndOpenStreamUseCase";
 import { AppState } from "../../../../store/AppStore/AppStore";
+import { UnionQuery } from "../../../../domain/GitHubSearchList/queries/QueryRole";
 
 export interface GitHubSearchContainerProps {
     className?: string;

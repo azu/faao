@@ -1,7 +1,7 @@
 // MIT © 2017 az
 import { AbstractNotice } from "./Notice";
-import { UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
+import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
 
 export interface SearchQueryErrorNoticeArgs {
     title: string;

@@ -1,7 +1,8 @@
 // MIT © 2017 azu
-import { GitHubSearchList, UnionQueryJSON } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
+import { UnionQueryJSON } from "../GitHubSearchList/queries/QueryRole";
 
 // Q. Why define duplicated interface?
 // A. We should define exportable data by manually

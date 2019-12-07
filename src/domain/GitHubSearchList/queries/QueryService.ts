@@ -1,7 +1,7 @@
 import { GitHubSearchQueryFactory } from "./GitHubSearchQueryFactory";
 import { isGitHubSearchQueryJSON } from "./GitHubSearchQuery";
 import { FaaoSearchQuery, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
-import { UnionQueryJSON } from "./GitHubSearchList";
+import { UnionQueryJSON } from "./QueryRole";
 
 export const createQueryFromUnionQueryJSON = (queryJSON: UnionQueryJSON) => {
     if (isGitHubSearchQueryJSON(queryJSON)) {

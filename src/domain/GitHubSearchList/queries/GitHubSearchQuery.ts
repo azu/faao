@@ -1,8 +1,8 @@
 // MIT © 2017 azu
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
-import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
-import { Identifier } from "../Entity";
-import { isQueryRoleJSON, QueryRoleJSON } from "./QueryRole";
+import { Identifier } from "../../Entity";
+import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
+import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
 
 const execall = require("execall");
 
@@ -25,7 +25,7 @@ export const isGitHubSearchQuery = (query: any): query is GitHubSearchQuery => {
     return query instanceof GitHubSearchQuery;
 };
 
-export class GitHubSearchQuery {
+export class GitHubSearchQuery implements QueryRole {
     name: string;
     query: string;
     color: GitHubSearchQueryColor;

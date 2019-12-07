@@ -2,14 +2,17 @@
 import { Store } from "almin";
 import { GitHubUserRepository } from "../../infra/repository/GitHubUserRepository";
 import { AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubUserActivityEvent } from "../../domain/GitHubUser/GitHubUserActivityEvent";
+import {
+    GitHubUserActivityEvent,
+    GitHubUserActivityEventProps
+} from "../../domain/GitHubUser/GitHubUserActivityEvent";
 import { GitHubUser } from "../../domain/GitHubUser/GitHubUser";
 import { ActivityHistory } from "../../domain/App/ActivityHistory";
 
-export class GitHubUserActivityEventVideoModel extends GitHubUserActivityEvent {
+export class GitHubUserActivityEventViewModel extends GitHubUserActivityEvent {
     isRead: boolean;
 
-    constructor(event: GitHubUserActivityEvent, isRead: boolean) {
+    constructor(event: GitHubUserActivityEventProps, isRead: boolean) {
         super(event);
         this.isRead = isRead;
     }
@@ -64,7 +67,7 @@ export class GitHubUserState implements GitHubUserStateArgs {
             activeEvent: openedUserEvent,
             events: user.activity.events.map(
                 event =>
-                    new GitHubUserActivityEventVideoModel(
+                    new GitHubUserActivityEventViewModel(
                         event,
                         userEventHistory.isRead(event.id, event.createAtDate)
                     )
