@@ -875,96 +875,6 @@ This occurs because tones keeps an instance of \`nvwave.WavePlayer\` which it do
     },
   },
   Object {
-    "assignee": null,
-    "assignees": Array [],
-    "body": "bc.. The ultimate solution is to provide test access to all developers on our
-buildbots (the buildbots allow to test only a patch that you send to them)
-& setup parallel testing & provide several levels of testing (core, basic,
-thorough). 
-
-Any volunteers to setup buildbots? I'll provide you with necessary access.
-
-I can do that after I finish my finals. http://buildbot.sympy.org/waterfall
-
-p. Original issue for \\"#4216\\":https://github.com/sympy/sympy/issues/4216: \\"http://code.google.com/p/sympy/issues/detail?id=1117\\":http://code.google.com/p/sympy/issues/detail?id=1117
-
-p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https://code.google.com/u/104039945248245758823/
-",
-    "closed_at": null,
-    "comments": 39,
-    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4216/comments",
-    "created_at": "2008-09-21T01:05:27Z",
-    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4216/events",
-    "html_url": "https://github.com/sympy/sympy/issues/4216",
-    "id": "28949449",
-    "labels": Array [
-      Object {
-        "color": "800080",
-        "default": false,
-        "id": 84627441,
-        "name": "Alternate Python",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
-      },
-      Object {
-        "color": "ededed",
-        "default": true,
-        "id": 84627344,
-        "name": "bug",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
-      },
-      Object {
-        "color": "ededed",
-        "default": false,
-        "id": 84627341,
-        "name": "imported",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
-      },
-      Object {
-        "color": "c7def8",
-        "default": false,
-        "id": 84627389,
-        "name": "Testing",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/Testing",
-      },
-      Object {
-        "color": "d4c5f9",
-        "default": false,
-        "id": 84627345,
-        "name": "valid",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4216/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 4216,
-    "repository_url": "https://api.github.com/repos/sympy/sympy",
-    "score": 0.124234945,
-    "state": "open",
-    "title": "Setup buildbot (again)",
-    "updated_at": "2015-04-17T16:59:21Z",
-    "url": "https://api.github.com/repos/sympy/sympy/issues/4216",
-    "user": Object {
-      "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
-      "events_url": "https://api.github.com/users/certik/events{/privacy}",
-      "followers_url": "https://api.github.com/users/certik/followers",
-      "following_url": "https://api.github.com/users/certik/following{/other_user}",
-      "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/certik",
-      "id": 20568,
-      "login": "certik",
-      "organizations_url": "https://api.github.com/users/certik/orgs",
-      "received_events_url": "https://api.github.com/users/certik/received_events",
-      "repos_url": "https://api.github.com/users/certik/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/certik",
-    },
-  },
-  Object {
     "assignee": Object {
       "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
       "events_url": "https://api.github.com/users/certik/events{/privacy}",
@@ -1078,76 +988,36 @@ p. Original owner: \\"https://code.google.com/u/104039945248245758823/\\":https:
     },
   },
   Object {
-    "assignee": Object {
-      "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
-      "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
-      "followers_url": "https://api.github.com/users/asmeurer/followers",
-      "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
-      "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/asmeurer",
-      "id": 71486,
-      "login": "asmeurer",
-      "organizations_url": "https://api.github.com/users/asmeurer/orgs",
-      "received_events_url": "https://api.github.com/users/asmeurer/received_events",
-      "repos_url": "https://api.github.com/users/asmeurer/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/asmeurer",
-    },
-    "assignees": Array [
-      Object {
-        "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
-        "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
-        "followers_url": "https://api.github.com/users/asmeurer/followers",
-        "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
-        "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
-        "gravatar_id": "",
-        "html_url": "https://github.com/asmeurer",
-        "id": 71486,
-        "login": "asmeurer",
-        "organizations_url": "https://api.github.com/users/asmeurer/orgs",
-        "received_events_url": "https://api.github.com/users/asmeurer/received_events",
-        "repos_url": "https://api.github.com/users/asmeurer/repos",
-        "site_admin": false,
-        "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
-        "type": "User",
-        "url": "https://api.github.com/users/asmeurer",
-      },
-    ],
-    "body": "\`\`\`
-Whenever I run the test suite on my Mac OS X 10.6 machine, as soon as I get to the plotting tests, 
-the Python rocket ship application (the one in 
-/Library/Frameworks/Python.framework/Versions/2.6/Resources/Python.app in the default Mac OS 
-X install) starts bouncing in the Dock, and keeps bouncing until the tests complete, at which point it 
-quits.  No windows ever open, but it is really annoying nonetheless because it steals the keyboard 
-focus whenever it happens, and if the tests run for long enough and the computer is idle, it causes 
-the \\"beachball of death\\" to start spinning until you click on something else.  
+    "assignee": null,
+    "assignees": Array [],
+    "body": "bc.. The ultimate solution is to provide test access to all developers on our
+buildbots (the buildbots allow to test only a patch that you send to them)
+& setup parallel testing & provide several levels of testing (core, basic,
+thorough). 
 
-Use of the -k option reveals that this happens with any test in test_plotting.py, though the program 
-launches only once per test run.  
+Any volunteers to setup buildbots? I'll provide you with necessary access.
 
-Do any Linux or Windows users have this problem?  I can see why it is happening, because plots 
-open in that same rocket ship application, but it is really annoying and if it could somehow not be 
-opened or opened in the background, it would be great.
-\`\`\`
+I can do that after I finish my finals. http://buildbot.sympy.org/waterfall
 
-Original issue for #4966: http://code.google.com/p/sympy/issues/detail?id=1867
-Original author: https://code.google.com/u/asmeurer@gmail.com/
-Referenced issues: #5243
-Original owner: https://code.google.com/u/asmeurer@gmail.com/
+p. Original issue for \\"#4216\\":https://github.com/sympy/sympy/issues/4216: \\"http://code.google.com/p/sympy/issues/detail?id=1117\\":http://code.google.com/p/sympy/issues/detail?id=1117
+
+p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https://code.google.com/u/104039945248245758823/
 ",
     "closed_at": null,
-    "comments": 6,
-    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4966/comments",
-    "created_at": "2010-03-20T16:09:09Z",
-    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4966/events",
-    "html_url": "https://github.com/sympy/sympy/issues/4966",
-    "id": "28950379",
+    "comments": 39,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4216/comments",
+    "created_at": "2008-09-21T01:05:27Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4216/events",
+    "html_url": "https://github.com/sympy/sympy/issues/4216",
+    "id": "28949449",
     "labels": Array [
+      Object {
+        "color": "800080",
+        "default": false,
+        "id": 84627441,
+        "name": "Alternate Python",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
+      },
       Object {
         "color": "ededed",
         "default": true,
@@ -1161,13 +1031,6 @@ Original owner: https://code.google.com/u/asmeurer@gmail.com/
         "id": 84627341,
         "name": "imported",
         "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
-      },
-      Object {
-        "color": "0000FF",
-        "default": false,
-        "id": 84627346,
-        "name": "plotting",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/plotting",
       },
       Object {
         "color": "c7def8",
@@ -1184,34 +1047,126 @@ Original owner: https://code.google.com/u/asmeurer@gmail.com/
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
-    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4966/labels{/name}",
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4216/labels{/name}",
     "locked": false,
     "milestone": null,
-    "number": 4966,
+    "number": 4216,
     "repository_url": "https://api.github.com/repos/sympy/sympy",
-    "score": 0.381608,
+    "score": 0.124234945,
     "state": "open",
-    "title": "plotting tests open Python rocket ship application in Mac OS X",
-    "updated_at": "2015-04-17T16:58:12Z",
-    "url": "https://api.github.com/repos/sympy/sympy/issues/4966",
+    "title": "Setup buildbot (again)",
+    "updated_at": "2015-04-17T16:59:21Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4216",
     "user": Object {
-      "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
-      "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
-      "followers_url": "https://api.github.com/users/asmeurer/followers",
-      "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
-      "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+      "events_url": "https://api.github.com/users/certik/events{/privacy}",
+      "followers_url": "https://api.github.com/users/certik/followers",
+      "following_url": "https://api.github.com/users/certik/following{/other_user}",
+      "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
       "gravatar_id": "",
-      "html_url": "https://github.com/asmeurer",
-      "id": 71486,
-      "login": "asmeurer",
-      "organizations_url": "https://api.github.com/users/asmeurer/orgs",
-      "received_events_url": "https://api.github.com/users/asmeurer/received_events",
-      "repos_url": "https://api.github.com/users/asmeurer/repos",
+      "html_url": "https://github.com/certik",
+      "id": 20568,
+      "login": "certik",
+      "organizations_url": "https://api.github.com/users/certik/orgs",
+      "received_events_url": "https://api.github.com/users/certik/received_events",
+      "repos_url": "https://api.github.com/users/certik/repos",
       "site_admin": false,
-      "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
+      "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
       "type": "User",
-      "url": "https://api.github.com/users/asmeurer",
+      "url": "https://api.github.com/users/certik",
+    },
+  },
+  Object {
+    "assignee": null,
+    "assignees": Array [],
+    "body": "bc.. From our feedback:
+
+OK.  Thanks.  I finally got it by using jython 2.50b rather
+than the production version of jython and then running
+the Windows installer of sympy and issuing 'jython setup.py'
+where setup.py is in sympy.  Suggest that an actual console
+session log showing the installation of jython and sympy be
+included in the installation documentation to clarify
+the steps, which versions of each component are required,
+etc.
+
+p. Original issue for \\"#4331\\":https://github.com/sympy/sympy/issues/4331: \\"http://code.google.com/p/sympy/issues/detail?id=1232\\":http://code.google.com/p/sympy/issues/detail?id=1232
+
+p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https://code.google.com/u/104039945248245758823/
+",
+    "closed_at": null,
+    "comments": 6,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4331/comments",
+    "created_at": "2008-12-06T01:02:51Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4331/events",
+    "html_url": "https://github.com/sympy/sympy/issues/4331",
+    "id": "28949579",
+    "labels": Array [
+      Object {
+        "color": "800080",
+        "default": false,
+        "id": 84627441,
+        "name": "Alternate Python",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
+      },
+      Object {
+        "color": "ededed",
+        "default": true,
+        "id": 84627344,
+        "name": "bug",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+      },
+      Object {
+        "color": "009800",
+        "default": false,
+        "id": 75782144,
+        "name": "Easy to Fix",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/Easy%20to%20Fix",
+      },
+      Object {
+        "color": "ededed",
+        "default": false,
+        "id": 84627341,
+        "name": "imported",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+      },
+      Object {
+        "color": "d4c5f9",
+        "default": false,
+        "id": 84627345,
+        "name": "valid",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4331/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 4331,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.33729702,
+    "state": "open",
+    "title": "add jython howto to our docs",
+    "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4331",
+    "user": Object {
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
+      "events_url": "https://api.github.com/users/certik/events{/privacy}",
+      "followers_url": "https://api.github.com/users/certik/followers",
+      "following_url": "https://api.github.com/users/certik/following{/other_user}",
+      "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/certik",
+      "id": 20568,
+      "login": "certik",
+      "organizations_url": "https://api.github.com/users/certik/orgs",
+      "received_events_url": "https://api.github.com/users/certik/received_events",
+      "repos_url": "https://api.github.com/users/certik/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/certik",
     },
   },
   Object {
@@ -1423,98 +1378,6 @@ Original author: https://code.google.com/u/110078974596186779257/
   Object {
     "assignee": null,
     "assignees": Array [],
-    "body": "bc.. From our feedback:
-
-OK.  Thanks.  I finally got it by using jython 2.50b rather
-than the production version of jython and then running
-the Windows installer of sympy and issuing 'jython setup.py'
-where setup.py is in sympy.  Suggest that an actual console
-session log showing the installation of jython and sympy be
-included in the installation documentation to clarify
-the steps, which versions of each component are required,
-etc.
-
-p. Original issue for \\"#4331\\":https://github.com/sympy/sympy/issues/4331: \\"http://code.google.com/p/sympy/issues/detail?id=1232\\":http://code.google.com/p/sympy/issues/detail?id=1232
-
-p. Original author: \\"https://code.google.com/u/104039945248245758823/\\":https://code.google.com/u/104039945248245758823/
-",
-    "closed_at": null,
-    "comments": 6,
-    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4331/comments",
-    "created_at": "2008-12-06T01:02:51Z",
-    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4331/events",
-    "html_url": "https://github.com/sympy/sympy/issues/4331",
-    "id": "28949579",
-    "labels": Array [
-      Object {
-        "color": "800080",
-        "default": false,
-        "id": 84627441,
-        "name": "Alternate Python",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
-      },
-      Object {
-        "color": "ededed",
-        "default": true,
-        "id": 84627344,
-        "name": "bug",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
-      },
-      Object {
-        "color": "009800",
-        "default": false,
-        "id": 75782144,
-        "name": "Easy to Fix",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/Easy%20to%20Fix",
-      },
-      Object {
-        "color": "ededed",
-        "default": false,
-        "id": 84627341,
-        "name": "imported",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
-      },
-      Object {
-        "color": "d4c5f9",
-        "default": false,
-        "id": 84627345,
-        "name": "valid",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4331/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 4331,
-    "repository_url": "https://api.github.com/repos/sympy/sympy",
-    "score": 0.33729702,
-    "state": "open",
-    "title": "add jython howto to our docs",
-    "updated_at": "2015-04-17T16:58:12Z",
-    "url": "https://api.github.com/repos/sympy/sympy/issues/4331",
-    "user": Object {
-      "avatar_url": "https://avatars0.githubusercontent.com/u/20568?v=3",
-      "events_url": "https://api.github.com/users/certik/events{/privacy}",
-      "followers_url": "https://api.github.com/users/certik/followers",
-      "following_url": "https://api.github.com/users/certik/following{/other_user}",
-      "gists_url": "https://api.github.com/users/certik/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/certik",
-      "id": 20568,
-      "login": "certik",
-      "organizations_url": "https://api.github.com/users/certik/orgs",
-      "received_events_url": "https://api.github.com/users/certik/received_events",
-      "repos_url": "https://api.github.com/users/certik/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/certik/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/certik/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/certik",
-    },
-  },
-  Object {
-    "assignee": null,
-    "assignees": Array [],
     "body": "\`\`\`
 Intersect seems to generally work incorrectly, example is:
 
@@ -1582,6 +1445,228 @@ Original author: https://code.google.com/u/106893876112355965992/
       "subscriptions_url": "https://api.github.com/users/hut3/subscriptions",
       "type": "User",
       "url": "https://api.github.com/users/hut3",
+    },
+  },
+  Object {
+    "assignee": Object {
+      "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
+      "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
+      "followers_url": "https://api.github.com/users/asmeurer/followers",
+      "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
+      "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/asmeurer",
+      "id": 71486,
+      "login": "asmeurer",
+      "organizations_url": "https://api.github.com/users/asmeurer/orgs",
+      "received_events_url": "https://api.github.com/users/asmeurer/received_events",
+      "repos_url": "https://api.github.com/users/asmeurer/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/asmeurer",
+    },
+    "assignees": Array [
+      Object {
+        "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
+        "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
+        "followers_url": "https://api.github.com/users/asmeurer/followers",
+        "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
+        "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/asmeurer",
+        "id": 71486,
+        "login": "asmeurer",
+        "organizations_url": "https://api.github.com/users/asmeurer/orgs",
+        "received_events_url": "https://api.github.com/users/asmeurer/received_events",
+        "repos_url": "https://api.github.com/users/asmeurer/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/asmeurer",
+      },
+    ],
+    "body": "\`\`\`
+Whenever I run the test suite on my Mac OS X 10.6 machine, as soon as I get to the plotting tests, 
+the Python rocket ship application (the one in 
+/Library/Frameworks/Python.framework/Versions/2.6/Resources/Python.app in the default Mac OS 
+X install) starts bouncing in the Dock, and keeps bouncing until the tests complete, at which point it 
+quits.  No windows ever open, but it is really annoying nonetheless because it steals the keyboard 
+focus whenever it happens, and if the tests run for long enough and the computer is idle, it causes 
+the \\"beachball of death\\" to start spinning until you click on something else.  
+
+Use of the -k option reveals that this happens with any test in test_plotting.py, though the program 
+launches only once per test run.  
+
+Do any Linux or Windows users have this problem?  I can see why it is happening, because plots 
+open in that same rocket ship application, but it is really annoying and if it could somehow not be 
+opened or opened in the background, it would be great.
+\`\`\`
+
+Original issue for #4966: http://code.google.com/p/sympy/issues/detail?id=1867
+Original author: https://code.google.com/u/asmeurer@gmail.com/
+Referenced issues: #5243
+Original owner: https://code.google.com/u/asmeurer@gmail.com/
+",
+    "closed_at": null,
+    "comments": 6,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/4966/comments",
+    "created_at": "2010-03-20T16:09:09Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/4966/events",
+    "html_url": "https://github.com/sympy/sympy/issues/4966",
+    "id": "28950379",
+    "labels": Array [
+      Object {
+        "color": "ededed",
+        "default": true,
+        "id": 84627344,
+        "name": "bug",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+      },
+      Object {
+        "color": "ededed",
+        "default": false,
+        "id": 84627341,
+        "name": "imported",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+      },
+      Object {
+        "color": "0000FF",
+        "default": false,
+        "id": 84627346,
+        "name": "plotting",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/plotting",
+      },
+      Object {
+        "color": "c7def8",
+        "default": false,
+        "id": 84627389,
+        "name": "Testing",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/Testing",
+      },
+      Object {
+        "color": "d4c5f9",
+        "default": false,
+        "id": 84627345,
+        "name": "valid",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/4966/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 4966,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.381608,
+    "state": "open",
+    "title": "plotting tests open Python rocket ship application in Mac OS X",
+    "updated_at": "2015-04-17T16:58:12Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/4966",
+    "user": Object {
+      "avatar_url": "https://avatars0.githubusercontent.com/u/71486?v=3",
+      "events_url": "https://api.github.com/users/asmeurer/events{/privacy}",
+      "followers_url": "https://api.github.com/users/asmeurer/followers",
+      "following_url": "https://api.github.com/users/asmeurer/following{/other_user}",
+      "gists_url": "https://api.github.com/users/asmeurer/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/asmeurer",
+      "id": 71486,
+      "login": "asmeurer",
+      "organizations_url": "https://api.github.com/users/asmeurer/orgs",
+      "received_events_url": "https://api.github.com/users/asmeurer/received_events",
+      "repos_url": "https://api.github.com/users/asmeurer/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/asmeurer/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/asmeurer/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/asmeurer",
+    },
+  },
+  Object {
+    "assignee": null,
+    "assignees": Array [],
+    "body": "bc.. Trying to use with IRONPython and get the error below:
+
+  File C:\\\\Python24\\\\Lib\\\\site-packages\\\\sympy__init__.py, line 4, in 
+Initialize
+  File , line 0, in _stub_##2
+  File C:\\\\Python24\\\\Lib\\\\site-packages\\\\sympy\\\\core__init__.py, line 26, in 
+Initialize
+AttributeError: 'dictproxy' object has no attribute 'get'
+
+Any thoughts?
+
+p. Original issue for \\"#3552\\":https://github.com/sympy/sympy/issues/3552: \\"http://code.google.com/p/sympy/issues/detail?id=453\\":http://code.google.com/p/sympy/issues/detail?id=453
+
+p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https://code.google.com/u/115961875564935506885/
+",
+    "closed_at": null,
+    "comments": 11,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3552/comments",
+    "created_at": "2007-11-18T04:48:18Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3552/events",
+    "html_url": "https://github.com/sympy/sympy/issues/3552",
+    "id": "28948669",
+    "labels": Array [
+      Object {
+        "color": "800080",
+        "default": false,
+        "id": 84627441,
+        "name": "Alternate Python",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
+      },
+      Object {
+        "color": "ededed",
+        "default": true,
+        "id": 84627344,
+        "name": "bug",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
+      },
+      Object {
+        "color": "ededed",
+        "default": false,
+        "id": 84627341,
+        "name": "imported",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
+      },
+      Object {
+        "color": "d4c5f9",
+        "default": false,
+        "id": 84627345,
+        "name": "valid",
+        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3552/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 3552,
+    "repository_url": "https://api.github.com/repos/sympy/sympy",
+    "score": 0.3513895,
+    "state": "open",
+    "title": "ironpython: AttributeError: 'dictproxy' object has no attribute 'get'",
+    "updated_at": "2015-04-17T16:58:11Z",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3552",
+    "user": Object {
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
+      "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
+      "followers_url": "https://api.github.com/users/sympy-issue-migrator/followers",
+      "following_url": "https://api.github.com/users/sympy-issue-migrator/following{/other_user}",
+      "gists_url": "https://api.github.com/users/sympy-issue-migrator/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/sympy-issue-migrator",
+      "id": 6188475,
+      "login": "sympy-issue-migrator",
+      "organizations_url": "https://api.github.com/users/sympy-issue-migrator/orgs",
+      "received_events_url": "https://api.github.com/users/sympy-issue-migrator/received_events",
+      "repos_url": "https://api.github.com/users/sympy-issue-migrator/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/sympy-issue-migrator/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/sympy-issue-migrator/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/sympy-issue-migrator",
     },
   },
   Object {
@@ -1653,89 +1738,6 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
     "title": "new lambdify fails to raise an exception",
     "updated_at": "2015-04-17T16:58:11Z",
     "url": "https://api.github.com/repos/sympy/sympy/issues/3953",
-    "user": Object {
-      "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
-      "events_url": "https://api.github.com/users/vks/events{/privacy}",
-      "followers_url": "https://api.github.com/users/vks/followers",
-      "following_url": "https://api.github.com/users/vks/following{/other_user}",
-      "gists_url": "https://api.github.com/users/vks/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/vks",
-      "id": 33460,
-      "login": "vks",
-      "organizations_url": "https://api.github.com/users/vks/orgs",
-      "received_events_url": "https://api.github.com/users/vks/received_events",
-      "repos_url": "https://api.github.com/users/vks/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/vks/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/vks/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/vks",
-    },
-  },
-  Object {
-    "assignee": null,
-    "assignees": Array [],
-    "body": "## bc.. In [39]: preview(x**x)
-
-ImportError                               Traceback (most recent call last)
-
-/home/one/<ipython console> in <module>()
-
-/usr/local/lib/python2.5/site-packages/sympy-0.5.15-py2.5.egg/sympy/printing/preview.pyc
-in preview(expr, output, viewer, euler)
-     53     # we don't want to depend on anything not in the
-     54     # standard library with SymPy by default
----> 55     import pexpect
-     56
-     57     special = [ 'pyglet' ]
-
-ImportError: No module named pexpect
-
-p. Original issue for \\"#3971\\":https://github.com/sympy/sympy/issues/3971: \\"http://code.google.com/p/sympy/issues/detail?id=872\\":http://code.google.com/p/sympy/issues/detail?id=872
-
-p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\":https://code.google.com/u/Vinzent.Steinberg@gmail.com/
-",
-    "closed_at": null,
-    "comments": 23,
-    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3971/comments",
-    "created_at": "2008-06-03T18:43:56Z",
-    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3971/events",
-    "html_url": "https://github.com/sympy/sympy/issues/3971",
-    "id": "28949151",
-    "labels": Array [
-      Object {
-        "color": "ededed",
-        "default": true,
-        "id": 84627344,
-        "name": "bug",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/bug",
-      },
-      Object {
-        "color": "ededed",
-        "default": false,
-        "id": 84627341,
-        "name": "imported",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/imported",
-      },
-      Object {
-        "color": "d4c5f9",
-        "default": false,
-        "id": 84627345,
-        "name": "valid",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3971/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 3971,
-    "repository_url": "https://api.github.com/repos/sympy/sympy",
-    "score": 0.4166967,
-    "state": "open",
-    "title": "remove dependency on pexpect and add support for Mathtex",
-    "updated_at": "2015-04-17T16:58:11Z",
-    "url": "https://api.github.com/repos/sympy/sympy/issues/3971",
     "user": Object {
       "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
       "events_url": "https://api.github.com/users/vks/events{/privacy}",
@@ -1852,36 +1854,34 @@ p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\"
   Object {
     "assignee": null,
     "assignees": Array [],
-    "body": "bc.. Trying to use with IRONPython and get the error below:
+    "body": "## bc.. In [39]: preview(x**x)
 
-  File C:\\\\Python24\\\\Lib\\\\site-packages\\\\sympy__init__.py, line 4, in 
-Initialize
-  File , line 0, in _stub_##2
-  File C:\\\\Python24\\\\Lib\\\\site-packages\\\\sympy\\\\core__init__.py, line 26, in 
-Initialize
-AttributeError: 'dictproxy' object has no attribute 'get'
+ImportError                               Traceback (most recent call last)
 
-Any thoughts?
+/home/one/<ipython console> in <module>()
 
-p. Original issue for \\"#3552\\":https://github.com/sympy/sympy/issues/3552: \\"http://code.google.com/p/sympy/issues/detail?id=453\\":http://code.google.com/p/sympy/issues/detail?id=453
+/usr/local/lib/python2.5/site-packages/sympy-0.5.15-py2.5.egg/sympy/printing/preview.pyc
+in preview(expr, output, viewer, euler)
+     53     # we don't want to depend on anything not in the
+     54     # standard library with SymPy by default
+---> 55     import pexpect
+     56
+     57     special = [ 'pyglet' ]
 
-p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https://code.google.com/u/115961875564935506885/
+ImportError: No module named pexpect
+
+p. Original issue for \\"#3971\\":https://github.com/sympy/sympy/issues/3971: \\"http://code.google.com/p/sympy/issues/detail?id=872\\":http://code.google.com/p/sympy/issues/detail?id=872
+
+p. Original author: \\"https://code.google.com/u/Vinzent.Steinberg@gmail.com/\\":https://code.google.com/u/Vinzent.Steinberg@gmail.com/
 ",
     "closed_at": null,
-    "comments": 11,
-    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3552/comments",
-    "created_at": "2007-11-18T04:48:18Z",
-    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3552/events",
-    "html_url": "https://github.com/sympy/sympy/issues/3552",
-    "id": "28948669",
+    "comments": 23,
+    "comments_url": "https://api.github.com/repos/sympy/sympy/issues/3971/comments",
+    "created_at": "2008-06-03T18:43:56Z",
+    "events_url": "https://api.github.com/repos/sympy/sympy/issues/3971/events",
+    "html_url": "https://github.com/sympy/sympy/issues/3971",
+    "id": "28949151",
     "labels": Array [
-      Object {
-        "color": "800080",
-        "default": false,
-        "id": 84627441,
-        "name": "Alternate Python",
-        "url": "https://api.github.com/repos/sympy/sympy/labels/Alternate%20Python",
-      },
       Object {
         "color": "ededed",
         "default": true,
@@ -1904,34 +1904,34 @@ p. Original author: \\"https://code.google.com/u/115961875564935506885/\\":https
         "url": "https://api.github.com/repos/sympy/sympy/labels/valid",
       },
     ],
-    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3552/labels{/name}",
+    "labels_url": "https://api.github.com/repos/sympy/sympy/issues/3971/labels{/name}",
     "locked": false,
     "milestone": null,
-    "number": 3552,
+    "number": 3971,
     "repository_url": "https://api.github.com/repos/sympy/sympy",
-    "score": 0.3513895,
+    "score": 0.4166967,
     "state": "open",
-    "title": "ironpython: AttributeError: 'dictproxy' object has no attribute 'get'",
+    "title": "remove dependency on pexpect and add support for Mathtex",
     "updated_at": "2015-04-17T16:58:11Z",
-    "url": "https://api.github.com/repos/sympy/sympy/issues/3552",
+    "url": "https://api.github.com/repos/sympy/sympy/issues/3971",
     "user": Object {
-      "avatar_url": "https://avatars3.githubusercontent.com/u/6188475?v=3",
-      "events_url": "https://api.github.com/users/sympy-issue-migrator/events{/privacy}",
-      "followers_url": "https://api.github.com/users/sympy-issue-migrator/followers",
-      "following_url": "https://api.github.com/users/sympy-issue-migrator/following{/other_user}",
-      "gists_url": "https://api.github.com/users/sympy-issue-migrator/gists{/gist_id}",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33460?v=3",
+      "events_url": "https://api.github.com/users/vks/events{/privacy}",
+      "followers_url": "https://api.github.com/users/vks/followers",
+      "following_url": "https://api.github.com/users/vks/following{/other_user}",
+      "gists_url": "https://api.github.com/users/vks/gists{/gist_id}",
       "gravatar_id": "",
-      "html_url": "https://github.com/sympy-issue-migrator",
-      "id": 6188475,
-      "login": "sympy-issue-migrator",
-      "organizations_url": "https://api.github.com/users/sympy-issue-migrator/orgs",
-      "received_events_url": "https://api.github.com/users/sympy-issue-migrator/received_events",
-      "repos_url": "https://api.github.com/users/sympy-issue-migrator/repos",
+      "html_url": "https://github.com/vks",
+      "id": 33460,
+      "login": "vks",
+      "organizations_url": "https://api.github.com/users/vks/orgs",
+      "received_events_url": "https://api.github.com/users/vks/received_events",
+      "repos_url": "https://api.github.com/users/vks/repos",
       "site_admin": false,
-      "starred_url": "https://api.github.com/users/sympy-issue-migrator/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/sympy-issue-migrator/subscriptions",
+      "starred_url": "https://api.github.com/users/vks/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/vks/subscriptions",
       "type": "User",
-      "url": "https://api.github.com/users/sympy-issue-migrator",
+      "url": "https://api.github.com/users/vks",
     },
   },
   Object {
@@ -2157,6 +2157,57 @@ If we can find a commonly distributed windows font that supports them then no pr
   Object {
     "assignee": null,
     "assignees": Array [],
+    "body": "Currently icon only resides in status bar, but no icon for the task bar part.
+",
+    "closed_at": null,
+    "comments": 1,
+    "comments_url": "https://api.github.com/repos/imrehg/minibook/issues/2/comments",
+    "created_at": "2009-05-16T01:21:33Z",
+    "events_url": "https://api.github.com/repos/imrehg/minibook/issues/2/events",
+    "html_url": "https://github.com/imrehg/minibook/issues/2",
+    "id": "15709",
+    "labels": Array [
+      Object {
+        "color": "e81010",
+        "default": false,
+        "id": 4944,
+        "name": "Bug",
+        "url": "https://api.github.com/repos/imrehg/minibook/labels/Bug",
+      },
+    ],
+    "labels_url": "https://api.github.com/repos/imrehg/minibook/issues/2/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "number": 2,
+    "repository_url": "https://api.github.com/repos/imrehg/minibook",
+    "score": 0.71719646,
+    "state": "open",
+    "title": "Icon in app name",
+    "updated_at": "2009-06-07T05:32:03Z",
+    "url": "https://api.github.com/repos/imrehg/minibook/issues/2",
+    "user": Object {
+      "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
+      "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
+      "followers_url": "https://api.github.com/users/imrehg/followers",
+      "following_url": "https://api.github.com/users/imrehg/following{/other_user}",
+      "gists_url": "https://api.github.com/users/imrehg/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/imrehg",
+      "id": 38863,
+      "login": "imrehg",
+      "organizations_url": "https://api.github.com/users/imrehg/orgs",
+      "received_events_url": "https://api.github.com/users/imrehg/received_events",
+      "repos_url": "https://api.github.com/users/imrehg/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/imrehg/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/imrehg/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/imrehg",
+    },
+  },
+  Object {
+    "assignee": null,
+    "assignees": Array [],
     "body": "Systray icon remains after the application is closed. Mousover makes it disappear.
 Noticed on windows, not sure if it's the same under Linux as well...
 ",
@@ -2186,57 +2237,6 @@ Noticed on windows, not sure if it's the same under Linux as well...
     "title": "Systray icon remains after application close",
     "updated_at": "2009-06-07T05:32:03Z",
     "url": "https://api.github.com/repos/imrehg/minibook/issues/7",
-    "user": Object {
-      "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
-      "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
-      "followers_url": "https://api.github.com/users/imrehg/followers",
-      "following_url": "https://api.github.com/users/imrehg/following{/other_user}",
-      "gists_url": "https://api.github.com/users/imrehg/gists{/gist_id}",
-      "gravatar_id": "",
-      "html_url": "https://github.com/imrehg",
-      "id": 38863,
-      "login": "imrehg",
-      "organizations_url": "https://api.github.com/users/imrehg/orgs",
-      "received_events_url": "https://api.github.com/users/imrehg/received_events",
-      "repos_url": "https://api.github.com/users/imrehg/repos",
-      "site_admin": false,
-      "starred_url": "https://api.github.com/users/imrehg/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/imrehg/subscriptions",
-      "type": "User",
-      "url": "https://api.github.com/users/imrehg",
-    },
-  },
-  Object {
-    "assignee": null,
-    "assignees": Array [],
-    "body": "Currently icon only resides in status bar, but no icon for the task bar part.
-",
-    "closed_at": null,
-    "comments": 1,
-    "comments_url": "https://api.github.com/repos/imrehg/minibook/issues/2/comments",
-    "created_at": "2009-05-16T01:21:33Z",
-    "events_url": "https://api.github.com/repos/imrehg/minibook/issues/2/events",
-    "html_url": "https://github.com/imrehg/minibook/issues/2",
-    "id": "15709",
-    "labels": Array [
-      Object {
-        "color": "e81010",
-        "default": false,
-        "id": 4944,
-        "name": "Bug",
-        "url": "https://api.github.com/repos/imrehg/minibook/labels/Bug",
-      },
-    ],
-    "labels_url": "https://api.github.com/repos/imrehg/minibook/issues/2/labels{/name}",
-    "locked": false,
-    "milestone": null,
-    "number": 2,
-    "repository_url": "https://api.github.com/repos/imrehg/minibook",
-    "score": 0.71719646,
-    "state": "open",
-    "title": "Icon in app name",
-    "updated_at": "2009-06-07T05:32:03Z",
-    "url": "https://api.github.com/repos/imrehg/minibook/issues/2",
     "user": Object {
       "avatar_url": "https://avatars3.githubusercontent.com/u/38863?v=3",
       "events_url": "https://api.github.com/users/imrehg/events{/privacy}",
