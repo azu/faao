@@ -85,7 +85,7 @@ export class SearchQueryListItem extends React.Component<
                                 if (!event) {
                                     return;
                                 }
-                                if (confirm(`Does delete "${this.props.query.name}"?`)) {
+                                if (window.confirm(`Does delete "${this.props.query.name}"?`)) {
                                     this.props.onDeleteQuery(this.props.query);
                                 }
                             },
@@ -189,7 +189,7 @@ export class SearchQueryList extends React.Component<SearchQueryListProps, {}> {
                     ref={(c: List) => (this.list = c)}
                     className="SearchQueryList"
                     items={this.props.searchList.queries}
-                    onRenderCell={(query: GitHubSearchQuery) => (
+                    onRenderCell={query => (
                         <SearchQueryListItem
                             query={query}
                             isActive={query.equals(this.props.activeQuery)}

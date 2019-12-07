@@ -74,7 +74,7 @@ export class SystemReadyToLaunchAppUseCase extends UseCase {
             );
             if (isYes) {
                 await this.context.useCase(createClearCacheDataUseCase()).execute();
-                location.reload();
+                window.location.reload();
             }
         }
     }
