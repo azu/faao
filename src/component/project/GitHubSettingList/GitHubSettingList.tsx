@@ -107,7 +107,7 @@ export class GitHubSettingList extends React.Component<
     onDeleteSetting = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
         const setting = this.state.contextTargetSetting;
         if (setting) {
-            if (confirm(`Does delete "${setting.id.toValue()}"?`)) {
+            if (window.confirm(`Does delete "${setting.id.toValue()}"?`)) {
                 this.props.onDeleteSetting(event, setting);
             }
         }
