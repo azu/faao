@@ -6,10 +6,7 @@ import {
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import {
-    GitHubSearchResultItem,
-    GitHubSearchResultItemJSON
-} from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import {
     GitHubUserActivityEvent,
     GitHubUserActivityEventJSON
@@ -30,6 +27,8 @@ import {
 } from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
 
 import Octokit from "@octokit/rest";
+import { GitHubReceivedEventsForUserQuery } from "../../domain/GitHubSearchList/queries/GitHubReceivedEventsForUserQuery";
+import { GitHubETag } from "../../domain/GitHubSearchList/queries/GitHubETag";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -96,7 +95,6 @@ export class GitHubClient {
         onError: (error: Error) => void,
         onComplete: () => void
     ): void {
-        console.log(query);
         if (isGitHubNotificationQuery(query)) {
             this.searchGitHubNotification(query, onProgress, onError, onComplete);
         } else if (isFaaoSearchQuery(query)) {
@@ -493,5 +491,60 @@ ${queries.join("\n")}
                 });
             })
             .catch(onError);
+    }
+
+    /**
+     * Search receive events
+     * @param query
+     * @param onError
+     * @param onComplete
+     */
+    searchGitHubEventsForUser(
+        query: GitHubReceivedEventsForUserQuery,
+        onError: (error: Error) => void,
+        onComplete: ({
+            events,
+            eTag
+        }: {
+            events: GitHubUserActivityEvent[];
+            eTag: GitHubETag;
+        }) => void
+    ) {
+        this.octokit.activity
+            .listReceivedEventsForUser({
+                headers: query.eTag.valid()
+                    ? {
+                          "If-None-Match": query.eTag.valueOf()
+                      }
+                    : {},
+                username: query.query.userName
+            })
+            .then(response => {
+                return {
+                    response: response.data,
+                    eTag: response.headers.etag
+                };
+            })
+            .then(function({ response, eTag }: { response: any; eTag: string }) {
+                const events = response.events.map((item: any) => {
+                    return GitHubUserActivityEventFactory.create(item);
+                });
+                onComplete({
+                    events,
+                    eTag: new GitHubETag(eTag)
+                });
+            })
+            .catch((errorResponse: any) => {
+                // Handle 304 modified as no contents response
+                // https://developer.github.com/v3/activity/events/
+                if (errorResponse.status === 304) {
+                    console.log("getEvents: response.status: 304");
+                    return {
+                        response: [],
+                        eTag: errorResponse.headers.etag
+                    };
+                }
+                return onError(errorResponse);
+            });
     }
 }

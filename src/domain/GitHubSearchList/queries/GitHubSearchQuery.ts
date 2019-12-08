@@ -26,7 +26,6 @@ export const isGitHubSearchQuery = (query: any): query is GitHubSearchQuery => {
 };
 
 export class GitHubSearchQuery implements QueryRole {
-    reservationKey: never;
     name: string;
     query: string;
     color: QueryColor;

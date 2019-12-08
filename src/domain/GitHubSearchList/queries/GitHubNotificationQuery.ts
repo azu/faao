@@ -29,7 +29,6 @@ export const isGitHubNotificationQueryJSON = (query: any): query is GitHubNotifi
  * Notification Query
  */
 export class GitHubNotificationQuery implements QueryRole {
-    reservationKey: never;
     readonly name: string;
     readonly query: string;
     readonly color: QueryColor;

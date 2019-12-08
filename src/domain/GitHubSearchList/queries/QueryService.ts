@@ -3,14 +3,26 @@ import { isGitHubSearchQueryJSON } from "./GitHubSearchQuery";
 import { FaaoSearchQuery, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
 import { UnionQuery, UnionQueryJSON } from "./QueryRole";
 import { GitHubNotificationQuery, isGitHubNotificationQueryJSON } from "./GitHubNotificationQuery";
+import {
+    GitHubReceivedEventsForUserQuery,
+    isGitHubReceivedEventsForUserQueryJSON
+} from "./GitHubReceivedEventsForUserQuery";
 
 export const createQueryFromUnionQueryJSON = (queryJSON: UnionQueryJSON): UnionQuery => {
-    if (isGitHubNotificationQueryJSON(queryJSON)) {
+    if (isGitHubReceivedEventsForUserQueryJSON(queryJSON)) {
+        return GitHubReceivedEventsForUserQuery.fromJSON(queryJSON);
+    } else if (isGitHubNotificationQueryJSON(queryJSON)) {
         return GitHubNotificationQuery.fromJSON(queryJSON);
     } else if (isGitHubSearchQueryJSON(queryJSON)) {
         return GitHubSearchQueryFactory.createFromJSON(queryJSON);
     } else if (isFaaoSearchQueryJSON(queryJSON)) {
         return FaaoSearchQuery.fromJSON(queryJSON);
+    } else {
+        return fail(queryJSON);
     }
-    throw new Error("Should not reach" + queryJSON);
 };
+
+function fail(query: never): never {
+    console.error("query", query);
+    throw new Error("Fail to compile");
+}

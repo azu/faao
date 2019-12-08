@@ -1,11 +1,12 @@
 // MIT © 2017 azu
 import { Identifier } from "../Entity";
 import { ValueObject } from "../ValueObject";
-import { compile, parse, ParsedEvent } from "parse-github-event";
+import { compile, ParsedEvent } from "parse-github-event";
 import * as url from "url";
 import urljoin from "url-join";
 import ghUrlToObject from "github-url-to-object";
 import { GitHubUserActivityEventFactory } from "./GitHubUserActivityEventFactory";
+import { GitHubSortedCollectionItem } from "../GitHubSearchStream/GitHubCollectionFactory";
 
 export interface Payload {}
 
@@ -80,6 +81,7 @@ export interface GitHubUserActivityEventJSON {
     repo: Repo;
     actor: Actor;
     org: Org;
+    updated_at: string;
     created_at: string;
 }
 
@@ -110,7 +112,8 @@ export interface GitHubUserActivityEventProps {
     parsedEvent?: ParsedEvent;
 }
 
-export class GitHubUserActivityEvent extends ValueObject {
+export class GitHubUserActivityEvent extends ValueObject
+    implements GitHubSortedCollectionItem<GitHubUserActivityEventJSON> {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
     public: boolean;
@@ -120,6 +123,7 @@ export class GitHubUserActivityEvent extends ValueObject {
     actor: Actor;
     org: Org;
     created_at: string;
+    updated_at: string;
 
     parsedEvent?: ParsedEvent;
 
@@ -134,6 +138,8 @@ export class GitHubUserActivityEvent extends ValueObject {
         this.actor = event.actor;
         this.org = event.org;
         this.created_at = event.created_at;
+        // same value with created_at
+        this.updated_at = event.created_at;
         this.parsedEvent = event.parsedEvent;
     }
 
@@ -217,5 +223,9 @@ export class GitHubUserActivityEvent extends ValueObject {
             ...this,
             id: this.id.toValue()
         };
+    }
+
+    isLaterThan(aTarget: GitHubUserActivityEvent) {
+        return this.createAtDate.getTime() > aTarget.createAtDate.getTime();
     }
 }

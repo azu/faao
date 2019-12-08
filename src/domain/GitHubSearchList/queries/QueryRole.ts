@@ -1,16 +1,40 @@
 import { Identifier } from "../../Entity";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
-import { GitHubSearchQuery, GitHubSearchQueryJSON } from "./GitHubSearchQuery";
-import { FaaoSearchQuery, FaaoSearchQueryJSON } from "./FaaoSearchQuery";
-import { GitHubNotificationQuery, GitHubNotificationQueryJSON } from "./GitHubNotificationQuery";
+import { GitHubSearchQuery, GitHubSearchQueryJSON, isGitHubSearchQuery } from "./GitHubSearchQuery";
+import { FaaoSearchQuery, FaaoSearchQueryJSON, isFaaoSearchQuery } from "./FaaoSearchQuery";
+import {
+    GitHubNotificationQuery,
+    GitHubNotificationQueryJSON,
+    isGitHubNotificationQuery
+} from "./GitHubNotificationQuery";
 import { QueryColor } from "./QueryColor";
+import {
+    GitHubReceivedEventsForUserQuery,
+    GitHubReceivedEventsForUserQueryJSON,
+    isGitHubReceivedEventsForUserQuery
+} from "./GitHubReceivedEventsForUserQuery";
 
-export type UnionQuery = FaaoSearchQuery | GitHubSearchQuery | GitHubNotificationQuery;
+// See Factory
+// QueryService.ts
+export type UnionQuery =
+    | FaaoSearchQuery
+    | GitHubSearchQuery
+    | GitHubNotificationQuery
+    | GitHubReceivedEventsForUserQuery;
 export type UnionQueryJSON =
     | FaaoSearchQueryJSON
     | GitHubSearchQueryJSON
-    | GitHubNotificationQueryJSON;
+    | GitHubNotificationQueryJSON
+    | GitHubReceivedEventsForUserQueryJSON;
 
+export const isUnionQuery = (entity: any): entity is UnionQuery => {
+    return (
+        isFaaoSearchQuery(entity) ||
+        isGitHubSearchQuery(entity) ||
+        isGitHubNotificationQuery(entity) ||
+        isGitHubReceivedEventsForUserQuery(entity)
+    );
+};
 export type QueryRole = {
     name: string;
     color: QueryColor;
