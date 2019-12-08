@@ -6,7 +6,10 @@ import {
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
 import { GitHubSearchResultFactory } from "../../domain/GitHubSearchStream/GitHubSearchResultFactory";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchResultItemJSON } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import {
+    GitHubSearchResultItem,
+    GitHubSearchResultItemJSON
+} from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import {
     GitHubUserActivityEvent,
     GitHubUserActivityEventJSON
@@ -21,6 +24,12 @@ import { GraphQLClient } from "graphql-request";
 
 import urlJoin from "url-join";
 import { QueryRole } from "../../domain/GitHubSearchList/queries/QueryRole";
+import {
+    GitHubNotificationQuery,
+    isGitHubNotificationQuery
+} from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
+
+import Octokit from "@octokit/rest";
 
 const debug = require("debug")("faao:GitHubClient");
 const Octokat = require("octokat");
@@ -53,6 +62,7 @@ const OctokatPlugins = [
 export class GitHubClient {
     private gh: any;
     private graphQLClient: GraphQLClient;
+    private octokit: Octokit;
 
     constructor(gitHubSetting: GitHubSetting) {
         this.gh = new Octokat({
@@ -64,6 +74,11 @@ export class GitHubClient {
             headers: {
                 authorization: `Bearer ${gitHubSetting.token}`
             }
+        });
+        this.octokit = new Octokit({
+            auth: gitHubSetting.token,
+            baseUrl: gitHubSetting.apiHost,
+            userAgent: "faao<https://github.com/azu/faao>"
         });
     }
 
@@ -81,10 +96,13 @@ export class GitHubClient {
         onError: (error: Error) => void,
         onComplete: () => void
     ): void {
-        if (isGitHubSearchQuery(query)) {
-            this.searchSearchQuery(query, onProgress, onError, onComplete);
+        console.log(query);
+        if (isGitHubNotificationQuery(query)) {
+            this.searchGitHubNotification(query, onProgress, onError, onComplete);
         } else if (isFaaoSearchQuery(query)) {
             this.searchFaaoQuery(query, onProgress, onError, onComplete);
+        } else if (isGitHubSearchQuery(query)) {
+            this.searchSearchQuery(query, onProgress, onError, onComplete);
         }
     }
 
@@ -405,5 +423,75 @@ ${queries.join("\n")}
             .then((response: any) => {
                 return response.rate.limit > 0;
             });
+    }
+
+    private searchGitHubNotification(
+        query: GitHubNotificationQuery,
+        onProgress: (searchResult: GitHubSearchResult) => Promise<boolean>,
+        onError: (error: Error) => void,
+        onComplete: () => void
+    ) {
+        const normalizeResponseAPIURL = (url: string): string => {
+            return url.replace(
+                /^https:\/\/api\.github\.com\/repos\/(.*?)\/(commits|pulls|issues)\/(.*?)/,
+                function(_all, repo, type, number) {
+                    return (
+                        "https://github.com/" +
+                        repo +
+                        "/" +
+                        type.replace("pulls", "pull") +
+                        "/" +
+                        number
+                    );
+                }
+            );
+        };
+
+        this.octokit.activity
+            .listNotifications({
+                since: query.sinceDate.toISODate()
+            })
+            .then(function(response) {
+                debug("GET /notifications:", response);
+                return response.data;
+            })
+            .then(function(responses) {
+                const items = responses.map(response => {
+                    const commentIdPattern = /^https:.+\/comments\/(\d+)$/;
+                    const commentId = commentIdPattern.test(response.subject.latest_comment_url)
+                        ? response.subject.latest_comment_url.replace(commentIdPattern, "$1")
+                        : undefined;
+                    const commentHash = commentId ? `#issuecomment-${commentId}` : "";
+                    return {
+                        id: response.id,
+                        title: response.subject.title,
+                        html_url: normalizeResponseAPIURL(response.subject.url) + commentHash,
+                        type: response.subject.type as any,
+                        user: {
+                            html_url: response.repository.html_url,
+                            login: response.repository.owner.login,
+                            avatar_url: response.repository.owner.avatar_url
+                        },
+                        labels: [],
+                        number: 0,
+                        state: "open" as any,
+                        milestone: null,
+                        closed_at: null,
+                        assignees: [],
+                        body: null,
+                        comments: 0,
+                        locked: false,
+                        created_at: response.updated_at,
+                        updated_at: response.updated_at
+                    };
+                });
+                const result = GitHubSearchResultFactory.create({
+                    items
+                });
+                onProgress(result).then(() => {
+                    onComplete();
+                });
+            })
+            .catch(onError);
     }
 }

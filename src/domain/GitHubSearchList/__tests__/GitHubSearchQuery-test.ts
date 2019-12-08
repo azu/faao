@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { GitHubSearchQuery, GitHubSearchQueryJSON } from "../queries/GitHubSearchQuery";
-import { GitHubSearchQueryColor } from "../queries/GitHubSearchQueryColor";
+import { QueryColor } from "../queries/QueryColor";
 
 describe("GitHubSearchQuery", () => {
     it("json <-> model", () => {
@@ -12,7 +12,7 @@ describe("GitHubSearchQuery", () => {
         };
         const model = GitHubSearchQuery.fromJSON(json);
         expect(model).toBeInstanceOf(GitHubSearchQuery);
-        expect(model.color).toBeInstanceOf(GitHubSearchQueryColor);
+        expect(model.color).toBeInstanceOf(QueryColor);
         const jsonResult = model.toJSON();
         expect(jsonResult).toEqual(json);
     });

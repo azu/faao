@@ -1,13 +1,16 @@
 import { GitHubSearchQueryFactory } from "./GitHubSearchQueryFactory";
 import { isGitHubSearchQueryJSON } from "./GitHubSearchQuery";
 import { FaaoSearchQuery, isFaaoSearchQueryJSON } from "./FaaoSearchQuery";
-import { UnionQueryJSON } from "./QueryRole";
+import { UnionQuery, UnionQueryJSON } from "./QueryRole";
+import { GitHubNotificationQuery, isGitHubNotificationQueryJSON } from "./GitHubNotificationQuery";
 
-export const createQueryFromUnionQueryJSON = (queryJSON: UnionQueryJSON) => {
-    if (isGitHubSearchQueryJSON(queryJSON)) {
+export const createQueryFromUnionQueryJSON = (queryJSON: UnionQueryJSON): UnionQuery => {
+    if (isGitHubNotificationQueryJSON(queryJSON)) {
+        return GitHubNotificationQuery.fromJSON(queryJSON);
+    } else if (isGitHubSearchQueryJSON(queryJSON)) {
         return GitHubSearchQueryFactory.createFromJSON(queryJSON);
     } else if (isFaaoSearchQueryJSON(queryJSON)) {
         return FaaoSearchQuery.fromJSON(queryJSON);
     }
-    throw new Error("Unknown query json");
+    throw new Error("Should not reach" + queryJSON);
 };

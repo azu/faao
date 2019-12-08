@@ -1,20 +1,11 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON,
-    isGitHubSearchQuery,
-    isGitHubSearchQueryJSON
-} from "./queries/GitHubSearchQuery";
+import { GitHubSearchQuery, isGitHubSearchQuery } from "./queries/GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
-import {
-    FaaoSearchQuery,
-    FaaoSearchQueryJSON,
-    isFaaoSearchQuery,
-    isFaaoSearchQueryJSON
-} from "./queries/FaaoSearchQuery";
+import { FaaoSearchQuery, isFaaoSearchQuery } from "./queries/FaaoSearchQuery";
 import { FaaoSearchQueryParam } from "./queries/FaaoSearchQueryParam";
 import { UnionQuery, UnionQueryJSON } from "./queries/QueryRole";
+import { createQueryFromUnionQueryJSON } from "./queries/QueryService";
 
 export interface GitHubSearchListJSON {
     id: string;
@@ -45,13 +36,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
         return Object.assign(list, json, {
             id: new Identifier<GitHubSearchList>(json.id),
             queries: json.queries.map(query => {
-                if (isGitHubSearchQueryJSON(query)) {
-                    return GitHubSearchQuery.fromJSON(query);
-                } else if (isFaaoSearchQueryJSON(query)) {
-                    return FaaoSearchQuery.fromJSON(query);
-                }
-                console.error("Unknown query type", query);
-                throw new Error("Unknown query type");
+                return createQueryFromUnionQueryJSON(query);
             })
         });
     }
@@ -93,6 +78,7 @@ export class GitHubSearchList extends Entity<Identifier<GitHubSearchList>> {
             return query.name === queryName;
         });
     }
+
     // prefer to use includesQuery
     includesQueryName(queryName: string): boolean {
         return this.queries.some(query => {

@@ -13,6 +13,7 @@ import {
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
+import { isGitHubNotificationQuery } from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
 
 export const createAppUserOpenStreamUseCase = () => {
     return new AppUserOpenStreamUseCase(
@@ -33,7 +34,11 @@ export class AppUserOpenStreamUseCase extends UseCase {
 
     execute(query: UnionQuery | GitHubSearchList) {
         const app = this.appRepository.get();
-        if (GitHubSearchQuery.isQuery(query) || isFaaoSearchQuery(query)) {
+        if (
+            GitHubSearchQuery.isQuery(query) ||
+            isFaaoSearchQuery(query) ||
+            isGitHubNotificationQuery(query)
+        ) {
             const searchList = this.gitHubSearchListRepository.findByQuery(query);
             if (!searchList) {
                 throw new Error(`Not Found SearchList for query: ${query.name}`);

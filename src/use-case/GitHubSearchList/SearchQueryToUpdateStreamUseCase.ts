@@ -16,6 +16,11 @@ import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
 import { createOSNoticesFromStreams } from "../../domain/GitHubSearchStream/GitHubStreamNoticeFactory";
+import { isGitHubNotificationQuery } from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
+import {
+    GitHubSearchListRepository,
+    gitHubSearchListRepository
+} from "../../infra/repository/GitHubSearchListRepository";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -30,6 +35,7 @@ export class LoadingFinishedPayload extends Payload {
 export const createSearchQueryToUpdateStreamUseCase = () => {
     return new SearchQueryToUpdateStreamUseCase(
         gitHubSettingRepository,
+        gitHubSearchListRepository,
         gitHubSearchStreamRepository,
         appRepository
     );
@@ -43,6 +49,7 @@ export const createSearchQueryToUpdateStreamUseCase = () => {
 export class SearchQueryToUpdateStreamUseCase extends UseCase {
     constructor(
         private gitHubSettingRepository: GitHubSettingRepository,
+        private gitHubSearchListRepository: GitHubSearchListRepository,
         private gitHubSearchStreamRepository: GitHubSearchStreamRepository,
         private appRepository: AppRepository
     ) {
@@ -94,6 +101,17 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
                     reject(error);
                 },
                 () => {
+                    // update NotificationQuery
+                    if (isGitHubNotificationQuery(query)) {
+                        const searchList = this.gitHubSearchListRepository.findByQuery(query);
+                        if (searchList) {
+                            const newSearchList = searchList.replaceQuery(
+                                query,
+                                query.refreshQueryAfterSearch()
+                            );
+                            this.gitHubSearchListRepository.save(newSearchList);
+                        }
+                    }
                     debug(`Searching Complete! Query:${query.name}`);
                     const app = this.appRepository.get();
                     const osNotices = createOSNoticesFromStreams({
