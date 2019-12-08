@@ -29,7 +29,7 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
             } else {
                 return "GitPullRequestIcon";
             }
-        } else if (this.type == "issue") {
+        } else if (this.type === "issue") {
             if (this.state === "open") {
                 return "IssueOpenedIcon";
             } else {
@@ -50,6 +50,8 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
                 // FIXME: It is not work
                 // because GitHub API not return "closed" insteadof "merged"
                 return "#6f42c1";
+            default:
+                return "#dddddd";
         }
     }
 

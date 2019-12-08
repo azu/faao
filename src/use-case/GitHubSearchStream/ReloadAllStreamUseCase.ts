@@ -10,7 +10,7 @@ import {
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
+import { QueryRole } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 const debug = require("debug")("faao:ReloadAllStreamUseCase");
 export const createReloadAllStreamUseCase = () => {

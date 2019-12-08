@@ -2,7 +2,7 @@
 import * as React from "react";
 import { SyntheticEvent } from "react";
 import {
-    GitHubUserActivityEventVideoModel,
+    GitHubUserActivityEventViewModel,
     GitHubUserState
 } from "../../../../store/GitHubUserStore/GitHubUserStore";
 import { GitHubUserEventList } from "../../../project/GitHubUserEventList/GitHubUserEventList";
@@ -15,7 +15,7 @@ export interface GitHubUserEventContainerProps {
 }
 
 export class GitHubUserEventContainer extends BaseContainer<GitHubUserEventContainerProps, {}> {
-    onClickItem = (event: SyntheticEvent<any>, item: GitHubUserActivityEventVideoModel) => {
+    onClickItem = (event: SyntheticEvent<any>, item: GitHubUserActivityEventViewModel) => {
         event.preventDefault();
         this.useCase(createAppUserOpenGitHubUserEventUseCase()).execute(item);
     };

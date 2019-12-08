@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 import { Payload, Store } from "almin";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
-import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import {
     CloseQueryPanelUseCasePayload,
     EditQueryPanelUseCasePayload,
@@ -13,7 +13,8 @@ import {
     OpenSearchListPanelUseCasePayload
 } from "../../use-case/GitHubSearchList/ToggleSearchListPanelUseCase";
 import { shallowEqual } from "shallow-equal-object";
-import { FaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQuery } from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export type QueryPanelType = "github" | "faao";
 

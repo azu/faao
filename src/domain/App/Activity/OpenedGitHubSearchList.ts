@@ -2,15 +2,15 @@
 import {
     GitHubSearchQuery,
     isGitHubSearchQueryJSON
-} from "../../GitHubSearchList/GitHubSearchQuery";
+} from "../../GitHubSearchList/queries/GitHubSearchQuery";
 import { Identifier } from "../../Entity";
-import {
-    GitHubSearchList,
-    UnionQuery,
-    UnionQueryJSON
-} from "../../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../GitHubSearchList/GitHubSearchList";
 import { ValueObject } from "../../ValueObject";
-import { FaaoSearchQuery, isFaaoSearchQueryJSON } from "../../GitHubSearchList/FaaoSearchQuery";
+import {
+    FaaoSearchQuery,
+    isFaaoSearchQueryJSON
+} from "../../GitHubSearchList/queries/FaaoSearchQuery";
+import { UnionQuery, UnionQueryJSON } from "../../GitHubSearchList/queries/QueryRole";
 
 export interface OpenedGitHubSearchListJSON {
     type: "OpenedGitHubSearchList";

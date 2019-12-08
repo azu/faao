@@ -4,7 +4,7 @@ import {
     GitHubSearchQueryJSON,
     isGitHubSearchQuery,
     isGitHubSearchQueryJSON
-} from "./GitHubSearchQuery";
+} from "./queries/GitHubSearchQuery";
 import { Entity, Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
 import {
@@ -12,11 +12,9 @@ import {
     FaaoSearchQueryJSON,
     isFaaoSearchQuery,
     isFaaoSearchQueryJSON
-} from "./FaaoSearchQuery";
-import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
-
-export type UnionQuery = FaaoSearchQuery | GitHubSearchQuery;
-export type UnionQueryJSON = FaaoSearchQueryJSON | GitHubSearchQueryJSON;
+} from "./queries/FaaoSearchQuery";
+import { FaaoSearchQueryParam } from "./queries/FaaoSearchQueryParam";
+import { UnionQuery, UnionQueryJSON } from "./queries/QueryRole";
 
 export interface GitHubSearchListJSON {
     id: string;

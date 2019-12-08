@@ -5,13 +5,13 @@ import { List } from "office-ui-fabric-react";
 
 import classnames from "classnames";
 import { GitHubUserActivityEvent } from "../../../domain/GitHubUser/GitHubUserActivityEvent";
-import { GitHubUserActivityEventVideoModel } from "../../../store/GitHubUserStore/GitHubUserStore";
+import { GitHubUserActivityEventViewModel } from "../../../store/GitHubUserStore/GitHubUserStore";
 
 const suitcssClassnames = require("suitcss-classnames");
 
 export interface GitHubUserEventListItemProps {
     isActive: boolean;
-    item: GitHubUserActivityEventVideoModel;
+    item: GitHubUserActivityEventViewModel;
     onClickItem: (event: SyntheticEvent<any>, item: GitHubUserActivityEvent) => void;
 }
 
@@ -28,7 +28,9 @@ export class GitHubUserEventListItem extends React.Component<GitHubUserEventList
                 "is-unread": !this.props.item.isRead
             }
         });
-        const orgAvatar = <img src={item.repoAvatarUrl} width="18" height="18" />;
+        const orgAvatar = (
+            <img alt={item.actor.login} src={item.repoAvatarUrl} width="18" height="18" />
+        );
         return (
             <div className={className} onClick={onClick}>
                 <header className="GitHubUserEventListItem-header">

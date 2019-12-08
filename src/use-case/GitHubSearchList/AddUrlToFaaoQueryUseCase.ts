@@ -4,8 +4,8 @@ import {
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
 import { createSearchQueryAndOpenStreamUseCase } from "./SearchQueryAndOpenStreamUseCase";
-import { FaaoSearchQueryParam } from "../../domain/GitHubSearchList/FaaoSearchQueryParam";
-import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import { FaaoSearchQueryParam } from "../../domain/GitHubSearchList/queries/FaaoSearchQueryParam";
+import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 
 export const createAddUrlToFaaoQueryUseCase = () => {
     return new AddUrlToFaaoQueryUseCase(gitHubSearchListRepository);

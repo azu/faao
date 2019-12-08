@@ -4,6 +4,8 @@ import { storageManger } from "../../infra/repository/Storage";
 import { Context, Dispatcher, StoreGroup } from "almin";
 import { createSystemReadyToLaunchAppUseCase } from "../../use-case/System/SystemReadyToLaunchAppUseCase";
 
+// FIXME: Babel+Jest+TypeScript transform bug?
+// SyntaxError: Unexpected token '.'
 describe("AppStoreGroup", () => {
     describe("when after initialized", () => {
         let appStoreGroup: StoreGroup<AppStoreGroupState>;

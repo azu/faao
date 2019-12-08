@@ -35,7 +35,7 @@ export class NoticeState implements NoticeStateArgs {
         } else if (this.genericErrorNotices.length !== 0) {
             return this.genericErrorNotices[0];
         }
-        return;
+        return undefined;
     }
 
     get hasNotice(): boolean {

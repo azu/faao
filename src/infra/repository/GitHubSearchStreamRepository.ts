@@ -9,7 +9,7 @@ import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList
 import { createStorageInstance } from "./Storage";
 import { Identifier } from "../../domain/Entity";
 import { EntityMap } from "./EntityMap";
-import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
+import { QueryRole } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 const debug = require("debug")("faao:GitHubSearchStreamRepository");
 

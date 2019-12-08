@@ -9,10 +9,11 @@ import { CloseQuickIssueUseCasePayload } from "../../use-case/QuickIssue/CloseQu
 import { uniqBy } from "lodash";
 import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
+import { GitHubSearchQuery } from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;

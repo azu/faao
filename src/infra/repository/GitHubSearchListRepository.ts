@@ -1,14 +1,17 @@
 // MIT © 2017 azu
 import {
     GitHubSearchList,
-    GitHubSearchListJSON,
-    UnionQuery
+    GitHubSearchListJSON
 } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListFactory } from "../../domain/GitHubSearchList/GitHubSearchListFactory";
 import { NonNullableBaseRepository } from "./NonNullableBaseRepository";
 import { createStorageInstance } from "./Storage";
 import { sortBy } from "lodash";
-import { FaaoSearchQuery, isFaaoSearchQuery } from "../../domain/GitHubSearchList/FaaoSearchQuery";
+import {
+    FaaoSearchQuery,
+    isFaaoSearchQuery
+} from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 const debug = require("debug")("faao:GitHubSearchListRepository");
 

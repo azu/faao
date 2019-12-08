@@ -10,11 +10,10 @@ import {
     GitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { GitHubSearchResult } from "../../domain/GitHubSearchStream/GitHubSearchResult";
-import { QueryRole } from "../../domain/GitHubSearchList/QueryRole";
+import { QueryRole, UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
 import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
-import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
 import { createOSNoticesFromStreams } from "../../domain/GitHubSearchStream/GitHubStreamNoticeFactory";
 
@@ -58,9 +57,7 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
         if (!gitHubSetting) {
             return Promise.reject(
                 new Error(
-                    `Not found GitHubSetting. Please check the GitHubSetting of the query:${
-                        query.name
-                    }`
+                    `Not found GitHubSetting. Please check the GitHubSetting of the query:${query.name}`
                 )
             );
         }

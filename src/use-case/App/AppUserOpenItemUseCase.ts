@@ -1,5 +1,4 @@
 // MIT © 2017 azu
-const debug = require("debug")("AppUserOpenItemUseCase");
 import { UseCase } from "almin";
 import { OpenItemInNewTabUseCase } from "./OpenItemInNewTabUseCase";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
@@ -13,6 +12,7 @@ import {
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { PrefetchItemsForOpen } from "./PrefetchItemsForOpen";
+const debug = require("debug")("AppUserOpenItemUseCase");
 
 export const createAppUserOpenItemUseCase = () => {
     return new AppUserOpenItemUseCase(

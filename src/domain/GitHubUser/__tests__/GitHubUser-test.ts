@@ -10,6 +10,7 @@ describe("GitHubUser", () => {
                     {
                         id: "6143438277",
                         type: "CreateEvent",
+                        isRead: true,
                         actor: {
                             id: 19714,
                             login: "azu",

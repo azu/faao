@@ -1,8 +1,8 @@
 import { App } from "../App/App";
 import { GitHubSearchStream } from "./GitHubSearchStream";
 import { OSNotice } from "../Notice/OSNotice";
-import { UnionQuery } from "../GitHubSearchList/GitHubSearchList";
 import { from } from "fromfrom";
+import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
 
 /**
  * Create OS Notices from updated Streams.

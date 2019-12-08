@@ -4,8 +4,8 @@ import {
     GitHubSearchListRepository,
     gitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { UnionQuery, UnionQueryJSON } from "../../domain/GitHubSearchList/GitHubSearchList";
-import { createQueryFromUnionQueryJSON } from "../../domain/GitHubSearchList/QueryService";
+import { createQueryFromUnionQueryJSON } from "../../domain/GitHubSearchList/queries/QueryService";
+import { UnionQuery, UnionQueryJSON } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export const createUpdateQueryToSearchListUseCase = () => {
     return new UpdateQueryToSearchListUseCase(gitHubSearchListRepository);

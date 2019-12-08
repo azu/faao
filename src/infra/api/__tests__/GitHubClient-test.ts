@@ -1,9 +1,9 @@
 import { GitHubClient } from "../GitHubClient";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
-import { GitHubSearchQueryFactory } from "../../../domain/GitHubSearchList/GitHubSearchQueryFactory";
-import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/FaaoSearchQuery";
-import { FaaoSearchQueryParams } from "../../../domain/GitHubSearchList/FaaoSearchQueryParams";
-import { FaaoSearchQueryParam } from "../../../domain/GitHubSearchList/FaaoSearchQueryParam";
+import { GitHubSearchQueryFactory } from "../../../domain/GitHubSearchList/queries/GitHubSearchQueryFactory";
+import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
+import { FaaoSearchQueryParams } from "../../../domain/GitHubSearchList/queries/FaaoSearchQueryParams";
+import { FaaoSearchQueryParam } from "../../../domain/GitHubSearchList/queries/FaaoSearchQueryParam";
 
 const GH_TOKEN = process.env.TEST_GH_TOKEN;
 describe("GitHubClient", function() {

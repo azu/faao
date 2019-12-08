@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
-import { UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { createAppUserOpenStreamUseCase } from "./AppUserOpenStreamUseCase";
 import { createAppUserOpenItemUseCase } from "./AppUserOpenItemUseCase";

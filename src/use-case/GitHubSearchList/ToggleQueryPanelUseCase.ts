@@ -1,8 +1,9 @@
 // MIT © 2017 azu
 import { Payload, UseCase } from "almin";
-import { isGitHubSearchQuery } from "../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchList, UnionQuery } from "../../domain/GitHubSearchList/GitHubSearchList";
+import { isGitHubSearchQuery } from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
+import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { QueryPanelType } from "../../store/GitHubSearchListStore/GitHubSearchListStore";
+import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export class OpenQueryPanelUseCasePayload extends Payload {
     type = "OpenQueryPanelUseCasePayload";

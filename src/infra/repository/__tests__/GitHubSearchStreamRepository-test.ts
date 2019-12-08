@@ -1,14 +1,13 @@
 // MIT © 2017 azu
 import { GitHubSearchStreamRepository } from "../GitHubSearchStreamRepository";
 import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
-import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/GitHubSearchQuery";
-import { GitHubSearchQueryColor } from "../../../domain/GitHubSearchList/GitHubSearchQueryColor";
+import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/queries/GitHubSearchQuery";
+import { GitHubSearchQueryColor } from "../../../domain/GitHubSearchList/queries/GitHubSearchQueryColor";
 import localForage from "localforage";
 import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { storageManger } from "../Storage";
 
-const memoryStorageDriver = require("localforage-memoryStorageDriver");
 describe("GitHubSearchStreamRepository", () => {
     beforeEach(async () => {
         await storageManger.useMemoryDriver();
@@ -47,8 +46,6 @@ describe("GitHubSearchStreamRepository", () => {
             await repository.saveWithQuery(stream, testQuery);
             const resultStream = repository.findByQuery(testQuery);
             expect(resultStream).not.toBeUndefined();
-            const actualItems = stream.items.map(item => item.toJSON());
-            expect(actualItems).toMatchSnapshot();
         });
     });
 });

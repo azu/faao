@@ -1,8 +1,8 @@
-import { Identifier } from "../Entity";
-import { GitHubSetting } from "../GitHubSetting/GitHubSetting";
+import { Identifier } from "../../Entity";
+import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
 import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
 import { FaaoSearchQueryParams, FaaoSearchQueryParamsJSON } from "./FaaoSearchQueryParams";
-import { isQueryRoleJSON, QueryRoleJSON } from "./QueryRole";
+import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
 import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
 
 export type FaaoSearchQueryJSON = {
@@ -29,7 +29,7 @@ export const isFaaoSearchQueryJSON = (query: any): query is FaaoSearchQueryJSON 
  * It focus on specific item.
  * Similar with GitHubSearchQuery.
  */
-export class FaaoSearchQuery {
+export class FaaoSearchQuery implements QueryRole {
     readonly name: string;
     searchParams: FaaoSearchQueryParams;
     color: GitHubSearchQueryColor;

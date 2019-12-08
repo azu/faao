@@ -3,9 +3,10 @@
 import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
-import { GitHubSearchList, UnionQuery } from "../GitHubSearchList/GitHubSearchList";
+import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
+import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;
