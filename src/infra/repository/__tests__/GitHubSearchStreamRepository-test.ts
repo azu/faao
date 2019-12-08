@@ -46,8 +46,6 @@ describe("GitHubSearchStreamRepository", () => {
             await repository.saveWithQuery(stream, testQuery);
             const resultStream = repository.findByQuery(testQuery);
             expect(resultStream).not.toBeUndefined();
-            const actualItems = stream.items.map(item => item.toJSON());
-            expect(actualItems).toMatchSnapshot();
         });
     });
 });

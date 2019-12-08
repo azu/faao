@@ -80,7 +80,7 @@ export class GitHubSearchResultItemSortedCollection {
             })
             .sortByDescending(item => {
                 if (args.sortType === SortType.created) {
-                    return item.updated_at;
+                    return item.created_at;
                 } else if (args.sortType === SortType.updated) {
                     return item.updated_at;
                 }
