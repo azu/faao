@@ -1,19 +1,16 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
-import { GitHubSearchQuery } from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import {
     gitHubSearchListRepository,
     GitHubSearchListRepository
 } from "../../infra/repository/GitHubSearchListRepository";
-import { isFaaoSearchQuery } from "../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import {
     GitHubSearchStreamRepository,
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
-import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
-import { isGitHubNotificationQuery } from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
+import { isUnionQuery, UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
 
 export const createAppUserOpenStreamUseCase = () => {
     return new AppUserOpenStreamUseCase(
@@ -34,11 +31,7 @@ export class AppUserOpenStreamUseCase extends UseCase {
 
     execute(query: UnionQuery | GitHubSearchList) {
         const app = this.appRepository.get();
-        if (
-            GitHubSearchQuery.isQuery(query) ||
-            isFaaoSearchQuery(query) ||
-            isGitHubNotificationQuery(query)
-        ) {
+        if (isUnionQuery(query)) {
             const searchList = this.gitHubSearchListRepository.findByQuery(query);
             if (!searchList) {
                 throw new Error(`Not Found SearchList for query: ${query.name}`);
