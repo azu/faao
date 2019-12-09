@@ -10,7 +10,6 @@ import {
 
 export const createQueryFromUnionQueryJSON = (queryJSON: UnionQueryJSON): UnionQuery => {
     if (isGitHubReceivedEventsForUserQueryJSON(queryJSON)) {
-        console.log("THISI S EFVENTES", queryJSON);
         return GitHubReceivedEventsForUserQuery.fromJSON(queryJSON);
     } else if (isGitHubNotificationQueryJSON(queryJSON)) {
         return GitHubNotificationQuery.fromJSON(queryJSON);
