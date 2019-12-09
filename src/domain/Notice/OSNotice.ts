@@ -2,6 +2,7 @@
 import { AbstractNotice } from "./Notice";
 import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
+import { SortedCollectionItem } from "../GitHubSearchStream/SortedCollection";
 
 export interface SearchQueryErrorNoticeArgs {
     title: string;
@@ -11,7 +12,7 @@ export interface SearchQueryErrorNoticeArgs {
     silent?: boolean;
     refs: {
         query: UnionQuery;
-        item: GitHubSearchResultItem;
+        item: SortedCollectionItem;
     };
 }
 
@@ -30,7 +31,7 @@ export class OSNotice extends AbstractNotice {
     // TODO: it can be GC?
     refs: {
         query: UnionQuery;
-        item: GitHubSearchResultItem;
+        item: SortedCollectionItem;
     };
 
     constructor(args: SearchQueryErrorNoticeArgs) {

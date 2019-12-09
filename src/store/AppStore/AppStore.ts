@@ -1,23 +1,23 @@
 // MIT © 2017 azu
 import { Store } from "almin";
 import { GitHubSearchStream } from "../../domain/GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { AppRepository } from "../../infra/repository/AppRepository";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchListRepository } from "../../infra/repository/GitHubSearchListRepository";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
+import { GitHubActiveItem } from "../../domain/App/Activity/GitHubActiveItem";
 
 export interface AppStateArgs {
     activeStream?: GitHubSearchStream;
-    activeItem?: GitHubSearchResultItem;
+    activeItem?: GitHubActiveItem;
     activeQuery?: UnionQuery;
     activeSearchList?: GitHubSearchList;
 }
 
 export class AppState implements AppStateArgs {
     activeStream?: GitHubSearchStream;
-    activeItem?: GitHubSearchResultItem;
+    activeItem?: GitHubActiveItem;
     activeQuery?: UnionQuery;
     activeSearchList?: GitHubSearchList;
 

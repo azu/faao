@@ -13,7 +13,6 @@ import isElectron from "is-electron";
 import { createAppUserOpenStreamWithItemUseCase } from "../../../use-case/App/AppUserOpenStreamWithItemUseCase";
 import { createMarkOSNoticesAsShownUseCase } from "../../../use-case/Notice/MarkOSNoticesAsShownUseCase";
 import { encode } from "base64-arraybuffer";
-
 const debug = require("debug")("faao:ErrorContainer");
 const showOSNotifications = (notices: OSNotice[], onClick: (notice: OSNotice) => void) => {
     if (!isElectron()) {
@@ -87,7 +86,9 @@ export class ErrorContainer extends BaseContainer<ErrorContainerProps, {}> {
     componentDidUpdate(prevProps: Readonly<ErrorContainerProps>): void {
         const currentOSNotices = this.props.notice.osNotices;
         if (!shallowEqual(prevProps.notice.osNotices, currentOSNotices)) {
-            showOSNotifications(currentOSNotices, this.onClickNotification)
+            showOSNotifications(currentOSNotices, notice => {
+                this.onClickNotification(notice);
+            })
                 .catch(error => {
                     debug("Throw Error on showing OS Notices", error);
                 })

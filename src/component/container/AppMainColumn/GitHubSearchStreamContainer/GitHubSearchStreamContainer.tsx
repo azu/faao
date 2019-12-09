@@ -14,6 +14,7 @@ import { ProgressColorBar } from "../../../project/ProgressColorBar/ProgressColo
 import { FaaoSearchQuery } from "../../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
 import { GitHubSearchListState } from "../../../../store/GitHubSearchListStore/GitHubSearchListStore";
 import { createUpdateFaaoQueryParamUseCase } from "../../../../use-case/GitHubSearchList/UpdateFaaoQueryParamUseCase";
+import { GitHubSearchStreamStateItem } from "../../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 
 export interface GitHubSearchStreamContainerProps {
     className?: string;
@@ -26,12 +27,12 @@ export class GitHubSearchStreamContainer extends BaseContainer<
     GitHubSearchStreamContainerProps,
     {}
 > {
-    onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+    onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchStreamStateItem) => {
         event.preventDefault();
         this.useCase(createAppUserOpenItemUseCase()).execute(item);
     };
 
-    onClickQueryOptionMenu = (item: GitHubSearchResultItem, query: FaaoSearchQuery) => {
+    onClickQueryOptionMenu = (item: GitHubSearchStreamStateItem, query: FaaoSearchQuery) => {
         this.useCase(createUpdateFaaoQueryParamUseCase()).execute(
             {
                 url: item.html_url

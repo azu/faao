@@ -4,16 +4,17 @@
  */
 import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchResultItemSortedCollection } from "../GitHubSearchResultItemSortedCollection";
-import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
-import { GitHubSearchResultJSON } from "../GitHubSearchResult";
+import { RawGitHubSearchResultJSON } from "../GitHubSearchResultFactory";
 
-const createCollection = (json: GitHubSearchResultJSON): GitHubSearchResultItemSortedCollection => {
+const createCollection = (
+    json: RawGitHubSearchResultJSON
+): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromSearchResultJSON(json);
-    return stream.itemSortedCollection;
+    return stream.itemSortedCollection as GitHubSearchResultItemSortedCollection;
 };
-const createItems = (json: GitHubSearchResultJSON): GitHubSearchResultItem[] => {
+const createItems = (json: RawGitHubSearchResultJSON): GitHubSearchResultItem[] => {
     return json.items.map(rawItem => {
         return GitHubSearchResultItem.fromJSON(rawItem);
     });
@@ -43,6 +44,24 @@ describe("GitHubSearchResultItemCollection", () => {
             const newCollection = createCollection(require("./fixtures/diff/5-items.json"));
             const results = newCollection.differenceCollection(sourceCollection);
             expect(results.itemCount).toBe(2);
+        });
+    });
+    describe("#sliceItemsFromCurrentItem", () => {
+        it("should slice +1", () => {
+            const collection = createCollection(require("./fixtures/2017-06-25-result.json"));
+            const newItems = createItems(require("./fixtures/2017-06-26-new-result.json"));
+            const newCollection = collection.mergeItems(newItems);
+            const slicedItems = newCollection.sliceItemsFromCurrentItem(newItems[0], 1);
+            expect(slicedItems).toHaveLength(1);
+        });
+        it("should slice -1", () => {
+            const collection = createCollection(require("./fixtures/2017-06-25-result.json"));
+            const newItems = createItems(require("./fixtures/2017-06-26-new-result.json"));
+            // unshift
+            const newCollection = collection.mergeItems(newItems);
+            const oldItem = collection.items[0];
+            const slicedItems = newCollection.sliceItemsFromCurrentItem(oldItem, -1);
+            expect(slicedItems).toHaveLength(1);
         });
     });
     describe("#filterBySearchFilter", () => {

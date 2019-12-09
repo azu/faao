@@ -1,6 +1,5 @@
 // MIT © 2017 azu
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { ActivityHistory, ActivityHistoryItem, ActivityHistoryJSON } from "./ActivityHistory";
 import { Identifier } from "../Entity";
@@ -23,6 +22,7 @@ import {
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 import { NotificationActivity, NotificationActivityJSON } from "./NotificationActivity";
 import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
+import { GitHubActiveItem } from "./Activity/GitHubActiveItem";
 
 // menu
 export type OpenedMenu = OpenedGitHubSearchList;
@@ -46,7 +46,7 @@ export interface AppUserActivityJSON {
 }
 
 export interface AppUserActivityArgs {
-    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    streamItemHistory: ActivityHistory<GitHubActiveItem>;
     userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
     notificationActivity: NotificationActivity;
     openedMenu?: OpenedMenu;
@@ -54,7 +54,7 @@ export interface AppUserActivityArgs {
 }
 
 export class AppUserActivity {
-    streamItemHistory: ActivityHistory<GitHubSearchResultItem>;
+    streamItemHistory: ActivityHistory<GitHubActiveItem>;
     userEventHistory: ActivityHistory<GitHubUserActivityEvent>;
     notificationActity: NotificationActivity;
     openedMenu?: OpenedGitHubSearchList;
@@ -102,7 +102,7 @@ export class AppUserActivity {
         return isOpenedGitHubUser(this.openedContent) ? this.openedContent.gitHubUserId : undefined;
     }
 
-    get openedItem(): GitHubSearchResultItem | undefined {
+    get openedItem(): GitHubActiveItem | undefined {
         return isOpenedGitHubStream(this.openedContent) ? this.openedContent.item : undefined;
     }
 
@@ -118,7 +118,7 @@ export class AppUserActivity {
         }
     }
 
-    activateItem(item: GitHubSearchResultItem) {
+    activateItem(item: GitHubActiveItem) {
         if (isOpenedGitHubStream(this.openedContent)) {
             this.openedContent = this.openedContent.openItem(item);
             this.streamItemHistory.readItem(

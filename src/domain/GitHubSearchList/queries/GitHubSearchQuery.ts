@@ -1,5 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
+import { QueryColor } from "./QueryColor";
 import { Identifier } from "../../Entity";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
 import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
@@ -13,7 +13,7 @@ export type GitHubSearchQueryJSON = {
 export interface GitHubSearchQueryArgs {
     name: string;
     query: string;
-    color: GitHubSearchQueryColor;
+    color: QueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 }
 
@@ -28,7 +28,7 @@ export const isGitHubSearchQuery = (query: any): query is GitHubSearchQuery => {
 export class GitHubSearchQuery implements QueryRole {
     name: string;
     query: string;
-    color: GitHubSearchQueryColor;
+    color: QueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 
     static isQuery(v: any): v is GitHubSearchQuery {
@@ -73,7 +73,7 @@ export class GitHubSearchQuery implements QueryRole {
     static fromJSON(json: GitHubSearchQueryJSON): GitHubSearchQuery {
         const setting = Object.create(GitHubSearchQuery.prototype);
         return Object.assign(setting, json, {
-            color: GitHubSearchQueryColor.createFromHexCode(json.color),
+            color: QueryColor.createFromHexCode(json.color),
             gitHubSettingId: new Identifier<GitHubSetting>(json.gitHubSettingId)
         });
     }

@@ -2,7 +2,7 @@
 import { GitHubSearchStreamRepository } from "../GitHubSearchStreamRepository";
 import { GitHubSearchStreamFactory } from "../../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { GitHubSearchQuery } from "../../../domain/GitHubSearchList/queries/GitHubSearchQuery";
-import { GitHubSearchQueryColor } from "../../../domain/GitHubSearchList/queries/GitHubSearchQueryColor";
+import { QueryColor } from "../../../domain/GitHubSearchList/queries/QueryColor";
 import localForage from "localforage";
 import { Identifier } from "../../../domain/Entity";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
@@ -22,7 +22,7 @@ describe("GitHubSearchStreamRepository", () => {
             const testQuery = new GitHubSearchQuery({
                 name: "test",
                 query: "test",
-                color: new GitHubSearchQueryColor("#000000"),
+                color: new QueryColor("#000000"),
                 gitHubSettingId: new Identifier<GitHubSetting>("test@github.com")
             });
             const result = repository.findByQuery(testQuery);
@@ -40,7 +40,7 @@ describe("GitHubSearchStreamRepository", () => {
             const testQuery = new GitHubSearchQuery({
                 name: "test",
                 query: "test",
-                color: new GitHubSearchQueryColor("#000000"),
+                color: new QueryColor("#000000"),
                 gitHubSettingId: new Identifier<GitHubSetting>("test@github.com")
             });
             await repository.saveWithQuery(stream, testQuery);

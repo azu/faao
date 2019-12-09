@@ -1,6 +1,6 @@
 import { Identifier } from "../../Entity";
 import { GitHubSetting } from "../../GitHubSetting/GitHubSetting";
-import { GitHubSearchQueryColor } from "./GitHubSearchQueryColor";
+import { QueryColor } from "./QueryColor";
 import { FaaoSearchQueryParams, FaaoSearchQueryParamsJSON } from "./FaaoSearchQueryParams";
 import { isQueryRoleJSON, QueryRole, QueryRoleJSON } from "./QueryRole";
 import { FaaoSearchQueryParam } from "./FaaoSearchQueryParam";
@@ -12,7 +12,7 @@ export type FaaoSearchQueryJSON = {
 export interface FaaoSearchQueryArgs {
     name: string;
     searchParams: FaaoSearchQueryParams;
-    color: GitHubSearchQueryColor;
+    color: QueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 }
 
@@ -32,7 +32,7 @@ export const isFaaoSearchQueryJSON = (query: any): query is FaaoSearchQueryJSON 
 export class FaaoSearchQuery implements QueryRole {
     readonly name: string;
     searchParams: FaaoSearchQueryParams;
-    color: GitHubSearchQueryColor;
+    color: QueryColor;
     gitHubSettingId: Identifier<GitHubSetting>;
 
     constructor(args: FaaoSearchQueryArgs) {
@@ -64,7 +64,7 @@ export class FaaoSearchQuery implements QueryRole {
     static fromJSON(json: FaaoSearchQueryJSON): FaaoSearchQuery {
         const setting = Object.create(FaaoSearchQuery.prototype);
         return Object.assign(setting, json, {
-            color: GitHubSearchQueryColor.createFromHexCode(json.color),
+            color: QueryColor.createFromHexCode(json.color),
             searchParams: FaaoSearchQueryParams.fromJSON(json.searchParams),
             gitHubSettingId: new Identifier<GitHubSetting>(json.gitHubSettingId)
         });

@@ -145,3 +145,7 @@
     position: absolute;
     top: 0;
 }
+
+.SearchResultListItem-linkIcon {
+    margin-right: 2px;
+}

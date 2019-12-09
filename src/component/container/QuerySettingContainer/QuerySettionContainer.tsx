@@ -16,6 +16,10 @@ import {
     FaaoSearchQueryJSON,
     isFaaoSearchQuery
 } from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
+import {
+    GitHubLikeQueryJSON,
+    isGitHubLikeQuery
+} from "../../../domain/GitHubSearchList/queries/QueryRole";
 
 export interface QuickIssueContainerProps {
     gitHubSearchList: GitHubSearchListState;
@@ -48,10 +52,10 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
         }
     };
 
-    onGitHubQuerySubmit = async (queryJSON: GitHubSearchQueryJSON) => {
+    onGitHubQuerySubmit = async (queryJSON: GitHubLikeQueryJSON) => {
         try {
             const editingQuery = this.props.gitHubSearchList.editingQuery;
-            if (isGitHubSearchQuery(editingQuery)) {
+            if (isGitHubLikeQuery(editingQuery)) {
                 // edit query
                 await this.useCase(createUpdateQueryToSearchListUseCase()).execute(
                     queryJSON,
@@ -79,7 +83,7 @@ export class QuerySettingContainer extends BaseContainer<QuickIssueContainerProp
             <>
                 <QuerySettingPanel
                     isOpen={this.props.gitHubSearchList.openQueryPanelState === "github"}
-                    query={isGitHubSearchQuery(editingQuery) ? editingQuery : undefined}
+                    query={isGitHubLikeQuery(editingQuery) ? editingQuery : undefined}
                     onDismiss={this.onDismiss}
                     onSubmit={this.onGitHubQuerySubmit}
                     settings={this.props.gitHubSetting.settings}

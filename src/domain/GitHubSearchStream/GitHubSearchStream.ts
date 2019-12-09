@@ -1,22 +1,33 @@
 // MIT © 2017 azu
 import { GitHubSearchResult } from "./GitHubSearchResult";
-import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
+import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
 import {
     GitHubSearchResultItemSortedCollection,
     GitHubSearchResultItemSortedCollectionJSON
 } from "./GitHubSearchResultItemSortedCollection";
 import { SearchFilter } from "./SearchFilter/SearchFilter";
 import { Identifier } from "../Entity";
+import {
+    GitHubEventSortedCollection,
+    GitHubEventSortedCollectionJSON
+} from "./GitHubEventSortedCollection";
+import { SortedCollectionItem } from "./SortedCollection";
 
 export interface GitHubSearchStreamJSON {
     id: string;
-    itemSortedCollection: GitHubSearchResultItemSortedCollectionJSON;
+    itemSortedCollection:
+        | GitHubSearchResultItemSortedCollectionJSON
+        | GitHubEventSortedCollectionJSON;
 }
 
 export interface GitHubSearchStreamArgs {
     id: Identifier<GitHubSearchStream>;
-    itemSortedCollection: GitHubSearchResultItemSortedCollection;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection | GitHubEventSortedCollection;
 }
+
+type ResultItem = never;
+type SearchResult = never;
+type SearchResultCollection = never;
 
 /**
  * Stream has items
@@ -24,7 +35,7 @@ export interface GitHubSearchStreamArgs {
  */
 export class GitHubSearchStream {
     id: Identifier<GitHubSearchStream>;
-    itemSortedCollection: GitHubSearchResultItemSortedCollection;
+    itemSortedCollection: GitHubSearchResultItemSortedCollection | GitHubEventSortedCollection;
 
     constructor(args: GitHubSearchStreamArgs) {
         this.id = args.id;
@@ -34,7 +45,7 @@ export class GitHubSearchStream {
     /**
      * sort/filtered items
      */
-    get items(): GitHubSearchResultItem[] {
+    get items() {
         return this.itemSortedCollection.items;
     }
 
@@ -71,7 +82,7 @@ export class GitHubSearchStream {
         });
     }
 
-    removeItemFromStream(item: GitHubSearchResultItem) {
+    removeItemFromStream(item: SortedCollectionItem) {
         return new GitHubSearchStream({
             ...this,
             itemSortedCollection: this.itemSortedCollection.removeItem(item)
@@ -106,9 +117,18 @@ export class GitHubSearchStream {
     static fromJSON(json: GitHubSearchStreamJSON): GitHubSearchStream {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(json.id),
-            itemSortedCollection: GitHubSearchResultItemSortedCollection.fromJSON(
-                json.itemSortedCollection
-            )
+            itemSortedCollection: (() => {
+                if (json.itemSortedCollection.type === "GitHubEventSortedCollection") {
+                    return GitHubEventSortedCollection.fromJSON(json.itemSortedCollection);
+                } else if (
+                    json.itemSortedCollection.type === "GitHubSearchResultItemSortedCollection"
+                ) {
+                    return GitHubSearchResultItemSortedCollection.fromJSON(
+                        json.itemSortedCollection
+                    );
+                }
+                return fail(json.itemSortedCollection);
+            })()
         });
     }
 
@@ -118,4 +138,8 @@ export class GitHubSearchStream {
             itemSortedCollection: this.itemSortedCollection.toJSON()
         };
     }
+}
+
+function fail(...args: never[]): never {
+    throw new Error("Unhandled type:" + args);
 }

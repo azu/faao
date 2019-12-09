@@ -11,6 +11,7 @@ import {
     isFaaoSearchQueryJSON
 } from "../../GitHubSearchList/queries/FaaoSearchQuery";
 import { UnionQuery, UnionQueryJSON } from "../../GitHubSearchList/queries/QueryRole";
+import { createQueryFromUnionQueryJSON } from "../../GitHubSearchList/queries/QueryService";
 
 export interface OpenedGitHubSearchListJSON {
     type: "OpenedGitHubSearchList";
@@ -45,14 +46,7 @@ export class OpenedGitHubSearchList extends ValueObject implements OpenedGitHubS
     static fromJSON(json: OpenedGitHubSearchListJSON): OpenedGitHubSearchList {
         return new OpenedGitHubSearchList({
             gitHubSearchListId: new Identifier<GitHubSearchList>(json.gitHubSearchListId),
-            query: (query => {
-                if (isGitHubSearchQueryJSON(query)) {
-                    return GitHubSearchQuery.fromJSON(query);
-                } else if (isFaaoSearchQueryJSON(query)) {
-                    return FaaoSearchQuery.fromJSON(query);
-                }
-                return;
-            })(json.query)
+            query: json.query ? createQueryFromUnionQueryJSON(json.query) : undefined
         });
     }
 

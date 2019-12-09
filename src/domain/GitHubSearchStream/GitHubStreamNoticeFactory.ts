@@ -45,7 +45,7 @@ export const createOSNoticesFromStreams = ({
                 title: item.title,
                 body: item.body || "",
                 subTitle: item.shortPath,
-                icon: item.user.avatar_url,
+                icon: item.avatarUrl,
                 refs: {
                     query: query,
                     item: item

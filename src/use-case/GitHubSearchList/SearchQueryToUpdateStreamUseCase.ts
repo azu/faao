@@ -16,6 +16,12 @@ import { createShowOSNoticesUseCase } from "../Notice/ShowOSNoticesUseCase";
 import { GitHubSearchStreamFactory } from "../../domain/GitHubSearchStream/GitHubSearchStreamFactory";
 import { AppRepository, appRepository } from "../../infra/repository/AppRepository";
 import { createOSNoticesFromStreams } from "../../domain/GitHubSearchStream/GitHubStreamNoticeFactory";
+import { isGitHubNotificationQuery } from "../../domain/GitHubSearchList/queries/GitHubNotificationQuery";
+import {
+    GitHubSearchListRepository,
+    gitHubSearchListRepository
+} from "../../infra/repository/GitHubSearchListRepository";
+import { isGitHubReceivedEventsForUserQuery } from "../../domain/GitHubSearchList/queries/GitHubReceivedEventsForUserQuery";
 
 const debug = require("debug")("faao:SearchGitHubUseCase");
 
@@ -30,6 +36,7 @@ export class LoadingFinishedPayload extends Payload {
 export const createSearchQueryToUpdateStreamUseCase = () => {
     return new SearchQueryToUpdateStreamUseCase(
         gitHubSettingRepository,
+        gitHubSearchListRepository,
         gitHubSearchStreamRepository,
         appRepository
     );
@@ -43,6 +50,7 @@ export const createSearchQueryToUpdateStreamUseCase = () => {
 export class SearchQueryToUpdateStreamUseCase extends UseCase {
     constructor(
         private gitHubSettingRepository: GitHubSettingRepository,
+        private gitHubSearchListRepository: GitHubSearchListRepository,
         private gitHubSearchStreamRepository: GitHubSearchStreamRepository,
         private appRepository: AppRepository
     ) {
@@ -66,48 +74,88 @@ export class SearchQueryToUpdateStreamUseCase extends UseCase {
         let lastStream: undefined | GitHubSearchStream;
         return new Promise((resolve, reject) => {
             this.dispatch(new LoadingStartedPayload());
-            gitHubClient.search(
-                query,
-                async (result: GitHubSearchResult) => {
-                    const stream =
-                        this.gitHubSearchStreamRepository.findByQuery(query) ||
-                        GitHubSearchStreamFactory.create();
-                    debug("Searching result", result);
-                    const continueToNext = !stream.alreadyHasResult(result);
-                    debug("continueToNext", continueToNext);
-                    const newStream = stream.mergeResult(result);
-                    // save current stream
-                    await this.gitHubSearchStreamRepository.saveWithQuery(newStream, query);
-                    lastStream = newStream;
-                    // refresh view
-                    this.dispatch({ type: "ChangedPayload" });
-                    return continueToNext;
-                },
-                async (error: Error) => {
-                    console.error(error.message, error.stack);
-                    const stream = this.gitHubSearchStreamRepository.findByQuery(query);
-                    if (!stream) {
-                        throw new Error("stream is not found");
+            if (isGitHubReceivedEventsForUserQuery(query)) {
+                gitHubClient.searchGitHubEventsForUser(
+                    query,
+                    error => {
+                        return Promise.reject(error);
+                    },
+                    async ({ result, eTag }) => {
+                        const searchList = this.gitHubSearchListRepository.findByQuery(query);
+                        if (!searchList) {
+                            throw new Error("Not found searchList for query: " + query);
+                        }
+                        const stream =
+                            this.gitHubSearchStreamRepository.findByQuery(query) ||
+                            GitHubSearchStreamFactory.create();
+                        debug("Searching events", result);
+                        const newStream = stream.mergeResult(result);
+                        // save current stream
+                        await this.gitHubSearchStreamRepository.saveWithQuery(newStream, query);
+                        lastStream = newStream;
+                        this.dispatch({ type: "ChangedPayload" });
+                        const newSearchList = searchList.replaceQuery(
+                            query,
+                            query.refreshQueryWithETag(eTag)
+                        );
+                        await this.gitHubSearchListRepository.save(newSearchList);
                     }
-                    const newStream = stream.clear();
-                    await gitHubSearchStreamRepository.saveWithQuery(newStream, query);
-                    reject(error);
-                },
-                () => {
-                    debug(`Searching Complete! Query:${query.name}`);
-                    const app = this.appRepository.get();
-                    const osNotices = createOSNoticesFromStreams({
-                        app,
-                        query: query as UnionQuery,
-                        firstStream: firstStream,
-                        lastStream: lastStream
-                    });
-                    this.context
-                        .useCase(createShowOSNoticesUseCase())
-                        .execute(osNotices)
-                        .then(() => resolve());
-                }
-            );
+                );
+            } else {
+                gitHubClient.search(
+                    query,
+                    async (result: GitHubSearchResult) => {
+                        const stream =
+                            this.gitHubSearchStreamRepository.findByQuery(query) ||
+                            GitHubSearchStreamFactory.create();
+                        debug("Searching result", result);
+                        const continueToNext = !stream.alreadyHasResult(result);
+                        debug("continueToNext", continueToNext);
+                        const newStream = stream.mergeResult(result);
+                        // save current stream
+                        await this.gitHubSearchStreamRepository.saveWithQuery(newStream, query);
+                        lastStream = newStream;
+                        // refresh view
+                        this.dispatch({ type: "ChangedPayload" });
+                        return continueToNext;
+                    },
+                    async (error: Error) => {
+                        console.error(error.message, error.stack);
+                        const stream = this.gitHubSearchStreamRepository.findByQuery(query);
+                        if (!stream) {
+                            throw new Error("stream is not found");
+                        }
+                        const newStream = stream.clear();
+                        await gitHubSearchStreamRepository.saveWithQuery(newStream, query);
+                        reject(error);
+                    },
+                    () => {
+                        // update NotificationQuery
+                        if (isGitHubNotificationQuery(query)) {
+                            const searchList = this.gitHubSearchListRepository.findByQuery(query);
+                            if (searchList) {
+                                const newSearchList = searchList.replaceQuery(
+                                    query,
+                                    query.refreshQueryAfterSearch()
+                                );
+                                this.gitHubSearchListRepository.save(newSearchList);
+                            }
+                        }
+                        debug(`Searching Complete! Query:${query.name}`);
+                        const app = this.appRepository.get();
+                        const osNotices = createOSNoticesFromStreams({
+                            app,
+                            query: query as UnionQuery,
+                            firstStream: firstStream,
+                            lastStream: lastStream
+                        });
+                        this.context
+                            .useCase(createShowOSNoticesUseCase())
+                            .execute(osNotices)
+                            .then(() => resolve());
+                    }
+                );
+            }
         }).then(
             () => {
                 this.dispatch(new LoadingFinishedPayload());

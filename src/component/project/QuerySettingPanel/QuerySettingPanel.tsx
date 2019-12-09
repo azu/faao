@@ -11,21 +11,22 @@ import {
     PrimaryButton,
     TextField
 } from "office-ui-fabric-react";
-import {
-    GitHubSearchQuery,
-    GitHubSearchQueryJSON
-} from "../../../domain/GitHubSearchList/queries/GitHubSearchQuery";
 import { GitHubSetting } from "../../../domain/GitHubSetting/GitHubSetting";
 import { ColorState, GithubPicker } from "react-color";
+import {
+    GitHubLikeQuery,
+    GitHubLikeQueryJSON
+} from "../../../domain/GitHubSearchList/queries/QueryRole";
+import { isGitHubReceivedEventsForUserQuery } from "../../../domain/GitHubSearchList/queries/GitHubReceivedEventsForUserQuery";
 
 export interface QuerySettingPanelProps {
     settings: GitHubSetting[];
-    query?: GitHubSearchQuery;
+    query?: GitHubLikeQuery;
     isOpen: boolean;
     // when close panel
     onDismiss: () => void;
     // when submit from panel
-    onSubmit: (queryJSON: GitHubSearchQueryJSON) => void;
+    onSubmit: (queryJSON: GitHubLikeQueryJSON) => void;
 }
 
 export interface QuerySettingPanelState {
@@ -99,10 +100,10 @@ export class QuerySettingPanel extends React.Component<
         return true;
     };
 
-    updateStateWithQuery = (query: GitHubSearchQuery) => {
+    updateStateWithQuery = (query: GitHubLikeQuery) => {
         this.setState({
             gitHubSettingId: query.gitHubSettingId.toValue(),
-            query: query.query,
+            query: isGitHubReceivedEventsForUserQuery(query) ? query.query.toValue() : query.query,
             name: query.name,
             color: query.color.hexCode
         });

@@ -1,4 +1,5 @@
 import { Identifier } from "../Entity";
+import { SortedCollectionItem } from "./SortedCollection";
 
 const ghUrlToObject = require("github-url-to-object");
 
@@ -54,7 +55,23 @@ export interface GitHubSearchResultItemJSON {
     type: "pr" | "issue";
 }
 
-export class GitHubSearchResultItem {
+export const isGitHubSearchResultItemJSON = (item: any): item is GitHubSearchResultItemJSON => {
+    if (!item) {
+        return false;
+    }
+    // TODO: rough
+    return typeof item.user === "object" && item.title !== undefined && item.id !== undefined;
+};
+
+export const isGitHubSearchResultItem = (item: any): item is GitHubSearchResultItem => {
+    if (!item) {
+        return false;
+    }
+    return item instanceof GitHubSearchResultItem;
+};
+
+export class GitHubSearchResultItem implements SortedCollectionItem {
+    _type = "GitHubSearchResultItem";
     id: Identifier<GitHubSearchResultItem>;
     body: string | null;
     html_url: string;
@@ -99,6 +116,10 @@ export class GitHubSearchResultItem {
 
     get updatedAtDate() {
         return new Date(this.updated_at);
+    }
+
+    get userName() {
+        return this.user && this.user.login;
     }
 
     // owner/repo#number
@@ -159,5 +180,9 @@ export class GitHubSearchResultItem {
         return Object.assign({}, this, {
             id: String(this.id.toValue())
         });
+    }
+
+    get avatarUrl() {
+        return this.user ? this.user.avatar_url : "";
     }
 }

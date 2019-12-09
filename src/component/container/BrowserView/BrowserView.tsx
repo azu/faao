@@ -87,7 +87,6 @@ export class BrowserView extends BaseContainer<Props> {
 
     componentDidMount() {
         ipcRenderer.on("faao-add-url-to-query", (_event: any, url: string, query: string) => {
-            console.log({ query, url });
             this.useCase(createAddUrlToFaaoQueryUseCase()).execute(url, query);
         });
         ipcRenderer.send("browser-view-load-url", this.props.url);
