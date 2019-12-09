@@ -6,13 +6,15 @@ import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchResultItemSortedCollection } from "../GitHubSearchResultItemSortedCollection";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
-import { GitHubSearchResultJSON } from "../GitHubSearchResult";
+import { RawGitHubSearchResultJSON } from "../GitHubSearchResultFactory";
 
-const createCollection = (json: GitHubSearchResultJSON): GitHubSearchResultItemSortedCollection => {
+const createCollection = (
+    json: RawGitHubSearchResultJSON
+): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromSearchResultJSON(json);
     return stream.itemSortedCollection as GitHubSearchResultItemSortedCollection;
 };
-const createItems = (json: GitHubSearchResultJSON): GitHubSearchResultItem[] => {
+const createItems = (json: RawGitHubSearchResultJSON): GitHubSearchResultItem[] => {
     return json.items.map(rawItem => {
         return GitHubSearchResultItem.fromJSON(rawItem);
     });

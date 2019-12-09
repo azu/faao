@@ -17,7 +17,45 @@ export type IconType =
     | "IssueOpenedIcon"
     | "IssueClosedIcon"
     | "GitPullRequestIcon"
-    | "GitMergeIcon";
+    | "GitMergeIcon"
+    | "CommitCommentEvent"
+    | "CreateEvent"
+    | "DeleteEvent"
+    | "DeploymentEvent"
+    | "DeploymentStatusEvent"
+    | "DownloadEvent"
+    | "FollowEvent"
+    | "ForkEvent"
+    | "ForkApplyEvent"
+    | "GistEvent"
+    | "GollumEvent"
+    | "InstallationEvent"
+    | "InstallationRepositoriesEvent"
+    | "IssueCommentEvent"
+    | "IssuesEvent"
+    | "LabelEvent"
+    | "MarketplacePurchaseEvent"
+    | "MemberEvent"
+    | "MembershipEvent"
+    | "MilestoneEvent"
+    | "OrganizationEvent"
+    | "OrgBlockEvent"
+    | "PageBuildEvent"
+    | "ProjectCardEvent"
+    | "ProjectColumnEvent"
+    | "ProjectEvent"
+    | "PublicEvent"
+    | "PullRequestEvent"
+    | "PullRequestReviewEvent"
+    | "PullRequestReviewCommentEvent"
+    | "PushEvent"
+    | "ReleaseEvent"
+    | "RepositoryEvent"
+    | "StatusEvent"
+    | "TeamEvent"
+    | "TeamAddEvent"
+    | "WatchEvent"
+    | string;
 
 export class GitHubSearchStreamStateItem implements SortedCollectionItem {
     private originalItem: GitHubSearchResultItem | GitHubUserActivityEvent;
@@ -56,14 +94,15 @@ export class GitHubSearchStreamStateItem implements SortedCollectionItem {
         isRead: boolean
     ) {
         if (!(isGitHubSearchResultItem(item) || isGitHubUserActivityEvent(item))) {
+            console.error("Unknown Item", item);
             throw new Error("Unknown Item" + item);
         }
         this.originalItem = item;
         this.id = item.id;
         this.idString = item.id.toValue();
         this.type = item.type;
-        this.userName = isGitHubSearchResultItem(item) ? item.user.login : item.shortPath;
-        this.shortPath = isGitHubSearchResultItem(item) ? item.user.login : item.repo.name;
+        this.userName = isGitHubSearchResultItem(item) ? item.userName : item.shortPath;
+        this.shortPath = isGitHubSearchResultItem(item) ? item.userName : item.shortPath;
         this.state = isGitHubSearchResultItem(item) ? item.state : "open";
         this.isRead = isRead;
         this.comments = isGitHubSearchResultItem(item) ? item.comments : null;
@@ -90,9 +129,10 @@ export class GitHubSearchStreamStateItem implements SortedCollectionItem {
             } else {
                 return "IssueClosedIcon";
             }
+        } else {
+            // TODO: Event Icon Type
+            return this.type;
         }
-        console.error(new Error("Unknown icon type"), this);
-        return "IssueOpenedIcon";
     }
 
     get iconColor(): string {

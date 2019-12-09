@@ -113,8 +113,9 @@ export interface GitHubUserActivityEventProps {
 }
 
 export const isGitHubUserActivityEvent = (item: any): item is GitHubUserActivityEvent => {
-    return item.payload !== undefined && item.org && item.repo;
+    return item.payload !== undefined;
 };
+
 export class GitHubUserActivityEvent extends ValueObject implements SortedCollectionItem {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;

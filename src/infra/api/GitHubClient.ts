@@ -502,13 +502,7 @@ ${queries.join("\n")}
     searchGitHubEventsForUser(
         query: GitHubReceivedEventsForUserQuery,
         onError: (error: Error) => void,
-        onComplete: ({
-            events,
-            eTag
-        }: {
-            events: GitHubUserActivityEvent[];
-            eTag: GitHubETag;
-        }) => void
+        onComplete: ({ result, eTag }: { result: GitHubSearchResult; eTag: GitHubETag }) => void
     ) {
         this.octokit.activity
             .listReceivedEventsForUser({
@@ -525,12 +519,20 @@ ${queries.join("\n")}
                     eTag: response.headers.etag
                 };
             })
-            .then(function({ response, eTag }: { response: any; eTag: string }) {
-                const events = response.events.map((item: any) => {
+            .then(function({
+                response,
+                eTag
+            }: {
+                response: GitHubUserActivityEventJSON[];
+                eTag: string;
+            }) {
+                const events = response.map(item => {
                     return GitHubUserActivityEventFactory.create(item);
                 });
-                onComplete({
-                    events,
+                return onComplete({
+                    result: new GitHubSearchResult({
+                        items: events
+                    }),
                     eTag: new GitHubETag(eTag)
                 });
             })
@@ -539,10 +541,12 @@ ${queries.join("\n")}
                 // https://developer.github.com/v3/activity/events/
                 if (errorResponse.status === 304) {
                     console.log("getEvents: response.status: 304");
-                    return {
-                        response: [],
-                        eTag: errorResponse.headers.etag
-                    };
+                    return onComplete({
+                        result: new GitHubSearchResult({
+                            items: []
+                        }),
+                        eTag: new GitHubETag(errorResponse.headers.etag)
+                    });
                 }
                 return onError(errorResponse);
             });

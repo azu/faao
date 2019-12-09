@@ -69,6 +69,11 @@ export type SortedCollectionItemJSON = {
     html_url: string;
 };
 
+export const isSortedCollectionItem = (item: any): item is SortedCollectionItem => {
+    return (
+        item.id && item.title !== undefined && item.avatarUrl && item.html_url && item.updated_at
+    );
+};
 export type SortedCollectionItem = {
     id: Identifier<any>;
     title: string;
@@ -98,7 +103,6 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
     readonly rawItems: SortedCollectionItem[];
     readonly items: SortedCollectionItem[];
     readonly filter: SearchFilter;
-    ["constructor"]: Class<this>;
 
     constructor(args: SortedCollectionItemArgs<T, Type>) {
         this.type = args.type;
@@ -122,14 +126,14 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
     }
 
     applySort(sortType: SortTypeArgs) {
-        return new this.constructor({
+        return new ((this.constructor as Class<this>) as Class<this>)({
             ...this,
             sortType
         });
     }
 
     applyFilter(filter: SearchFilter) {
-        return new this.constructor({
+        return new ((this.constructor as Class<this>) as Class<this>)({
             ...this,
             filter
         });
@@ -150,7 +154,7 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
      * @param collection
      */
     differenceCollection(collection: SortedCollection<any, any>) {
-        return new this.constructor({
+        return new (this.constructor as Class<this>)({
             ...this,
             rawItems: differenceWith(collection.rawItems, this.rawItems)
         });
@@ -175,14 +179,14 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
             }
         });
         const concatItems = savedItems.concat(actualAdding);
-        return new this.constructor({
+        return new (this.constructor as Class<this>)({
             ...this,
             rawItems: concatItems
         });
     }
 
     clear() {
-        return new this.constructor({
+        return new (this.constructor as Class<this>)({
             ...this,
             rawItems: []
         });
@@ -228,7 +232,7 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
         if (index === -1) {
             return this;
         }
-        return new this.constructor({
+        return new (this.constructor as Class<this>)({
             ...this,
             rawItems: splice(this.rawItems, index, 1)
         });

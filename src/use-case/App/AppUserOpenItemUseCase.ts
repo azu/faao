@@ -13,8 +13,14 @@ import {
 import { PrefetchItemsForOpen } from "./PrefetchItemsForOpen";
 import { GitHubSearchStreamStateItem } from "../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 import { GitHubActiveItem, isGitHubActiveItem } from "../../domain/App/Activity/GitHubActiveItem";
-import { Identifier } from "../../domain/Entity";
-import { convertFromStateItemToActiveItem } from "../../domain/App/Activity/GitHubActiveItemService";
+import {
+    convertFromSortedItemToActiveItem,
+    convertFromStateItemToActiveItem
+} from "../../domain/App/Activity/GitHubActiveItemService";
+import {
+    isSortedCollectionItem,
+    SortedCollectionItem
+} from "../../domain/GitHubSearchStream/SortedCollection";
 
 const debug = require("debug")("AppUserOpenItemUseCase");
 
@@ -35,9 +41,13 @@ export class AppUserOpenItemUseCase extends UseCase {
         super();
     }
 
-    async execute(item: GitHubSearchStreamStateItem | GitHubActiveItem) {
+    async execute(item: GitHubSearchStreamStateItem | GitHubActiveItem | SortedCollectionItem) {
         const app = this.appRepository.get();
-        const activeItem = isGitHubActiveItem(item) ? item : convertFromStateItemToActiveItem(item);
+        const activeItem = isGitHubActiveItem(item)
+            ? item
+            : isSortedCollectionItem(item)
+            ? convertFromSortedItemToActiveItem(item)
+            : convertFromStateItemToActiveItem(item);
         app.user.openItem(activeItem);
         await this.appRepository.save(app);
         return this.context

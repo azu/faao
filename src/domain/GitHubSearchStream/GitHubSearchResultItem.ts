@@ -55,14 +55,22 @@ export interface GitHubSearchResultItemJSON {
     type: "pr" | "issue";
 }
 
+export const isGitHubSearchResultItemJSON = (item: any): item is GitHubSearchResultItemJSON => {
+    if (!item) {
+        return false;
+    }
+    return item._type === "GitHubSearchResultItem";
+};
+
 export const isGitHubSearchResultItem = (item: any): item is GitHubSearchResultItem => {
     if (!item) {
         return false;
     }
-    return item.title && item.labels && item.assignees;
+    return item instanceof GitHubSearchResultItem;
 };
 
 export class GitHubSearchResultItem implements SortedCollectionItem {
+    _type = "GitHubSearchResultItem";
     id: Identifier<GitHubSearchResultItem>;
     body: string | null;
     html_url: string;
@@ -107,6 +115,10 @@ export class GitHubSearchResultItem implements SortedCollectionItem {
 
     get updatedAtDate() {
         return new Date(this.updated_at);
+    }
+
+    get userName() {
+        return this.user && this.user.login;
     }
 
     // owner/repo#number
@@ -170,6 +182,6 @@ export class GitHubSearchResultItem implements SortedCollectionItem {
     }
 
     get avatarUrl() {
-        return this.user.avatar_url;
+        return this.user ? this.user.avatar_url : "";
     }
 }

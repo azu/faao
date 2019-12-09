@@ -1,7 +1,15 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem, GitHubSearchResultItemJSON } from "./GitHubSearchResultItem";
+import {
+    GitHubSearchResultItem,
+    GitHubSearchResultItemJSON,
+    isGitHubSearchResultItemJSON
+} from "./GitHubSearchResultItem";
 import { SearchFilter, SearchFilterJSON } from "./SearchFilter/SearchFilter";
 import { SortedCollection } from "./SortedCollection";
+import {
+    GitHubUserActivityEvent,
+    GitHubUserActivityEventJSON
+} from "../GitHubUser/GitHubUserActivityEvent";
 
 export const SortType = {
     updated: "updated",
@@ -11,7 +19,7 @@ export type SortTypeArgs = "updated" | "created";
 
 export interface GitHubSearchResultItemSortedCollectionJSON {
     type: "GitHubSearchResultItemSortedCollection";
-    rawItems: GitHubSearchResultItemJSON[];
+    rawItems: (GitHubSearchResultItemJSON | GitHubUserActivityEventJSON)[];
     filter: SearchFilterJSON;
     sortType: SortTypeArgs;
 }
@@ -20,7 +28,7 @@ export interface GitHubSearchResultItemSortedCollectionJSON {
  * GitHub Search Result Item Collection has ResultItems
  */
 export class GitHubSearchResultItemSortedCollection extends SortedCollection<
-    GitHubSearchResultItem,
+    GitHubSearchResultItem | GitHubUserActivityEvent,
     "GitHubSearchResultItemSortedCollection"
 > {
     static fromJSON(
@@ -30,7 +38,13 @@ export class GitHubSearchResultItemSortedCollection extends SortedCollection<
             ...this,
             type: "GitHubSearchResultItemSortedCollection",
             sortType: json.sortType,
-            rawItems: json.rawItems.map(item => GitHubSearchResultItem.fromJSON(item)),
+            rawItems: json.rawItems.map(item => {
+                if (isGitHubSearchResultItemJSON(item)) {
+                    return GitHubSearchResultItem.fromJSON(item);
+                } else {
+                    return GitHubUserActivityEvent.fromJSON(item);
+                }
+            }),
             filter: json.filter ? SearchFilter.fromJSON(json.filter) : new SearchFilter()
         });
     }

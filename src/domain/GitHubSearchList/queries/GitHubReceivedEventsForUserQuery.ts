@@ -53,7 +53,7 @@ export class GitHubReceivedEventsForUserQuery implements QueryRole {
      * @returns {string}
      */
     get hash() {
-        return `GitHubReceivedEventsForUserQuery-${this.query}-${this.gitHubSettingId.toValue()}`;
+        return `GitHubReceivedEventsForUserQuery-${this.query.toValue()}-${this.gitHubSettingId.toValue()}`;
     }
 
     equals(aQuery?: { hash: string }): boolean {
