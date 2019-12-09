@@ -2,11 +2,11 @@
 
 import { AppUserActivity, AppUserActivityJSON } from "./AppUserActivity";
 import { GitHubSearchStream } from "../GitHubSearchStream/GitHubSearchStream";
-import { GitHubSearchResultItem } from "../GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchList } from "../GitHubSearchList/GitHubSearchList";
 import { GitHubUser } from "../GitHubUser/GitHubUser";
 import { GitHubUserActivityEvent } from "../GitHubUser/GitHubUserActivityEvent";
 import { UnionQuery } from "../GitHubSearchList/queries/QueryRole";
+import { GitHubActiveItem } from "./Activity/GitHubActiveItem";
 
 export interface AppUserJSON {
     activity: AppUserActivityJSON;
@@ -44,7 +44,7 @@ export class AppUser {
         this.activity.activateGitHubUserActivityEvent(event);
     }
 
-    openItem(item: GitHubSearchResultItem): void {
+    openItem(item: GitHubActiveItem): void {
         this.activity.activateItem(item);
     }
 

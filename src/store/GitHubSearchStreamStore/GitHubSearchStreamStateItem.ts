@@ -1,25 +1,80 @@
 // MIT © 2017 azu
-import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
+import {
+    GitHubSearchResultItem,
+    isGitHubSearchResultItem,
+    Label
+} from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import moment from "moment";
+import {
+    EventType,
+    GitHubUserActivityEvent,
+    isGitHubUserActivityEvent
+} from "../../domain/GitHubUser/GitHubUserActivityEvent";
+import { SortedCollectionItem } from "../../domain/GitHubSearchStream/SortedCollection";
+import { Identifier } from "../../domain/Entity";
 
 export type IconType =
     | "IssueOpenedIcon"
     | "IssueClosedIcon"
     | "GitPullRequestIcon"
     | "GitMergeIcon";
-// TODO: it will be performance de-merit
-// should measure performant
-export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
-    isRead: boolean;
 
-    constructor(item: GitHubSearchResultItem, isRead: boolean) {
-        // TODO: perf slow
-        super(item.toJSON());
-        this.isRead = isRead;
+export class GitHubSearchStreamStateItem implements SortedCollectionItem {
+    private originalItem: GitHubSearchResultItem | GitHubUserActivityEvent;
+    readonly created_at: string;
+    readonly updated_at: string;
+
+    isLaterThan(aTarget: any): boolean {
+        return this.originalItem.isLaterThan(aTarget);
     }
 
-    setRead(isRead: boolean): void {
+    includes(aTarget: string): boolean {
+        return this.originalItem.includes(aTarget);
+    }
+
+    toJSON(): {} {
+        return this.originalItem.toJSON();
+    }
+
+    id: Identifier<any>;
+    public isRead: boolean;
+    readonly type: "pr" | "issue" | EventType;
+    readonly state: any;
+    readonly updatedAtDate: Date;
+    readonly labels: Label[];
+    readonly html_url: string;
+    readonly title: string;
+    readonly body: string;
+    readonly avatarUrl: string;
+    readonly userName: string;
+    readonly shortPath: string;
+    readonly comments: number | null;
+    readonly idString: string;
+
+    constructor(
+        item: GitHubSearchResultItem | GitHubUserActivityEvent | SortedCollectionItem,
+        isRead: boolean
+    ) {
+        if (!(isGitHubSearchResultItem(item) || isGitHubUserActivityEvent(item))) {
+            throw new Error("Unknown Item" + item);
+        }
+        this.originalItem = item;
+        this.id = item.id;
+        this.idString = item.id.toValue();
+        this.type = item.type;
+        this.userName = isGitHubSearchResultItem(item) ? item.user.login : item.shortPath;
+        this.shortPath = isGitHubSearchResultItem(item) ? item.user.login : item.repo.name;
+        this.state = isGitHubSearchResultItem(item) ? item.state : "open";
         this.isRead = isRead;
+        this.comments = isGitHubSearchResultItem(item) ? item.comments : null;
+        this.labels = isGitHubSearchResultItem(item) ? item.labels : [];
+        this.title = item.title;
+        this.body = item.body || "";
+        this.html_url = item.html_url;
+        this.avatarUrl = item.avatarUrl;
+        this.updatedAtDate = item.updatedAtDate;
+        this.updated_at = item.updated_at;
+        this.created_at = item.created_at;
     }
 
     get iconType(): IconType {
@@ -57,5 +112,9 @@ export class GitHubSearchStreamStateItem extends GitHubSearchResultItem {
 
     get formattedUpdatedDateString(): string {
         return moment(this.updatedAtDate).fromNow();
+    }
+
+    equals(item?: any): boolean {
+        return this.id.equals(item && item.id);
     }
 }

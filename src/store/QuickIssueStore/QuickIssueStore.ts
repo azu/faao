@@ -10,23 +10,23 @@ import { uniqBy } from "lodash";
 import { Identifier } from "../../domain/Entity";
 import { GitHubSetting } from "../../domain/GitHubSetting/GitHubSetting";
 import { GitHubSearchQuery } from "../../domain/GitHubSearchList/queries/GitHubSearchQuery";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { GitHubSearchList } from "../../domain/GitHubSearchList/GitHubSearchList";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { UnionQuery } from "../../domain/GitHubSearchList/queries/QueryRole";
+import { GitHubActiveItem } from "../../domain/App/Activity/GitHubActiveItem";
 
 export interface QuickIssueStateObject {
     isOpened: boolean;
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
-    activeItem?: GitHubSearchResultItem;
+    activeItem?: GitHubActiveItem;
     activeQuery?: UnionQuery;
 }
 
 export class QuickIssueState implements QuickIssueStateObject {
     gitHubSearchLists: GitHubSearchList[];
     settings: GitHubSetting[];
-    activeItem?: GitHubSearchResultItem;
+    activeItem?: GitHubActiveItem;
     activeQuery?: UnionQuery;
     isOpened: boolean;
 
@@ -65,7 +65,7 @@ export class QuickIssueState implements QuickIssueStateObject {
             // http://:host/:repo/issues/new
             const gitHubSetting = getSetting(this.activeQuery.gitHubSettingId);
             if (gitHubSetting) {
-                const repositoryURL = this.activeItem.repositoryHtmlUrl;
+                const repositoryURL = this.activeItem.repository_html_url;
                 const newIssueURL = urlJoin(repositoryURL, "issues/new");
                 newIssueURLs.unshift(newIssueURL);
             }

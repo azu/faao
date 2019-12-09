@@ -15,6 +15,7 @@ import {
     IconType
 } from "../../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
 import { FaaoSearchQuery } from "../../../domain/GitHubSearchList/queries/FaaoSearchQuery";
+import { GitHubActiveItem } from "../../../domain/App/Activity/GitHubActiveItem";
 
 const removeMarkdown = require("@azu/remove-markdown");
 
@@ -32,8 +33,8 @@ export interface SearchResultListItemProps {
     item: GitHubSearchStreamStateItem;
     index?: number;
     faaoQueries: FaaoSearchQuery[];
-    onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
-    onClickQueryOptionMenu: (item: GitHubSearchResultItem, query: FaaoSearchQuery) => void;
+    onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchStreamStateItem) => void;
+    onClickQueryOptionMenu: (item: GitHubSearchStreamStateItem, query: FaaoSearchQuery) => void;
 }
 
 function getColorByBgColor(bgColor: string) {
@@ -185,9 +186,9 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                         <div className="SearchResultListItem-meta">
                             <span className="SearchResultListItem-author">
                                 <img
-                                    src={item.user.avatar_url}
+                                    src={item.avatarUrl}
                                     className="SearchResultListItem-authorIcon"
-                                    alt={item.user.login}
+                                    alt={item.userName}
                                 />
                             </span>
                             <span className="SearchResultListItem-issueNumber">
@@ -196,12 +197,14 @@ export class SearchResultListItem extends React.Component<SearchResultListItemPr
                             <span className="SearchResultListItem-updateDate">
                                 {item.formattedUpdatedDateString}
                             </span>
-                            <span className="SearchResultListItem-comments">
-                                <CommentIcon className="SearchResultListItem-commentsIcon" />
-                                <span className="SearchResultListItem-commentsCount">
-                                    {item.comments}
+                            {item.comments !== undefined ? (
+                                <span className="SearchResultListItem-comments">
+                                    <CommentIcon className="SearchResultListItem-commentsIcon" />
+                                    <span className="SearchResultListItem-commentsCount">
+                                        {item.comments}
+                                    </span>
                                 </span>
-                            </span>
+                            ) : null}
                         </div>
                     </footer>
                 </div>
@@ -214,9 +217,9 @@ export interface SearchResultListProps {
     className?: string;
     items: GitHubSearchStreamStateItem[];
     faaoQueries: FaaoSearchQuery[];
-    activeItem?: GitHubSearchResultItem;
-    onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => void;
-    onClickQueryOptionMenu: (item: GitHubSearchResultItem, query: FaaoSearchQuery) => void;
+    activeItem?: GitHubActiveItem;
+    onClickItem: (event: SyntheticEvent<any>, item: GitHubSearchStreamStateItem) => void;
+    onClickQueryOptionMenu: (item: GitHubSearchStreamStateItem, query: FaaoSearchQuery) => void;
 }
 
 export class SearchResultList extends React.Component<SearchResultListProps, {}> {
@@ -241,15 +244,18 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         }
     }
 
-    private onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+    private onClickItem = (event: SyntheticEvent<any>, item: GitHubSearchStreamStateItem) => {
         this.props.onClickItem(event, item);
     };
 
-    private onClick = (event: SyntheticEvent<any>, item: GitHubSearchResultItem) => {
+    private onClick = (event: SyntheticEvent<any>, item: GitHubSearchStreamStateItem) => {
         this.props.onClickItem(event, item);
     };
 
-    private onClickQueryOptionMenu = (item: GitHubSearchResultItem, query: FaaoSearchQuery) => {
+    private onClickQueryOptionMenu = (
+        item: GitHubSearchStreamStateItem,
+        query: FaaoSearchQuery
+    ) => {
         this.props.onClickQueryOptionMenu(item, query);
     };
 
@@ -280,7 +286,7 @@ export class SearchResultList extends React.Component<SearchResultListProps, {}>
         );
     }
 
-    private _scroll(index: number, items: GitHubSearchResultItem[]) {
+    private _scroll(index: number, items: GitHubSearchStreamStateItem[]) {
         const updatedSelectedIndex = Math.min(Math.max(index, 0), items.length - 1);
         this.setState(
             {

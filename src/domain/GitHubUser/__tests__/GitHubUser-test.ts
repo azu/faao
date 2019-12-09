@@ -31,6 +31,7 @@ describe("GitHubUser", () => {
                             pusher_type: "user"
                         },
                         public: true,
+                        updated_at: "2017-06-27T05:38:50Z",
                         created_at: "2017-06-27T05:38:50Z",
                         org: {
                             id: 8184731,

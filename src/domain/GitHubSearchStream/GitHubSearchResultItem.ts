@@ -1,4 +1,5 @@
 import { Identifier } from "../Entity";
+import { SortedCollectionItem } from "./SortedCollection";
 
 const ghUrlToObject = require("github-url-to-object");
 
@@ -54,7 +55,14 @@ export interface GitHubSearchResultItemJSON {
     type: "pr" | "issue";
 }
 
-export class GitHubSearchResultItem {
+export const isGitHubSearchResultItem = (item: any): item is GitHubSearchResultItem => {
+    if (!item) {
+        return false;
+    }
+    return item.title && item.labels && item.assignees;
+};
+
+export class GitHubSearchResultItem implements SortedCollectionItem {
     id: Identifier<GitHubSearchResultItem>;
     body: string | null;
     html_url: string;
@@ -159,5 +167,9 @@ export class GitHubSearchResultItem {
         return Object.assign({}, this, {
             id: String(this.id.toValue())
         });
+    }
+
+    get avatarUrl() {
+        return this.user.avatar_url;
     }
 }

@@ -4,14 +4,13 @@
  */
 import { GitHubSearchStreamFactory } from "../GitHubSearchStreamFactory";
 import { GitHubSearchResultItemSortedCollection } from "../GitHubSearchResultItemSortedCollection";
-import { GitHubSearchStreamJSON } from "../GitHubSearchStream";
 import { SearchFilterFactory } from "../SearchFilter/SearchFilterFactory";
 import { GitHubSearchResultItem } from "../GitHubSearchResultItem";
 import { GitHubSearchResultJSON } from "../GitHubSearchResult";
 
 const createCollection = (json: GitHubSearchResultJSON): GitHubSearchResultItemSortedCollection => {
     const stream = GitHubSearchStreamFactory.createFromSearchResultJSON(json);
-    return stream.itemSortedCollection;
+    return stream.itemSortedCollection as GitHubSearchResultItemSortedCollection;
 };
 const createItems = (json: GitHubSearchResultJSON): GitHubSearchResultItem[] => {
     return json.items.map(rawItem => {

@@ -12,23 +12,27 @@ import { ActivityHistory } from "../../domain/App/ActivityHistory";
 import { GitHubSearchStreamRepository } from "../../infra/repository/GitHubSearchStreamRepository";
 import { LRUMapLike } from "lru-map-like";
 import { isOpenedGitHubStream } from "../../domain/App/Activity/OpenedGitHubStream";
+import { SortedCollectionItem } from "../../domain/GitHubSearchStream/SortedCollection";
+import { GitHubActiveItem } from "../../domain/App/Activity/GitHubActiveItem";
 
 const debug = require("debug")("faao:GitHubSearchStreamStore");
-const stateItemCacheMap = new LRUMapLike<GitHubSearchResultItem, GitHubSearchStreamStateItem>(1000);
+const stateItemCacheMap = new LRUMapLike<SortedCollectionItem, GitHubSearchStreamStateItem>(1000);
 
 export interface GitHubSearchStreamStateArgs {
     isLoading: boolean;
-    items: GitHubSearchResultItem[];
+    items: SortedCollectionItem[];
     rawItemCount: number;
     filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 }
 
+export class StreamItem {}
+
 export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
     itemCount: number;
     rawItemCount: number;
     isLoading: boolean;
-    items: GitHubSearchResultItem[];
+    items: SortedCollectionItem[];
     filterWord?: string;
     displayItems: GitHubSearchStreamStateItem[];
 
@@ -50,7 +54,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
         itemHistory
     }: {
         stream?: GitHubSearchStream;
-        itemHistory: ActivityHistory<GitHubSearchResultItem>;
+        itemHistory: ActivityHistory<GitHubActiveItem>;
     }) {
         if (!stream) {
             debug("stream is not found in store");
@@ -68,7 +72,7 @@ export class GitHubSearchStreamState implements GitHubSearchStreamStateArgs {
             displayItems: stream.items.map(item => {
                 if (stateItemCacheMap.has(item)) {
                     const cachedItem = stateItemCacheMap.get(item)!;
-                    cachedItem.setRead(itemHistory.isRead(item.id, item.updatedAtDate));
+                    cachedItem.isRead = itemHistory.isRead(item.id, item.updatedAtDate);
                     return cachedItem;
                 }
                 const gitHubSearchStreamStateItem = new GitHubSearchStreamStateItem(

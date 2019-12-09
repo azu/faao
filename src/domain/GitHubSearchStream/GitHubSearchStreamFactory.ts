@@ -1,6 +1,5 @@
 // MIT © 2017 azu
-import { GitHubSearchStream, GitHubSearchStreamJSON } from "./GitHubSearchStream";
-import { GitHubSearchResultItem } from "./GitHubSearchResultItem";
+import { GitHubSearchStream } from "./GitHubSearchStream";
 import { Identifier } from "../Entity";
 import { ulid } from "ulid";
 import { GitHubSearchResultItemSortedCollection } from "./GitHubSearchResultItemSortedCollection";
@@ -12,6 +11,7 @@ export class GitHubSearchStreamFactory {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
             itemSortedCollection: new GitHubSearchResultItemSortedCollection({
+                type: "GitHubSearchResultItemSortedCollection",
                 rawItems: [],
                 filter: new SearchFilter(),
                 sortType: "updated"
@@ -23,6 +23,7 @@ export class GitHubSearchStreamFactory {
         return new GitHubSearchStream({
             id: new Identifier<GitHubSearchStream>(ulid()),
             itemSortedCollection: GitHubSearchResultItemSortedCollection.fromJSON({
+                type: "GitHubSearchResultItemSortedCollection",
                 rawItems: json.items,
                 filter: new SearchFilter(),
                 sortType: "updated"

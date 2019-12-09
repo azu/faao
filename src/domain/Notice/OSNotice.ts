@@ -11,7 +11,7 @@ export interface SearchQueryErrorNoticeArgs {
     silent?: boolean;
     refs: {
         query: UnionQuery;
-        item: GitHubSearchResultItem;
+        item: {};
     };
 }
 
@@ -30,7 +30,7 @@ export class OSNotice extends AbstractNotice {
     // TODO: it can be GC?
     refs: {
         query: UnionQuery;
-        item: GitHubSearchResultItem;
+        item: any;
     };
 
     constructor(args: SearchQueryErrorNoticeArgs) {

@@ -1,7 +1,6 @@
 // MIT © 2017 azu
 import { UseCase } from "almin";
 import { OpenItemInNewTabUseCase } from "./OpenItemInNewTabUseCase";
-import { GitHubSearchResultItem } from "../../domain/GitHubSearchStream/GitHubSearchResultItem";
 import { appRepository, AppRepository } from "../../infra/repository/AppRepository";
 import {
     GitHubSearchListRepository,
@@ -12,6 +11,11 @@ import {
     gitHubSearchStreamRepository
 } from "../../infra/repository/GitHubSearchStreamRepository";
 import { PrefetchItemsForOpen } from "./PrefetchItemsForOpen";
+import { GitHubSearchStreamStateItem } from "../../store/GitHubSearchStreamStore/GitHubSearchStreamStateItem";
+import { GitHubActiveItem, isGitHubActiveItem } from "../../domain/App/Activity/GitHubActiveItem";
+import { Identifier } from "../../domain/Entity";
+import { convertFromStateItemToActiveItem } from "../../domain/App/Activity/GitHubActiveItemService";
+
 const debug = require("debug")("AppUserOpenItemUseCase");
 
 export const createAppUserOpenItemUseCase = () => {
@@ -31,13 +35,14 @@ export class AppUserOpenItemUseCase extends UseCase {
         super();
     }
 
-    async execute(item: GitHubSearchResultItem) {
+    async execute(item: GitHubSearchStreamStateItem | GitHubActiveItem) {
         const app = this.appRepository.get();
-        app.user.openItem(item);
+        const activeItem = isGitHubActiveItem(item) ? item : convertFromStateItemToActiveItem(item);
+        app.user.openItem(activeItem);
         await this.appRepository.save(app);
         return this.context
             .useCase(new OpenItemInNewTabUseCase())
-            .execute(item.html_url)
+            .execute(activeItem.html_url)
             .then(() => {
                 const activity = app.user.activity;
                 const activeSearchStream = activity.openedStreamId

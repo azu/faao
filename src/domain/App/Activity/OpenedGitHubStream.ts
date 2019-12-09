@@ -1,20 +1,17 @@
 // MIT © 2017 azu
-import {
-    GitHubSearchResultItem,
-    GitHubSearchResultItemJSON
-} from "../../GitHubSearchStream/GitHubSearchResultItem";
 import { Identifier } from "../../Entity";
 import { GitHubSearchStream } from "../../GitHubSearchStream/GitHubSearchStream";
+import { GitHubActiveItem, GitHubActiveItemJSON } from "./GitHubActiveItem";
 
 export interface OpenedGitHubStreamJSON {
     type: "OpenedGitHubStream";
     gitHubSearchStreamId: string;
-    item?: GitHubSearchResultItemJSON;
+    item?: GitHubActiveItemJSON;
 }
 
 export interface OpenedGitHubStreamArgs {
     gitHubSearchStreamId: Identifier<GitHubSearchStream>;
-    item?: GitHubSearchResultItem;
+    item?: GitHubActiveItem;
 }
 
 export const isOpenedGitHubStream = (v: any): v is OpenedGitHubStream => {
@@ -24,14 +21,14 @@ export const isOpenedGitHubStream = (v: any): v is OpenedGitHubStream => {
 export class OpenedGitHubStream implements OpenedGitHubStreamArgs {
     readonly type = "OpenedGitHubStream";
     gitHubSearchStreamId: Identifier<GitHubSearchStream>;
-    item?: GitHubSearchResultItem;
+    item?: GitHubActiveItem;
 
     constructor(args: OpenedGitHubStreamArgs) {
         this.gitHubSearchStreamId = args.gitHubSearchStreamId;
         this.item = args.item;
     }
 
-    openItem(item: GitHubSearchResultItem) {
+    openItem(item: GitHubActiveItem) {
         return new OpenedGitHubStream(
             Object.assign({}, this, {
                 item
@@ -42,7 +39,7 @@ export class OpenedGitHubStream implements OpenedGitHubStreamArgs {
     static fromJSON(json: OpenedGitHubStreamJSON): OpenedGitHubStream {
         return new OpenedGitHubStream({
             gitHubSearchStreamId: new Identifier<GitHubSearchStream>(json.gitHubSearchStreamId),
-            item: json.item ? GitHubSearchResultItem.fromJSON(json.item) : undefined
+            item: json.item ? GitHubActiveItem.fromJSON(json.item) : undefined
         });
     }
 

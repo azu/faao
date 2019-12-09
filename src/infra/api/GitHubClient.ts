@@ -409,7 +409,7 @@ ${queries.join("\n")}
             .then((response: any) => {
                 return new GitHubUserProfile({
                     loginName: response.login,
-                    avatarURL: response.avatar_url
+                    avatarURL: response.avatarUrl
                 });
             });
     }

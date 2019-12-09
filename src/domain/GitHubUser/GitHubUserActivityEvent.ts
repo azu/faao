@@ -6,7 +6,7 @@ import * as url from "url";
 import urljoin from "url-join";
 import ghUrlToObject from "github-url-to-object";
 import { GitHubUserActivityEventFactory } from "./GitHubUserActivityEventFactory";
-import { GitHubSortedCollectionItem } from "../GitHubSearchStream/GitHubCollectionFactory";
+import { SortedCollectionItem } from "../GitHubSearchStream/SortedCollection";
 
 export interface Payload {}
 
@@ -112,8 +112,10 @@ export interface GitHubUserActivityEventProps {
     parsedEvent?: ParsedEvent;
 }
 
-export class GitHubUserActivityEvent extends ValueObject
-    implements GitHubSortedCollectionItem<GitHubUserActivityEventJSON> {
+export const isGitHubUserActivityEvent = (item: any): item is GitHubUserActivityEvent => {
+    return item.payload !== undefined && item.org && item.repo;
+};
+export class GitHubUserActivityEvent extends ValueObject implements SortedCollectionItem {
     id: Identifier<GitHubUserActivityEvent>;
     type: EventType;
     public: boolean;
@@ -182,7 +184,7 @@ export class GitHubUserActivityEvent extends ValueObject
 
     get description() {
         if (!this.parsedEvent) {
-            return "NO DATA";
+            return "";
         }
         return compile(this.parsedEvent);
     }
@@ -227,5 +229,25 @@ export class GitHubUserActivityEvent extends ValueObject
 
     isLaterThan(aTarget: GitHubUserActivityEvent) {
         return this.createAtDate.getTime() > aTarget.createAtDate.getTime();
+    }
+
+    get avatarUrl() {
+        return this.repoAvatarUrl;
+    }
+
+    get body() {
+        return this.description;
+    }
+
+    get title() {
+        return this.shortPath;
+    }
+
+    get updatedAtDate() {
+        return new Date(this.updated_at);
+    }
+
+    get html_url() {
+        return this.htmlURL;
     }
 }
