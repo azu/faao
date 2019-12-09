@@ -248,7 +248,12 @@ export abstract class SortedCollection<T extends SortedCollectionItem, Type exte
         if (index === -1) {
             return [];
         }
-        return this.items.slice(index + 1, index + length);
+        // reverse
+        if (length < 0) {
+            return this.items.slice(Math.max(index + length - 1, 0), Math.max(index, 0));
+        } else {
+            return this.items.slice(index + 1, index + length + 1);
+        }
     }
 
     equals(collection?: SortedCollection<T, string>): boolean {

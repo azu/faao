@@ -1,6 +1,7 @@
 // MIT © 2017 azu
 import { Identifier } from "../Entity";
 import { splice } from "@immutable-array/prototype";
+import { SortedCollectionItem } from "../GitHubSearchStream/SortedCollection";
 
 export interface ActivityHistoryItemJSON {
     id: string;
@@ -41,6 +42,12 @@ export interface ActivityHistoryJSON {
     items: ActivityHistoryItemJSON[];
 }
 
+export enum WhenReadItem {
+    UNREAD = 0,
+    RECENT = 1,
+    OLDER = 2
+}
+
 /**
  * Adding only history
  */
@@ -65,6 +72,20 @@ export class ActivityHistory<T> {
             return;
         }
         this.items = items.concat(aItem);
+    }
+
+    whenReadItem(sortedItem: SortedCollectionItem): WhenReadItem {
+        const index = this.items.findIndex(item => {
+            return item.id.equals(sortedItem.id);
+        });
+        if (index === -1) {
+            return WhenReadItem.UNREAD;
+        }
+        const lastIndex = this.items.length - index;
+        if (0 <= lastIndex && lastIndex <= 3) {
+            return WhenReadItem.RECENT;
+        }
+        return WhenReadItem.OLDER;
     }
 
     findById(itemId: Identifier<T>): ActivityHistoryItem<T> | undefined {

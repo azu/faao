@@ -59,7 +59,8 @@ export const isGitHubSearchResultItemJSON = (item: any): item is GitHubSearchRes
     if (!item) {
         return false;
     }
-    return item._type === "GitHubSearchResultItem";
+    // TODO: rough
+    return typeof item.user === "object" && item.title !== undefined && item.id !== undefined;
 };
 
 export const isGitHubSearchResultItem = (item: any): item is GitHubSearchResultItem => {

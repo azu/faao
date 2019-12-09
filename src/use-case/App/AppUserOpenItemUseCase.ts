@@ -21,6 +21,10 @@ import {
     isSortedCollectionItem,
     SortedCollectionItem
 } from "../../domain/GitHubSearchStream/SortedCollection";
+import {
+    ForecastDirection,
+    forecastUserMoving
+} from "../../domain/App/Activity/ForecastUserMoving";
 
 const debug = require("debug")("AppUserOpenItemUseCase");
 
@@ -62,9 +66,17 @@ export class AppUserOpenItemUseCase extends UseCase {
                 if (!activeSearchStream) {
                     return;
                 }
+                const Direction = forecastUserMoving({
+                    appUser: app.user,
+                    activeSearchStream,
+                    nextItem: item
+                });
                 const nextItems = activeSearchStream.itemSortedCollection.sliceItemsFromCurrentItem(
                     item,
-                    3 // prefetch items // TODO: fix harcode
+                    // prefetch items // TODO: fix harcode
+                    // - is ↑ prefetch
+                    // + is ↓ prefetch
+                    Direction === ForecastDirection.UP ? -3 : 3
                 );
                 debug("prefetch items:", nextItems);
                 const itemsUrls = nextItems.map(item => item.html_url);
