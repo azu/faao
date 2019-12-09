@@ -21,8 +21,16 @@ export type UnionQuery =
     | GitHubSearchQuery
     | GitHubNotificationQuery
     | GitHubReceivedEventsForUserQuery;
+export type GitHubLikeQuery =
+    | GitHubSearchQuery
+    | GitHubNotificationQuery
+    | GitHubReceivedEventsForUserQuery;
 export type UnionQueryJSON =
     | FaaoSearchQueryJSON
+    | GitHubSearchQueryJSON
+    | GitHubNotificationQueryJSON
+    | GitHubReceivedEventsForUserQueryJSON;
+export type GitHubLikeQueryJSON =
     | GitHubSearchQueryJSON
     | GitHubNotificationQueryJSON
     | GitHubReceivedEventsForUserQueryJSON;
@@ -30,6 +38,13 @@ export type UnionQueryJSON =
 export const isUnionQuery = (entity: any): entity is UnionQuery => {
     return (
         isFaaoSearchQuery(entity) ||
+        isGitHubSearchQuery(entity) ||
+        isGitHubNotificationQuery(entity) ||
+        isGitHubReceivedEventsForUserQuery(entity)
+    );
+};
+export const isGitHubLikeQuery = (entity: any): entity is GitHubLikeQuery => {
+    return (
         isGitHubSearchQuery(entity) ||
         isGitHubNotificationQuery(entity) ||
         isGitHubReceivedEventsForUserQuery(entity)
