@@ -71,7 +71,7 @@
     "almin-react-container": "^0.7.3",
     "base64-arraybuffer": "^0.2.0",
     "classnames": "^2.2.6",
-    "codemirror": "^5.27.2",
+    "codemirror": "^5.54.0",
     "combokeys": "^2.4.6",
     "debug": "^2.6.9",
     "electron-context-menu": "^0.14.0",
