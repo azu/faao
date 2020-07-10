@@ -85,7 +85,7 @@
     "is-electron": "^2.0.0",
     "localforage": "^1.5.0",
     "localforage-memoryStorageDriver": "^0.9.2",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.16",
     "lru-map-like": "^2.0.0",
     "map-like": "^2.0.0",
     "moment": "^2.19.3",
