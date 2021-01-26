@@ -79,7 +79,7 @@
     "execall": "^1.0.0",
     "filterable": "^2.0.1",
     "fromfrom": "^1.2.0",
-    "github-api": "^3.2.2",
+    "github-api": "^3.4.0",
     "github-url-to-object": "^4.0.4",
     "graphql-request": "^1.8.2",
     "is-electron": "^2.0.0",
