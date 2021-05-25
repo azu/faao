@@ -24,7 +24,7 @@
     "electron:prod": "electron build/electron.js",
     "postinstall": "electron-builder install-app-deps",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:eslint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:eslint": "# eslint \"src/**/*.{ts,tsx}\"",
     "lint:depcruise": "depcruise --validate .dependency-cruiser.json src",
     "pack": "npm run build && electron-builder --dir",
     "preelectron-pack": "npm run build",
